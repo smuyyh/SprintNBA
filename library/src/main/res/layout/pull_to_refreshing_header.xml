@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/refreshing_header_layout_container"
+        android:layout_width="fill_parent"
+        android:layout_height="60dip"
+        android:gravity="center_vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/refreshing_header_iv_arrow"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:scaleType="centerInside"
+                android:src="@drawable/pulltorefresh_ic_arrow_up" />
+
+            <com.yuyh.library.view.image.RotateImageView
+                android:id="@+id/refreshing_header_iv_loading"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:scaleType="centerInside"
+                android:src="@drawable/pulltorefresh_ic_loading"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dip"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/refreshing_header_htv_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/pulltorefresh_head_text_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/refreshing_header_htv_time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/pulltorefresh_head_text_color"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/refreshing_header_iv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:scaleType="center"
+            android:src="@drawable/pulltorefresh_head_btn_cancel"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

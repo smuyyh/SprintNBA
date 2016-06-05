@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Cavaliers</string>
+
+    <string name="drawer_open">DrawerOpen</string>
+    <string name="drawer_close">DrawerClose</string>
+
+    <string name="double_click_exit">再按一次退出</string>
+</resources>

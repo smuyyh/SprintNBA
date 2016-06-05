@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWindowBg">#FFFEFEFE</color>
+
+    <color name="navigation_checked_news_text_color">#FF4E3E80</color>
+    <color name="navigation_checked_picture_text_color">#FFBA4A49</color>
+    <color name="navigation_checked_video_text_color">#FFF16022</color>
+    <color name="navigation_checked_music_text_color">#FF14BF81</color>
+    <color name="navigation_checked_favor_text_color">#FFE1C247</color>
+
+</resources>
