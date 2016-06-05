@@ -8,13 +8,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.joanzapata.android.BaseAdapterHelper;
 import com.joanzapata.android.QuickAdapter;
 import com.yuyh.cavaliers.R;
+import com.yuyh.cavaliers.adapter.VPFragmentAdapter;
 import com.yuyh.cavaliers.base.BaseAppCompatActivity;
+import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.bean.NavigationEntity;
+import com.yuyh.cavaliers.ui.fragment.NBANewsFragment;
 import com.yuyh.library.view.viewpager.XViewPager;
 
 import java.util.ArrayList;
@@ -37,8 +41,10 @@ public class MainActivity extends BaseAppCompatActivity {
     private ActionBarDrawerToggle mActionBarDrawerToggle = null;
     private List<NavigationEntity> list;
     private QuickAdapter<NavigationEntity> mNavListAdapter = null;
+    private List<BaseLazyFragment> fragments;
 
     private static long DOUBLE_CLICK_TIME = 0L;
+    private int mCurrentMenuCheckedPos = 0;
 
     private int mCheckedListItemColorResIds[] = {
             R.color.navigation_checked_picture_text_color,
@@ -68,10 +74,9 @@ public class MainActivity extends BaseAppCompatActivity {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-//                if (null != mNavListAdapter) {
-//                    setTitle(mNavListAdapter.getItem(mCurrentMenuCheckedPos).getName());
-//                }
-                //setTitle("---");
+                if (null != mNavListAdapter) {
+                    setTitle(mNavListAdapter.getItem(mCurrentMenuCheckedPos).getName());
+                }
             }
         };
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(true);
@@ -88,10 +93,20 @@ public class MainActivity extends BaseAppCompatActivity {
         mNavListAdapter.addAll(list);
         mNavListAdapter.notifyDataSetChanged();
 
+        mNavListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mCurrentMenuCheckedPos = position;
+                mNavListAdapter.notifyDataSetChanged();
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+                mViewPager.setCurrentItem(mCurrentMenuCheckedPos, false);
+            }
+        });
+
     }
 
     private void initData() {
-        list = new ArrayList<NavigationEntity>(){{
+        list = new ArrayList<NavigationEntity>() {{
             add(new NavigationEntity(R.drawable.ic_visibility_on, "NBA新闻"));
             add(new NavigationEntity(R.drawable.ic_visibility_on, "赛事直播"));
             add(new NavigationEntity(R.drawable.ic_visibility_on, "比赛视频"));
@@ -99,6 +114,21 @@ public class MainActivity extends BaseAppCompatActivity {
             add(new NavigationEntity(R.drawable.ic_visibility_on, "骑士专区"));
             add(new NavigationEntity(R.drawable.ic_visibility_on, "其他"));
         }};
+
+        fragments = new ArrayList<BaseLazyFragment>() {{
+            add(new NBANewsFragment());
+            add(new NBANewsFragment());
+            add(new NBANewsFragment());
+            add(new NBANewsFragment());
+            add(new NBANewsFragment());
+            add(new NBANewsFragment());
+        }};
+
+        if (null != fragments && !fragments.isEmpty()) {
+            mViewPager.setEnableScroll(false);
+            mViewPager.setOffscreenPageLimit(fragments.size());
+            mViewPager.setAdapter(new VPFragmentAdapter(getSupportFragmentManager(), fragments));
+        }
     }
 
     @Override
