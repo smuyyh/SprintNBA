@@ -3,6 +3,7 @@ package com.yuyh.cavaliers.base;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.yuyh.cavaliers.R;
 import com.yuyh.library.swipeback.SwipeBackHelper;
 
 public abstract class BaseSwipeBackCompatActivity extends BaseAppCompatActivity {
@@ -18,12 +19,15 @@ public abstract class BaseSwipeBackCompatActivity extends BaseAppCompatActivity 
                 .setSwipeSensitivity(1)
                 .setSwipeRelateEnable(true)//是否与下一级activity联动(微信效果)
                 .setScrimColor(Color.TRANSPARENT);//底层阴影颜色;
+        setSystemBarTintDrawable(getResources().getDrawable(R.drawable.dwPrimary));
+
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         SwipeBackHelper.onPostCreate(this);
+        //setSystemBarTintDrawable(getResources().getDrawable(R.drawable.dwPrimary));
     }
 
 

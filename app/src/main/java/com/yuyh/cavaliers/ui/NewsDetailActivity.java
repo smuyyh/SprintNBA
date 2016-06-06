@@ -31,8 +31,6 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity {
 
     @Override
     protected int getContentViewLayoutID() {
-        setSystemBarTintDrawable(getResources().getDrawable(R.drawable.dwPrimary));
-        setTranslucentStatus(true);
         return R.layout.activity_news_detail;
     }
 
