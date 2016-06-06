@@ -58,6 +58,12 @@ public class NewsItem extends Base {
         private String footer;
         private List<String> images_3;
 
+        public NewsItemBean(String imgurl, String title, String pub_time) {
+            this.imgurl = imgurl;
+            this.title = title;
+            this.pub_time = pub_time;
+        }
+
         public String getIndex() {
             return index;
         }

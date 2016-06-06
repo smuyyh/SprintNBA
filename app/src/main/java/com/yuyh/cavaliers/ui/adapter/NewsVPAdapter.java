@@ -1,0 +1,61 @@
+package com.yuyh.cavaliers.ui.adapter;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.yuyh.cavaliers.R;
+import com.yuyh.cavaliers.ui.fragment.NBANewsBannerFragment;
+import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.library.view.viewpager.indicator.FragmentListPageAdapter;
+import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
+
+/**
+ * Created by Kyrie.Y on 2016/6/6.
+ */
+public class NewsVPAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
+    private LayoutInflater inflate;
+    private String[] names;
+
+    public NewsVPAdapter(Context context, String[] names, FragmentManager fragmentManager) {
+        super(fragmentManager);
+        inflate = LayoutInflater.from(context);
+        this.names = names;
+    }
+
+    @Override
+    public int getCount() {
+        return names.length;
+    }
+
+    @Override
+    public View getViewForTab(int position, View convertView, ViewGroup container) {
+        if (convertView == null) {
+            convertView = inflate.inflate(R.layout.tab_nba_news, container, false);
+        }
+        TextView textView = (TextView) convertView;
+        textView.setText(names[position % names.length]);
+        int padding = DimenUtils.dpToPxInt(10);
+        textView.setPadding(padding, 0, padding, 0);
+        return convertView;
+    }
+
+    @Override
+    public Fragment getFragmentForPage(int position) {
+        NBANewsBannerFragment fragment = new NBANewsBannerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(NBANewsBannerFragment.INTENT_INT_INDEX, position);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return FragmentListPageAdapter.POSITION_NONE;
+    }
+}

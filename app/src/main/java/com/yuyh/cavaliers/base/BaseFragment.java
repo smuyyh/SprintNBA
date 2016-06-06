@@ -1,5 +1,6 @@
 package com.yuyh.cavaliers.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,11 +15,13 @@ public class BaseFragment extends Fragment {
 	private View contentView;
 	private Context context;
 	private ViewGroup container;
+	public Activity mActivity;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getActivity().getApplicationContext();
+		mActivity = getActivity();
 	}
 
 	@Override
