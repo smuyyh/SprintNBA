@@ -1,7 +1,5 @@
 package com.yuyh.cavaliers.http.util;
 
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
@@ -86,7 +84,6 @@ public class JsonParser {
                     NewsItem.NewsItemBean bean = gson.fromJson(item.getValue().toString(), NewsItem.NewsItemBean.class);
                     bean.setIndex(item.getKey());
                     list.add(bean);
-                    Log.i("---", "---" + bean.getIndex() + " " + bean.getImgurl());
                 }
                 newsItem.setData(list);
             }

@@ -18,17 +18,9 @@ public class NewsIndex extends Base {
      * needUpdate : 0
      */
 
-    private List<DataBean> data;
+    public List<IndexBean> data;
 
-    public List<DataBean> getData() {
-        return data;
-    }
-
-    public void setData(List<DataBean> data) {
-        this.data = data;
-    }
-
-    public static class DataBean {
+    public static class IndexBean {
         private String type;
         private String id;
         private String column;

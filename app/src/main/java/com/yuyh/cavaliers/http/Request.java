@@ -14,6 +14,7 @@ import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.http.retrofit.StringConverter;
 import com.yuyh.cavaliers.http.util.JsonParser;
 import com.yuyh.library.utils.data.PrefsUtils;
+import com.yuyh.library.utils.log.LogUtils;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -119,12 +120,13 @@ public class Request {
                 return;
             }
         }
-        api.getNewsIndex(newsType.getType(), new Callback<String>() {
+        apiStr.getNewsIndex(newsType.getType(), new Callback<String>() {
             @Override
             public void success(String jsonStr, Response response) {
                 NewsIndex index = JsonParser.parseWithGson(NewsIndex.class, jsonStr);
                 cbk.onSuccess(index);
                 prefsUtils.put(key, jsonStr);
+                LogUtils.d(jsonStr);
             }
 
             @Override
@@ -149,6 +151,7 @@ public class Request {
             if (jsonStr.length() > 1) {
                 NewsItem newsItem = JsonParser.parseNewsItem(jsonStr);
                 cbk.onSuccess(newsItem);
+                LogUtils.d("sp:" + jsonStr);
                 return;
             }
         }
@@ -159,6 +162,7 @@ public class Request {
                 NewsItem newsItem = JsonParser.parseNewsItem(jsonStr);
                 cbk.onSuccess(newsItem);
                 prefsUtils.put(key, jsonStr);
+                LogUtils.d("resp:" + jsonStr);
             }
 
             @Override
