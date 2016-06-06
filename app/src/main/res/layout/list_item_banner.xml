@@ -4,35 +4,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    app:cardBackgroundColor="@android:color/transparent"
+    android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="8dp">
+
+
+    <com.yuyh.library.view.image.RounderImageView
+        android:id="@+id/ivBannerImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/dwPrimary"
+        app:leftDown="false"
+        app:rightDown="false"
+        app:roundHeight="8dp"
+        app:roundWidth="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#AACCCCCC"
         android:gravity="left|center_vertical"
         android:orientation="vertical">
 
-        <com.yuyh.library.view.image.RounderImageView
-            android:id="@+id/ivBannerImg"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@android:color/transparent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/dwPrimary"
-            app:roundHeight="8dp"
-            app:roundWidth="8dp"
-            app:leftDown="false"
-            app:rightDown="false"/>
-
         <TextView
             android:id="@+id/tvBannerTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:ellipsize="end"
+            android:gravity="center"
             android:singleLine="true"
             android:text="biaoti"
             android:textColor="@android:color/black"

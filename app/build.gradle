@@ -13,7 +13,7 @@ android {
     }
 
     productFlavors {
-        '服务端' {
+        '测试' {
             buildConfigField "String", "URL_SERVER", "\"http://sportsnba.qq.com\""
         }
     }

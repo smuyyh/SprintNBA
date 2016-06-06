@@ -4,7 +4,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,11 +13,12 @@ import android.widget.ListView;
 import com.joanzapata.android.BaseAdapterHelper;
 import com.joanzapata.android.QuickAdapter;
 import com.yuyh.cavaliers.R;
-import com.yuyh.cavaliers.adapter.VPFragmentAdapter;
 import com.yuyh.cavaliers.base.BaseAppCompatActivity;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.bean.NavigationEntity;
+import com.yuyh.cavaliers.ui.adapter.VPFragmentAdapter;
 import com.yuyh.cavaliers.ui.fragment.NBANewsFragment;
+import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.library.view.viewpager.XViewPager;
 
 import java.util.ArrayList;
@@ -34,9 +34,6 @@ public class MainActivity extends BaseAppCompatActivity {
     ListView mNavListView;
     @InjectView(R.id.home_drawer)
     DrawerLayout mDrawerLayout;
-
-    @InjectView(R.id.common_toolbar)
-    Toolbar mToolbar;
 
     private ActionBarDrawerToggle mActionBarDrawerToggle = null;
     private List<NavigationEntity> list;
@@ -60,9 +57,11 @@ public class MainActivity extends BaseAppCompatActivity {
     @Override
     protected void initViewsAndEvents() {
         initData();
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
 
             @Override
@@ -145,7 +144,7 @@ public class MainActivity extends BaseAppCompatActivity {
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
             } else {
                 if ((System.currentTimeMillis() - DOUBLE_CLICK_TIME) > 2000) {
-                    //showToast(getString(R.string.double_click_exit));
+                    ToastUtils.showSingleToast("再按一次退出");
                     DOUBLE_CLICK_TIME = System.currentTimeMillis();
                 } else {
                     finish();

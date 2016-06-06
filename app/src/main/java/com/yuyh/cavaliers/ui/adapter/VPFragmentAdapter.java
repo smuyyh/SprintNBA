@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.yuyh.cavaliers.adapter;
+package com.yuyh.cavaliers.ui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

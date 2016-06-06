@@ -22,6 +22,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.Window;
@@ -46,13 +47,15 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
      */
     protected Context mContext = null;
 
+    protected Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         overridePendingTransition(R.anim.right_in, R.anim.right_out);
         super.onCreate(savedInstanceState);
 
         setTranslucentStatus(true);
-        setSystemBarTintDrawable(getResources().getDrawable(com.yuyh.cavaliers.R.drawable.dwPrimary));
+        setSystemBarTintDrawable(getResources().getDrawable(R.drawable.dwPrimary));
 
         mContext = this;
         BaseAppManager.getInstance().addActivity(this);
@@ -86,6 +89,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         ButterKnife.inject(this);
+        mToolbar = ButterKnife.findById(this, R.id.common_toolbar);
     }
 
     @Override

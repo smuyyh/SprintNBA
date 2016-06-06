@@ -1,10 +1,12 @@
 package com.yuyh.cavaliers.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
@@ -15,7 +17,9 @@ import com.yuyh.cavaliers.http.bean.news.NewsIndex;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
 import com.yuyh.cavaliers.http.callback.GetBeanCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
+import com.yuyh.cavaliers.ui.NewsDetailActivity;
 import com.yuyh.cavaliers.ui.adapter.BannerAdapter;
+import com.yuyh.cavaliers.ui.listener.OnRecyclerViewItemClickListener;
 import com.yuyh.library.utils.log.LogUtils;
 
 import java.util.ArrayList;
@@ -45,6 +49,15 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         adapter = new BannerAdapter(list, mActivity, R.layout.list_item_banner);
+        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<NewsItem.NewsItemBean>() {
+            @Override
+            public void onItemClick(View view, int position, NewsItem.NewsItemBean data) {
+                Intent intent = new Intent(mActivity, NewsDetailActivity.class);
+                intent.putExtra(NewsDetailActivity.TITLE, data.getTitle());
+                intent.putExtra(NewsDetailActivity.ARTICLE_ID, data.getIndex());
+                startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         materialRefreshLayout = (MaterialRefreshLayout) findViewById(R.id.refresh);
@@ -100,7 +113,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
         }
         if (!TextUtils.isEmpty(articleIds))
             articleIds = articleIds.substring(0, articleIds.length() - 1);
-        LogUtils.i("----" + articleIds);
+        LogUtils.i("articleIds = " + articleIds);
         return articleIds;
     }
 
