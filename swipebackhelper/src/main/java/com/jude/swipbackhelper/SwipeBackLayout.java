@@ -1,4 +1,4 @@
-package com.yuyh.library.swipeback;
+package com.jude.swipbackhelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,8 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
-import com.yuyh.library.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +57,8 @@ public class SwipeBackLayout extends FrameLayout {
     private Activity mActivity;
 
     private boolean mEnable = true;
+
+    private boolean mDisallowIntercept = false;
 
     private View mContentView;
 
@@ -237,16 +237,20 @@ public class SwipeBackLayout extends FrameLayout {
         invalidate();
     }
 
+    /**
+     * @yuyh 修改拦截规则。否则会由于界面上有纵向滑动事件而导致滑动关闭不灵敏
+     * @param event
+     * @return
+     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
         if (!mEnable) {
             return false;
         }
         try {
-            return mDragHelper.shouldInterceptTouchEvent(event);
+            return mDragHelper.shouldInterceptTouchEvent(event) && mDisallowIntercept;
         } catch (Exception e) {
-            // FIXME: handle exception
-            e.printStackTrace();
+//            e.printStackTrace();
             return false;
         }
     }
@@ -259,11 +263,14 @@ public class SwipeBackLayout extends FrameLayout {
         try {
             mDragHelper.processTouchEvent(event);
         } catch (Exception e) {
-            // FIXME: handle exception
-            e.printStackTrace();
+//            e.printStackTrace();
             return false;
         }
         return true;
+    }
+
+    public void setDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        mDisallowIntercept = disallowIntercept;
     }
 
     @Override
@@ -272,7 +279,7 @@ public class SwipeBackLayout extends FrameLayout {
         if (mContentView != null)
             mContentView.layout(mContentLeft, 0,
                     mContentLeft + mContentView.getMeasuredWidth(),
-                    0 + mContentView.getMeasuredHeight());
+                    mContentView.getMeasuredHeight());
         mInLayout = false;
     }
 
@@ -315,6 +322,9 @@ public class SwipeBackLayout extends FrameLayout {
     }
 
     public void attachToActivity(Activity activity) {
+        if (getParent()!=null){
+            return;
+        }
         mActivity = activity;
         TypedArray a = activity.getTheme().obtainStyledAttributes(new int[]{
                 android.R.attr.windowBackground
@@ -323,12 +333,24 @@ public class SwipeBackLayout extends FrameLayout {
         a.recycle();
 
         ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
-        ViewGroup decorChild = (ViewGroup) decor.getChildAt(0);
+        View decorChild  = decor.findViewById(android.R.id.content);
+        while (decorChild.getParent() != decor){
+            decorChild = (View) decorChild.getParent();
+        }
         decorChild.setBackgroundResource(background);
         decor.removeView(decorChild);
         addView(decorChild);
         setContentView(decorChild);
         decor.addView(this);
+    }
+
+    public void removeFromActivity(Activity activity){
+        if (getParent()==null)return;
+        ViewGroup decorChild = (ViewGroup) getChildAt(0);
+        ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
+        decor.removeView(this);
+        removeView(decorChild);
+        decor.addView(decorChild);
     }
 
     @Override
@@ -381,7 +403,6 @@ public class SwipeBackLayout extends FrameLayout {
                     listener.onScroll(mScrollPercent, mContentLeft);
                 }
             }
-
             if (mScrollPercent >= 1) {
                 if (!mActivity.isFinishing()){
                     if (mListeners != null && !mListeners.isEmpty()

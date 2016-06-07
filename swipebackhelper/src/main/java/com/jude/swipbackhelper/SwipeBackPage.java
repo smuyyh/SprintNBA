@@ -1,14 +1,25 @@
-package com.yuyh.library.swipeback;
+package com.jude.swipbackhelper;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
 
+import com.readystatesoftware.systembartint.SystemBarTintManager;
+
 /**
+ * Created by Mr.Jude on 2015/8/3.
  * 每个滑动页面的管理
  */
 public class SwipeBackPage {
+    //仅为判断是否需要将mSwipeBackLayout注入进去
+    private boolean mEnable = true;
+    private boolean mRelativeEnable = false;
+    private boolean isNeedMoveDown = false;
+    private Drawable drawable;
+
     Activity mActivity;
     SwipeBackLayout mSwipeBackLayout;
     RelateSlider slider;
@@ -26,11 +37,13 @@ public class SwipeBackPage {
     }
 
     void onPostCreate(){
-        mSwipeBackLayout.attachToActivity(mActivity);
+        handleLayout();
     }
 
 
+    @TargetApi(11)
     public SwipeBackPage setSwipeRelateEnable(boolean enable){
+        mRelativeEnable = enable;
         slider.setEnable(enable);
         return this;
     }
@@ -42,8 +55,25 @@ public class SwipeBackPage {
 
     //是否可滑动关闭
     public SwipeBackPage setSwipeBackEnable(boolean enable) {
+        mEnable = enable;
         mSwipeBackLayout.setEnableGesture(enable);
+        handleLayout();
         return this;
+    }
+
+    private void handleLayout(){
+        if (mEnable||mRelativeEnable){
+            mSwipeBackLayout.attachToActivity(mActivity);
+        }else {
+            mSwipeBackLayout.removeFromActivity(mActivity);
+        }
+        if(isNeedMoveDown) {
+            SystemBarTintManager mTintManager = new SystemBarTintManager(mActivity);
+            if (drawable != null) {
+                mTintManager.setStatusBarTintEnabled(true);
+                mTintManager.setTintDrawable(drawable);
+            }
+        }
     }
 
     //可滑动的范围。百分比。200表示为左边200px的屏幕
@@ -73,6 +103,17 @@ public class SwipeBackPage {
     //触发关闭Activity百分比
     public SwipeBackPage setClosePercent(float percent){
         mSwipeBackLayout.setScrollThreshold(percent);
+        return this;
+    }
+
+    public SwipeBackPage setDisallowInterceptTouchEvent(boolean disallowIntercept){
+        mSwipeBackLayout.setDisallowInterceptTouchEvent(disallowIntercept);
+        return this;
+    }
+
+    public SwipeBackPage setMoveDown(Drawable drawable) {
+        isNeedMoveDown = true;
+        this.drawable = drawable;
         return this;
     }
 

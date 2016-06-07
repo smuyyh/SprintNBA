@@ -3,8 +3,8 @@ package com.yuyh.cavaliers.base;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.jude.swipbackhelper.SwipeBackHelper;
 import com.yuyh.cavaliers.R;
-import com.yuyh.library.swipeback.SwipeBackHelper;
 
 public abstract class BaseSwipeBackCompatActivity extends BaseAppCompatActivity {
 
@@ -12,14 +12,16 @@ public abstract class BaseSwipeBackCompatActivity extends BaseAppCompatActivity 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SwipeBackHelper.onCreate(this);
-
         SwipeBackHelper.getCurrentPage(this)
+                .setMoveDown(getResources().getDrawable(R.drawable.dwPrimary)) // 没有办法的办法
                 .setSwipeBackEnable(true)
-                .setSwipeSensitivity(0.5f)
-                .setSwipeSensitivity(1)
-                .setSwipeRelateEnable(true)//是否与下一级activity联动(微信效果)
-                .setScrimColor(Color.TRANSPARENT);//底层阴影颜色;
-        setSystemBarTintDrawable(getResources().getDrawable(R.drawable.dwPrimary));
+                .setSwipeEdgePercent(0.2f)//0.2 mean left 20% of screen can touch to begin swipe.
+                .setSwipeSensitivity(1)//sensitiveness of the gesture。0:slow  1:sensitive
+                .setScrimColor(Color.TRANSPARENT)//color of Scrim below the activity
+                .setClosePercent(0.8f)//close activity when swipe over this
+                .setSwipeRelateEnable(true)//if should move together with the following Activity
+                .setSwipeRelateOffset(500)//the Offset of following Activity when setSwipeRelateEnable(true)
+                .setDisallowInterceptTouchEvent(true);
 
     }
 
@@ -27,7 +29,6 @@ public abstract class BaseSwipeBackCompatActivity extends BaseAppCompatActivity 
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         SwipeBackHelper.onPostCreate(this);
-        //setSystemBarTintDrawable(getResources().getDrawable(R.drawable.dwPrimary));
     }
 
 

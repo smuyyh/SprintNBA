@@ -1,4 +1,4 @@
-package com.yuyh.library.swipeback;
+package com.jude.swipbackhelper;
 
 import android.app.Activity;
 
