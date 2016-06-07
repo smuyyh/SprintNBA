@@ -7,7 +7,7 @@
     <com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView
         android:id="@+id/nba_news_indicator"
         android:layout_width="match_parent"
-        android:layout_height="45dp" />
+        android:layout_height="35dp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/nba_news_viewPager"

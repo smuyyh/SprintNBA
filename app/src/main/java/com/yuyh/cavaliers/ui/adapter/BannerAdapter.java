@@ -7,8 +7,8 @@ import android.widget.ImageView;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
-import com.yuyh.cavaliers.ui.listener.NoDoubleClickListener;
-import com.yuyh.cavaliers.ui.listener.OnRecyclerViewItemClickListener;
+import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
+import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
 import com.yuyh.library.utils.DimenUtils;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;

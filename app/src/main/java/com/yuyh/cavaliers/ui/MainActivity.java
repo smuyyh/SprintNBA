@@ -106,12 +106,12 @@ public class MainActivity extends BaseAppCompatActivity {
 
     private void initData() {
         list = new ArrayList<NavigationEntity>() {{
-            add(new NavigationEntity(R.drawable.ic_visibility_on, "NBA新闻"));
-            add(new NavigationEntity(R.drawable.ic_visibility_on, "赛事直播"));
-            add(new NavigationEntity(R.drawable.ic_visibility_on, "比赛视频"));
-            add(new NavigationEntity(R.drawable.ic_visibility_on, "数据酷"));
-            add(new NavigationEntity(R.drawable.ic_visibility_on, "骑士专区"));
-            add(new NavigationEntity(R.drawable.ic_visibility_on, "其他"));
+            add(new NavigationEntity(R.drawable.ic_news, "头条新闻"));
+            add(new NavigationEntity(R.drawable.ic_games, "赛事直播"));
+            add(new NavigationEntity(R.drawable.ic_video, "比赛视频"));
+            add(new NavigationEntity(R.drawable.ic_format, "数据酷"));
+            add(new NavigationEntity(R.drawable.ic_favorite, "骑士专区"));
+            add(new NavigationEntity(R.drawable.ic_other, "其他"));
         }};
 
         fragments = new ArrayList<BaseLazyFragment>() {{

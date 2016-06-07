@@ -3,6 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="home_menu_width">220dp</dimen>
+    <dimen name="home_menu_width">180dp</dimen>
     <dimen name="home_menu_top_image_height">120dp</dimen>
 </resources>

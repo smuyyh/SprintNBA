@@ -12,6 +12,7 @@ import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.http.Request;
 import com.yuyh.cavaliers.http.bean.news.NewsIndex;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
@@ -19,7 +20,8 @@ import com.yuyh.cavaliers.http.callback.GetBeanCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.ui.NewsDetailActivity;
 import com.yuyh.cavaliers.ui.adapter.BannerAdapter;
-import com.yuyh.cavaliers.ui.listener.OnRecyclerViewItemClickListener;
+import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
+import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.log.LogUtils;
 
 import java.util.ArrayList;
@@ -60,6 +62,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(10)));
         materialRefreshLayout = (MaterialRefreshLayout) findViewById(R.id.refresh);
         materialRefreshLayout.setMaterialRefreshListener(new RefreshListener());
     }
