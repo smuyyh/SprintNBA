@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import com.yuyh.cavaliers.Interactor.HomeInteractor;
 import com.yuyh.cavaliers.Interactor.impl.HomeInteractorImpl;
 import com.yuyh.cavaliers.presenter.Presenter;
-import com.yuyh.cavaliers.view.HomeView;
+import com.yuyh.cavaliers.ui.view.HomeView;
 
 /**
  * @author yuyh.
@@ -27,6 +27,6 @@ public class HomePresenterImpl implements Presenter {
 
     @Override
     public void initialized() {
-        mHomeView.initializeViews(mHomeInteractor.getPagerFragments(), mHomeInteractor.getNavigationListData(mContext));
+        mHomeView.initializeViews(mHomeInteractor.getPagerFragments(), mHomeInteractor.getNavigationList(mContext));
     }
 }

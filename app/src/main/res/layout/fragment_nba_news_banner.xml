@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#C0C0C0"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     app:isLoadMore="true"
     app:overlay="true"
     app:progress_colors="@array/material_colors"

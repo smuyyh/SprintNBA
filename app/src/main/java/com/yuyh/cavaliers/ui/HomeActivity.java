@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.joanzapata.android.BaseAdapterHelper;
-import com.joanzapata.android.QuickAdapter;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseAppCompatActivity;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
@@ -19,9 +17,11 @@ import com.yuyh.cavaliers.bean.NavigationEntity;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.presenter.impl.HomePresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.VPFragmentAdapter;
-import com.yuyh.cavaliers.view.HomeView;
+import com.yuyh.cavaliers.ui.view.HomeView;
 import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.library.view.viewpager.XViewPager;
+import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
+import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 
 import java.util.List;
 
@@ -37,7 +37,8 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
     DrawerLayout mDrawerLayout;
 
     private ActionBarDrawerToggle mActionBarDrawerToggle = null;
-    private QuickAdapter<NavigationEntity> mNavListAdapter = null;
+    //private QuickAdapter<NavigationEntity> mNavListAdapter = null;
+    private HelperAdapter<NavigationEntity> mNavListAdapter = null;
 
     private static long DOUBLE_CLICK_TIME = 0L;
     private int mCurrentMenuCheckedPos = 0;
@@ -128,22 +129,22 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 if (null != mNavListAdapter) {
-                    setTitle(mNavListAdapter.getItem(mCurrentMenuCheckedPos).getName());
+                    setTitle(((NavigationEntity)mNavListAdapter.getItem(mCurrentMenuCheckedPos)).getName());
                 }
             }
         };
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
 
-        mNavListAdapter = new QuickAdapter<NavigationEntity>(getApplicationContext(), R.layout.list_item_navigation) {
+        mNavListAdapter = new HelperAdapter<NavigationEntity>(navigationList, HomeActivity.this, R.layout.list_item_navigation) {
             @Override
-            protected void convert(BaseAdapterHelper helper, NavigationEntity item) {
-                helper.setImageResource(R.id.list_item_navigation_icon, item.getIconResId())
+            public void HelpConvert(HelperViewHolder viewHolder, int position, NavigationEntity item) {
+                viewHolder.setImageResource(R.id.list_item_navigation_icon, item.getIconResId())
                         .setText(R.id.list_item_navigation_name, item.getName());
             }
         };
+
         mNavListView.setAdapter(mNavListAdapter);
-        mNavListAdapter.addAll(navigationList);
         mNavListAdapter.notifyDataSetChanged();
 
         mNavListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

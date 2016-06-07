@@ -6,7 +6,10 @@ import android.support.v4.view.ViewPager;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.cavaliers.presenter.Presenter;
+import com.yuyh.cavaliers.presenter.impl.NBANewsPresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.NewsVPAdapter;
+import com.yuyh.cavaliers.ui.view.NBANewsView;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
 import com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView;
@@ -18,17 +21,23 @@ import com.yuyh.library.view.viewpager.indicator.transition.OnTransitionTextList
  * @author yuyh.
  * @date 16/6/5.
  */
-public class NBANewsFragment extends BaseLazyFragment {
+public class NBANewsFragment extends BaseLazyFragment implements NBANewsView {
 
 
     private IndicatorViewPager indicatorViewPager;
-    private String[] names = {"今日头条", "新闻资讯"};
     private ScrollIndicatorView scrollIndicatorView;
 
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_nba_news);
+
+        Presenter presenter = new NBANewsPresenterImpl(mActivity, this);
+        presenter.initialized();
+    }
+
+    @Override
+    public void initializeViews(String[] names) {
 
         scrollIndicatorView = (ScrollIndicatorView) findViewById(R.id.nba_news_indicator);
         scrollIndicatorView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));

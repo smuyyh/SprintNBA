@@ -11,12 +11,6 @@ import com.yuyh.cavaliers.ui.fragment.NBANewsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Author:  Tau.Chen
- * Email:   1076559197@qq.com | tauchen1990@gmail.com
- * Date:    2015/3/12.
- * Description:
- */
 public class HomeInteractorImpl implements HomeInteractor {
 
     @Override
@@ -34,7 +28,7 @@ public class HomeInteractorImpl implements HomeInteractor {
     }
 
     @Override
-    public List<NavigationEntity> getNavigationListData(Context context) {
+    public List<NavigationEntity> getNavigationList(Context context) {
         List<NavigationEntity> navigationEntities = new ArrayList<NavigationEntity>() {{
             add(new NavigationEntity(R.drawable.ic_news, "头条新闻"));
             add(new NavigationEntity(R.drawable.ic_games, "赛事直播"));

@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.view.base;
+package com.yuyh.cavaliers.ui.view.base;
 
 public interface BaseView {
 
