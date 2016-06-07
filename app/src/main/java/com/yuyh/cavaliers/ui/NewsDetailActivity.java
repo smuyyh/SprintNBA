@@ -37,12 +37,6 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity {
     @Override
     protected void initViewsAndEvents() {
         inflate = LayoutInflater.from(this);
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
         Intent intent = getIntent();
         String title = intent.getStringExtra(TITLE);
         if (!TextUtils.isEmpty(title))

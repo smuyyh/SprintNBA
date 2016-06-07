@@ -90,6 +90,11 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         super.setContentView(layoutResID);
         ButterKnife.inject(this);
         mToolbar = ButterKnife.findById(this, R.id.common_toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
