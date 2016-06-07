@@ -1,1 +1,1 @@
-include ':app', ':CommonLibrary', ':MaterialPtrLibrary', ':QuickAdapterLibrary',':swipebackhelper'
+include ':app', ':CommonLibrary', ':MaterialPtrLibrary', ':QuickAdapterLibrary',':SwipeBackLibrary'
