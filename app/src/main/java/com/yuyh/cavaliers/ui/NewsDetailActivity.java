@@ -16,6 +16,8 @@ import com.yuyh.cavaliers.http.callback.GetBeanCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import butterknife.InjectView;
 
@@ -54,16 +56,29 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity {
             @Override
             public void onSuccess(NewsDetail newsDetail) {
                 String imgUrl = newsDetail.imgurl;
-                if (!TextUtils.isEmpty(imgUrl)) {
-                    ImageView iv = new ImageView(mContext);
-                    llNewsDetail.addView(iv);
-                    Glide.with(NewsDetailActivity.this).load(imgUrl).into(iv);
-                }
-                List<String> content = newsDetail.content;
-                for (String str : content) {
-                    TextView tv = (TextView) inflate.inflate(R.layout.textview_news_detail, null);
-                    tv.append(str);
-                    llNewsDetail.addView(tv);
+//                if (!TextUtils.isEmpty(imgUrl)) {
+//                    ImageView iv = new ImageView(mContext);
+//                    llNewsDetail.addView(iv);
+//                    Glide.with(NewsDetailActivity.this).load(imgUrl).into(iv);
+//                }
+                List<Map<String, String>> content = newsDetail.content;
+                for (Map<String, String> map : content) {
+                    Set<String> set = map.keySet();
+                    if (set.contains("img")) {
+                        String url = map.get("img");
+                        if (!TextUtils.isEmpty(url)) {
+                            ImageView iv = new ImageView(NewsDetailActivity.this);
+                            Glide.with(NewsDetailActivity.this).load(url).into(iv);
+                            llNewsDetail.addView(iv);
+                        }
+                    } else {
+                        if (!TextUtils.isEmpty(map.get("text"))) {
+                            TextView tv = (TextView) inflate.inflate(R.layout.textview_news_detail, null);
+                            tv.append(map.get("text"));
+                            llNewsDetail.addView(tv);
+                        }
+                    }
+
                 }
             }
 

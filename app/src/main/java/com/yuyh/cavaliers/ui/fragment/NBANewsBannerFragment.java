@@ -62,7 +62,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(10)));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(5)));
         materialRefreshLayout = (MaterialRefreshLayout) findViewById(R.id.refresh);
         materialRefreshLayout.setMaterialRefreshListener(new RefreshListener());
     }

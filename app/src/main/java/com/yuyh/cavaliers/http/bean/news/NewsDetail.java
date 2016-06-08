@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.yuyh.cavaliers.http.bean.base.Base;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yuyh.
@@ -14,7 +15,7 @@ public class NewsDetail extends Base {
     public String title;
     @SerializedName("abstract")
     public String abstractX;
-    public List<String> content;
+    public List<Map<String, String>> content;
 
     public String url;
     public String imgurl;

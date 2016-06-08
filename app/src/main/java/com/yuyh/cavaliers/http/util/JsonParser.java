@@ -1,5 +1,7 @@
 package com.yuyh.cavaliers.http.util;
 
+import android.text.TextUtils;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
@@ -104,13 +106,26 @@ public class JsonParser {
                 String contentStr = entry.getValue().toString();
 
                 try {
-                    List<String> list = new LinkedList<>();
+                    List<Map<String, String>> list = new LinkedList<>();
                     JSONArray jsonArray = new JSONArray(contentStr);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         org.json.JSONObject item = jsonArray.getJSONObject(i); // 得到每个对象
+                        Map<String, String> map = new HashMap<>();
                         if (item.get("type").equals("text")) {
-                            list.add(item.getString("info"));
+                            map.put("text", item.get("info").toString());
+                        } else if (item.get("type").equals("img")) {
+                            String imgStr = item.get("img").toString();
+                            JSONObject imgObj = JSON.parseObject(imgStr);
+                            for (Map.Entry<String, Object> imgItem : imgObj.entrySet()) {
+                                if(imgItem.getKey().toString().startsWith("imgurl") && !TextUtils.isEmpty(imgItem.getValue().toString())){
+                                    JSONObject imgUrlObj = JSON.parseObject(imgItem.getValue().toString());
+                                    String url = imgUrlObj.getString("imgurl");
+                                    map.put("img", url);
+                                    break;
+                                }
+                            }
                         }
+                        list.add(map);
                     }
                     detail.content = list;
                 } catch (Exception e) {
