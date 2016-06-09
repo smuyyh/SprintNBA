@@ -12,15 +12,15 @@ import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
-import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.http.Request;
 import com.yuyh.cavaliers.http.bean.news.NewsIndex;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
 import com.yuyh.cavaliers.http.callback.GetBeanCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
+import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
+import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.ui.NewsDetailActivity;
 import com.yuyh.cavaliers.ui.adapter.BannerAdapter;
-import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.log.LogUtils;
 
@@ -39,10 +39,19 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     private int start = 0; // 查询数据起始位置
     private int num = 10;
 
+    int position = 0;
+    Constant.NewsType newsType = Constant.NewsType.BANNER;
+
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_nba_news_banner);
+        position = getArguments().getInt(INTENT_INT_INDEX);
+        if(position == 0){
+            newsType = Constant.NewsType.BANNER;
+        } else {
+            newsType = Constant.NewsType.NEWS;
+        }
         initView();
         requestIndex(false);
     }
@@ -68,7 +77,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     }
 
     private void requestIndex(final boolean isRefresh) {
-        Request.getNewsIndex(Constant.NewsType.BANNER, true, new GetBeanCallback<NewsIndex>() {
+        Request.getNewsIndex(newsType, true, new GetBeanCallback<NewsIndex>() {
             @Override
             public void onSuccess(NewsIndex newsIndex) {
                 indexs.clear();
@@ -90,7 +99,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     }
 
     private void requestNews(String arcIds, final boolean isRefresh, final boolean isLoadMore) {
-        Request.getNewsItem(Constant.NewsType.BANNER, arcIds, isRefresh, new GetBeanCallback<NewsItem>() {
+        Request.getNewsItem(newsType, arcIds, isRefresh, new GetBeanCallback<NewsItem>() {
             @Override
             public void onSuccess(NewsItem newsItem) {
                 if (isRefresh)

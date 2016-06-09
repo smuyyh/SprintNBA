@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.HomeActivity"
-            android:theme="@style/AppTheme.NoneTranslucent">
+            android:theme="@style/AppTheme.NoneTranslucent"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.NewsDetailActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

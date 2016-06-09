@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_capture"
+        android:orderInCategory="100"
+        android:title="关于我"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_about_us"
+        android:orderInCategory="200"
+        android:title="设置"
+        app:showAsAction="never" />
+</menu>

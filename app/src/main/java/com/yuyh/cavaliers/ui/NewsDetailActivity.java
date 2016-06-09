@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
 import com.yuyh.cavaliers.http.Request;
@@ -61,10 +62,7 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity {
         inflate = LayoutInflater.from(this);
         Intent intent = getIntent();
         String title = intent.getStringExtra(TITLE);
-        if (!TextUtils.isEmpty(title))
-            setTitle(title);
-        else
-            setTitle("详细内容");
+        setTitle("详细新闻");
         String arcId = intent.getStringExtra(ARTICLE_ID);
         if (!TextUtils.isEmpty(arcId)) {
             requestNewsDetail(arcId);
@@ -120,7 +118,7 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity {
                         final String url = map.get("img");
                         if (!TextUtils.isEmpty(url)) {
                             PhotoView iv = (PhotoView) inflate.inflate(R.layout.imageview_news_detail, null);
-                            Glide.with(NewsDetailActivity.this).load(url).into(iv);
+                            Glide.with(NewsDetailActivity.this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).into(iv);
                             llNewsDetail.addView(iv);
                             //LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) iv.getLayoutParams();
                             //params.width = DimenUtils.getScreenWidth();

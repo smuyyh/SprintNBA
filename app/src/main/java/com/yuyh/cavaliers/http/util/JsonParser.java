@@ -79,7 +79,7 @@ public class JsonParser {
             } else if (entry.getKey().equals("version")) {
                 newsItem.setVersion(entry.getValue().toString());
             } else if (entry.getKey().equals("data")) {
-                JSONObject data = JSON.parseObject(entry.getValue().toString());
+                JSONObject data = JSON.parseObject(entry.getValue().toString()); // articleIds=    NullPoint
                 List<NewsItem.NewsItemBean> list = new ArrayList<NewsItem.NewsItemBean>();
                 for (Map.Entry<String, Object> item : data.entrySet()) {
                     Gson gson = new Gson();

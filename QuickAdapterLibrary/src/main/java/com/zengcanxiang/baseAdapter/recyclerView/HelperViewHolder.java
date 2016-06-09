@@ -19,6 +19,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zengcanxiang.baseAdapter.interFace.ViewHelper;
 
 /**
@@ -89,7 +90,7 @@ public class HelperViewHolder extends BaseViewHolder implements ViewHelper.Recyc
 
     @Override
     public HelperViewHolder setImageUrl(int viewId, String imgUrl) {
-        Glide.with(mContext).load(imgUrl).into((ImageView) getView(viewId));
+        Glide.with(mContext).load(imgUrl).diskCacheStrategy(DiskCacheStrategy.ALL).into((ImageView) getView(viewId));
         return this;
     }
 

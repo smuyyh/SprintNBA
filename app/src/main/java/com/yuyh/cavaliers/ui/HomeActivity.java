@@ -6,6 +6,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -156,5 +158,33 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
                 mViewPager.setCurrentItem(mCurrentMenuCheckedPos, false);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mActionBarDrawerToggle != null && mActionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        switch (item.getItemId()) {
+            case R.id.action_capture:
+                readyGo(CaptureActivity.class);
+                break;
+            case R.id.action_about_us:
+                readyGo(AboutUsActivity.class);
+                break;
+            case R.id.action_feedback:
+                Bundle extras = new Bundle();
+                extras.putString(FeedbackFragment.BUNDLE_KEY_CONVERSATION_ID, mFeedbackAgent.getDefaultConversation().getId());
+                readyGo(FeedBackActivity.class, extras);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
