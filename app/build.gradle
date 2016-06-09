@@ -28,9 +28,10 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':QuickAdapterLibrary')
     compile project(':CommonLibrary')
+    compile project(':FlycoDialogLibrary')
     compile project(':MaterialPtrLibrary')
+    compile project(':QuickAdapterLibrary')
     compile project(':SwipeBackLibrary')
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'

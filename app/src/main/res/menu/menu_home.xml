@@ -2,13 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_capture"
+        android:id="@+id/action_about_us"
         android:orderInCategory="100"
         android:title="关于我"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_about_us"
+        android:id="@+id/action_setting"
         android:orderInCategory="200"
         android:title="设置"
         app:showAsAction="never" />

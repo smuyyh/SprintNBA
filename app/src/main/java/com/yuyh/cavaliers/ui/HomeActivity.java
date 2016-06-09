@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -25,6 +26,7 @@ import com.yuyh.library.view.viewpager.XViewPager;
 import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import butterknife.InjectView;
@@ -39,7 +41,6 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
     DrawerLayout mDrawerLayout;
 
     private ActionBarDrawerToggle mActionBarDrawerToggle = null;
-    //private QuickAdapter<NavigationEntity> mNavListAdapter = null;
     private HelperAdapter<NavigationEntity> mNavListAdapter = null;
 
     private static long DOUBLE_CLICK_TIME = 0L;
@@ -131,7 +132,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 if (null != mNavListAdapter) {
-                    setTitle(((NavigationEntity)mNavListAdapter.getItem(mCurrentMenuCheckedPos)).getName());
+                    setTitle(((NavigationEntity) mNavListAdapter.getItem(mCurrentMenuCheckedPos)).getName());
                 }
             }
         };
@@ -160,6 +161,24 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         });
     }
 
+    /**
+     * 显示overflower菜单图标
+     */
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+                } catch (Exception e) {
+                }
+            }
+        }
+        return super.onMenuOpened(featureId, menu);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
@@ -173,16 +192,11 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         }
 
         switch (item.getItemId()) {
-            case R.id.action_capture:
-                readyGo(CaptureActivity.class);
-                break;
             case R.id.action_about_us:
-                readyGo(AboutUsActivity.class);
+
                 break;
-            case R.id.action_feedback:
-                Bundle extras = new Bundle();
-                extras.putString(FeedbackFragment.BUNDLE_KEY_CONVERSATION_ID, mFeedbackAgent.getDefaultConversation().getId());
-                readyGo(FeedBackActivity.class, extras);
+            case R.id.action_setting:
+
                 break;
         }
         return super.onOptionsItemSelected(item);
