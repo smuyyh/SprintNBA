@@ -60,7 +60,7 @@ public class ActionSheetDialog extends BottomBaseDialog<ActionSheetDialog> {
     /** item press color(ListView item按住颜色) */
     private int mItemPressColor = Color.parseColor("#ffcccccc");
     /** item textcolor(ListView item文字颜色) */
-    private int mItemTextColor = Color.parseColor("#44A2FF");
+    private int mItemTextColor = Color.parseColor("#FF5055"); //#44A2FF
     /** item textsize(ListView item文字大小) */
     private float mItemTextSize = 17.5f;
     /** item height(ListView item高度) */
@@ -70,7 +70,7 @@ public class ActionSheetDialog extends BottomBaseDialog<ActionSheetDialog> {
     /*** cancel btn text(取消按钮内容) */
     private String mCancelText = "取消";
     /** cancel btn text color(取消按钮文字颜色) */
-    private int mCancelTextColor = Color.parseColor("#44A2FF");
+    private int mCancelTextColor = Color.parseColor("#FF5055");//#44A2FF
     /** cancel btn text size(取消按钮文字大小) */
     private float mCancelTextSize = 17.5f;
     /** adapter(自定义适配器) */

@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers;
+package com.yuyh.cavaliers.app;
 
 import android.app.Application;
 import android.content.Context;
@@ -18,6 +18,7 @@ public class CavsApp extends Application {
         super.onCreate();
         mContext = this;
         AppUtils.init(mContext);
+        CrashHandler.getInstance().init(this);
     }
 
     public static Context getAppContext(){

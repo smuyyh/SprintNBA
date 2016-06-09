@@ -47,13 +47,16 @@ public class FileUtils {
      * @param dirPath
      * @return 创建失败返回""
      */
-    private static String createDir(String dirPath) {
+    public static String createDir(String dirPath) {
         try {
-            File dir = new File(dirPath);
-            if (!dir.exists()) {
-                dir.mkdirs();
+            File file = new File(dirPath);
+            if(file.getParentFile().exists()){
+                file.mkdir();
+                return file.getAbsolutePath();
+            }else{
+                createDir(file.getParentFile().getAbsolutePath());
+                file.mkdir();
             }
-            return dir.getAbsolutePath();
         } catch (Exception e) {
             e.printStackTrace();
         }
