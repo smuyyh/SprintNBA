@@ -11,19 +11,67 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.yuyh.library.view.list.ReboundScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/llNewsDetail"
+        <com.yuyh.library.view.list.ReboundScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/llNewsDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNewsDetailTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="哈哈"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvNewsDetailTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="2015-07-01"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </com.yuyh.library.view.list.ReboundScrollView>
+
+        <FrameLayout
+            android:id="@+id/flParent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:visibility="gone">
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ff000000" />
 
-    </com.yuyh.library.view.list.ReboundScrollView>
+            <com.yuyh.library.view.image.PhotoView
+                android:id="@+id/ivBrowser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"></com.yuyh.library.view.image.PhotoView>
+
+        </FrameLayout>
+    </FrameLayout>
 
 
 </LinearLayout>
