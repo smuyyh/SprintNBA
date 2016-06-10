@@ -8,7 +8,7 @@ import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.presenter.Presenter;
-import com.yuyh.cavaliers.presenter.impl.NBANewsPresenterImpl;
+import com.yuyh.cavaliers.presenter.impl.NBAVideoPresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.NewsVPAdapter;
 import com.yuyh.cavaliers.ui.view.NBANewsView;
 import com.yuyh.library.utils.DimenUtils;
@@ -22,7 +22,7 @@ import com.yuyh.library.view.viewpager.indicator.transition.OnTransitionTextList
  * @author yuyh.
  * @date 16/6/5.
  */
-public class NBANewsFragment extends BaseLazyFragment implements NBANewsView {
+public class NBAVideoFragment extends BaseLazyFragment implements NBANewsView {
 
 
     private IndicatorViewPager indicatorViewPager;
@@ -33,7 +33,7 @@ public class NBANewsFragment extends BaseLazyFragment implements NBANewsView {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_nba_news);
 
-        Presenter presenter = new NBANewsPresenterImpl(mActivity, this);
+        Presenter presenter = new NBAVideoPresenterImpl(mActivity, this);
         presenter.initialized();
     }
 
@@ -60,6 +60,6 @@ public class NBANewsFragment extends BaseLazyFragment implements NBANewsView {
         ViewPager viewPager = (ViewPager) findViewById(R.id.nba_news_viewPager);
         viewPager.setOffscreenPageLimit(names.length);
         indicatorViewPager = new IndicatorViewPager(scrollIndicatorView, viewPager);
-        indicatorViewPager.setAdapter(new NewsVPAdapter(mActivity, names, getChildFragmentManager(), Constant.NewsType.NEWS));
+        indicatorViewPager.setAdapter(new NewsVPAdapter(mActivity, names, getChildFragmentManager(), Constant.NewsType.VIDEO));
     }
 }

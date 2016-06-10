@@ -23,12 +23,13 @@ import com.yuyh.cavaliers.ui.NewsDetailActivity;
 import com.yuyh.cavaliers.ui.adapter.BannerAdapter;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.log.LogUtils;
+import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NBANewsBannerFragment extends BaseLazyFragment {
-    private int tabIndex;
+
     public static final String INTENT_INT_INDEX = "intent_int_index";
 
     private MaterialRefreshLayout materialRefreshLayout;
@@ -39,19 +40,13 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     private int start = 0; // 查询数据起始位置
     private int num = 10;
 
-    int position = 0;
     Constant.NewsType newsType = Constant.NewsType.BANNER;
 
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_nba_news_banner);
-        position = getArguments().getInt(INTENT_INT_INDEX);
-        if(position == 0){
-            newsType = Constant.NewsType.BANNER;
-        } else {
-            newsType = Constant.NewsType.NEWS;
-        }
+        newsType = (Constant.NewsType) getArguments().getSerializable(INTENT_INT_INDEX);
         initView();
         requestIndex(false);
     }
@@ -144,7 +139,12 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
         public void onRefreshLoadMore(final MaterialRefreshLayout materialRefreshLayout) {
             LogUtils.i("load more: start=" + start);
             String arcIds = parseIds();
-            requestNews(arcIds, false, true);
+            if(!TextUtils.isEmpty(arcIds)) {
+                requestNews(arcIds, false, true);
+            } else {
+                ToastUtils.showToast("已经到底啦");
+                complete();
+            }
         }
     }
 

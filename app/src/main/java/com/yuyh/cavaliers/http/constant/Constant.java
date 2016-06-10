@@ -1,15 +1,17 @@
 package com.yuyh.cavaliers.http.constant;
 
+import java.io.Serializable;
+
 /**
  * @author yuyh.
  * @date 16/6/4.
  */
 public class Constant {
-    public enum NewsType {
+    public enum NewsType implements Serializable{
 
         BANNER("banner"),      //头条
         NEWS("news"),          //新闻
-        VIDEO("articles"),     //视频集锦
+        VIDEO("videos"),     //视频集锦
         DEPTH("depth"),        //十佳球/五佳球
         HIGHLIGHT("highlight");//赛场花絮
 

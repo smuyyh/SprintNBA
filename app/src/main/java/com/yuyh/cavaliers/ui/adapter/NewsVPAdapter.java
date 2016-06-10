@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.yuyh.cavaliers.R;
+import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.ui.fragment.NBANewsBannerFragment;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.view.viewpager.indicator.FragmentListPageAdapter;
@@ -21,11 +22,13 @@ import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
 public class NewsVPAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
     private LayoutInflater inflate;
     private String[] names;
+    private Constant.NewsType newsType;
 
-    public NewsVPAdapter(Context context, String[] names, FragmentManager fragmentManager) {
+    public NewsVPAdapter(Context context, String[] names, FragmentManager fragmentManager, Constant.NewsType newsType) {
         super(fragmentManager);
         inflate = LayoutInflater.from(context);
         this.names = names;
+        this.newsType = newsType;
     }
 
     @Override
@@ -50,6 +53,25 @@ public class NewsVPAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdap
         NBANewsBannerFragment fragment = new NBANewsBannerFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(NBANewsBannerFragment.INTENT_INT_INDEX, position);
+        Constant.NewsType newsTypeBundle;
+        switch (newsType) {
+            case NEWS:
+                if (position == 0)
+                    newsTypeBundle = Constant.NewsType.BANNER;
+                else
+                    newsTypeBundle = Constant.NewsType.NEWS;
+                break;
+            case VIDEO:
+            default:
+                if (position == 0)
+                    newsTypeBundle = Constant.NewsType.VIDEO;
+                else if (position == 1)
+                    newsTypeBundle = Constant.NewsType.DEPTH;
+                else
+                    newsTypeBundle = Constant.NewsType.HIGHLIGHT;
+                break;
+        }
+        bundle.putSerializable(NBANewsBannerFragment.INTENT_INT_INDEX, newsTypeBundle);
         fragment.setArguments(bundle);
         return fragment;
     }

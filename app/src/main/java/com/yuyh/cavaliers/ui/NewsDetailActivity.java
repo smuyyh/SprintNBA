@@ -184,7 +184,7 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if(saveImageToGallery(bmp)){
+                        if (saveImageToGallery(bmp)) {
                             Looper.prepare();
                             ToastUtils.showToast("保存图片成功");
                             Looper.loop();
