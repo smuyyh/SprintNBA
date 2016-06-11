@@ -32,7 +32,7 @@ public class NBANewsFragment extends BaseLazyFragment implements NBANewsView {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_nba_news);
-
+        
         Presenter presenter = new NBANewsPresenterImpl(mActivity, this);
         presenter.initialized();
     }
@@ -61,5 +61,13 @@ public class NBANewsFragment extends BaseLazyFragment implements NBANewsView {
         viewPager.setOffscreenPageLimit(names.length);
         indicatorViewPager = new IndicatorViewPager(scrollIndicatorView, viewPager);
         indicatorViewPager.setAdapter(new NewsVPAdapter(mActivity, names, getChildFragmentManager(), Constant.NewsType.NEWS));
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            mActivity.invalidateOptionsMenu();
+        }
     }
 }

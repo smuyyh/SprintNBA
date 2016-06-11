@@ -22,10 +22,10 @@ import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.ActionSheetDialog;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
-import com.yuyh.cavaliers.http.Request;
 import com.yuyh.cavaliers.http.bean.news.NewsDetail;
-import com.yuyh.cavaliers.http.callback.GetBeanCallback;
-import com.yuyh.cavaliers.http.constant.Constant;
+import com.yuyh.cavaliers.presenter.NewsDetailPresenter;
+import com.yuyh.cavaliers.presenter.impl.NewsDetailPresenterImpl;
+import com.yuyh.cavaliers.ui.view.NewsDetailView;
 import com.yuyh.library.utils.io.FileUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.library.view.common.Info;
@@ -42,7 +42,7 @@ import java.util.Set;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class NewsDetailActivity extends BaseSwipeBackCompatActivity {
+public class NewsDetailActivity extends BaseSwipeBackCompatActivity implements NewsDetailView {
 
     public static final String ARTICLE_ID = "arcId";
     public static final String TITLE = "title";
@@ -79,10 +79,9 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity {
         String title = intent.getStringExtra(TITLE);
         setTitle("详细新闻");
         String arcId = intent.getStringExtra(ARTICLE_ID);
-        if (!TextUtils.isEmpty(arcId)) {
-            requestNewsDetail(arcId);
-        }
         initPhotoView();
+        NewsDetailPresenter presenter = new NewsDetailPresenterImpl(this, this);
+        presenter.initialized(arcId);
     }
 
     private void initPhotoView() {
@@ -111,51 +110,6 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity {
             public boolean onLongClick(View v) {
                 showSaveDialog();
                 return false;
-            }
-        });
-    }
-
-    private void requestNewsDetail(String arcId) {
-        Request.getNewsDetail(Constant.NewsType.BANNER, arcId, false, new GetBeanCallback<NewsDetail>() {
-            @Override
-            public void onSuccess(NewsDetail newsDetail) {
-                tvNewsDetailTime.setText(newsDetail.time);
-                tvNewsDetailTitle.setText(newsDetail.title);
-                List<Map<String, String>> content = newsDetail.content;
-                for (Map<String, String> map : content) {
-                    Set<String> set = map.keySet();
-                    if (set.contains("img")) {
-                        final String url = map.get("img");
-                        if (!TextUtils.isEmpty(url)) {
-                            PhotoView iv = (PhotoView) inflate.inflate(R.layout.imageview_news_detail, null);
-                            Glide.with(NewsDetailActivity.this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).into(iv);
-                            llNewsDetail.addView(iv);
-                            iv.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    mInfo = ((PhotoView) v).getInfo();
-                                    Glide.with(NewsDetailActivity.this).load(url).into(mPhotoView);
-                                    mBg.startAnimation(in);
-                                    mBg.setVisibility(View.VISIBLE);
-                                    mParent.setVisibility(View.VISIBLE);
-                                    mPhotoView.animaFrom(mInfo);
-                                }
-                            });
-                        }
-                    } else {
-                        if (!TextUtils.isEmpty(map.get("text"))) {
-                            TextView tv = (TextView) inflate.inflate(R.layout.textview_news_detail, null);
-                            tv.append(map.get("text"));
-                            llNewsDetail.addView(tv);
-                        }
-                    }
-
-                }
-            }
-
-            @Override
-            public void onFailure(String message) {
-
             }
         });
     }
@@ -256,6 +210,42 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity {
             });
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void showNewsDetail(NewsDetail newsDetail) {
+        tvNewsDetailTime.setText(newsDetail.time);
+        tvNewsDetailTitle.setText(newsDetail.title);
+        List<Map<String, String>> content = newsDetail.content;
+        for (Map<String, String> map : content) {
+            Set<String> set = map.keySet();
+            if (set.contains("img")) {
+                final String url = map.get("img");
+                if (!TextUtils.isEmpty(url)) {
+                    PhotoView iv = (PhotoView) inflate.inflate(R.layout.imageview_news_detail, null);
+                    Glide.with(NewsDetailActivity.this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).into(iv);
+                    llNewsDetail.addView(iv);
+                    iv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mInfo = ((PhotoView) v).getInfo();
+                            Glide.with(NewsDetailActivity.this).load(url).into(mPhotoView);
+                            mBg.startAnimation(in);
+                            mBg.setVisibility(View.VISIBLE);
+                            mParent.setVisibility(View.VISIBLE);
+                            mPhotoView.animaFrom(mInfo);
+                        }
+                    });
+                }
+            } else {
+                if (!TextUtils.isEmpty(map.get("text"))) {
+                    TextView tv = (TextView) inflate.inflate(R.layout.textview_news_detail, null);
+                    tv.append(map.get("text"));
+                    llNewsDetail.addView(tv);
+                }
+            }
+
         }
     }
 }

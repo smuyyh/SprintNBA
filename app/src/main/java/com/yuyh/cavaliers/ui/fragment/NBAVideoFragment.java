@@ -62,4 +62,12 @@ public class NBAVideoFragment extends BaseLazyFragment implements NBANewsView {
         indicatorViewPager = new IndicatorViewPager(scrollIndicatorView, viewPager);
         indicatorViewPager.setAdapter(new NewsVPAdapter(mActivity, names, getChildFragmentManager(), Constant.NewsType.VIDEO));
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            mActivity.invalidateOptionsMenu();
+        }
+    }
 }

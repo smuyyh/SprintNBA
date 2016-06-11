@@ -13,4 +13,7 @@
     <color name="roundColor_svprogresshuddefault">#e5e5e5</color>
     <color name="roundProgressColor_svprogresshuddefault">@android:color/black</color>
 
+    <color name="grid_bg">#FFFFFFFF</color>
+    <color name="grid_border">#FFC6C6C6</color>
+
 </resources>

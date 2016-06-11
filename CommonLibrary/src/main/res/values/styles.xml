@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppBaseTheme" parent="android:Theme.Light"></style>
+
+    <style name="CalendarCard">
+
+    </style>
+
+    <style name="CalendarCard.Root">
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="CalendarCard.Day">
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CalendarCard.Days">
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="CalendarCard.Title">
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CalendarCard.Grid">
+        <item name="android:background">@drawable/card_grid_bg</item>
+        <item name="android:paddingRight">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+    </style>
+
+    <style name="CalendarCard.Cell">
+        <item name="android:background">@drawable/card_item_bg</item>
+        <item name="android:layout_marginLeft">1dp</item>
+        <item name="android:layout_marginTop">1dp</item>
+    </style>
 
 </resources>

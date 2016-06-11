@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -180,10 +181,27 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        MenuInflater inflater = this.getMenuInflater();
+        switch (mCurrentMenuCheckedPos) {
+            case 2:
+                inflater.inflate(R.menu.menu_schedule, menu);
+                break;
+
+            default:
+                inflater.inflate(R.menu.menu_home, menu);
+                break;
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
