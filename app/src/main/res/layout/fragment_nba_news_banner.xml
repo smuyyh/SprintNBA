@@ -16,10 +16,21 @@
     app:wave_show="true">
 
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.yuyh.cavaliers.recycleview.SupportRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tvEmptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:text="暂无数据，点击重新加载"
+        android:textSize="16sp"
+        android:visibility="gone"/>
 
 
 </com.cjj.MaterialRefreshLayout>

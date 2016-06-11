@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -12,13 +11,16 @@ import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.cavaliers.base.BaseWebActivity;
 import com.yuyh.cavaliers.http.Request;
 import com.yuyh.cavaliers.http.bean.news.NewsIndex;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
 import com.yuyh.cavaliers.http.callback.GetBeanCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
+import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
+import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.NewsDetailActivity;
 import com.yuyh.cavaliers.ui.adapter.BannerAdapter;
 import com.yuyh.library.utils.DimenUtils;
@@ -33,7 +35,8 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     public static final String INTENT_INT_INDEX = "intent_int_index";
 
     private MaterialRefreshLayout materialRefreshLayout;
-    private RecyclerView recyclerView;
+    private SupportRecyclerView recyclerView;
+    private View emptyView;
     private BannerAdapter adapter;
     private List<NewsItem.NewsItemBean> list = new ArrayList<>();
     private List<String> indexs = new ArrayList<>();
@@ -52,16 +55,39 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     }
 
     private void initView() {
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView = (SupportRecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        emptyView = findViewById(R.id.tvEmptyView);
+        emptyView.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View view) {
+                requestIndex(true);
+            }
+        });
         adapter = new BannerAdapter(list, mActivity, R.layout.list_item_banner);
         adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<NewsItem.NewsItemBean>() {
             @Override
             public void onItemClick(View view, int position, NewsItem.NewsItemBean data) {
-                Intent intent = new Intent(mActivity, NewsDetailActivity.class);
-                intent.putExtra(NewsDetailActivity.TITLE, data.getTitle());
-                intent.putExtra(NewsDetailActivity.ARTICLE_ID, data.getIndex());
-                startActivity(intent);
+                Intent intent = null;
+                switch (newsType) {
+                    case VIDEO:
+                    case DEPTH:
+                    case HIGHLIGHT:
+                        intent = new Intent(mActivity, BaseWebActivity.class);
+                        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, data.getUrl());
+                        intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, data.getTitle());
+                        startActivity(intent);
+                        break;
+                    case BANNER:
+                    case NEWS:
+                    default:
+                        intent = new Intent(mActivity, NewsDetailActivity.class);
+                        intent.putExtra(NewsDetailActivity.TITLE, data.getTitle());
+                        intent.putExtra(NewsDetailActivity.ARTICLE_ID, data.getIndex());
+                        startActivity(intent);
+                        break;
+
+                }
             }
         });
         recyclerView.setAdapter(adapter);
@@ -75,6 +101,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
         Request.getNewsIndex(newsType, true, new GetBeanCallback<NewsIndex>() {
             @Override
             public void onSuccess(NewsIndex newsIndex) {
+                recyclerView.setEmptyView(emptyView);
                 indexs.clear();
                 start = 0;
                 for (NewsIndex.IndexBean bean : newsIndex.data) {
@@ -87,6 +114,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
 
             @Override
             public void onFailure(String message) {
+                recyclerView.setEmptyView(emptyView);
                 complete();
                 LogUtils.i(message);
             }
@@ -139,7 +167,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
         public void onRefreshLoadMore(final MaterialRefreshLayout materialRefreshLayout) {
             LogUtils.i("load more: start=" + start);
             String arcIds = parseIds();
-            if(!TextUtils.isEmpty(arcIds)) {
+            if (!TextUtils.isEmpty(arcIds)) {
                 requestNews(arcIds, false, true);
             } else {
                 ToastUtils.showToast("已经到底啦");

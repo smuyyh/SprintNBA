@@ -25,6 +25,7 @@
         <activity android:name=".ui.NewsDetailActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".base.BaseWebActivity"></activity>
     </application>
 
 </manifest>
