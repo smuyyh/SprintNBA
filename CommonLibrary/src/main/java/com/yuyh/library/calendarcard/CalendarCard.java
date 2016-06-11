@@ -24,7 +24,7 @@ public class CalendarCard extends RelativeLayout {
     private OnItemRender mOnItemRenderDefault;
     private OnCellItemClick mOnCellItemClick;
     private Calendar dateDisplay;
-    private ArrayList<CheckableLayout> cells = new ArrayList<CheckableLayout>();
+    private ArrayList<CheckableLayout> cells = new ArrayList<>();
     private LinearLayout cardGrid;
 
     public CalendarCard(Context context, AttributeSet attrs, int defStyle) {
@@ -43,7 +43,9 @@ public class CalendarCard extends RelativeLayout {
     }
 
     private void init(Context ctx) {
-        if (isInEditMode()) return;
+        if (isInEditMode())
+            return;
+
         View layout = LayoutInflater.from(ctx).inflate(R.layout.card_view, null, false);
 
         if (dateDisplay == null)
@@ -70,7 +72,7 @@ public class CalendarCard extends RelativeLayout {
         cal.add(Calendar.DAY_OF_WEEK, 1);
         ((TextView) layout.findViewById(R.id.cardDay7)).setText(cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
 
-        LayoutInflater la = LayoutInflater.from(ctx);
+        LayoutInflater inflater = LayoutInflater.from(ctx);
         for (int y = 0; y < cardGrid.getChildCount(); y++) {
             LinearLayout row = (LinearLayout) cardGrid.getChildAt(y);
             for (int x = 0; x < row.getChildCount(); x++) {
@@ -78,16 +80,18 @@ public class CalendarCard extends RelativeLayout {
                 cell.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        for (CheckableLayout c : cells)
+                        for (CheckableLayout c : cells) {
                             c.setChecked(false);
+                        }
                         ((CheckableLayout) v).setChecked(true);
 
-                        if (getOnCellItemClick() != null)
+                        if (getOnCellItemClick() != null) {
                             getOnCellItemClick().onCellClick(v, (CardGridItem) v.getTag()); // TODO create item
+                        }
                     }
                 });
 
-                View cellContent = la.inflate(itemLayout, cell, false);
+                View cellContent = inflater.inflate(itemLayout, cell, false);
                 cell.addView(cellContent);
                 cells.add(cell);
             }

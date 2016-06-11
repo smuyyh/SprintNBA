@@ -82,15 +82,17 @@ public class Request {
         final PrefsUtils prefsUtils = new PrefsUtils();
         if (!isRefresh) {
             String jsonStr = prefsUtils.get(key, "");
+            LogUtils.d(jsonStr);
             if (jsonStr.length() > 1) {
                 Matchs matchs = JsonParser.parseWithGson(Matchs.class, jsonStr);
                 cbk.onSuccess(matchs);
                 return;
             }
         }
-        api.getMatchsByData(date, new Callback<String>() {
+        apiStr.getMatchsByData(date, new Callback<String>() {
             @Override
             public void success(String jsonStr, Response response) {
+                LogUtils.d(jsonStr);
                 Matchs matchs = JsonParser.parseWithGson(Matchs.class, jsonStr);
                 cbk.onSuccess(matchs);
                 prefsUtils.put(key, jsonStr);
@@ -98,6 +100,7 @@ public class Request {
 
             @Override
             public void failure(RetrofitError error) {
+                LogUtils.e(error.getMessage());
                 cbk.onFailure(error.getMessage());
             }
         });
