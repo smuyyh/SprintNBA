@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        layout="@layout/common_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <com.yuyh.library.calendarcard.CalendarCardPager
         android:id="@+id/viewPagerCal"
         android:layout_width="match_parent"

@@ -41,4 +41,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:5.1.1'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

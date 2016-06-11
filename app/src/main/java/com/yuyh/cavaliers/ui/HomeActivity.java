@@ -1,9 +1,11 @@
 package com.yuyh.cavaliers.ui;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -18,6 +20,7 @@ import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseAppCompatActivity;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.bean.NavigationEntity;
+import com.yuyh.cavaliers.event.CalendarEvent;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.presenter.impl.HomePresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.VPFragmentAdapter;
@@ -26,6 +29,8 @@ import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.library.view.viewpager.XViewPager;
 import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -45,6 +50,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
     private HelperAdapter<NavigationEntity> mNavListAdapter = null;
 
     private static long DOUBLE_CLICK_TIME = 0L;
+    private static int REQUEST_DATE_CODE = 1;
     private int mCurrentMenuCheckedPos = 0;
 
     private int mCheckedListItemColorResIds[] = {
@@ -216,7 +222,20 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
             case R.id.action_setting:
 
                 break;
+            case R.id.action_calendar:
+                startActivityForResult(new Intent(this, CalendarActivity.class), REQUEST_DATE_CODE);
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_DATE_CODE && resultCode == RESULT_OK) {
+            String date = data.getStringExtra(CalendarActivity.CALENDAR_DATE);
+            if(!TextUtils.isEmpty(date))
+                EventBus.getDefault().post(new CalendarEvent(date));
+        }
     }
 }
