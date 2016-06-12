@@ -34,7 +34,7 @@ public class MatchAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBea
         String status;
         if (matchInfo.getQuarter().equals("第4节") && matchInfo.getQuarterTime().equals("00:00"))
             status = "已结束";
-        else if (matchInfo.getQuarter().equals("第一节") && matchInfo.getQuarterTime().equals("12:00"))
+        else if (matchInfo.getQuarter().equals("") && matchInfo.getQuarterTime().equals("12:00"))
             status = matchInfo.getStartTime();
         else
             status = matchInfo.getQuarter() + " " + matchInfo.getQuarterTime();
