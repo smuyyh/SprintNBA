@@ -21,7 +21,7 @@
     
     <item>
         <shape>
-            <solid android:color="#FFFFFFFF"/>
+            <solid android:color="#FFF8F8F8"/>
         </shape>
     </item>
 </selector>

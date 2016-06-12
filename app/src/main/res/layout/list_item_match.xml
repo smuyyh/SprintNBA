@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@android:color/transparent"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,15 +33,27 @@
             android:orientation="horizontal">
 
 
-            <TextView
-                android:id="@+id/tvLeftTeam"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/ic_favorite"
                 android:gravity="center"
-                android:text="骑士" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivLeftTeam"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_favorite" />
+
+                <TextView
+                    android:id="@+id/tvLeftTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="骑士" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -68,7 +80,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="108"
-                        android:textSize="20dp" />
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvRightTeamPoint"
@@ -76,7 +89,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="97"
-                        android:textSize="20dp" />
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -90,15 +104,27 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvRightTeam"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/ic_favorite"
                 android:gravity="center"
-                android:text="骑士" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivRightTeam"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_favorite" />
+
+                <TextView
+                    android:id="@+id/tvRightTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="骑士" />
+            </LinearLayout>
 
         </LinearLayout>
 

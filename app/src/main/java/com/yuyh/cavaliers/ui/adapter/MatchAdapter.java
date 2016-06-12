@@ -43,7 +43,9 @@ public class MatchAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBea
                 .setText(R.id.tvMatchStatus, status)
                 .setText(R.id.tvLeftTeamPoint, matchInfo.getLeftGoal())
                 .setText(R.id.tvRightTeamPoint, matchInfo.getRightGoal())
-                .setText(R.id.tvMatchDesc, matchInfo.getMatchDesc());
+                .setText(R.id.tvMatchDesc, matchInfo.getMatchDesc())
+                .setImageUrl(R.id.ivLeftTeam, matchInfo.getLeftBadge())
+                .setImageUrl(R.id.ivRightTeam, matchInfo.getRightBadge());
 
         viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {
             @Override

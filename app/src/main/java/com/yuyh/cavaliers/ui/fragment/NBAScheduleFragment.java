@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.TextView;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
@@ -47,23 +48,25 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_nba_news_banner);
-        DateUtils.format(System.currentTimeMillis(), "yyyy-MM-dd");
+        date = DateUtils.format(System.currentTimeMillis(), "yyyy-MM-dd");
+        LogUtils.i(date);
         EventBus.getDefault().register(this);
 
         mActivity.invalidateOptionsMenu();
 
         initView();
-        requestMatchs(true);
+        requestMatchs(date, true);
     }
 
     private void initView() {
         recyclerView = (SupportRecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         emptyView = findViewById(R.id.tvEmptyView);
+        ((TextView) emptyView).setText("今日暂无比赛\n");
         emptyView.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                requestMatchs(true);
+                //requestMatchs(date, true);
             }
         });
 
@@ -75,6 +78,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
             }
         });
 
+        recyclerView.setEmptyView(emptyView);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(5)));
@@ -83,13 +87,14 @@ public class NBAScheduleFragment extends BaseLazyFragment {
         materialRefreshLayout.setMaterialRefreshListener(new RefreshListener());
     }
 
-    private void requestMatchs(boolean isRefresh) {
+    private void requestMatchs(String date, boolean isRefresh) {
         Request.getMatchsByDate(date, isRefresh, new GetBeanCallback<Matchs>() {
             @Override
             public void onSuccess(Matchs matchs) {
+                list.clear();
                 List<Matchs.MatchsDataBean.MatchesBean> mList = matchs.getData().getMatches();
                 if (!mList.isEmpty()) {
-                    for (Matchs.MatchsDataBean.MatchesBean bean:mList) {
+                    for (Matchs.MatchsDataBean.MatchesBean bean : mList) {
                         list.add(bean);
                     }
                     adapter.notifyDataSetChanged();
@@ -106,6 +111,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     private class RefreshListener extends MaterialRefreshListener {
         @Override
         public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
+            complete();
         }
 
         @Override
@@ -115,7 +121,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
 
         @Override
         public void onRefreshLoadMore(final MaterialRefreshLayout materialRefreshLayout) {
-
+            complete();
         }
     }
 
@@ -127,6 +133,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     @Subscribe
     public void onEventMainThread(CalendarEvent msg) {
         LogUtils.i(msg.getDate());
+        requestMatchs(msg.getDate(), true);
     }
 
     @Override
@@ -140,6 +147,6 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     @Override
     protected void onDestroyViewLazy() {
         super.onDestroyViewLazy();
-        EventBus.getDefault().unregister(this);//反注册EventBus
+        EventBus.getDefault().unregister(this);
     }
 }

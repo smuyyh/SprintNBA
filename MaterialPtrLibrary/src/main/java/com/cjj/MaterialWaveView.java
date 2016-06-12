@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -134,7 +133,7 @@ public class MaterialWaveView extends View implements MaterialHeadListener {
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                Log.i("anim", "value--->" + (int) animation.getAnimatedValue());
+                //Log.i("anim", "value--->" + (int) animation.getAnimatedValue());
                 setWaveHeight((int) animation.getAnimatedValue());
                 invalidate();
             }
