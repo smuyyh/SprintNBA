@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
@@ -33,7 +34,11 @@ public class BannerAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
 
     @Override
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final NewsItem.NewsItemBean item) {
-        viewHolder.setImageUrl(R.id.ivBannerImg, item.getImgurl());
+        //viewHolder.setImageUrl(R.id.ivBannerImg, item.getImgurl());
+        ImageView iv = viewHolder.getView(R.id.ivBannerImg);
+        iv.setTag(item.getImgurl());
+        if(iv.getTag()!=null && iv.getTag().equals(item.getImgurl()))
+            Picasso.with(mContext).load(item.getImgurl()).into(iv);
         viewHolder.setText(R.id.tvBannerTitle, item.getTitle())
                 .setText(R.id.tvBannerTime, item.getPub_time());
         viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {

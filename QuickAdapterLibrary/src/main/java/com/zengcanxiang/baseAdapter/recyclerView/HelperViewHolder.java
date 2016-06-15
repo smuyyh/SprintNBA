@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Adapter;
@@ -18,8 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.squareup.picasso.Picasso;
+import com.zengcanxiang.baseAdapter.R;
 import com.zengcanxiang.baseAdapter.interFace.ViewHelper;
 
 /**
@@ -91,7 +92,13 @@ public class HelperViewHolder extends BaseViewHolder implements ViewHelper.Recyc
     @Override
     public HelperViewHolder setImageUrl(int viewId, String imgUrl) {
         ImageView iv = getView(viewId);
-        Glide.with(mContext).load(imgUrl).diskCacheStrategy(DiskCacheStrategy.ALL).into(iv);
+        String tag = (String) iv.getTag(R.id.imageloader_uri);
+        Log.i("TAG", iv.toString() + " --- " + imgUrl);
+        iv.setTag(R.id.imageloader_uri, imgUrl);
+        if (iv.getTag(R.id.imageloader_uri) != null && iv.getTag(R.id.imageloader_uri).equals(imgUrl)) {
+            //Glide.with(mContext).load(imgUrl).placeholder(R.drawable.default_image).crossFade().into(iv);
+            Picasso.with(mContext).load(imgUrl).into(iv);
+        }
         return this;
     }
 

@@ -229,8 +229,8 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity implements N
                     llNewsDetail.addView(iv);
                     int screenWidth = DimenUtils.getScreenWidth();
                     ViewGroup.LayoutParams lp = iv.getLayoutParams();
-                    lp.width = screenWidth;
-                    lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                    lp.height = screenWidth * 2 / 3;
                     iv.setLayoutParams(lp);
                     iv.setMaxWidth(screenWidth);
                     iv.setMaxHeight(screenWidth);
