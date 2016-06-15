@@ -90,7 +90,8 @@ public class HelperViewHolder extends BaseViewHolder implements ViewHelper.Recyc
 
     @Override
     public HelperViewHolder setImageUrl(int viewId, String imgUrl) {
-        Glide.with(mContext).load(imgUrl).diskCacheStrategy(DiskCacheStrategy.ALL).into((ImageView) getView(viewId));
+        ImageView iv = getView(viewId);
+        Glide.with(mContext).load(imgUrl).diskCacheStrategy(DiskCacheStrategy.ALL).into(iv);
         return this;
     }
 

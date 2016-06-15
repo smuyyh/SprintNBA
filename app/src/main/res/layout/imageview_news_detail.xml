@@ -2,6 +2,7 @@
 <com.yuyh.library.view.image.PhotoView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="15dp"
     android:layout_marginTop="10dp"
-    android:scaleType="fitCenter"/>
+    android:adjustViewBounds="true"
+    android:paddingTop="15dp"
+    android:scaleType="fitCenter" />

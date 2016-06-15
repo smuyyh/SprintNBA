@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +73,7 @@ public class SwipeBackPage {
         } else {
             mSwipeBackLayout.removeFromActivity(mActivity);
         }
-        if (isNeedMoveDown) {
+        if (isNeedMoveDown && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             ViewGroup group = (ViewGroup) mSwipeBackLayout.getChildAt(0);
             View view = new View(mActivity);
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getSBarHeight());

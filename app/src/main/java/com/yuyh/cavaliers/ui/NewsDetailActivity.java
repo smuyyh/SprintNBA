@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
@@ -26,6 +27,7 @@ import com.yuyh.cavaliers.http.bean.news.NewsDetail;
 import com.yuyh.cavaliers.presenter.NewsDetailPresenter;
 import com.yuyh.cavaliers.presenter.impl.NewsDetailPresenterImpl;
 import com.yuyh.cavaliers.ui.view.NewsDetailView;
+import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.io.FileUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.library.view.common.Info;
@@ -224,13 +226,20 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity implements N
                 final String url = map.get("img");
                 if (!TextUtils.isEmpty(url)) {
                     PhotoView iv = (PhotoView) inflate.inflate(R.layout.imageview_news_detail, null);
-                    Glide.with(NewsDetailActivity.this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).into(iv);
                     llNewsDetail.addView(iv);
+                    int screenWidth = DimenUtils.getScreenWidth();
+                    ViewGroup.LayoutParams lp = iv.getLayoutParams();
+                    lp.width = screenWidth;
+                    lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    iv.setLayoutParams(lp);
+                    iv.setMaxWidth(screenWidth);
+                    iv.setMaxHeight(screenWidth);
+                    Glide.with(NewsDetailActivity.this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).into(iv);
                     iv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mInfo = ((PhotoView) v).getInfo();
                             Glide.with(NewsDetailActivity.this).load(url).into(mPhotoView);
+                            mInfo = ((PhotoView) v).getInfo();
                             mBg.startAnimation(in);
                             mBg.setVisibility(View.VISIBLE);
                             mParent.setVisibility(View.VISIBLE);
