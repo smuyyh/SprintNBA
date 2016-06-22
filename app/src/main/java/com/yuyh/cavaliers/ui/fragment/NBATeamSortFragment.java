@@ -77,7 +77,7 @@ public class NBATeamSortFragment extends BaseLazyFragment {
         recyclerView.setEmptyView(emptyView);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(5)));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(1)));
 
         materialRefreshLayout = (MaterialRefreshLayout) findViewById(R.id.refresh);
         materialRefreshLayout.setMaterialRefreshListener(new RefreshListener());

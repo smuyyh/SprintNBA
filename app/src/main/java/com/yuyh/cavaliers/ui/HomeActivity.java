@@ -194,7 +194,9 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
             case 2:
                 inflater.inflate(R.menu.menu_schedule, menu);
                 break;
-
+            case 3:
+                inflater.inflate(R.menu.menu_stats_rank, menu);
+                break;
             default:
                 inflater.inflate(R.menu.menu_home, menu);
                 break;
@@ -225,6 +227,9 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
             case R.id.action_calendar:
                 startActivityForResult(new Intent(this, CalendarActivity.class), REQUEST_DATE_CODE);
                 break;
+            case R.id.action_stats:
+                startActivity(new Intent(this, StatsRankActivity.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -232,9 +237,9 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_DATE_CODE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_DATE_CODE && resultCode == RESULT_OK) {
             String date = data.getStringExtra(CalendarActivity.CALENDAR_DATE);
-            if(!TextUtils.isEmpty(date))
+            if (!TextUtils.isEmpty(date))
                 EventBus.getDefault().post(new CalendarEvent(date));
         }
     }

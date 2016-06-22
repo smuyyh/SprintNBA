@@ -29,10 +29,10 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".base.BaseWebActivity" />
         <activity
-            android:name=".ui.ScheduleActivity"
+            android:name=".ui.CalendarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.CalendarActivity"
+            android:name=".ui.StatsRankActivity"
             android:screenOrientation="portrait" />
     </application>
 

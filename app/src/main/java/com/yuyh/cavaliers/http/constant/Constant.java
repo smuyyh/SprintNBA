@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @date 16/6/4.
  */
 public class Constant {
-    public enum NewsType implements Serializable{
+    public enum NewsType implements Serializable {
 
         BANNER("banner"),      //头条
         NEWS("news"),          //新闻
@@ -28,36 +28,48 @@ public class Constant {
 
     public enum StatType {
 
-        POINT("point"),      // 得分
-        REBOUND("rebound"),  // 篮板
-        ASSIST("assist"),    // 助攻
-        BLOCK("block"),      // 盖帽
-        STEAL("steal");      // 抢断
+        POINT("point", "得分"),      // 得分
+        REBOUND("rebound", "篮板"),  // 篮板
+        ASSIST("assist", "助攻"),    // 助攻
+        BLOCK("block", "盖帽"),      // 盖帽
+        STEAL("steal", "抢断");      // 抢断
 
         String type;
+        String name;
 
-        StatType(String type) {
+        StatType(String type, String name) {
             this.type = type;
+            this.name = name;
         }
 
         public String getType() {
             return type;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 
     public enum TabType {
-        EVERYDAY("1"),// 每日
-        FINAL("2"),   // 季后赛
-        NORMAL("3");  // 常规赛
+        EVERYDAY("1", "每日"),// 每日
+        FINAL("2", "季后赛"),   // 季后赛
+        NORMAL("3", "常规赛");  // 常规赛
 
         String type;
+        String name;
 
-        TabType(String type) {
+        TabType(String type, String name) {
             this.type = type;
+            this.name = name;
         }
 
         public String getType() {
             return type;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 }
