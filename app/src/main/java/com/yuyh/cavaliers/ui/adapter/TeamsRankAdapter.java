@@ -2,9 +2,11 @@ package com.yuyh.cavaliers.ui.adapter;
 
 import android.content.Context;
 
+import com.squareup.picasso.Picasso;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
 import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
+import com.yuyh.library.view.image.CircleImageView;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
@@ -29,8 +31,12 @@ public class TeamsRankAdapter extends HelperAdapter<TeamsRank.TeamBean> {
     @Override
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final TeamsRank.TeamBean item) {
         if (item.type == 0) {
-            viewHolder.setImageUrl(R.id.team_icon, item.badge)
-                    .setText(R.id.team_name, item.name)
+            Picasso.with(mContext).load(item.badge)
+                    .placeholder(R.drawable.nba_default)
+                    .error(R.drawable.nba_default)
+                    .resize(80, 80)
+                    .into((CircleImageView) viewHolder.getView(R.id.team_icon));
+            viewHolder.setText(R.id.team_name, item.name)
                     .setText(R.id.win, item.win + "")
                     .setText(R.id.lose, item.lose + "")
                     .setText(R.id.win_percent, item.rate)
