@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class TeamsRank extends Base {
 
+    public List<TeamBean> all;
 
     public List<TeamBean> east;
     public List<TeamBean> west;
@@ -26,5 +27,7 @@ public class TeamsRank extends Base {
         public int lose;
         public String rate;
         public String difference; //胜场差
+
+        public int type = 0; // 0：具体排名数据   1：东部    2：西部
     }
 }

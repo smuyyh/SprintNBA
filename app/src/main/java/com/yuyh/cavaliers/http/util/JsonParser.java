@@ -11,6 +11,8 @@ import com.yuyh.cavaliers.http.bean.match.MatchCalendar;
 import com.yuyh.cavaliers.http.bean.news.NewsDetail;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
 import com.yuyh.cavaliers.http.bean.player.StatsRank;
+import com.yuyh.cavaliers.http.bean.player.TeamsRank;
+import com.yuyh.library.utils.log.LogUtils;
 
 import org.json.JSONArray;
 
@@ -117,7 +119,7 @@ public class JsonParser {
                             String imgStr = item.get("img").toString();
                             JSONObject imgObj = JSON.parseObject(imgStr);
                             for (Map.Entry<String, Object> imgItem : imgObj.entrySet()) {
-                                if(imgItem.getKey().toString().startsWith("imgurl") && !TextUtils.isEmpty(imgItem.getValue().toString())){
+                                if (imgItem.getKey().toString().startsWith("imgurl") && !TextUtils.isEmpty(imgItem.getValue().toString())) {
                                     JSONObject imgUrlObj = JSON.parseObject(imgItem.getValue().toString());
                                     String url = imgUrlObj.getString("imgurl");
                                     map.put("img", url);
@@ -164,5 +166,38 @@ public class JsonParser {
             }.getType());
         }
         return rank;
+    }
+
+    public static TeamsRank parseTeamsRank(String jsonStr) {
+        TeamsRank rank = new TeamsRank();
+        String dataStr = JsonParser.parseBase(rank, jsonStr);
+        rank.east = new ArrayList<>();
+        rank.west = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(dataStr);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                org.json.JSONObject item = jsonArray.getJSONObject(i); // 得到每个对象
+                String title = item.getString("title");
+                JSONArray teamsArray = item.optJSONArray("rows");
+                for (int j = 0; j < teamsArray.length(); j++) {
+                    JSONArray teamsInfo = teamsArray.getJSONArray(j);
+                    Gson gson = new Gson();
+                    TeamsRank.TeamBean bean = gson.fromJson(teamsInfo.getString(0), TeamsRank.TeamBean.class);
+                    bean.win = teamsInfo.optInt(1);
+                    bean.lose = teamsInfo.optInt(2);
+                    bean.rate = teamsInfo.optString(3);
+                    bean.difference = teamsInfo.optString(4);
+                    if (title.equals("东部联盟")) {
+                        rank.east.add(bean);
+                    } else {
+                        rank.west.add(bean);
+                    }
+                }
+            }
+            return rank;
+        } catch (Exception e) {
+            LogUtils.e(e.toString());
+        }
+        return null;
     }
 }

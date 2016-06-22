@@ -9,12 +9,15 @@ import com.yuyh.cavaliers.http.bean.news.NewsItem;
 import com.yuyh.cavaliers.http.bean.player.Players;
 import com.yuyh.cavaliers.http.bean.player.StatsRank;
 import com.yuyh.cavaliers.http.bean.player.Teams;
+import com.yuyh.cavaliers.http.bean.player.TeamsRank;
 import com.yuyh.cavaliers.http.callback.GetBeanCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.http.retrofit.StringConverter;
 import com.yuyh.cavaliers.http.util.JsonParser;
 import com.yuyh.library.utils.data.PrefsUtils;
 import com.yuyh.library.utils.log.LogUtils;
+
+import java.util.ArrayList;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -237,6 +240,37 @@ public class Request {
                 StatsRank rank = JsonParser.parseStatsRank(jsonStr);
                 cbk.onSuccess(rank);
                 prefsUtils.put(key, jsonStr);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                cbk.onFailure(error.getMessage());
+            }
+        });
+    }
+
+    public static void getTeamsRank(final GetBeanCallback<TeamsRank> cbk) {
+        apiStr.getTeamsRank(new Callback<String>() {
+            @Override
+            public void success(String s, Response response) {
+                TeamsRank rank = JsonParser.parseTeamsRank(s);
+                if (rank != null) {
+                    rank.all = new ArrayList<>();
+                    TeamsRank.TeamBean eastTitle = new TeamsRank.TeamBean();
+                    eastTitle.type = 1;
+                    eastTitle.name = "东部联盟";
+                    rank.all.add(eastTitle);
+                    rank.all.addAll(rank.east);
+
+                    TeamsRank.TeamBean westTitle = new TeamsRank.TeamBean();
+                    westTitle.type = 2;
+                    westTitle.name = "西部联盟";
+                    rank.all.add(westTitle);
+                    rank.all.addAll(rank.west);
+                    cbk.onSuccess(rank);
+                } else {
+                    cbk.onFailure("数据解析失败");
+                }
             }
 
             @Override

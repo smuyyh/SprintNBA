@@ -8,6 +8,7 @@ import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.bean.NavigationEntity;
 import com.yuyh.cavaliers.ui.fragment.NBANewsFragment;
 import com.yuyh.cavaliers.ui.fragment.NBAScheduleFragment;
+import com.yuyh.cavaliers.ui.fragment.NBATeamSortFragment;
 import com.yuyh.cavaliers.ui.fragment.NBAVideoFragment;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class HomeInteractorImpl implements HomeInteractor {
             add(new NBANewsFragment());
             add(new NBAVideoFragment());
             add(new NBAScheduleFragment());
-            add(new NBANewsFragment());
+            add(new NBATeamSortFragment());
             add(new NBANewsFragment());
             add(new NBANewsFragment());
         }};

@@ -48,7 +48,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
-        setContentView(R.layout.fragment_nba_news_banner);
+        setContentView(R.layout.fragment_normal_recyclerview);
         newsType = (Constant.NewsType) getArguments().getSerializable(INTENT_INT_INDEX);
         initView();
         requestIndex(false);
