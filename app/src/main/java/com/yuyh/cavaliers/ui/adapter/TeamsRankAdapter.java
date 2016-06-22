@@ -26,7 +26,6 @@ public class TeamsRankAdapter extends HelperAdapter<TeamsRank.TeamBean> {
      */
     public TeamsRankAdapter(List<TeamsRank.TeamBean> data, Context context, int... layoutId) {
         super(data, context, layoutId);
-        ////
     }
 
     @Override
