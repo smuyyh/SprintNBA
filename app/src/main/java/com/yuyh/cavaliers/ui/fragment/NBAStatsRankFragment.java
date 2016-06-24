@@ -1,7 +1,9 @@
-package com.yuyh.cavaliers.ui;
+package com.yuyh.cavaliers.ui.fragment;
+
+import android.os.Bundle;
 
 import com.yuyh.cavaliers.R;
-import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
+import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.http.Request;
 import com.yuyh.cavaliers.http.bean.player.StatsRank;
 import com.yuyh.cavaliers.http.callback.GetBeanCallback;
@@ -15,9 +17,14 @@ import com.yuyh.library.utils.log.LogUtils;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class StatsRankActivity extends BaseSwipeBackCompatActivity implements StatsRankView, ToggleLayout.OnToggleListener {
+/**
+ * @author yuyh.
+ * @date 16/6/5.
+ */
+public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankView, ToggleLayout.OnToggleListener {
 
     @InjectView(R.id.tlTab)
     ToggleLayout tlTab;
@@ -32,15 +39,13 @@ public class StatsRankActivity extends BaseSwipeBackCompatActivity implements St
     private Constant.StatType curStat;
 
     @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.activity_stats_rank;
-    }
-
-    @Override
-    protected void initViewsAndEvents() {
-        setTitle("数据排行");
-        presenter = new StatsRankPresenterImpl(this, this);
+    protected void onCreateViewLazy(Bundle savedInstanceState) {
+        super.onCreateViewLazy(savedInstanceState);
+        setContentView(R.layout.activity_stats_rank);
+        ButterKnife.inject(this, getContentView());
+        presenter = new StatsRankPresenterImpl(mActivity, this);
         presenter.initialized();
+
     }
 
     @Override
@@ -66,8 +71,8 @@ public class StatsRankActivity extends BaseSwipeBackCompatActivity implements St
             @Override
             public void onSuccess(StatsRank statsRank) {
                 List<StatsRank.RankItem> list = statsRank.rankList;
-                if(!list.isEmpty()){
-                    for (StatsRank.RankItem item:list) {
+                if (!list.isEmpty()) {
+                    for (StatsRank.RankItem item : list) {
                         LogUtils.i(item.playerName);
                     }
                 }
@@ -78,5 +83,18 @@ public class StatsRankActivity extends BaseSwipeBackCompatActivity implements St
 
             }
         });
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            mActivity.invalidateOptionsMenu();
+        }
+    }
+
+    @Override
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
     }
 }
