@@ -1,9 +1,16 @@
 package com.yuyh.cavaliers.ui.fragment;
 
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.library.utils.data.PrefsUtils;
+import com.yuyh.library.utils.toast.ToastUtils;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * @author yuyh.
@@ -11,11 +18,26 @@ import com.yuyh.cavaliers.base.BaseLazyFragment;
  */
 public class OtherFragment extends BaseLazyFragment {
 
+    @InjectView(R.id.rlPlayer)
+    RelativeLayout rlPlayer;
+    @InjectView(R.id.rlTeam)
+    RelativeLayout rlTeam;
+    @InjectView(R.id.rlTeamSchedule)
+    RelativeLayout rlTeamSchedule;
+    @InjectView(R.id.rlNBACal)
+    RelativeLayout rlNBACal;
+    @InjectView(R.id.rlClearCache)
+    RelativeLayout rlClearCache;
+    @InjectView(R.id.rlFeedback)
+    RelativeLayout rlFeedback;
+    @InjectView(R.id.rlAbout)
+    RelativeLayout rlAbout;
+
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_other);
-
+        ButterKnife.inject(this, getContentView());
     }
 
     @Override
@@ -24,5 +46,12 @@ public class OtherFragment extends BaseLazyFragment {
         if (isVisibleToUser) {
             mActivity.invalidateOptionsMenu();
         }
+    }
+
+    @OnClick(R.id.rlClearCache)
+    public void clearCache() {
+        PrefsUtils prefs = new PrefsUtils();
+        prefs.clearAll();
+        ToastUtils.showSingleLongToast("缓存清理成功");
     }
 }

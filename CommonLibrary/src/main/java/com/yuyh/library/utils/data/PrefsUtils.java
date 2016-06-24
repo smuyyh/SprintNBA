@@ -115,5 +115,7 @@ public class PrefsUtils {
         sp.edit().putInt(key, value).commit();
     }
 
-
+    public void clearAll() {
+        sp.edit().clear().commit();
+    }
 }
