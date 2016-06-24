@@ -191,11 +191,8 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         menu.clear();
         MenuInflater inflater = this.getMenuInflater();
         switch (mCurrentMenuCheckedPos) {
-            case 2:
+            case 1:
                 inflater.inflate(R.menu.menu_schedule, menu);
-                break;
-            case 3:
-                inflater.inflate(R.menu.menu_stats_rank, menu);
                 break;
             default:
                 inflater.inflate(R.menu.menu_home, menu);
@@ -226,9 +223,6 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
                 break;
             case R.id.action_calendar:
                 startActivityForResult(new Intent(this, CalendarActivity.class), REQUEST_DATE_CODE);
-                break;
-            case R.id.action_stats:
-                startActivity(new Intent(this, StatsRankActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

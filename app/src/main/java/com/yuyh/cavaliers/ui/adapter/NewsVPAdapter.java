@@ -41,7 +41,7 @@ public class NewsVPAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdap
         }
         TextView textView = (TextView) convertView;
         textView.setText(names[position % names.length]);
-        int padding = DimenUtils.dpToPxInt(10);
+        int padding = DimenUtils.dpToPxInt(15);
         textView.setPadding(padding, 0, padding, 0);
         return convertView;
     }
