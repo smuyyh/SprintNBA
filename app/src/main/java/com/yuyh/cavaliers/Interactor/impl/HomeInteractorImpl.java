@@ -35,7 +35,7 @@ public class HomeInteractorImpl implements HomeInteractor {
     public List<NavigationEntity> getNavigationList(Context context) {
         List<NavigationEntity> navigationEntities = new ArrayList<NavigationEntity>() {{
             add(new NavigationEntity(R.drawable.ic_news, "头条新闻"));
-            add(new NavigationEntity(R.drawable.ic_games, "赛事直播"));
+            add(new NavigationEntity(R.drawable.ic_video, "赛事直播"));
             add(new NavigationEntity(R.drawable.ic_format, "球队排行"));
             add(new NavigationEntity(R.drawable.ic_format, "数据排行"));
             add(new NavigationEntity(R.drawable.ic_favorite, "骑士专区"));

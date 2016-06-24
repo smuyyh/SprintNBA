@@ -85,6 +85,7 @@ public class NBATeamSortFragment extends BaseLazyFragment {
 
         materialRefreshLayout = (MaterialRefreshLayout) findViewById(R.id.refresh);
         materialRefreshLayout.setMaterialRefreshListener(new RefreshListener());
+        materialRefreshLayout.setLoadMore(false);
     }
 
     private void requestTeamsRank() {

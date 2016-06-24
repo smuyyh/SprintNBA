@@ -93,6 +93,7 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
         recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(5)));
         tlStat.setOnToggleListener(this);
         tlTab.setOnToggleListener(this);
+        materialRefreshLayout.setLoadMore(false);
     }
 
     @Override
