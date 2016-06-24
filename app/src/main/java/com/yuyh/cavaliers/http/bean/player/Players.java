@@ -35,6 +35,7 @@ public class Players extends Base {
 
     public static class Player extends IndexEntity {
         public String id;
+        // 这边由于字母索引需要依托于IndexEntity的name属性，所以cnName额值就直接给IndexEntity的name属性
         //public String cnName;
         public String enName;
         public String capital;
