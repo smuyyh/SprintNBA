@@ -7,7 +7,7 @@ import com.squareup.picasso.Picasso;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
-import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
+import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.library.view.image.CircleImageView;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class TeamsRankAdapter extends HelperAdapter<TeamsRank.TeamBean> {
 
-    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+    private OnListItemClickListener mOnItemClickListener = null;
 
     /**
      * @param data     数据源
@@ -55,7 +55,7 @@ public class TeamsRankAdapter extends HelperAdapter<TeamsRank.TeamBean> {
         }
     }
 
-    public void setOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
+    public void setOnItemClickListener(OnListItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 

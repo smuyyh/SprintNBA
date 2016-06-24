@@ -17,7 +17,7 @@ import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.presenter.impl.StatsRankPresenterImpl;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
-import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
+import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.adapter.StatsRankAdapter;
@@ -79,7 +79,7 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
             }
         });
         adapter = new StatsRankAdapter(mList, mActivity, R.layout.list_item_stats_rank);
-        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<StatsRank.RankItem>() {
+        adapter.setOnItemClickListener(new OnListItemClickListener<StatsRank.RankItem>() {
             @Override
             public void onItemClick(View view, int position, StatsRank.RankItem data) {
                 Intent intent = new Intent(mActivity, BaseWebActivity.class);

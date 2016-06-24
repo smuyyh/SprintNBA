@@ -9,7 +9,7 @@ import com.squareup.picasso.Picasso;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
-import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
+import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.library.utils.DimenUtils;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class BannerAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
 
-    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+    private OnListItemClickListener mOnItemClickListener = null;
 
     /**
      * @param data     数据源
@@ -55,7 +55,7 @@ public class BannerAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
         image.setLayoutParams(para);
     }
 
-    public void setOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
+    public void setOnItemClickListener(OnListItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 }

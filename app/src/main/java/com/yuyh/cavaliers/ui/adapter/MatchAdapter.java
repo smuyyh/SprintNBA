@@ -6,7 +6,7 @@ import android.view.View;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.match.Matchs;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
-import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
+import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class MatchAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBean> {
 
-    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+    private OnListItemClickListener mOnItemClickListener = null;
 
     /**
      * @param data     数据源
@@ -56,7 +56,7 @@ public class MatchAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBea
         });
     }
 
-    public void setOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
+    public void setOnItemClickListener(OnListItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 }

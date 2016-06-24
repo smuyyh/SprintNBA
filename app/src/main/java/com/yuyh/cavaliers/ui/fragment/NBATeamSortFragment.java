@@ -16,7 +16,7 @@ import com.yuyh.cavaliers.http.Request;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
 import com.yuyh.cavaliers.http.callback.GetBeanCallback;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
-import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
+import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.adapter.TeamsRankAdapter;
@@ -68,7 +68,7 @@ public class NBATeamSortFragment extends BaseLazyFragment {
         });
 
         adapter = new TeamsRankAdapter(list, mActivity, R.layout.item_fragment_teamsort_entity, R.layout.item_fragment_teamsort_title);
-        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<TeamsRank.TeamBean>() {
+        adapter.setOnItemClickListener(new OnListItemClickListener<TeamsRank.TeamBean>() {
             @Override
             public void onItemClick(View view, int position, TeamsRank.TeamBean data) {
                 Intent intent = new Intent(mActivity, BaseWebActivity.class);

@@ -1,10 +1,12 @@
 package com.yuyh.cavaliers.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.cavaliers.ui.AllTeamActivity;
 import com.yuyh.library.utils.data.PrefsUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 
@@ -53,5 +55,11 @@ public class OtherFragment extends BaseLazyFragment {
         PrefsUtils prefs = new PrefsUtils();
         prefs.clearAll();
         ToastUtils.showSingleLongToast("缓存清理成功");
+    }
+
+    @OnClick(R.id.rlTeam)
+    public void allTeam(){
+        Intent intent = new Intent(mActivity, AllTeamActivity.class);
+        startActivity(intent);
     }
 }

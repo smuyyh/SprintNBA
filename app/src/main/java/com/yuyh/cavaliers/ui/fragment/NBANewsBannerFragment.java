@@ -18,7 +18,7 @@ import com.yuyh.cavaliers.http.bean.news.NewsItem;
 import com.yuyh.cavaliers.http.callback.GetBeanCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
-import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
+import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.NewsDetailActivity;
@@ -65,7 +65,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
             }
         });
         adapter = new BannerAdapter(list, mActivity, R.layout.list_item_banner);
-        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<NewsItem.NewsItemBean>() {
+        adapter.setOnItemClickListener(new OnListItemClickListener<NewsItem.NewsItemBean>() {
             @Override
             public void onItemClick(View view, int position, NewsItem.NewsItemBean data) {
                 Intent intent = null;

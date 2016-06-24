@@ -15,7 +15,7 @@ import com.yuyh.cavaliers.http.Request;
 import com.yuyh.cavaliers.http.bean.match.Matchs;
 import com.yuyh.cavaliers.http.callback.GetBeanCallback;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
-import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
+import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.adapter.MatchAdapter;
@@ -71,7 +71,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
         });
 
         adapter = new MatchAdapter(list, mActivity, R.layout.list_item_match);
-        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<Matchs.MatchsDataBean.MatchesBean>() {
+        adapter.setOnItemClickListener(new OnListItemClickListener<Matchs.MatchsDataBean.MatchesBean>() {
             @Override
             public void onItemClick(View view, int position, Matchs.MatchsDataBean.MatchesBean data) {
 
