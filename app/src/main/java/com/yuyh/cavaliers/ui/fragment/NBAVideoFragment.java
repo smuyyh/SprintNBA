@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
-import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.presenter.impl.NBAVideoPresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.NewsVPAdapter;
@@ -60,7 +59,7 @@ public class NBAVideoFragment extends BaseLazyFragment implements NBANewsView {
         ViewPager viewPager = (ViewPager) findViewById(R.id.nba_news_viewPager);
         viewPager.setOffscreenPageLimit(names.length);
         indicatorViewPager = new IndicatorViewPager(scrollIndicatorView, viewPager);
-        indicatorViewPager.setAdapter(new NewsVPAdapter(mActivity, names, getChildFragmentManager(), Constant.NewsType.VIDEO));
+        indicatorViewPager.setAdapter(new NewsVPAdapter(mActivity, names, getChildFragmentManager()));
     }
 
     @Override

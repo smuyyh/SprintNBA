@@ -22,13 +22,11 @@ import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
 public class NewsVPAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
     private LayoutInflater inflate;
     private String[] names;
-    private Constant.NewsType newsType;
 
-    public NewsVPAdapter(Context context, String[] names, FragmentManager fragmentManager, Constant.NewsType newsType) {
+    public NewsVPAdapter(Context context, String[] names, FragmentManager fragmentManager) {
         super(fragmentManager);
         inflate = LayoutInflater.from(context);
         this.names = names;
-        this.newsType = newsType;
     }
 
     @Override
@@ -54,21 +52,22 @@ public class NewsVPAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdap
         Bundle bundle = new Bundle();
         bundle.putInt(NBANewsBannerFragment.INTENT_INT_INDEX, position);
         Constant.NewsType newsTypeBundle;
-        switch (newsType) {
-            case NEWS:
-                if (position == 0)
-                    newsTypeBundle = Constant.NewsType.BANNER;
-                else
-                    newsTypeBundle = Constant.NewsType.NEWS;
+        switch (position) {
+            case 0:
+                newsTypeBundle = Constant.NewsType.BANNER;
                 break;
-            case VIDEO:
+            case 1:
+                newsTypeBundle = Constant.NewsType.NEWS;
+                break;
+            case 2:
+                newsTypeBundle = Constant.NewsType.VIDEO;
+                break;
+            case 3:
+                newsTypeBundle = Constant.NewsType.DEPTH;
+                break;
+            case 4:
             default:
-                if (position == 0)
-                    newsTypeBundle = Constant.NewsType.VIDEO;
-                else if (position == 1)
-                    newsTypeBundle = Constant.NewsType.DEPTH;
-                else
-                    newsTypeBundle = Constant.NewsType.HIGHLIGHT;
+                newsTypeBundle = Constant.NewsType.HIGHLIGHT;
                 break;
         }
         bundle.putSerializable(NBANewsBannerFragment.INTENT_INT_INDEX, newsTypeBundle);

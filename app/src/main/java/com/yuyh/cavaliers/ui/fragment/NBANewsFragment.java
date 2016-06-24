@@ -60,7 +60,7 @@ public class NBANewsFragment extends BaseLazyFragment implements NBANewsView {
         ViewPager viewPager = (ViewPager) findViewById(R.id.nba_news_viewPager);
         viewPager.setOffscreenPageLimit(names.length);
         indicatorViewPager = new IndicatorViewPager(scrollIndicatorView, viewPager);
-        indicatorViewPager.setAdapter(new NewsVPAdapter(mActivity, names, getChildFragmentManager(), Constant.NewsType.NEWS));
+        indicatorViewPager.setAdapter(new NewsVPAdapter(mActivity, names, getChildFragmentManager()));
     }
 
     @Override
