@@ -2,6 +2,7 @@ package com.yuyh.cavaliers.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -89,17 +90,19 @@ public class NBATeamSortFragment extends BaseLazyFragment {
     }
 
     private void requestTeamsRank() {
+        showLoadingDialog();
         Request.getTeamsRank(new GetBeanCallback<TeamsRank>() {
             @Override
             public void onSuccess(TeamsRank teamsRank) {
                 list.clear();
                 list.addAll(teamsRank.all);
                 adapter.notifyDataSetChanged();
+                complete();
             }
 
             @Override
             public void onFailure(String message) {
-
+                complete();
             }
         });
     }
@@ -124,6 +127,12 @@ public class NBATeamSortFragment extends BaseLazyFragment {
     private void complete() {
         materialRefreshLayout.finishRefresh();
         materialRefreshLayout.finishRefreshLoadMore();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideLoadingDialog();
+            }
+        }, 1000);
     }
 
     @Override

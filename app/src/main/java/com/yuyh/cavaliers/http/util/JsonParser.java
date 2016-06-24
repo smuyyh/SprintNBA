@@ -10,11 +10,13 @@ import com.yuyh.cavaliers.http.bean.base.Base;
 import com.yuyh.cavaliers.http.bean.match.MatchCalendar;
 import com.yuyh.cavaliers.http.bean.news.NewsDetail;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
+import com.yuyh.cavaliers.http.bean.player.Players;
 import com.yuyh.cavaliers.http.bean.player.StatsRank;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
 import com.yuyh.library.utils.log.LogUtils;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -199,5 +201,24 @@ public class JsonParser {
             LogUtils.e(e.toString());
         }
         return null;
+    }
+
+    public static Players parsePlayersList(String jsonStr) {
+        Players players = new Players();
+        String dataStr = JsonParser.parseBase(players, jsonStr);
+        players.data = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(dataStr);
+            for (int i = 0; i < jsonArray.length(); i++){
+                String itemStr = jsonArray.getString(i);
+                Players.Player player = new Players.Player();
+                Gson gson = new Gson();
+                player = gson.fromJson(itemStr, Players.Player.class);
+                players.data.add(player);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return players;
     }
 }

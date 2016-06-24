@@ -2,6 +2,7 @@ package com.yuyh.cavaliers.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -49,6 +50,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_normal_recyclerview);
+        showLoadingDialog();
         newsType = (Constant.NewsType) getArguments().getSerializable(INTENT_INT_INDEX);
         initView();
         requestIndex(false);
@@ -179,6 +181,12 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     private void complete() {
         materialRefreshLayout.finishRefresh();
         materialRefreshLayout.finishRefreshLoadMore();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideLoadingDialog();
+            }
+        }, 1000);
     }
 
     @Override

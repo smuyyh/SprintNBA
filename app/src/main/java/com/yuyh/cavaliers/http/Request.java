@@ -291,7 +291,7 @@ public class Request {
         if (!isRefresh) {
             String jsonStr = prefsUtils.get(key, "");
             if (jsonStr.length() > 1) {
-                Players players = JsonParser.parseWithGson(Players.class, jsonStr);
+                Players players = JsonParser.parsePlayersList(jsonStr);
                 cbk.onSuccess(players);
                 return;
             }
@@ -299,14 +299,13 @@ public class Request {
         apiStr.getPlayerList(new Callback<String>() {
             @Override
             public void success(String jsonStr, Response response) {
-                Players players = JsonParser.parseWithGson(Players.class, jsonStr);
+                Players players = JsonParser.parsePlayersList(jsonStr);
                 cbk.onSuccess(players);
                 prefsUtils.put(key, jsonStr);
             }
 
             @Override
             public void failure(RetrofitError error) {
-
             }
         });
     }
@@ -318,7 +317,7 @@ public class Request {
      */
     public static void getTeamList(boolean isRefresh, final GetBeanCallback<Teams> cbk) {
 
-        final String key = "getPlayerList";
+        final String key = "getTeamList";
         final PrefsUtils prefsUtils = new PrefsUtils();
         if (!isRefresh) {
             String jsonStr = prefsUtils.get(key, "");

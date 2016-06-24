@@ -2,6 +2,7 @@ package com.yuyh.cavaliers.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -115,6 +116,7 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
     }
 
     private void requestStatsRank() {
+        showLoadingDialog();
         Request.getStatsRank(curStat, 20, curTab, "2015", true, new GetBeanCallback<StatsRank>() {
             @Override
             public void onSuccess(StatsRank statsRank) {
@@ -126,14 +128,24 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
                     mList.clear();
                     mList.addAll(list);
                     adapter.notifyDataSetChanged();
+                    complete();
                 }
             }
 
             @Override
             public void onFailure(String message) {
-
+                complete();
             }
         });
+    }
+
+    private void complete() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideLoadingDialog();
+            }
+        }, 1000);
     }
 
     @Override

@@ -1,9 +1,13 @@
 package com.yuyh.cavaliers.base;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
+
+import com.yuyh.cavaliers.widget.LoadingDialog;
 
 /**
  * <h1>懒加载Fragment</h1> 只有创建并显示的时候才会调用onCreateViewLazy方法<br>
@@ -27,6 +31,8 @@ public class BaseLazyFragment extends BaseFragment {
 	public static final String INTENT_BOOLEAN_LAZYLOAD = "intent_boolean_lazyLoad";
 	private boolean isLazyLoad = true;
 	private FrameLayout layout;
+
+	public LoadingDialog mLoadingDialog;
 
 	@Deprecated
 	protected final void onCreateView(Bundle savedInstanceState) {
@@ -163,5 +169,45 @@ public class BaseLazyFragment extends BaseFragment {
 			onDestroyViewLazy();
 		}
 		isInit = false;
+	}
+
+	/**
+	 * 显示刷新Loadding
+	 */
+	public void showLoadingDialog() {
+		try {
+			mLoadingDialog = LoadingDialog.createDialog(mActivity);
+			mLoadingDialog.setTitle(null);
+			mLoadingDialog.setCancelable(false);
+			mLoadingDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+				@Override
+				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+					if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+						hideLoadingDialog();
+					}
+					return true;
+				}
+			});
+			mLoadingDialog.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 隐藏刷新Loadding
+	 */
+	public void hideLoadingDialog() {
+		try {
+			if (mLoadingDialog != null) {
+				if (mLoadingDialog.animation != null) {
+					mLoadingDialog.animation.reset();
+				}
+				mLoadingDialog.dismiss();
+				mLoadingDialog = null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -32,7 +32,10 @@
             android:name=".ui.CalendarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.AllTeamActivity"
+            android:name=".ui.TeamsListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.PlayerListActivity"
             android:screenOrientation="portrait" />
     </application>
 

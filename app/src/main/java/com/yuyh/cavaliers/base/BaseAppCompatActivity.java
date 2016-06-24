@@ -17,6 +17,7 @@
 package com.yuyh.cavaliers.base;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -24,12 +25,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.yuyh.cavaliers.R;
+import com.yuyh.cavaliers.widget.LoadingDialog;
 
 import butterknife.ButterKnife;
 
@@ -48,6 +51,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     protected Context mContext = null;
 
     protected Toolbar mToolbar;
+    public LoadingDialog mLoadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,6 +210,48 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
                 mTintManager.setStatusBarTintEnabled(false);
                 mTintManager.setTintDrawable(null);
             }
+        }
+    }
+
+    /**
+     * 显示刷新Loadding
+     */
+    public void showLoadingDialog() {
+        try {
+            mLoadingDialog = LoadingDialog.createDialog(this);
+            mLoadingDialog.setTitle(null);
+            mLoadingDialog.setCancelable(false);
+            mLoadingDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                @Override
+                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+                        hideLoadingDialog();
+                    }
+                    return true;
+                }
+            });
+            if (!isFinishing()) {
+                mLoadingDialog.show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 隐藏刷新Loadding
+     */
+    public void hideLoadingDialog() {
+        try {
+            if (mLoadingDialog != null) {
+                if (mLoadingDialog.animation != null) {
+                    mLoadingDialog.animation.reset();
+                }
+                mLoadingDialog.dismiss();
+                mLoadingDialog = null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

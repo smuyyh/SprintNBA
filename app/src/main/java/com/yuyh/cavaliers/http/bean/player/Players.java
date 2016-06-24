@@ -31,14 +31,6 @@ public class Players extends Base {
 
     public List<Player> data;
 
-    public List<Player> getData() {
-        return data;
-    }
-
-    public void setData(List<Player> data) {
-        this.data = data;
-    }
-
     public static class Player {
         public String id;
         public String cnName;

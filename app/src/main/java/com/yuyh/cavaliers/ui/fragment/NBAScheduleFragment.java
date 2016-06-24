@@ -1,6 +1,7 @@
 package com.yuyh.cavaliers.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -88,6 +89,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     }
 
     private void requestMatchs(String date, boolean isRefresh) {
+        showLoadingDialog();
         Request.getMatchsByDate(date, isRefresh, new GetBeanCallback<Matchs>() {
             @Override
             public void onSuccess(Matchs matchs) {
@@ -99,11 +101,12 @@ public class NBAScheduleFragment extends BaseLazyFragment {
                     }
                     adapter.notifyDataSetChanged();
                 }
+                complete();
             }
 
             @Override
             public void onFailure(String message) {
-
+                complete();
             }
         });
     }
@@ -128,6 +131,12 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     private void complete() {
         materialRefreshLayout.finishRefresh();
         materialRefreshLayout.finishRefreshLoadMore();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideLoadingDialog();
+            }
+        }, 1000);
     }
 
     @Subscribe

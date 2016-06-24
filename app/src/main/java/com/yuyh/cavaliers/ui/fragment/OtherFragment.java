@@ -6,7 +6,8 @@ import android.widget.RelativeLayout;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
-import com.yuyh.cavaliers.ui.AllTeamActivity;
+import com.yuyh.cavaliers.ui.PlayerListActivity;
+import com.yuyh.cavaliers.ui.TeamsListActivity;
 import com.yuyh.library.utils.data.PrefsUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 
@@ -58,8 +59,14 @@ public class OtherFragment extends BaseLazyFragment {
     }
 
     @OnClick(R.id.rlTeam)
-    public void allTeam(){
-        Intent intent = new Intent(mActivity, AllTeamActivity.class);
+    public void allTeams(){
+        Intent intent = new Intent(mActivity, TeamsListActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.rlPlayer)
+    public void allPlayers(){
+        Intent intent = new Intent(mActivity, PlayerListActivity.class);
         startActivity(intent);
     }
 }
