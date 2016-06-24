@@ -13,4 +13,6 @@
     <!-- 提示的文字大小 -->
     <dimen name="textSize_svprogresshuddefault_msg">15sp</dimen>
     <dimen name="margintop_svprogresshuddefault_msg">10dp</dimen>
+
+    <dimen name="default_indexBar_textSize">13sp</dimen>
 </resources>

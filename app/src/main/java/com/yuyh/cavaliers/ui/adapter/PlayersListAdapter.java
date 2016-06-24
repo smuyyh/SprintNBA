@@ -31,7 +31,7 @@ public class PlayersListAdapter extends HelperAdapter<Players.Player> {
     @Override
     public void HelpConvert(HelperViewHolder viewHolder, final int position, final Players.Player player) {
         viewHolder.setImageUrl(R.id.ivTeamLogo, player.teamLogo)
-                .setText(R.id.tvTeamFullName, player.cnName);
+                .setText(R.id.tvTeamFullName, player.enName);
         viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

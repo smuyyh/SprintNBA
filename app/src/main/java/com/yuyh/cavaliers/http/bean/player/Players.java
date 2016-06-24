@@ -1,8 +1,10 @@
 package com.yuyh.cavaliers.http.bean.player;
 
 import com.yuyh.cavaliers.http.bean.base.Base;
+import com.yuyh.library.view.list.indexablelistview.IndexEntity;
 
 import java.util.List;
+
 
 /**
  * @author yuyh.
@@ -31,9 +33,9 @@ public class Players extends Base {
 
     public List<Player> data;
 
-    public static class Player {
+    public static class Player extends IndexEntity {
         public String id;
-        public String cnName;
+        //public String cnName;
         public String enName;
         public String capital;
         public String teamId;

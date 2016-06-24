@@ -15,5 +15,9 @@
 
     <color name="grid_bg">#FFFFFFFF</color>
     <color name="grid_border">#FFC6C6C6</color>
+    <color name="default_indexBar_textcolor">#8c8c8c</color>
+    <color name="dafault_indexBar_selected_textColor">#f33737</color>
+    <color name="default_indexListView_rightOverlayColor">#f33737</color>
+
 
 </resources>
