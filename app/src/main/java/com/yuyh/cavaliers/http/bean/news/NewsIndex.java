@@ -2,6 +2,7 @@ package com.yuyh.cavaliers.http.bean.news;
 
 import com.yuyh.cavaliers.http.bean.base.Base;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class NewsIndex extends Base {
 
     public List<IndexBean> data;
 
-    public static class IndexBean {
+    public static class IndexBean implements Serializable {
         private String type;
         private String id;
         private String column;

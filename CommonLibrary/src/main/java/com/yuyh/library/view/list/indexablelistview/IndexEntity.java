@@ -2,10 +2,12 @@ package com.yuyh.library.view.list.indexablelistview;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by YoKeyword on 16/3/20.
  */
-public class IndexEntity {
+public class IndexEntity implements Serializable {
     @SerializedName("cnName")
     public String name;
     // 库生成 不用传值

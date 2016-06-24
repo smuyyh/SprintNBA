@@ -2,6 +2,7 @@ package com.yuyh.cavaliers.http.bean.player;
 
 import com.yuyh.cavaliers.http.bean.base.Base;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ public class StatsRank extends Base {
     public String statType;
     public List<RankItem> rankList;
 
-    public static class RankItem {
+    public static class RankItem implements Serializable {
 
         /**
          * serial : 25

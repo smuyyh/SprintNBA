@@ -102,7 +102,6 @@ public class SwipeBackPage {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-        Log.i("----",sbar+"");
         return sbar;
     }
 

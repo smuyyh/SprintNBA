@@ -2,6 +2,7 @@ package com.yuyh.cavaliers.http.bean.match;
 
 import com.yuyh.cavaliers.http.bean.base.Base;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class Matchs extends Base {
         this.data = data;
     }
 
-    public static class MatchsDataBean {
+    public static class MatchsDataBean implements Serializable{
         private String updateFrequency;
         /**
          * liveId :
@@ -53,7 +54,7 @@ public class Matchs extends Base {
             this.matches = matches;
         }
 
-        public static class MatchesBean {
+        public static class MatchesBean implements Serializable {
             private String liveId;
             private String userNum;
             private String updateFrequency;
@@ -118,7 +119,7 @@ public class Matchs extends Base {
                 this.matchInfo = matchInfo;
             }
 
-            public static class MatchInfoBean {
+            public static class MatchInfoBean implements Serializable {
                 private String matchType;
                 private String mid;
                 private String leftId;
@@ -341,7 +342,7 @@ public class Matchs extends Base {
                     this.broadcasters = broadcasters;
                 }
 
-                public static class TabsBean {
+                public static class TabsBean implements Serializable{
                     private String type;
                     private String desc;
 

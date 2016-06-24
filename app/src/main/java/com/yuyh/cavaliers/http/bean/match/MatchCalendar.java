@@ -2,6 +2,7 @@ package com.yuyh.cavaliers.http.bean.match;
 
 import com.yuyh.cavaliers.http.bean.base.Base;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -26,7 +27,7 @@ public class MatchCalendar extends Base {
         this.data = data;
     }
 
-    public static class MatchCalendarBean {
+    public static class MatchCalendarBean implements Serializable {
         private String startTime;
         private String endTime;
         private Map<Integer, Integer> matchNum;

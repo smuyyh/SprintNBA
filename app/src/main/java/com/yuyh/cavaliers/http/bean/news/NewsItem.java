@@ -3,6 +3,7 @@ package com.yuyh.cavaliers.http.bean.news;
 import com.google.gson.annotations.SerializedName;
 import com.yuyh.cavaliers.http.bean.base.Base;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class NewsItem extends Base {
      * version : c020d3303db6179626d1f8c7fc77acfd
      */
 
-    public static class NewsItemBean {
+    public static class NewsItemBean implements Serializable{
 
         /**
          * atype : 1

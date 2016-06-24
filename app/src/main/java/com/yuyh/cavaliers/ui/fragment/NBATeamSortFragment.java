@@ -53,7 +53,7 @@ public class NBATeamSortFragment extends BaseLazyFragment {
         mActivity.invalidateOptionsMenu();
 
         initView();
-        requestTeamsRank();
+        requestTeamsRank(false);
     }
 
     private void initView() {
@@ -89,9 +89,9 @@ public class NBATeamSortFragment extends BaseLazyFragment {
         materialRefreshLayout.setLoadMore(false);
     }
 
-    private void requestTeamsRank() {
+    private void requestTeamsRank(boolean isRefresh) {
         showLoadingDialog();
-        Request.getTeamsRank(new GetBeanCallback<TeamsRank>() {
+        Request.getTeamsRank(isRefresh, new GetBeanCallback<TeamsRank>() {
             @Override
             public void onSuccess(TeamsRank teamsRank) {
                 list.clear();
@@ -110,17 +110,7 @@ public class NBATeamSortFragment extends BaseLazyFragment {
     private class RefreshListener extends MaterialRefreshListener {
         @Override
         public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
-            complete();
-        }
-
-        @Override
-        public void onfinish() {
-
-        }
-
-        @Override
-        public void onRefreshLoadMore(final MaterialRefreshLayout materialRefreshLayout) {
-            complete();
+            requestTeamsRank(true);
         }
     }
 
@@ -132,7 +122,7 @@ public class NBATeamSortFragment extends BaseLazyFragment {
             public void run() {
                 hideLoadingDialog();
             }
-        }, 1000);
+        }, 800);
     }
 
     @Override

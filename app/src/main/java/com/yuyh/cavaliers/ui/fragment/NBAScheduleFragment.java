@@ -56,7 +56,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
         mActivity.invalidateOptionsMenu();
 
         initView();
-        requestMatchs(date, true);
+        requestMatchs(date, false);
     }
 
     private void initView() {
@@ -86,6 +86,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
 
         materialRefreshLayout = (MaterialRefreshLayout) findViewById(R.id.refresh);
         materialRefreshLayout.setMaterialRefreshListener(new RefreshListener());
+        materialRefreshLayout.setLoadMore(false);
     }
 
     private void requestMatchs(String date, boolean isRefresh) {
@@ -99,8 +100,8 @@ public class NBAScheduleFragment extends BaseLazyFragment {
                     for (Matchs.MatchsDataBean.MatchesBean bean : mList) {
                         list.add(bean);
                     }
-                    adapter.notifyDataSetChanged();
                 }
+                adapter.notifyDataSetChanged();
                 complete();
             }
 
@@ -114,17 +115,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     private class RefreshListener extends MaterialRefreshListener {
         @Override
         public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
-            complete();
-        }
-
-        @Override
-        public void onfinish() {
-
-        }
-
-        @Override
-        public void onRefreshLoadMore(final MaterialRefreshLayout materialRefreshLayout) {
-            complete();
+            requestMatchs(date, true);
         }
     }
 
@@ -136,7 +127,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
             public void run() {
                 hideLoadingDialog();
             }
-        }, 1000);
+        }, 500);
     }
 
     @Subscribe

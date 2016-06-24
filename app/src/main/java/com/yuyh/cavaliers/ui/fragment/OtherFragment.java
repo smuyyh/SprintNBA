@@ -8,6 +8,8 @@ import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.ui.PlayerListActivity;
 import com.yuyh.cavaliers.ui.TeamsListActivity;
+import com.yuyh.library.AppUtils;
+import com.yuyh.library.utils.data.ACache;
 import com.yuyh.library.utils.data.PrefsUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 
@@ -55,17 +57,19 @@ public class OtherFragment extends BaseLazyFragment {
     public void clearCache() {
         PrefsUtils prefs = new PrefsUtils();
         prefs.clearAll();
+        ACache cache = ACache.get(AppUtils.getAppContext());
+        cache.clear();
         ToastUtils.showSingleLongToast("缓存清理成功");
     }
 
     @OnClick(R.id.rlTeam)
-    public void allTeams(){
+    public void allTeams() {
         Intent intent = new Intent(mActivity, TeamsListActivity.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.rlPlayer)
-    public void allPlayers(){
+    public void allPlayers() {
         Intent intent = new Intent(mActivity, PlayerListActivity.class);
         startActivity(intent);
     }

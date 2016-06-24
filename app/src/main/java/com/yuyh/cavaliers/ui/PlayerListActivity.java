@@ -80,7 +80,7 @@ public class PlayerListActivity extends BaseSwipeBackCompatActivity implements P
             public void run() {
                 hideLoadingDialog();
             }
-        }, 1000);
+        }, 1300);
     }
 
     @Override

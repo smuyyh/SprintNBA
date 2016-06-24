@@ -1,16 +1,19 @@
 package com.yuyh.cavaliers.http.bean.player;
 
+import com.yuyh.cavaliers.http.bean.base.Base;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author yuyh.
  * @date 16/6/4.
  */
-public class Teams {
+public class Teams extends Base{
 
     public TeamsBean data;
 
-    public static class TeamsBean {
+    public static class TeamsBean implements Serializable {
         /**
          * teamId : 6
          * teamName : 小牛
@@ -24,7 +27,7 @@ public class Teams {
 
         public List<Team> east;
 
-        public static class Team {
+        public static class Team implements Serializable{
             public String teamId;
             public String teamName;
             public String fullCnName;
