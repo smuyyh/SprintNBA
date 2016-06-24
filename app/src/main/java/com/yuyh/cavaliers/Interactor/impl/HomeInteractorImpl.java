@@ -10,6 +10,7 @@ import com.yuyh.cavaliers.ui.fragment.NBANewsFragment;
 import com.yuyh.cavaliers.ui.fragment.NBAScheduleFragment;
 import com.yuyh.cavaliers.ui.fragment.NBAStatsRankFragment;
 import com.yuyh.cavaliers.ui.fragment.NBATeamSortFragment;
+import com.yuyh.cavaliers.ui.fragment.OtherFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class HomeInteractorImpl implements HomeInteractor {
             add(new NBATeamSortFragment());
             add(new NBAStatsRankFragment());
             add(new NBANewsFragment());
-            add(new NBANewsFragment());
+            add(new OtherFragment());
         }};
 
         return fragments;

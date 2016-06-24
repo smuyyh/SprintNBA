@@ -1,10 +1,12 @@
 package com.yuyh.cavaliers.ui.adapter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.squareup.picasso.Picasso;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
+import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnRecyclerViewItemClickListener;
 import com.yuyh.library.view.image.CircleImageView;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
@@ -41,6 +43,13 @@ public class TeamsRankAdapter extends HelperAdapter<TeamsRank.TeamBean> {
                     .setText(R.id.lose, item.lose + "")
                     .setText(R.id.win_percent, item.rate)
                     .setText(R.id.difference, item.difference);
+            viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {
+                @Override
+                protected void onNoDoubleClick(View view) {
+                    if (mOnItemClickListener != null)
+                        mOnItemClickListener.onItemClick(viewHolder.getItemView(), position, item);
+                }
+            });
         } else {
             viewHolder.setText(R.id.team_name, item.name);
         }

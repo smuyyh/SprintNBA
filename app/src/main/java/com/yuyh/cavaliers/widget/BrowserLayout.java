@@ -69,6 +69,7 @@ public class BrowserLayout extends LinearLayout {
         mWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setLoadsImagesAutomatically(true);
+        mWebView.getSettings().setJavaScriptEnabled(true);
 
         LayoutParams lps = new LayoutParams(LayoutParams.MATCH_PARENT, 0, 1);
         addView(mWebView, lps);
@@ -128,12 +129,6 @@ public class BrowserLayout extends LinearLayout {
 
     public void loadUrl(String url) {
         mWebView.loadUrl(url);
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.getSettings().setJavaScriptEnabled(true);
-            }
-        }, 500);
     }
 
     public boolean canGoBack() {

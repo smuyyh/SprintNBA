@@ -1,5 +1,6 @@
 package com.yuyh.cavaliers.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,8 +11,8 @@ import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.cavaliers.base.BaseWebActivity;
 import com.yuyh.cavaliers.http.Request;
-import com.yuyh.cavaliers.http.bean.match.Matchs;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
 import com.yuyh.cavaliers.http.callback.GetBeanCallback;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
@@ -67,10 +68,13 @@ public class NBATeamSortFragment extends BaseLazyFragment {
         });
 
         adapter = new TeamsRankAdapter(list, mActivity, R.layout.item_fragment_teamsort_entity, R.layout.item_fragment_teamsort_title);
-        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<Matchs.MatchsDataBean.MatchesBean>() {
+        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<TeamsRank.TeamBean>() {
             @Override
-            public void onItemClick(View view, int position, Matchs.MatchsDataBean.MatchesBean data) {
-
+            public void onItemClick(View view, int position, TeamsRank.TeamBean data) {
+                Intent intent = new Intent(mActivity, BaseWebActivity.class);
+                intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, data.name);
+                intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, data.detailUrl);
+                startActivity(intent);
             }
         });
 

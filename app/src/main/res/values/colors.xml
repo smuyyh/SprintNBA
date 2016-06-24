@@ -20,5 +20,6 @@
     <color name="entity_layout">#CCCCCC</color>
 
     <color name="white">#FFFFFFFF</color>
+    <color name="alpha_white">#90FFFFFF</color>
 
 </resources>
