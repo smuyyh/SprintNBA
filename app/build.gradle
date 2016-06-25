@@ -45,4 +45,5 @@ dependencies {
     compile 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.github.clans:fab:1.6.2'
 }

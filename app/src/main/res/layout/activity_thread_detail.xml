@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/common_toolbar"
+        layout="@layout/common_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.yuyh.cavaliers.widget.VerticalViewPager
+        android:id="@+id/vvpComment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="40dp" />
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/floatingMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="10dp"
+        app:menu_colorNormal="@color/colorPrimary">
+
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/floatingComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu_comment"
+            app:fab_label="回复"
+            app:fab_size="mini"
+            app:rippleColor="@color/colorPrimary" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/floatingReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu_report"
+            app:fab_label="举报"
+            app:fab_size="mini"
+            app:rippleColor="@color/colorPrimary" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/floatingCollect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu_star"
+            app:fab_label="收藏"
+            app:fab_size="mini"
+            app:rippleColor="@color/colorPrimary" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/floatingShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu_share"
+            app:fab_label="分享"
+            app:fab_size="mini"
+            app:rippleColor="@color/colorPrimary" />
+    </com.github.clans.fab.FloatingActionMenu>
+
+    <RelativeLayout
+        android:id="@+id/rlPage"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white">
+
+        <View
+            style="@style/AppTheme.DeepLine"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/tvPre"
+            android:layout_width="60.0dip"
+            android:layout_height="52.0dip"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10.0dip"
+            android:layout_toLeftOf="@+id/tvPageNum"
+            android:gravity="center"
+            android:text="上一页"
+            android:textColor="@color/primary_text"
+            android:textSize="15.0sp" />
+
+        <TextView
+            android:id="@+id/tvPageNum"
+            android:layout_width="wrap_content"
+            android:layout_height="52.0dip"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:minWidth="60.0dip"
+            android:text="1/1"
+            android:textColor="@color/primary_text"
+            android:textSize="14.0sp" />
+
+        <TextView
+            android:id="@+id/tvNext"
+            android:layout_width="60.0dip"
+            android:layout_height="52.0dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10.0dip"
+            android:layout_toRightOf="@+id/tvPageNum"
+            android:gravity="center"
+            android:text="下一页"
+            android:textColor="@color/primary_text"
+            android:textSize="15.0sp" />
+
+    </RelativeLayout>
+</FrameLayout>
+
+
+

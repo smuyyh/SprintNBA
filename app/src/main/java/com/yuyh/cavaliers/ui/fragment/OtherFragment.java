@@ -8,6 +8,7 @@ import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.ui.PlayerListActivity;
 import com.yuyh.cavaliers.ui.TeamsListActivity;
+import com.yuyh.cavaliers.ui.ThreadDetailActivity;
 import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.data.ACache;
 import com.yuyh.library.utils.data.PrefsUtils;
@@ -71,6 +72,12 @@ public class OtherFragment extends BaseLazyFragment {
     @OnClick(R.id.rlPlayer)
     public void allPlayers() {
         Intent intent = new Intent(mActivity, PlayerListActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.rlTeamSchedule)
+    public void teamSchedule(){
+        Intent intent = new Intent(mActivity, ThreadDetailActivity.class);
         startActivity(intent);
     }
 }

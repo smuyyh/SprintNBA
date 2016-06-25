@@ -1,11 +1,16 @@
 package com.yuyh.cavaliers.http.api.hupu.forum;
 
+import android.text.TextUtils;
+
 import com.yuyh.cavaliers.BuildConfig;
 import com.yuyh.cavaliers.http.bean.forum.ForumInfoListData;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
+import com.yuyh.cavaliers.http.bean.forum.ThreadsSchemaInfoData;
+import com.yuyh.cavaliers.http.util.GetBeanCallback;
 import com.yuyh.cavaliers.http.util.HupuReqHelper;
 import com.yuyh.cavaliers.http.util.JsonParser;
 import com.yuyh.cavaliers.http.util.StringConverter;
+import com.yuyh.library.utils.log.LogUtils;
 
 import java.util.Map;
 
@@ -76,5 +81,66 @@ public class HupuForumService {
         });
     }
 
+    /**
+     * 发新帖 (params 须带token信息)
+     *
+     * @param title   标题
+     * @param content 内容
+     * @param fid     论坛id
+     */
+    public static void addThread(String title, String content, String fid) {
+        Map<String, String> params = HupuReqHelper.getRequsetMap();
+        params.put("title", title);
+        params.put("content", content);
+        params.put("fid", fid);
+        String sign = HupuReqHelper.getRequestSign(params);
+        params.put("sign", sign);
+        apiStr.addThread(params, new Callback<String>() {
+            @Override
+            public void success(String s, Response response) {
+                LogUtils.i("----" + s);
+            }
 
+            @Override
+            public void failure(RetrofitError error) {
+                LogUtils.e("-----" + error.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 获取帖子详情
+     *
+     * @param tid  帖子id
+     * @param fid  论坛id
+     * @param page 页数
+     * @param pid  回复id
+     */
+    public static void getThreadInfo(String tid, String fid, int page, String pid, final GetBeanCallback<ThreadsSchemaInfoData> cbk) {
+        Map<String, String> params = HupuReqHelper.getRequsetMap();
+        if (!TextUtils.isEmpty(tid)) {
+            params.put("tid", tid);
+        }
+        if (!TextUtils.isEmpty(fid)) {
+            params.put("fid", fid);
+        }
+        params.put("page", page + "");
+        if (!TextUtils.isEmpty(pid)) {
+            params.put("pid", pid);
+        }
+        params.put("nopic", "0");
+        String sign = HupuReqHelper.getRequestSign(params);
+        apiStr.getThreadInfo(sign, params, new Callback<String>() {
+            @Override
+            public void success(String jsonStr, Response response) {
+                ThreadsSchemaInfoData data = JsonParser.parseWithGson(ThreadsSchemaInfoData.class, jsonStr);
+                cbk.onSuccess(data);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                cbk.onFailure(error.getMessage());
+            }
+        });
+    }
 }

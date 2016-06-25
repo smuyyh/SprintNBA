@@ -45,11 +45,11 @@ public interface HupuForumApi {
     void getAttentionStatus(@Query("sign") String sign, @QueryMap Map<String, String> params);
 
     @GET("/threads/getThreadsSchemaInfo")
-    void getThreadInfo(@Query("sign") String sign, @QueryMap Map<String, String> params);
+    void getThreadInfo(@Query("sign") String sign, @QueryMap Map<String, String> params, Callback<String> cbk);
 
     @POST("/threads/threadPublish")
     @FormUrlEncoded
-    void addThread(@FieldMap Map<String, String> params);
+    void addThread(@FieldMap Map<String, String> params, Callback<String> cbk);
 
     @POST("/threads/threadReply")
     @FormUrlEncoded
