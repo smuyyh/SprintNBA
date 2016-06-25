@@ -4,6 +4,7 @@ import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit.Callback;
 import retrofit.http.Field;
 import retrofit.http.FieldMap;
 import retrofit.http.FormUrlEncoded;
@@ -24,13 +25,13 @@ import retrofit.http.QueryMap;
 public interface HupuForumApi {
 
     @GET("/forums/getForums")
-    void getForums(@Query("sign") String sign, @QueryMap Map<String, String> params);
+    void getForums(@Query("sign") String sign, @QueryMap Map<String, String> params, Callback<String> cbk);
 
     @GET("/forums/getUserForumsList")
     void getMyForums(@Query("sign") String sign, @QueryMap Map<String, String> params);
 
     @GET("/forums/getForumsInfoList")
-    void getThreadsList(@Query("sign") String sign, @QueryMap Map<String, String> params);
+    void getForumInfosList(@Query("sign") String sign, @QueryMap Map<String, String> params, Callback<String> cbk);
 
     @POST("/forums/attentionForumAdd")
     @FormUrlEncoded
