@@ -12,9 +12,9 @@ import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.event.CalendarEvent;
-import com.yuyh.cavaliers.http.Request;
+import com.yuyh.cavaliers.http.api.nba.TencentService;
 import com.yuyh.cavaliers.http.bean.match.Matchs;
-import com.yuyh.cavaliers.http.callback.GetBeanCallback;
+import com.yuyh.cavaliers.http.util.GetBeanCallback;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
@@ -91,7 +91,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
 
     private void requestMatchs(String date, boolean isRefresh) {
         showLoadingDialog();
-        Request.getMatchsByDate(date, isRefresh, new GetBeanCallback<Matchs>() {
+        TencentService.getMatchsByDate(date, isRefresh, new GetBeanCallback<Matchs>() {
             @Override
             public void onSuccess(Matchs matchs) {
                 list.clear();

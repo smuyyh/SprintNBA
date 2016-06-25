@@ -13,10 +13,10 @@ import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.base.BaseWebActivity;
-import com.yuyh.cavaliers.http.Request;
+import com.yuyh.cavaliers.http.api.nba.TencentService;
 import com.yuyh.cavaliers.http.bean.news.NewsIndex;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
-import com.yuyh.cavaliers.http.callback.GetBeanCallback;
+import com.yuyh.cavaliers.http.util.GetBeanCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
@@ -100,7 +100,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     }
 
     private void requestIndex(final boolean isRefresh) {
-        Request.getNewsIndex(newsType, true, new GetBeanCallback<NewsIndex>() {
+        TencentService.getNewsIndex(newsType, true, new GetBeanCallback<NewsIndex>() {
             @Override
             public void onSuccess(NewsIndex newsIndex) {
                 recyclerView.setEmptyView(emptyView);
@@ -124,7 +124,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     }
 
     private void requestNews(String arcIds, final boolean isRefresh, final boolean isLoadMore) {
-        Request.getNewsItem(newsType, arcIds, isRefresh, new GetBeanCallback<NewsItem>() {
+        TencentService.getNewsItem(newsType, arcIds, isRefresh, new GetBeanCallback<NewsItem>() {
             @Override
             public void onSuccess(NewsItem newsItem) {
                 if (isRefresh)

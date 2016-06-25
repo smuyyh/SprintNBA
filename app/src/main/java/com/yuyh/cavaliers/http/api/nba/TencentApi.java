@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.http;
+package com.yuyh.cavaliers.http.api.nba;
 
 import retrofit.Callback;
 import retrofit.http.GET;
@@ -8,7 +8,7 @@ import retrofit.http.Query;
  * @author yuyh.
  * @date 16/6/3.
  */
-public interface CavsApi {
+public interface TencentApi {
 
     //String NET_WORK = NetworkUtils.getNetworkType(CavsApp.getAppContext()) == NetworkUtils.NetWorkType.Wifi ? "WIFI" : "MOBILE";
 

@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import com.yuyh.cavaliers.Interactor.PlayersListInteractor;
 import com.yuyh.cavaliers.Interactor.impl.PlayersListListInteractorImpl;
 import com.yuyh.cavaliers.http.bean.player.Players;
-import com.yuyh.cavaliers.http.callback.GetBeanCallback;
+import com.yuyh.cavaliers.http.util.GetBeanCallback;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.PlayersView;
 

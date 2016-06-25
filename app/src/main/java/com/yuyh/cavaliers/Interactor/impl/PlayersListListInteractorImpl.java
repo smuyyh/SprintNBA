@@ -1,9 +1,9 @@
 package com.yuyh.cavaliers.Interactor.impl;
 
 import com.yuyh.cavaliers.Interactor.PlayersListInteractor;
-import com.yuyh.cavaliers.http.Request;
+import com.yuyh.cavaliers.http.api.nba.TencentService;
 import com.yuyh.cavaliers.http.bean.player.Players;
-import com.yuyh.cavaliers.http.callback.GetBeanCallback;
+import com.yuyh.cavaliers.http.util.GetBeanCallback;
 
 /**
  * @author yuyh.
@@ -13,6 +13,6 @@ public class PlayersListListInteractorImpl implements PlayersListInteractor {
 
     @Override
     public void getAllPlayers(GetBeanCallback<Players> callback) {
-        Request.getPlayerList(false, callback);
+        TencentService.getPlayerList(false, callback);
     }
 }

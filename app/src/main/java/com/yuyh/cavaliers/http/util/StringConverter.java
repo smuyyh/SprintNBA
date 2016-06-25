@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.http.retrofit;
+package com.yuyh.cavaliers.http.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

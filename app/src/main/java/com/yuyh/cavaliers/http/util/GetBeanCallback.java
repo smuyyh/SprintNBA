@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.http.callback;
+package com.yuyh.cavaliers.http.util;
 
 /**
  * @author yuyh.

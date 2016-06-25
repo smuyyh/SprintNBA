@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import com.yuyh.cavaliers.Interactor.TeamsListInteractor;
 import com.yuyh.cavaliers.Interactor.impl.TeamsListListInteractorImpl;
 import com.yuyh.cavaliers.http.bean.player.Teams;
-import com.yuyh.cavaliers.http.callback.GetBeanCallback;
+import com.yuyh.cavaliers.http.util.GetBeanCallback;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.TeamsView;
 

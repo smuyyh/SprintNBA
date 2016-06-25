@@ -13,9 +13,9 @@ import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.base.BaseWebActivity;
-import com.yuyh.cavaliers.http.Request;
+import com.yuyh.cavaliers.http.api.nba.TencentService;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
-import com.yuyh.cavaliers.http.callback.GetBeanCallback;
+import com.yuyh.cavaliers.http.util.GetBeanCallback;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
@@ -91,7 +91,7 @@ public class NBATeamSortFragment extends BaseLazyFragment {
 
     private void requestTeamsRank(boolean isRefresh) {
         showLoadingDialog();
-        Request.getTeamsRank(isRefresh, new GetBeanCallback<TeamsRank>() {
+        TencentService.getTeamsRank(isRefresh, new GetBeanCallback<TeamsRank>() {
             @Override
             public void onSuccess(TeamsRank teamsRank) {
                 list.clear();

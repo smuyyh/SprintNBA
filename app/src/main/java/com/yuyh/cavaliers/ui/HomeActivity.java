@@ -21,6 +21,7 @@ import com.yuyh.cavaliers.base.BaseAppCompatActivity;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.bean.NavigationEntity;
 import com.yuyh.cavaliers.event.CalendarEvent;
+import com.yuyh.cavaliers.http.api.hupu.login.HupuLoginService;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.presenter.impl.HomePresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.VPFragmentAdapter;
@@ -68,6 +69,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
     protected void initViewsAndEvents() {
         Presenter presenter = new HomePresenterImpl(this, this);
         presenter.initialized();
+        HupuLoginService.login();
 
     }
 

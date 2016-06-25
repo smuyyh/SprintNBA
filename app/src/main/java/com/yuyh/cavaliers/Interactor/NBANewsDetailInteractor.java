@@ -2,7 +2,7 @@
 package com.yuyh.cavaliers.Interactor;
 
 import com.yuyh.cavaliers.http.bean.news.NewsDetail;
-import com.yuyh.cavaliers.http.callback.GetBeanCallback;
+import com.yuyh.cavaliers.http.util.GetBeanCallback;
 
 public interface NBANewsDetailInteractor {
 

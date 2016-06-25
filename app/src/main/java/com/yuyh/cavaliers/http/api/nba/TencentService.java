@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.http;
+package com.yuyh.cavaliers.http.api.nba;
 
 import com.yuyh.cavaliers.BuildConfig;
 import com.yuyh.cavaliers.http.bean.match.MatchCalendar;
@@ -10,9 +10,9 @@ import com.yuyh.cavaliers.http.bean.player.Players;
 import com.yuyh.cavaliers.http.bean.player.StatsRank;
 import com.yuyh.cavaliers.http.bean.player.Teams;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
-import com.yuyh.cavaliers.http.callback.GetBeanCallback;
+import com.yuyh.cavaliers.http.util.GetBeanCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.http.retrofit.StringConverter;
+import com.yuyh.cavaliers.http.util.StringConverter;
 import com.yuyh.cavaliers.http.util.JsonParser;
 import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.data.ACache;
@@ -29,13 +29,13 @@ import retrofit.client.Response;
  * @author yuyh.
  * @date 16/6/3.
  */
-public class Request {
+public class TencentService {
 
-    public static RestAdapter rest = new RestAdapter.Builder().setEndpoint(BuildConfig.URL_SERVER).build();
-    public static RestAdapter restStr = new RestAdapter.Builder().setEndpoint(BuildConfig.URL_SERVER).setConverter(new StringConverter()).build();
+    public static RestAdapter rest = new RestAdapter.Builder().setEndpoint(BuildConfig.TENCENT_SERVER).build();
+    public static RestAdapter restStr = new RestAdapter.Builder().setEndpoint(BuildConfig.TENCENT_SERVER).setConverter(new StringConverter()).build();
 
-    public static CavsApi api = rest.create(CavsApi.class);
-    public static CavsApi apiStr = restStr.create(CavsApi.class);
+    public static TencentApi api = rest.create(TencentApi.class);
+    public static TencentApi apiStr = restStr.create(TencentApi.class);
 
 
     /**

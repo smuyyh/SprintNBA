@@ -13,8 +13,9 @@ android {
     }
 
     productFlavors {
-        '测试' {
-            buildConfigField "String", "URL_SERVER", "\"http://sportsnba.qq.com\""
+        'NBA' {
+            buildConfigField "String", "TENCENT_SERVER", "\"http://sportsnba.qq.com\""
+            buildConfigField "String", "HUPU_SERVER", "\"http://passport.hupu.com\""
         }
     }
 
@@ -42,4 +43,5 @@ dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
 }
