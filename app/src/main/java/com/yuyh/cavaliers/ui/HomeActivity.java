@@ -23,7 +23,7 @@ import com.yuyh.cavaliers.bean.NavigationEntity;
 import com.yuyh.cavaliers.event.CalendarEvent;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.presenter.impl.HomePresenterImpl;
-import com.yuyh.cavaliers.ui.adapter.VPFragmentAdapter;
+import com.yuyh.cavaliers.ui.adapter.VPHomeAdapter;
 import com.yuyh.cavaliers.ui.view.HomeView;
 import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.library.view.viewpager.XViewPager;
@@ -128,7 +128,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         if (null != fragments && !fragments.isEmpty()) {
             mViewPager.setEnableScroll(false);
             mViewPager.setOffscreenPageLimit(fragments.size());
-            mViewPager.setAdapter(new VPFragmentAdapter(getSupportFragmentManager(), fragments));
+            mViewPager.setAdapter(new VPHomeAdapter(getSupportFragmentManager(), fragments));
         }
 
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {

@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/common_toolbar"
-        layout="@layout/common_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <com.yuyh.cavaliers.widget.VerticalViewPager
         android:id="@+id/vvpComment"
         android:layout_width="match_parent"
@@ -112,6 +106,13 @@
             android:textSize="15.0sp" />
 
     </RelativeLayout>
+
+    <include
+        android:id="@+id/common_toolbar"
+        layout="@layout/common_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </FrameLayout>
 
 

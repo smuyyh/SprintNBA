@@ -19,11 +19,11 @@ import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
 /**
  * Created by Kyrie.Y on 2016/6/6.
  */
-public class NewsVPAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
+public class VPNewsAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
     private LayoutInflater inflate;
     private String[] names;
 
-    public NewsVPAdapter(Context context, String[] names, FragmentManager fragmentManager) {
+    public VPNewsAdapter(Context context, String[] names, FragmentManager fragmentManager) {
         super(fragmentManager);
         inflate = LayoutInflater.from(context);
         this.names = names;

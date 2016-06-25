@@ -1,5 +1,7 @@
 package com.yuyh.cavaliers.http.util;
 
+import android.content.Context;
+
 import com.yuyh.library.utils.data.safe.MD5;
 
 import java.util.ArrayList;
@@ -13,6 +15,13 @@ import java.util.Map;
  * @date 16/6/25.
  */
 public class HupuReqHelper {
+
+
+    public Context mContext;
+
+    public HupuReqHelper(Context mContext) {
+        this.mContext = mContext;
+    }
 
     public static HashMap<String, String> getRequsetMap() {
         HashMap<String, String> map = new HashMap<>();
@@ -47,4 +56,5 @@ public class HupuReqHelper {
         builder.append("HUPU_SALT_AKJfoiwer394Jeiow4u309");
         return MD5.getMD5(builder.toString());
     }
+
 }

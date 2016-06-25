@@ -43,7 +43,7 @@ public class ThreadDetailPresenterImpl implements Presenter {
         this.fid = fid;
         this.pid = pid;
         this.page = page;
-        detailView.showLoading("");
+        //detailView.showLoading("");
 
     }
 
@@ -62,10 +62,10 @@ public class ThreadDetailPresenterImpl implements Presenter {
                     detailView.loadContent(page, urls);
                     isCollected = threadSchemaInfo.isCollected == 1;
                     detailView.isCollected(isCollected);
-                    detailView.hideLoading();
+                    //detailView.hideLoading();
                 } else {
                     detailView.showError("加载失败");
-                    detailView.hideLoading();
+                    //detailView.hideLoading();
                 }
             }
 
@@ -85,12 +85,16 @@ public class ThreadDetailPresenterImpl implements Presenter {
         return urls;
     }
 
+    public void updatePage(int page) {
+        currentPage = page;
+    }
+
     public void onPageNext() {
         currentPage++;
         if (currentPage >= totalPage) {
             currentPage = totalPage;
         }
-        detailView.loadContent(currentPage - 1, urls);
+        detailView.loadContent(currentPage, urls);
     }
 
     public void onPagePre() {
@@ -98,7 +102,7 @@ public class ThreadDetailPresenterImpl implements Presenter {
         if (currentPage <= 1) {
             currentPage = 1;
         }
-        detailView.loadContent(currentPage - 1, urls);
+        detailView.loadContent(currentPage, urls);
     }
 
     public void onCommendClick() {

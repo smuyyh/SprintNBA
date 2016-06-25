@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,6 +27,7 @@ public class SwipeBackPage {
     Activity mActivity;
     SwipeBackLayout mSwipeBackLayout;
     RelateSlider slider;
+    View view = null;
 
     SwipeBackPage(Activity activity) {
         this.mActivity = activity;
@@ -75,7 +75,7 @@ public class SwipeBackPage {
         }
         if (isNeedMoveDown && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             ViewGroup group = (ViewGroup) mSwipeBackLayout.getChildAt(0);
-            View view = new View(mActivity);
+            view = new View(mActivity);
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getSBarHeight());
             view.setLayoutParams(params);
             group.addView(view, 0);
@@ -143,6 +143,13 @@ public class SwipeBackPage {
     public SwipeBackPage setMoveDown(Drawable drawable) {
         isNeedMoveDown = true;
         this.drawable = drawable;
+        return this;
+    }
+
+    public SwipeBackPage setTintAlpha(float alpha){
+        if(view != null) {
+            view.setAlpha(alpha);
+        }
         return this;
     }
 

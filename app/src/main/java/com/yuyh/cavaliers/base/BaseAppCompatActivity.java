@@ -181,7 +181,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
      *
      * @param on
      */
-    protected void setTranslucentStatus(boolean on) {
+    public void setTranslucentStatus(boolean on) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window win = getWindow();
             WindowManager.LayoutParams winParams = win.getAttributes();
@@ -200,7 +200,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
      *
      * @param tintDrawable
      */
-    protected void setSystemBarTintDrawable(Drawable tintDrawable) {
+    public void setSystemBarTintDrawable(Drawable tintDrawable) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             SystemBarTintManager mTintManager = new SystemBarTintManager(this);
             if (tintDrawable != null) {
@@ -253,6 +253,10 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Toolbar getToolbar() {
+        return mToolbar;
     }
 
 }

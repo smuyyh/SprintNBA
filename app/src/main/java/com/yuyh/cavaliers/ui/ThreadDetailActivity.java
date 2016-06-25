@@ -2,6 +2,7 @@ package com.yuyh.cavaliers.ui;
 
 
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -9,6 +10,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
 import com.yuyh.cavaliers.presenter.impl.ThreadDetailPresenterImpl;
+import com.yuyh.cavaliers.ui.adapter.VPThreadAdapter;
 import com.yuyh.cavaliers.ui.view.ThreadDetailView;
 import com.yuyh.cavaliers.widget.VerticalViewPager;
 
@@ -50,6 +52,7 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
     TextView tvNext;
 
     private ThreadDetailPresenterImpl presenter;
+    private VPThreadAdapter mAdapter;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -74,17 +77,42 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
     }
 
     @Override
     public void onPageSelected(int position) {
-
+        onUpdatePager(position + 1, totalPage);
+        presenter.updatePage(position + 1);
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    public void onUpdatePager(int page, int totalPage) {
+        tvPageNum.setText(page + "/" + totalPage);
+        if (page == 1) {
+            tvPre.setTextColor(getResources().getColor(R.color.secondary_text));
+            tvPre.setClickable(false);
+        } else {
+            tvPre.setTextColor(getResources().getColor(R.color.colorPrimary));
+            tvPre.setClickable(true);
+        }
+
+        if (page == totalPage) {
+            tvNext.setTextColor(getResources().getColor(R.color.secondary_text));
+            tvNext.setClickable(false);
+        } else {
+            tvNext.setTextColor(getResources().getColor(R.color.colorPrimary));
+            tvNext.setClickable(true);
+        }
+
+        if (viewPager.getCurrentItem() > 0) {
+            mToolbar.setVisibility(View.GONE);
+        } else {
+            mToolbar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -103,9 +131,16 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
     }
 
     @Override
-    public void loadContent(int page, List<String> urls) {
+    public void loadContent(int position, List<String> urls) {
         totalPage = urls.size();
-        viewPager.setCurrentItem(page);
+        viewPager.setCurrentItem(position - 1);
+
+        if (mAdapter == null) {
+            mAdapter = new VPThreadAdapter(getSupportFragmentManager(), urls);
+            viewPager.setAdapter(mAdapter);
+        }
+        viewPager.setCurrentItem(position - 1);
+        onUpdatePager(viewPager.getCurrentItem() + 1, totalPage);
     }
 
     @Override
