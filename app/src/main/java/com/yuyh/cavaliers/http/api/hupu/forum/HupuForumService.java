@@ -10,6 +10,8 @@ import com.yuyh.cavaliers.http.util.GetBeanCallback;
 import com.yuyh.cavaliers.http.util.HupuReqHelper;
 import com.yuyh.cavaliers.http.util.JsonParser;
 import com.yuyh.cavaliers.http.util.StringConverter;
+import com.yuyh.library.AppUtils;
+import com.yuyh.library.utils.data.ACache;
 import com.yuyh.library.utils.log.LogUtils;
 
 import java.util.Map;
@@ -32,18 +34,32 @@ public class HupuForumService {
 
     /**
      * 获取论坛板块列表
+     *
+     * @param cbk
      */
-    public static void getAllForums() {
+    public static void getAllForums(final GetBeanCallback<ForumsData> cbk) {
+        final String key = "getAllForums";
+        final ACache cache = ACache.get(AppUtils.getAppContext());
+        Object obj = cache.getAsObject(key);
+        if (obj != null) {
+            ForumsData match = (ForumsData) obj;
+            cbk.onSuccess(match);
+            return;
+        }
         Map<String, String> params = HupuReqHelper.getRequsetMap();
         String sign = HupuReqHelper.getRequestSign(params);
         apiStr.getForums(sign, params, new Callback<String>() {
             @Override
             public void success(String jsonStr, Response response) {
                 ForumsData data = JsonParser.parseWithGson(ForumsData.class, jsonStr);
+                cbk.onSuccess(data);
+                cache.put(key, data);
             }
 
             @Override
             public void failure(RetrofitError error) {
+                cbk.onFailure(error.getMessage());
+                cache.remove(key);
             }
         });
     }

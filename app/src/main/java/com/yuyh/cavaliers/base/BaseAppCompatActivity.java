@@ -101,6 +101,15 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         }
     }
 
+    public void initToolbar(Toolbar toolbar){
+        mToolbar = toolbar;
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
     @Override
     public void finish() {
         super.finish();

@@ -40,6 +40,9 @@
         <activity
             android:name=".ui.ThreadDetailActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ThreadListActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

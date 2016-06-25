@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainBg"
-    android:paddingTop="5dp"
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
+    android:paddingTop="5dp"
     app:isLoadMore="true"
     app:overlay="true"
     app:progress_colors="@array/material_colors"
@@ -17,7 +17,7 @@
     app:wave_show="true">
 
 
-    <com.yuyh.cavaliers.recycleview.SupportRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.yuyh.cavaliers.recycleview.SupportRecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -31,7 +31,7 @@
         android:paddingTop="20dp"
         android:text="暂无数据"
         android:textSize="16sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 
 </com.cjj.MaterialRefreshLayout>

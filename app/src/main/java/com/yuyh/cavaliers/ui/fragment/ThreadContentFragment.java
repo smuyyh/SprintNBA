@@ -2,6 +2,7 @@ package com.yuyh.cavaliers.ui.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jude.swipbackhelper.SwipeBackHelper;
@@ -22,6 +23,7 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
     @InjectView(R.id.hupuWebView)
     HuPuWebView hupuWebView;
     private String url;
+    android.support.v7.widget.Toolbar mToolbar = null;
 
     public static ThreadContentFragment newInstance(String url) {
         ThreadContentFragment mFragment = new ThreadContentFragment();
@@ -41,6 +43,8 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
         hupuWebView.loadUrl(url);
         hupuWebView.setCallBack(this);
         hupuWebView.setOnScrollChangedCallback(this);
+
+        mToolbar = ((BaseAppCompatActivity) mActivity).getToolbar();
     }
 
     @Override
@@ -69,6 +73,12 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
                 hideLoadingDialog();
             }
         }, 500);
+
+        if (mToolbar.getVisibility() == View.GONE) {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) hupuWebView.getLayoutParams();
+            params.setMargins(0, 0, 0, 0);
+            hupuWebView.setLayoutParams(params);
+        }
     }
 
     @Override
@@ -82,12 +92,11 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
             public void run() {
                 hideLoadingDialog();
             }
-        }, 500);
+        }, 1000);
     }
 
     @Override
     public void onScroll(int dx, int dy, int y, int oldy) {
-        android.support.v7.widget.Toolbar mToolbar = ((BaseAppCompatActivity) mActivity).getToolbar();
         int height = mToolbar.getHeight();
         if (mToolbar != null) {
             if (y >= 0 && y <= 1000) {
@@ -98,7 +107,7 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
                 SwipeBackHelper.getCurrentPage(mActivity).setTintAlpha(0);
             }
         }
-        if (y / 5 <= height) {
+        if (y / 5 <= height && mToolbar.getVisibility() == View.VISIBLE) {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) hupuWebView.getLayoutParams();
             params.setMargins(0, mToolbar.getHeight() - y / 2, 0, 0);
             hupuWebView.setLayoutParams(params);

@@ -8,10 +8,10 @@ import java.util.ArrayList;
  * @author yuyh.
  * @date 16/6/25.
  */
-public class ForumsData {
+public class ForumsData implements Serializable {
     public ArrayList<ForumsResult> data;
 
-    public static class ForumsResult {
+    public static class ForumsResult implements Serializable {
         public String fid;
         public String name;
         public ArrayList<Forums> sub;
@@ -23,7 +23,7 @@ public class ForumsData {
         public String name;
     }
 
-    public static class Forum {
+    public static class Forum implements Serializable {
         public Long id;
         public String fid;
         public String name;

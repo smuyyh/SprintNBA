@@ -6,6 +6,7 @@ import com.yuyh.cavaliers.Interactor.HomeInteractor;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.bean.NavigationEntity;
+import com.yuyh.cavaliers.ui.fragment.ForumListFragment;
 import com.yuyh.cavaliers.ui.fragment.NBANewsFragment;
 import com.yuyh.cavaliers.ui.fragment.NBAScheduleFragment;
 import com.yuyh.cavaliers.ui.fragment.NBAStatsRankFragment;
@@ -24,7 +25,7 @@ public class HomeInteractorImpl implements HomeInteractor {
             add(new NBAScheduleFragment());
             add(new NBATeamSortFragment());
             add(new NBAStatsRankFragment());
-            add(new NBANewsFragment());
+            add(new ForumListFragment());
             add(new OtherFragment());
         }};
 
