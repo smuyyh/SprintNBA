@@ -23,63 +23,63 @@ import retrofit.http.QueryMap;
  */
 public interface HupuForumApi {
 
-    @GET("forums/getForums")
+    @GET("/forums/getForums")
     void getForums(@Query("sign") String sign, @QueryMap Map<String, String> params);
 
-    @GET("forums/getUserForumsList")
+    @GET("/forums/getUserForumsList")
     void getMyForums(@Query("sign") String sign, @QueryMap Map<String, String> params);
 
-    @GET("forums/getForumsInfoList")
+    @GET("/forums/getForumsInfoList")
     void getThreadsList(@Query("sign") String sign, @QueryMap Map<String, String> params);
 
-    @POST("forums/attentionForumAdd")
+    @POST("/forums/attentionForumAdd")
     @FormUrlEncoded
     void addAttention(@Query("sign") String sign, @FieldMap Map<String, String> params);
 
-    @POST("forums/attentionForumRemove")
+    @POST("/forums/attentionForumRemove")
     @FormUrlEncoded
     void delAttention(@Query("sign") String sign, @FieldMap Map<String, String> params);
 
-    @GET("forums/getForumsAttendStatus")
+    @GET("/forums/getForumsAttendStatus")
     void getAttentionStatus(@Query("sign") String sign, @QueryMap Map<String, String> params);
 
-    @GET("threads/getThreadsSchemaInfo")
+    @GET("/threads/getThreadsSchemaInfo")
     void getThreadInfo(@Query("sign") String sign, @QueryMap Map<String, String> params);
 
-    @POST("threads/threadPublish")
+    @POST("/threads/threadPublish")
     @FormUrlEncoded
     void addThread(@FieldMap Map<String, String> params);
 
-    @POST("threads/threadReply")
+    @POST("/threads/threadReply")
     @FormUrlEncoded
     void addReplyByApp(@FieldMap Map<String, String> params);
 
-    @POST("threads/threadCollectAdd")
+    @POST("/threads/threadCollectAdd")
     @FormUrlEncoded
     void addCollect(@Field("sign") String sign, @FieldMap Map<String, String> params);
 
-    @POST("threads/threadCollectRemove")
+    @POST("/threads/threadCollectRemove")
     @FormUrlEncoded
     void delCollect(@Field("sign") String sign, @FieldMap Map<String, String> params);
 
-    @POST("threads/threadReport")
+    @POST("/threads/threadReport")
     @FormUrlEncoded
     void submitReports(@Field("sign") String sign, @FieldMap Map<String, String> params);
 
-    @GET("recommend/getThreadsList")
+    @GET("/recommend/getThreadsList")
     void getRecommendThreadList(@Query("sign") String sign, @QueryMap Map<String, String> params);
 
-    @GET("user/getUserMessageList")
+    @GET("/user/getUserMessageList")
     void getMessageList(@Query("sign") String sign, @QueryMap Map<String, String> params);
 
-    @POST("user/delUserMessage")
+    @POST("/user/delUserMessage")
     @FormUrlEncoded
     void delMessage(@Field("sign") String sign, @FieldMap Map<String, String> params);
 
-    @POST("img/Imgup")
+    @POST("/img/Imgup")
     @Multipart
     void upload(@Part("file") MultipartBody.Part file, @PartMap Map<String, RequestBody> params);
 
-    @GET("permission/check")
+    @GET("/permission/check")
     void checkPermission(@Query("sign") String sign, @QueryMap Map<String, String> params);
 }

@@ -13,13 +13,13 @@ import retrofit.client.Response;
  * @date 16/6/25.
  */
 public class HupuLoginService {
-    public static RestAdapter rest = new RestAdapter.Builder().setEndpoint(BuildConfig.HUPU_SERVER).build();
-    public static RestAdapter restStr = new RestAdapter.Builder().setEndpoint(BuildConfig.HUPU_SERVER).setConverter(new StringConverter()).build();
+    public static RestAdapter rest = new RestAdapter.Builder().setEndpoint(BuildConfig.HUPU_LOGIN_SERVER).build();
+    public static RestAdapter restStr = new RestAdapter.Builder().setEndpoint(BuildConfig.HUPU_LOGIN_SERVER).setConverter(new StringConverter()).build();
 
     public static HupuLoginApi api = rest.create(HupuLoginApi.class);
     public static HupuLoginApi apiStr = restStr.create(HupuLoginApi.class);
 
-    public static void login(){
+    public static void login() {
         apiStr.login("", "", new Callback<String>() {
             @Override
             public void success(String s, Response response) {

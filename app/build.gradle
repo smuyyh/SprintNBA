@@ -15,7 +15,8 @@ android {
     productFlavors {
         'NBA' {
             buildConfigField "String", "TENCENT_SERVER", "\"http://sportsnba.qq.com\""
-            buildConfigField "String", "HUPU_SERVER", "\"http://passport.hupu.com\""
+            buildConfigField "String", "HUPU_LOGIN_SERVER", "\"http://passport.hupu.com\""
+            buildConfigField "String", "HUPU_FORUM_SERVER", "\"http://bbs.mobileapi.hupu.com/1/7.0.8\""
         }
     }
 
