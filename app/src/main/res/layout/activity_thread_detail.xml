@@ -89,7 +89,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:minWidth="60.0dip"
-            android:text="1/1"
+            android:text="0/0"
             android:textColor="@color/primary_text"
             android:textSize="14.0sp" />
 

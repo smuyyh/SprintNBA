@@ -1,5 +1,6 @@
 package com.yuyh.cavaliers.ui;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -8,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import com.yuyh.cavaliers.http.bean.forum.ForumsData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.presenter.impl.ThreadListPresenterImpl;
+import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.ui.adapter.ThreadInfoListAdapter;
 import com.yuyh.cavaliers.ui.view.ThreadListView;
@@ -122,6 +125,15 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.material_red));
         recyclerView.setLoadMoreListener(new RefreshListener());
         adapter = new ThreadInfoListAdapter();
+        adapter.setOnItemClickListener(new OnListItemClickListener<ThreadListData.ThreadInfo>() {
+            @Override
+            public void onItemClick(View view, int position, ThreadListData.ThreadInfo data) {
+                Intent intent = new Intent(ThreadListActivity.this, ThreadDetailActivity.class);
+                intent.putExtra("tid", data.tid);
+                intent.putExtra("fid", data.fid);
+                startActivity(intent);
+            }
+        });
         recyclerView.setLoadMoreEnable(false);
         backdrop.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
 

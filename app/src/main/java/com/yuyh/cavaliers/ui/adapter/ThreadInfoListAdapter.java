@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData.ThreadInfo;
+import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
+import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ import butterknife.InjectView;
 public class ThreadInfoListAdapter extends RecyclerView.Adapter<ThreadInfoListAdapter.ViewHolder> {
 
     private List<ThreadInfo> threads = new ArrayList<>();
+    private OnListItemClickListener listener;
 
     public ThreadInfoListAdapter() {
 
@@ -44,8 +47,8 @@ public class ThreadInfoListAdapter extends RecyclerView.Adapter<ThreadInfoListAd
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        ThreadInfo thread = threads.get(position);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final ThreadInfo thread = threads.get(position);
         holder.thread = thread;
         if (thread.lightReply > 0) {
             holder.tvLight.setText(String.valueOf(thread.lightReply));
@@ -64,6 +67,14 @@ public class ThreadInfoListAdapter extends RecyclerView.Adapter<ThreadInfoListAd
             holder.tvSingleTime.setText(thread.time);
         }
         showItemAnim(holder.cardView, position);
+        holder.cardView.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View view) {
+                if (listener != null)
+                    listener.onItemClick(view, position, thread);
+            }
+        });
+
     }
 
     private int mLastPosition = -1;
@@ -118,5 +129,9 @@ public class ThreadInfoListAdapter extends RecyclerView.Adapter<ThreadInfoListAd
             super(view);
             ButterKnife.inject(this, view);
         }
+    }
+
+    public void setOnItemClickListener(OnListItemClickListener listener) {
+        this.listener = listener;
     }
 }

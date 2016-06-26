@@ -25,11 +25,12 @@ import butterknife.OnClick;
  */
 public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements ThreadDetailView, ViewPager.OnPageChangeListener {
 
+    public static final String INTENT_THREAD_INFO = "threadinfo";
+
     private String fid;
     private String tid;
     private int page;
     private String pid;
-
     private int totalPage;
 
     @InjectView(R.id.vvpComment)
@@ -71,7 +72,7 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
         viewPager.setOnPageChangeListener(this);
 
         presenter = new ThreadDetailPresenterImpl(this, this);
-        presenter.setParams("16603856", "85", 1, "1");
+        presenter.setParams(tid, fid, 1, "");
         presenter.initialized();
     }
 

@@ -28,7 +28,6 @@ public class HomeInteractorImpl implements HomeInteractor {
             add(new ForumListFragment());
             add(new OtherFragment());
         }};
-
         return fragments;
     }
 
