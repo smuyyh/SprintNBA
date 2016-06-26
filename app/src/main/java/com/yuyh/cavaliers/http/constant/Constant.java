@@ -72,4 +72,19 @@ public class Constant {
             return name;
         }
     }
+
+    public enum SortType {
+        NEW("1"),
+        HOT("2");
+
+        String type;
+
+        SortType(String type) {
+            this.type = type;
+        }
+
+        public String getType() {
+            return type;
+        }
+    }
 }

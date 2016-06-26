@@ -24,7 +24,8 @@
             <ImageView
                 android:id="@+id/backdrop"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
 
 
             <TextView
@@ -56,10 +57,11 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.yuyh.cavaliers.recycleview.SupportRecyclerView
-            android:id="@+id/recyclerview"
+        <com.yuyh.cavaliers.widget.LoadMoreRecyclerView
+            android:id="@+id/lmrvLoadMore"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

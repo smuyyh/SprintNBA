@@ -231,6 +231,9 @@ public class MaterialRefreshLayout extends FrameLayout {
             return super.onTouchEvent(e);
         }
 
+        if(!isEnabled())
+            return false;
+
         switch (e.getAction()) {
             case MotionEvent.ACTION_MOVE:
                 mCurrentY = e.getY();
@@ -308,9 +311,7 @@ public class MaterialRefreshLayout extends FrameLayout {
                 return true;
         }
 
-        return super.
-
-                onTouchEvent(e);
+        return super.onTouchEvent(e);
 
     }
 

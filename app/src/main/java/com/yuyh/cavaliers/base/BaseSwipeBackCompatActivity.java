@@ -22,7 +22,6 @@ public abstract class BaseSwipeBackCompatActivity extends BaseAppCompatActivity 
                 .setSwipeRelateEnable(true)//if should move together with the following Activity
                 .setSwipeRelateOffset(500)//the Offset of following Activity when setSwipeRelateEnable(true)
                 .setDisallowInterceptTouchEvent(true);
-
     }
 
     @Override

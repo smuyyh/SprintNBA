@@ -3,8 +3,8 @@ package com.yuyh.cavaliers.http.api.hupu.forum;
 import android.text.TextUtils;
 
 import com.yuyh.cavaliers.BuildConfig;
-import com.yuyh.cavaliers.http.bean.forum.ForumInfoListData;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
+import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadsSchemaInfoData;
 import com.yuyh.cavaliers.http.util.GetBeanCallback;
 import com.yuyh.cavaliers.http.util.HupuReqHelper;
@@ -73,7 +73,7 @@ public class HupuForumService {
      * @param lastTamp 时间戳
      * @param type     加载类型  1 按发帖时间排序  2 按回帖时间排序
      */
-    public static void getForumPosts(String fid, String lastTid, int limit, String lastTamp, String type) {
+    public static void getForumPosts(String fid, String lastTid, int limit, String lastTamp, String type, final GetBeanCallback<ThreadListData> cbk) {
         Map<String, String> params = HupuReqHelper.getRequsetMap();
         params.put("fid", fid);
         params.put("lastTid", lastTid);
@@ -87,12 +87,13 @@ public class HupuForumService {
         apiStr.getForumInfosList(sign, params, new Callback<String>() {
             @Override
             public void success(String jsonStr, Response response) {
-                ForumInfoListData data = JsonParser.parseWithGson(ForumInfoListData.class, jsonStr);
+                ThreadListData data = JsonParser.parseWithGson(ThreadListData.class, jsonStr);
+                cbk.onSuccess(data);
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                cbk.onFailure(error.getMessage());
             }
         });
     }
@@ -156,6 +157,29 @@ public class HupuForumService {
             @Override
             public void failure(RetrofitError error) {
                 cbk.onFailure(error.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 获取论坛关注状态
+     *
+     * @param fid 论坛id
+     */
+    public static void getAttentionStatus(String fid) {
+        Map<String, String> params = HupuReqHelper.getRequsetMap();
+        params.put("fid", fid);
+        params.put("uid", "");
+        String sign = HupuReqHelper.getRequestSign(params);
+        apiStr.getThreadInfo(sign, params, new Callback<String>() {
+            @Override
+            public void success(String s, Response response) {
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
             }
         });
     }

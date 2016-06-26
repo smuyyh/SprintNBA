@@ -5,17 +5,17 @@ import java.util.ArrayList;
 /**
  * Created by sll on 2015/12/10.
  */
-public class ForumInfoListData {
-    public ForumInfoListResult result;
+public class ThreadListData {
+    public ThreadListResult result;
 
-    public static class ForumInfoListResult {
+    public static class ThreadListResult {
         public String stamp;
-        public ArrayList<ForumInfo> data;
+        public ArrayList<ThreadInfo> data;
         public boolean nextPage;
         public int nextDataExists;
     }
 
-    public static class ForumInfo {
+    public static class ThreadInfo {
         public String tid;
         public String title;
         public String puid;
@@ -23,7 +23,7 @@ public class ForumInfoListData {
         public String replies;
         public String userName;
         public String time;
-        public String imgs;
+        //public String imgs;
         public int lightReply;
         public ForumsData.Forum forum;
     }

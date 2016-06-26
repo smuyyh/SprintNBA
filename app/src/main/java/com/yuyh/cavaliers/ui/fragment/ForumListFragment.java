@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
@@ -64,12 +65,20 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
         });
 
         adapter = new ForumListAdapter(list, mActivity, R.layout.list_item_teams, R.layout.item_fragment_forum_title);
-        adapter.setOnListItemClickListener(new OnListItemClickListener() {
+        adapter.setOnListItemClickListener(new OnListItemClickListener<ForumsData.Forum>() {
             @Override
-            public void onItemClick(View view, int position, Object data) {
+            public void onItemClick(View view, int position, ForumsData.Forum data) {
                 Intent intent = new Intent(mActivity, ThreadListActivity.class);
+                intent.putExtra(ThreadListActivity.INTENT_FORUM, data);
                 startActivity(intent);
 
+            }
+        });
+        materialRefreshLayout.setLoadMore(false);
+        materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                presenter.initialized();
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
@@ -91,5 +100,6 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
         list.clear();
         list.addAll(forumList);
         adapter.notifyDataSetChanged();
+        materialRefreshLayout.finishRefresh();
     }
 }

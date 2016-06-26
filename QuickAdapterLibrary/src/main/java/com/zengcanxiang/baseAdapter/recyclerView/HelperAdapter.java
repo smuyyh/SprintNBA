@@ -28,7 +28,7 @@ public abstract class HelperAdapter<T> extends BaseAdapter<T>
     public BH onCreateViewHolder(ViewGroup parent, int viewType) {
         HelperViewHolder holder;
         if (viewType < 0 || viewType > mLayoutId.length) {
-            throw new ArrayIndexOutOfBoundsException("checkLayoutIndex > LayoutId.length");
+            //throw new ArrayIndexOutOfBoundsException("checkLayoutIndex > LayoutId.length");
         }
         if (mLayoutId.length == 0) {
             throw new IllegalArgumentException("not layoutId");
