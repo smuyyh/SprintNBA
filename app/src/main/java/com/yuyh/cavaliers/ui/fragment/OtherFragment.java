@@ -1,18 +1,25 @@
 package com.yuyh.cavaliers.ui.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.cavaliers.http.util.UserStorage;
+import com.yuyh.cavaliers.ui.LoginActivity;
 import com.yuyh.cavaliers.ui.PlayerListActivity;
 import com.yuyh.cavaliers.ui.TeamsListActivity;
 import com.yuyh.cavaliers.ui.ThreadDetailActivity;
+import com.yuyh.cavaliers.utils.SettingPrefUtils;
 import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.data.ACache;
 import com.yuyh.library.utils.data.PrefsUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
+import com.yuyh.library.view.image.CircleImageView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -24,6 +31,10 @@ import butterknife.OnClick;
  */
 public class OtherFragment extends BaseLazyFragment {
 
+    private static final int REQ_LOGIN = 1;
+
+    @InjectView(R.id.rlLogin)
+    RelativeLayout rlLogin;
     @InjectView(R.id.rlPlayer)
     RelativeLayout rlPlayer;
     @InjectView(R.id.rlTeam)
@@ -39,11 +50,24 @@ public class OtherFragment extends BaseLazyFragment {
     @InjectView(R.id.rlAbout)
     RelativeLayout rlAbout;
 
+    @InjectView(R.id.tvUserName)
+    TextView tvUserName;
+    @InjectView(R.id.ivUserHead)
+    CircleImageView ivHead;
+
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_other);
         ButterKnife.inject(this, getContentView());
+        initData();
+    }
+
+    private void initData() {
+        String nickname = SettingPrefUtils.getNickname();
+        if (!TextUtils.isEmpty(nickname)) {
+            tvUserName.setText(nickname);
+        }
     }
 
     @Override
@@ -52,6 +76,12 @@ public class OtherFragment extends BaseLazyFragment {
         if (isVisibleToUser) {
             mActivity.invalidateOptionsMenu();
         }
+    }
+
+    @OnClick(R.id.rlLogin)
+    public void login() {
+        Intent intent = new Intent(mActivity, LoginActivity.class);
+        startActivityForResult(intent, REQ_LOGIN);
     }
 
     @OnClick(R.id.rlClearCache)
@@ -76,8 +106,22 @@ public class OtherFragment extends BaseLazyFragment {
     }
 
     @OnClick(R.id.rlTeamSchedule)
-    public void teamSchedule(){
+    public void teamSchedule() {
         Intent intent = new Intent(mActivity, ThreadDetailActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        switch (requestCode) {
+            case REQ_LOGIN:
+                if (resultCode == Activity.RESULT_OK) {
+                    tvUserName.setText(UserStorage.getInstance().getUser().getNickName());
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

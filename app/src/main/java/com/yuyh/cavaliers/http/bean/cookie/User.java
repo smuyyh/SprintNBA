@@ -9,6 +9,7 @@ public class User {
 
   private Long id;
   private String userName;
+  private String nickName;
   private String uid;
   private String token;
   private String icon;
@@ -60,6 +61,14 @@ public class User {
 
   public void setUserName(String userName) {
     this.userName = userName;
+  }
+
+  public String getNickName() {
+    return nickName;
+  }
+
+  public void setNickName(String nickName) {
+    this.nickName = nickName;
   }
 
   public String getUid() {

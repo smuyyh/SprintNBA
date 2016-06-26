@@ -7,6 +7,11 @@ import java.io.Serializable;
  * @date 16/6/4.
  */
 public class Constant {
+
+    public static String Cookie = "";
+
+
+
     public enum NewsType implements Serializable {
 
         BANNER("banner"),      //头条

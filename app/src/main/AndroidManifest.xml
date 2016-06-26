@@ -43,6 +43,7 @@
         <activity
             android:name=".ui.ThreadListActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.LoginActivity"></activity>
     </application>
 
 </manifest>

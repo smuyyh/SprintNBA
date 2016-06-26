@@ -5,22 +5,34 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 
 import com.yuyh.cavaliers.http.bean.cookie.User;
+import com.yuyh.library.AppUtils;
 
 public class UserStorage {
 
+    private static UserStorage userStorage;
+
     private Context mContext;
-
-    public UserStorage(Context mContext) {
-        this.mContext = mContext;
-    }
-
     private String cookie;
     private String token;
 
     private User user;
 
+    public UserStorage(Context mContext) {
+        this.mContext = mContext;
+    }
+
+    public static UserStorage getInstance() {
+        if (userStorage == null)
+            userStorage = new UserStorage(AppUtils.getAppContext());
+        return userStorage;
+    }
+
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void login(User user) {
