@@ -39,7 +39,7 @@ public class HomeInteractorImpl implements HomeInteractor {
             add(new NavigationEntity(R.drawable.ic_video, "赛事直播"));
             add(new NavigationEntity(R.drawable.ic_format, "球队排行"));
             add(new NavigationEntity(R.drawable.ic_format, "数据排行"));
-            add(new NavigationEntity(R.drawable.ic_favorite, "骑士专区"));
+            add(new NavigationEntity(R.drawable.ic_favorite, "虎扑专区"));
             add(new NavigationEntity(R.drawable.ic_other, "其他"));
         }};
         return navigationEntities;

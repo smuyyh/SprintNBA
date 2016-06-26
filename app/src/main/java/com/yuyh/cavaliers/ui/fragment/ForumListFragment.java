@@ -85,6 +85,7 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
         recyclerView.setEmptyView(emptyView);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
     }
 
     @Override
