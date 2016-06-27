@@ -63,13 +63,12 @@ public class HuPuWebView extends WebView {
         settings.setSupportMultipleWindows(false);
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setDomStorageEnabled(true);
-        settings.setCacheMode(1);
+        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK );
         settings.setUseWideViewPort(true);
         if (Build.VERSION.SDK_INT > 6) {
             settings.setAppCacheEnabled(true);
             settings.setLoadWithOverviewMode(true);
         }
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         String path = getContext().getFilesDir().getPath();
         settings.setGeolocationEnabled(true);
         settings.setGeolocationDatabasePath(path);

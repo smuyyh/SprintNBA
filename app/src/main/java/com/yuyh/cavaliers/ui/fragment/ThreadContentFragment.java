@@ -96,19 +96,5 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
 
     @Override
     public void onScroll(int dx, int dy, int y, int oldy) {
-        int height = mToolbar.getHeight();
-        if (mToolbar != null) {
-            if (y >= 0 && y <= 500) {
-                mToolbar.setAlpha(((float) (300 - y)) / 300);
-            } else {
-                mToolbar.setAlpha(0);
-            }
-        }
-        if (y / 3 <= height && mToolbar.getVisibility() == View.VISIBLE) {
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) hupuWebView.getLayoutParams();
-            params.setMargins(0, mToolbar.getHeight() - y / 2, 0, 0);
-            hupuWebView.setLayoutParams(params);
-            mToolbar.setTranslationY(-y / 3);
-        }
     }
 }

@@ -139,9 +139,9 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
         if (!hasPermission) {
             dialog = new NormalDialog(this).isTitleShow(false).content(msg)
                     .showAnim(new BounceTopEnter()).dismissAnim(new SlideBottomExit())
-                    .btnNum(1).btnText("再试一次");
+                    .btnNum(1);
             if (retry) {
-                dialog.setOnBtnClickL(new OnBtnClickL() {
+                dialog.btnText("再试一次").setOnBtnClickL(new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
                         presenter.checkPermission(type, fid, tid);
@@ -150,10 +150,11 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
                 });
                 dialog.show();
             } else {
-                dialog.setOnBtnClickL(new OnBtnClickL() {
+                dialog.btnText("确定").setOnBtnClickL(new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
                         dialog.dismiss();
+                        finish();
                     }
                 });
                 dialog.show();

@@ -3,7 +3,6 @@ package com.yuyh.cavaliers.ui;
 
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -111,12 +110,6 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
             tvNext.setTextColor(getResources().getColor(R.color.colorPrimary));
             tvNext.setClickable(true);
         }
-
-        if (viewPager.getCurrentItem() > 0) {
-            mToolbar.setVisibility(View.GONE);
-        } else {
-            mToolbar.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
@@ -161,8 +154,6 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
 
     @Override
     public void goReport() {
-        Intent intent = new Intent(this, PostActivity.class);
-        startActivity(intent);
     }
 
     @OnClick(R.id.tvPre)
