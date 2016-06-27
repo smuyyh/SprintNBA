@@ -21,6 +21,10 @@ public class UserStorage {
         this.mContext = mContext;
     }
 
+    public UserStorage(){
+
+    }
+
     public static UserStorage getInstance() {
         if (userStorage == null)
             userStorage = new UserStorage(AppUtils.getAppContext());

@@ -1,12 +1,9 @@
 package com.yuyh.cavaliers.http.bean.forum;
 
+import java.io.Serializable;
 
-/**
- * Created by sll on 2015/12/11.
- */
-public class AttendStatusData {
+public class AttendStatusData implements Serializable{
     public int attendStatus;
     public int status;
     public ForumsData.Forum forumInfo;
-    public int result;
 }

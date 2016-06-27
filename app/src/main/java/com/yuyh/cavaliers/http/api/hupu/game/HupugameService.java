@@ -1,31 +1,33 @@
 package com.yuyh.cavaliers.http.api.hupu.game;
 
 import com.yuyh.cavaliers.BuildConfig;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.bean.cookie.UserData;
-import com.yuyh.cavaliers.http.util.GetBeanCallback;
-import com.yuyh.cavaliers.http.util.HupuReqHelper;
-import com.yuyh.cavaliers.http.util.JsonParser;
-import com.yuyh.cavaliers.http.util.StringConverter;
+import com.yuyh.cavaliers.http.okhttp.OkHttpHelper;
+import com.yuyh.cavaliers.http.util.RequestHelper;
 import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.DeviceUtils;
 import com.yuyh.library.utils.data.safe.MD5;
-import com.yuyh.library.utils.log.LogUtils;
 
 import java.util.HashMap;
 
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author yuyh.
  * @date 16/6/25.
  */
 public class HupugameService {
-    public static RestAdapter restStr = new RestAdapter.Builder().setEndpoint(BuildConfig.HUPU_GAMES_SERVER).setConverter(new StringConverter()).build();
 
-    public static HupuGameApi apiStr = restStr.create(HupuGameApi.class);
+    static Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(BuildConfig.HUPU_GAMES_SERVER)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(OkHttpHelper.getAppClient())
+            .build();
+
+    public static HupuGameApi apiStr = retrofit.create(HupuGameApi.class);
 
     /**
      * 登录
@@ -33,26 +35,26 @@ public class HupugameService {
      * @param userName 用户名
      * @param passWord 密码
      */
-    public static void login(String userName, String passWord, final GetBeanCallback<UserData> cbk) {
+    public static void login(String userName, String passWord, final RequestCallback<UserData> cbk) {
         HashMap<String, String> params = new HashMap<>();
         String deviceId = DeviceUtils.getIMEI(AppUtils.getAppContext());
         params.put("client", deviceId);
         params.put("username", userName);
         params.put("password", MD5.getMD5(passWord));
-        String sign = HupuReqHelper.getRequestSign(params);
+        String sign = RequestHelper.getRequestSign(params);
         params.put("sign", sign);
 
-        apiStr.login(params, deviceId, new Callback<String>() {
+        Call<UserData> call = apiStr.login(params, deviceId);
+        call.enqueue(new retrofit2.Callback<UserData>() {
             @Override
-            public void success(String jsonStr, Response response) {
-                UserData data = JsonParser.parseWithGson(UserData.class, jsonStr);
+            public void onResponse(Call<UserData> call, retrofit2.Response<UserData> response) {
+                UserData data = response.body();
                 cbk.onSuccess(data);
-                LogUtils.i(jsonStr);
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                cbk.onFailure(error.getMessage());
+            public void onFailure(Call<UserData> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
             }
         });
     }

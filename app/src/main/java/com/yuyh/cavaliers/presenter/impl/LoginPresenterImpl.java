@@ -6,7 +6,7 @@ import com.yuyh.cavaliers.http.api.hupu.game.HupugameService;
 import com.yuyh.cavaliers.http.bean.cookie.User;
 import com.yuyh.cavaliers.http.bean.cookie.UserData;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.http.util.GetBeanCallback;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.util.UserStorage;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.LoginView;
@@ -43,7 +43,7 @@ public class LoginPresenterImpl implements Presenter {
 
     public void login(String userName, String passWord) {
         loginView.showLoading();
-        HupugameService.login(userName, passWord, new GetBeanCallback<UserData>() {
+        HupugameService.login(userName, passWord, new RequestCallback<UserData>() {
             @Override
             public void onSuccess(UserData userData) {
                 if (userData != null && userData.is_login == 1) { // 登录成功

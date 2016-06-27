@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eff2f6"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/common_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+
+        <com.yuyh.library.view.image.CircleImageView
+            android:id="@+id/civHead"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/ic_launcher" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="8dip">
+
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="虎扑账号"
+                android:singleLine="true"
+                android:text="15280577338"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textInputUserName"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="8dip">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="虎扑密码"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:text="20110864132"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textInputPassword"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnRegist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dip"
+                android:layout_weight="1"
+                android:background="@drawable/button_register_bg"
+                android:gravity="center"
+                android:paddingBottom="7dp"
+                android:paddingTop="7dp"
+                android:text="注册"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_weight="1"
+                android:background="@drawable/button_login_bg"
+                android:gravity="center"
+                android:paddingBottom="7dp"
+                android:paddingTop="7dp"
+                android:text="登录"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

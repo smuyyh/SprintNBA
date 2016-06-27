@@ -1,6 +1,7 @@
 package com.yuyh.cavaliers.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -14,8 +15,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.yuyh.cavaliers.http.util.HupuReqHelper;
+import com.yuyh.cavaliers.base.BaseWebActivity;
+import com.yuyh.cavaliers.http.util.RequestHelper;
 import com.yuyh.cavaliers.http.util.UserStorage;
+import com.yuyh.cavaliers.utils.SettingPrefUtils;
 import com.yuyh.library.utils.DeviceUtils;
 import com.yuyh.library.utils.log.LogUtils;
 
@@ -34,7 +37,7 @@ public class HuPuWebView extends WebView {
     private Map<String, String> header;
 
     UserStorage mUserStorage;
-    HupuReqHelper mRequestHelper;
+    RequestHelper mRequestHelper;
 
     public HuPuWebView(Context context) {
         this(context, null);
@@ -84,17 +87,14 @@ public class HuPuWebView extends WebView {
         initWebViewClient();
         setWebChromeClient(new HuPuChromeClient());
         try {
-            if (mUserStorage.isLogin()) {
-                String token = mUserStorage.getToken();
+            //if (mUserStorage.isLogin()) {
                 CookieManager cookieManager = CookieManager.getInstance();
-                cookieManager.setCookie("http://bbs.mobileapi.hupu.com",
-                        "u=" + URLEncoder.encode(mUserStorage.getCookie(), "utf-8"));
-                cookieManager.setCookie("http://bbs.mobileapi.hupu.com",
-                        "_gamesu=" + URLEncoder.encode(token, "utf-8"));
+                cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "u=" + URLEncoder.encode(SettingPrefUtils.getCookies(), "utf-8"));
+                cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "_gamesu=" + URLEncoder.encode(SettingPrefUtils.getToken(), "utf-8"));
                 cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "_inKanqiuApp=1");
                 cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "_kanqiu=1");
                 CookieSyncManager.getInstance().sync();
-            }
+            //}
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,6 +117,9 @@ public class HuPuWebView extends WebView {
                 }
             } else if (scheme.equals("http") || scheme.equals("https")) {
                 // TODO
+                Intent intent = new Intent(getContext(), BaseWebActivity.class);
+                intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, url);
+                getContext().startActivity(intent);
                 //BrowserActivity.startActivity(getContext(), url);
             }
             return true;

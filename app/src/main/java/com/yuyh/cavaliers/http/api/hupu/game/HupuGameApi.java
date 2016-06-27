@@ -1,12 +1,14 @@
 package com.yuyh.cavaliers.http.api.hupu.game;
 
+import com.yuyh.cavaliers.http.bean.cookie.UserData;
+
 import java.util.Map;
 
-import retrofit.Callback;
-import retrofit.http.FieldMap;
-import retrofit.http.FormUrlEncoded;
-import retrofit.http.POST;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * @author yuyh.
@@ -14,6 +16,6 @@ import retrofit.http.Query;
  */
 public interface HupuGameApi {
     @FormUrlEncoded
-    @POST("/user/loginUsernameEmail")
-    void login(@FieldMap Map<String, String> params, @Query("client") String client, Callback<String> cbk);
+    @POST("user/loginUsernameEmail")
+    Call<UserData> login(@FieldMap Map<String, String> params, @Query("client") String client);
 }

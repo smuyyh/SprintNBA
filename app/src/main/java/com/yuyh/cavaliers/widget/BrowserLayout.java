@@ -38,6 +38,8 @@ public class BrowserLayout extends LinearLayout {
 
     private String mLoadUrl;
 
+    private OnReceiveTitleListener listener;
+
     public BrowserLayout(Context context) {
         super(context);
         init(context);
@@ -220,5 +222,20 @@ public class BrowserLayout extends LinearLayout {
                 mProgressBar.setProgress(newProgress);
             }
         }
+
+        @Override
+        public void onReceivedTitle(WebView view, String title) {
+            super.onReceivedTitle(view, title);
+            if (listener != null)
+                listener.onReceive(title);
+        }
+    }
+
+    public interface OnReceiveTitleListener {
+        void onReceive(String title);
+    }
+
+    public void setOnReceiveTitleListener(OnReceiveTitleListener listener) {
+        this.listener = listener;
     }
 }

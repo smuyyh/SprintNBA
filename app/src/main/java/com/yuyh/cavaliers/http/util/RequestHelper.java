@@ -2,8 +2,14 @@ package com.yuyh.cavaliers.http.util;
 
 import android.content.Context;
 
+import com.yuyh.cavaliers.utils.SettingPrefUtils;
+import com.yuyh.library.AppUtils;
+import com.yuyh.library.utils.DeviceUtils;
 import com.yuyh.library.utils.data.safe.MD5;
+import com.yuyh.library.utils.log.LogUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,20 +20,25 @@ import java.util.Map;
  * @author yuyh.
  * @date 16/6/25.
  */
-public class HupuReqHelper {
+public class RequestHelper {
 
 
     public Context mContext;
 
-    public HupuReqHelper(Context mContext) {
+    public RequestHelper(Context mContext) {
         this.mContext = mContext;
     }
 
     public static HashMap<String, String> getRequsetMap() {
         HashMap<String, String> map = new HashMap<>();
-        map.put("client", "miui");
+        map.put("client", DeviceUtils.getIMEI(AppUtils.getAppContext()));
         map.put("night", "0");
-        //put("token", URLEncoder.encode(mUserStorage.getToken(), "UTF-8"));
+        try {
+            map.put("token", URLEncoder.encode(SettingPrefUtils.getToken(), "UTF-8"));
+            LogUtils.i("token="+URLEncoder.encode(SettingPrefUtils.getToken(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return map;
     }
 

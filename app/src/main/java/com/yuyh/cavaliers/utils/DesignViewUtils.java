@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.widget;
+package com.yuyh.cavaliers.utils;
 
 
 import android.support.design.widget.AppBarLayout;

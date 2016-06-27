@@ -50,6 +50,15 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
         } else {
             mBrowserLayout.showBrowserController();
         }
+
+        mBrowserLayout.setOnReceiveTitleListener(new BrowserLayout.OnReceiveTitleListener() {
+            @Override
+            public void onReceive(String title) {
+                if(TextUtils.isEmpty(mWebTitle)){
+                    setTitle(title);
+                }
+            }
+        });
     }
 
     @Override

@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.yuyh.cavaliers.http.api.hupu.forum.HupuForumService;
 import com.yuyh.cavaliers.http.bean.forum.ThreadsSchemaInfoData;
-import com.yuyh.cavaliers.http.util.GetBeanCallback;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.ThreadDetailView;
 
@@ -50,7 +50,7 @@ public class ThreadDetailPresenterImpl implements Presenter {
 
     @Override
     public void initialized() {
-        HupuForumService.getThreadInfo(tid, fid, page, pid, new GetBeanCallback<ThreadsSchemaInfoData>() {
+        HupuForumService.getThreadInfo(tid, fid, page, pid, new RequestCallback<ThreadsSchemaInfoData>() {
             @Override
             public void onSuccess(ThreadsSchemaInfoData threadSchemaInfo) {
                 if (threadSchemaInfo != null) {

@@ -4,8 +4,9 @@ import android.content.Context;
 import android.view.View;
 
 import com.yuyh.cavaliers.http.api.hupu.forum.HupuForumService;
+import com.yuyh.cavaliers.http.bean.forum.AttendStatusData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
-import com.yuyh.cavaliers.http.util.GetBeanCallback;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.ThreadListView;
 import com.yuyh.library.utils.log.LogUtils;
@@ -42,20 +43,21 @@ public class ThreadListPresenterImpl implements Presenter {
         loadType = TYPE_LIST;
         loadThreadList("", true);
         // TODO 获取版块关注状态
+        getAttendStatus();
     }
 
     private void loadThreadList(String last, final boolean isRefresh) {
-        HupuForumService.getForumPosts(fid, last, 20, lastTamp, type, new GetBeanCallback<ThreadListData>() {
+        HupuForumService.getForumPosts(fid, last, 20, lastTamp, type, new RequestCallback<ThreadListData>() {
             @Override
             public void onSuccess(ThreadListData threadListData) {
-                if (threadListData.result != null && threadListData.result.data != null) {
+                if (threadListData!=null && threadListData.result != null && threadListData.result.data != null) {
                     mThreadListView.showThreadList(threadListData.result.data, isRefresh);
                 } else {
                     mThreadListView.showError("没有更多啦");
                 }
                 mThreadListView.hideLoading();
                 mThreadListView.onRefreshCompleted();
-                mThreadListView.onLoadCompleted(threadListData.result.nextPage);
+                //mThreadListView.onLoadCompleted(threadListData.result.nextPage);
             }
 
             @Override
@@ -73,5 +75,19 @@ public class ThreadListPresenterImpl implements Presenter {
     @Override
     public void initialized() {
 
+    }
+
+    public void getAttendStatus() {
+        HupuForumService.getAttentionStatus(fid, new RequestCallback<AttendStatusData>() {
+            @Override
+            public void onSuccess(AttendStatusData attendStatusData) {
+
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
     }
 }

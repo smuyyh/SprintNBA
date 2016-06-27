@@ -10,7 +10,7 @@ import com.yuyh.cavaliers.http.bean.player.Players;
 import com.yuyh.cavaliers.http.bean.player.StatsRank;
 import com.yuyh.cavaliers.http.bean.player.Teams;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
-import com.yuyh.cavaliers.http.util.GetBeanCallback;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.http.util.StringConverter;
 import com.yuyh.cavaliers.http.util.JsonParser;
@@ -47,7 +47,7 @@ public class TencentService {
      * @param isRefresh 是否重新请求数据
      * @param cbk
      */
-    public static void getMatchCalendar(int teamId, int year, int month, boolean isRefresh, final GetBeanCallback<MatchCalendar> cbk) {
+    public static void getMatchCalendar(int teamId, int year, int month, boolean isRefresh, final RequestCallback<MatchCalendar> cbk) {
         final String key = "getMatchCalendar" + teamId + year + month;
         final ACache cache = ACache.get(AppUtils.getAppContext());
         Object obj = cache.getAsObject(key);
@@ -80,7 +80,7 @@ public class TencentService {
      * @param isRefresh 是否重新请求数据
      * @param cbk
      */
-    public static void getMatchsByDate(String date, boolean isRefresh, final GetBeanCallback<Matchs> cbk) {
+    public static void getMatchsByDate(String date, boolean isRefresh, final RequestCallback<Matchs> cbk) {
         final String key = "getMatchsByDate" + date;
         final ACache cache = ACache.get(AppUtils.getAppContext());
         Object obj = cache.getAsObject(key);
@@ -112,7 +112,7 @@ public class TencentService {
      * @param isRefresh 是否重新请求数据
      * @param cbk
      */
-    public static void getNewsIndex(Constant.NewsType newsType, boolean isRefresh, final GetBeanCallback<NewsIndex> cbk) {
+    public static void getNewsIndex(Constant.NewsType newsType, boolean isRefresh, final RequestCallback<NewsIndex> cbk) {
         final String key = "getNewsIndex" + newsType.getType();
         final ACache cache = ACache.get(AppUtils.getAppContext());
         Object obj = cache.getAsObject(key);
@@ -145,7 +145,7 @@ public class TencentService {
      * @param isRefresh  是否重新请求数据
      * @param cbk
      */
-    public static void getNewsItem(Constant.NewsType newsType, String articleIds, boolean isRefresh, final GetBeanCallback<NewsItem> cbk) {
+    public static void getNewsItem(Constant.NewsType newsType, String articleIds, boolean isRefresh, final RequestCallback<NewsItem> cbk) {
         final String key = "getNewsItem" + articleIds;
         final ACache cache = ACache.get(AppUtils.getAppContext());
         Object obj = cache.getAsObject(key);
@@ -181,7 +181,7 @@ public class TencentService {
      * @param isRefresh 是否重新请求数据
      * @param cbk
      */
-    public static void getNewsDetail(Constant.NewsType newsType, String articleId, boolean isRefresh, final GetBeanCallback<NewsDetail> cbk) {
+    public static void getNewsDetail(Constant.NewsType newsType, String articleId, boolean isRefresh, final RequestCallback<NewsDetail> cbk) {
         final String key = "getNewsDetail" + articleId;
         final ACache cache = ACache.get(AppUtils.getAppContext());
         Object obj = cache.getAsObject(key);
@@ -216,7 +216,7 @@ public class TencentService {
      * @param isRefresh 是否重新请求数据
      * @param cbk
      */
-    public static void getStatsRank(Constant.StatType statType, int num, Constant.TabType tabType, String seasonId, boolean isRefresh, final GetBeanCallback<StatsRank> cbk) {
+    public static void getStatsRank(Constant.StatType statType, int num, Constant.TabType tabType, String seasonId, boolean isRefresh, final RequestCallback<StatsRank> cbk) {
         final String key = "getStatsRank" + statType.getType() + tabType.getType() + seasonId;
         final ACache cache = ACache.get(AppUtils.getAppContext());
         Object obj = cache.getAsObject(key);
@@ -247,7 +247,7 @@ public class TencentService {
      *
      * @param cbk
      */
-    public static void getTeamsRank(boolean isRefresh, final GetBeanCallback<TeamsRank> cbk) {
+    public static void getTeamsRank(boolean isRefresh, final RequestCallback<TeamsRank> cbk) {
         final String key = "getTeamsRank";
         final ACache cache = ACache.get(AppUtils.getAppContext());
         Object obj = cache.getAsObject(key);
@@ -295,7 +295,7 @@ public class TencentService {
      *
      * @param isRefresh 是否重新请求数据
      */
-    public static void getPlayerList(boolean isRefresh, final GetBeanCallback<Players> cbk) {
+    public static void getPlayerList(boolean isRefresh, final RequestCallback<Players> cbk) {
         final String key = "getPlayerList";
         final ACache cache = ACache.get(AppUtils.getAppContext());
         Object obj = cache.getAsObject(key);
@@ -325,7 +325,7 @@ public class TencentService {
      *
      * @param isRefresh 是否重新请求数据
      */
-    public static void getTeamList(boolean isRefresh, final GetBeanCallback<Teams> cbk) {
+    public static void getTeamList(boolean isRefresh, final RequestCallback<Teams> cbk) {
 
         final String key = "getTeamList";
         final ACache cache = ACache.get(AppUtils.getAppContext());

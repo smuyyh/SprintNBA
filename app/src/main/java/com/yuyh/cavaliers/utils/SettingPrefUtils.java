@@ -24,6 +24,14 @@ public class SettingPrefUtils {
         new PrefsUtils().put("token", token);
     }
 
+    public static String getCookies() {
+        return new PrefsUtils().get("cookies", "");
+    }
+
+    public static void saveCookies(String cookies) {
+        new PrefsUtils().put("cookies", cookies);
+    }
+
     public static String getUsername() {
         return new PrefsUtils().get("username", "");
     }

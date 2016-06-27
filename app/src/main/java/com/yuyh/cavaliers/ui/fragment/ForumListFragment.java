@@ -16,10 +16,12 @@ import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.presenter.impl.ForumListPresenterImpl;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
+import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.ThreadListActivity;
 import com.yuyh.cavaliers.ui.adapter.ForumListAdapter;
 import com.yuyh.cavaliers.ui.view.ForumListView;
+import com.yuyh.library.utils.DimenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +87,7 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
         recyclerView.setEmptyView(emptyView);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(2)));
         recyclerView.setHasFixedSize(true);
     }
 

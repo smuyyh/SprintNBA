@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import com.yuyh.cavaliers.Interactor.PlayersListInteractor;
 import com.yuyh.cavaliers.Interactor.impl.PlayersListListInteractorImpl;
 import com.yuyh.cavaliers.http.bean.player.Players;
-import com.yuyh.cavaliers.http.util.GetBeanCallback;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.PlayersView;
 
@@ -33,7 +33,7 @@ public class PlayersListPresenterImpl implements Presenter {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                mPlayersListInteractor.getAllPlayers(new GetBeanCallback<Players>() {
+                mPlayersListInteractor.getAllPlayers(new RequestCallback<Players>() {
                     @Override
                     public void onSuccess(final Players Players) {
                         ((Activity) mContext).runOnUiThread(new Runnable() {

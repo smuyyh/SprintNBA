@@ -8,7 +8,7 @@
     app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="1dp"
     app:cardElevation="0dp"
-    app:cardUseCompatPadding="false">
+    app:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"

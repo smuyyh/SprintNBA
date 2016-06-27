@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import com.yuyh.cavaliers.Interactor.TeamsListInteractor;
 import com.yuyh.cavaliers.Interactor.impl.TeamsListListInteractorImpl;
 import com.yuyh.cavaliers.http.bean.player.Teams;
-import com.yuyh.cavaliers.http.util.GetBeanCallback;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.TeamsView;
 
@@ -28,7 +28,7 @@ public class TeamsListPresenterImpl implements Presenter {
 
     @Override
     public void initialized() {
-        mTeamsListInteractor.getAllTeams(new GetBeanCallback<Teams>() {
+        mTeamsListInteractor.getAllTeams(new RequestCallback<Teams>() {
             @Override
             public void onSuccess(Teams teams) {
                 mTeamsView.showAllTeams(teams.data);

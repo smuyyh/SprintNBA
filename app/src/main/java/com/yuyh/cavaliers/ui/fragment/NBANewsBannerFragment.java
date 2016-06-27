@@ -16,7 +16,7 @@ import com.yuyh.cavaliers.base.BaseWebActivity;
 import com.yuyh.cavaliers.http.api.nba.TencentService;
 import com.yuyh.cavaliers.http.bean.news.NewsIndex;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
-import com.yuyh.cavaliers.http.util.GetBeanCallback;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
@@ -100,7 +100,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     }
 
     private void requestIndex(final boolean isRefresh) {
-        TencentService.getNewsIndex(newsType, true, new GetBeanCallback<NewsIndex>() {
+        TencentService.getNewsIndex(newsType, isRefresh, new RequestCallback<NewsIndex>() {
             @Override
             public void onSuccess(NewsIndex newsIndex) {
                 recyclerView.setEmptyView(emptyView);
@@ -124,7 +124,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     }
 
     private void requestNews(String arcIds, final boolean isRefresh, final boolean isLoadMore) {
-        TencentService.getNewsItem(newsType, arcIds, isRefresh, new GetBeanCallback<NewsItem>() {
+        TencentService.getNewsItem(newsType, arcIds, isRefresh, new RequestCallback<NewsItem>() {
             @Override
             public void onSuccess(NewsItem newsItem) {
                 if (isRefresh)

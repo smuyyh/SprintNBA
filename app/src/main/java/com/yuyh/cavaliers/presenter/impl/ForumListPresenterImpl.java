@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.yuyh.cavaliers.http.api.hupu.forum.HupuForumService;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
-import com.yuyh.cavaliers.http.util.GetBeanCallback;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.ForumListView;
 
@@ -27,7 +27,7 @@ public class ForumListPresenterImpl implements Presenter {
 
     @Override
     public void initialized() {
-        HupuForumService.getAllForums(new GetBeanCallback<ForumsData>() {
+        HupuForumService.getAllForums(new RequestCallback<ForumsData>() {
             @Override
             public void onSuccess(ForumsData forumsData) {
                 List<ForumsData.Forum> list = new ArrayList<>();

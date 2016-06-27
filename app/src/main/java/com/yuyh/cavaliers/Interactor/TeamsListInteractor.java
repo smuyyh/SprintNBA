@@ -2,9 +2,9 @@
 package com.yuyh.cavaliers.Interactor;
 
 import com.yuyh.cavaliers.http.bean.player.Teams;
-import com.yuyh.cavaliers.http.util.GetBeanCallback;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 
 public interface TeamsListInteractor {
 
-    void getAllTeams(GetBeanCallback<Teams> callback);
+    void getAllTeams(RequestCallback<Teams> callback);
 }

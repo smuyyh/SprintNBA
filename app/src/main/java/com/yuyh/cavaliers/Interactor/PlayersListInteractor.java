@@ -2,9 +2,9 @@
 package com.yuyh.cavaliers.Interactor;
 
 import com.yuyh.cavaliers.http.bean.player.Players;
-import com.yuyh.cavaliers.http.util.GetBeanCallback;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 
 public interface PlayersListInteractor {
 
-    void getAllPlayers(GetBeanCallback<Players> callback);
+    void getAllPlayers(RequestCallback<Players> callback);
 }

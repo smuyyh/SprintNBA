@@ -13,7 +13,7 @@ import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.base.BaseWebActivity;
 import com.yuyh.cavaliers.http.api.nba.TencentService;
 import com.yuyh.cavaliers.http.bean.player.StatsRank;
-import com.yuyh.cavaliers.http.util.GetBeanCallback;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.presenter.impl.StatsRankPresenterImpl;
@@ -117,7 +117,7 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
 
     private void requestStatsRank() {
         showLoadingDialog();
-        TencentService.getStatsRank(curStat, 20, curTab, "2015", true, new GetBeanCallback<StatsRank>() {
+        TencentService.getStatsRank(curStat, 20, curTab, "2015", true, new RequestCallback<StatsRank>() {
             @Override
             public void onSuccess(StatsRank statsRank) {
                 List<StatsRank.RankItem> list = statsRank.rankList;
