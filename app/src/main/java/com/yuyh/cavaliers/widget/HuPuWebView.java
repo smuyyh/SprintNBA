@@ -63,7 +63,7 @@ public class HuPuWebView extends WebView {
         settings.setSupportMultipleWindows(false);
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setDomStorageEnabled(true);
-        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK );
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT );
         settings.setUseWideViewPort(true);
         if (Build.VERSION.SDK_INT > 6) {
             settings.setAppCacheEnabled(true);

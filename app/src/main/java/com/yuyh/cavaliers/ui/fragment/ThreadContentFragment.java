@@ -2,6 +2,9 @@ package com.yuyh.cavaliers.ui.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -35,6 +38,7 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
+        setHasOptionsMenu(true);
         showLoadingDialog();
         setContentView(R.layout.fragment_thread_detail);
         ButterKnife.inject(this, getContentView());
@@ -96,5 +100,21 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
 
     @Override
     public void onScroll(int dx, int dy, int y, int oldy) {
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_thread_detail, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                hupuWebView.reload();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

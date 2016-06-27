@@ -1,15 +1,24 @@
 package com.yuyh.cavaliers.presenter.impl;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 
-import com.yuyh.cavaliers.http.api.hupu.forum.HupuForumService;
-import com.yuyh.cavaliers.http.bean.forum.AttendStatusData;
-import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
 import com.yuyh.cavaliers.http.api.RequestCallback;
+import com.yuyh.cavaliers.http.api.hupu.forum.HupuForumService;
+import com.yuyh.cavaliers.http.api.hupu.game.HupugameService;
+import com.yuyh.cavaliers.http.bean.forum.AttendStatusData;
+import com.yuyh.cavaliers.http.bean.forum.SearchListData;
+import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.ThreadListView;
 import com.yuyh.library.utils.log.LogUtils;
+import com.yuyh.library.utils.toast.ToastUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author yuyh.
@@ -25,10 +34,11 @@ public class ThreadListPresenterImpl implements Presenter {
     private String lastTamp = "";
     private String type;
     private int pageIndex;
+    private String key;
 
-    private int loadType = TYPE_LIST;
-    private static final int TYPE_LIST = 1;
-    private static final int TYPE_SEARCH = 2;
+    public int loadType = TYPE_LIST;
+    public static final int TYPE_LIST = 1;
+    public static final int TYPE_SEARCH = 2;
 
     public ThreadListPresenterImpl(String fid, Context context, ThreadListView threadListView) {
         this.fid = fid;
@@ -44,6 +54,19 @@ public class ThreadListPresenterImpl implements Presenter {
         loadThreadList(last, isRefresh);
         // TODO 获取版块关注状态
         getAttendStatus();
+    }
+
+    public void onStartSearch(String key, int page, boolean isRefresh) {
+        if (TextUtils.isEmpty(key)) {
+            ToastUtils.showSingleToast("搜索词不能为空");
+            return;
+        }
+        mThreadListView.showLoading("");
+        mThreadListView.onFloatingVisibility(View.GONE);
+        pageIndex = page;
+        this.key = key;
+        loadType = TYPE_SEARCH;
+        loadSearchList(isRefresh);
     }
 
     private void loadThreadList(String last, final boolean isRefresh) {
@@ -69,6 +92,49 @@ public class ThreadListPresenterImpl implements Presenter {
                 mThreadListView.hideLoading();
                 mThreadListView.onRefreshCompleted();
                 mThreadListView.onLoadCompleted(false);
+            }
+        });
+    }
+
+
+    private void loadSearchList(final boolean isRefresh) {
+        HupugameService.search(key, fid, pageIndex, new RequestCallback<SearchListData>() {
+            @Override
+            public void onSuccess(SearchListData searchData) {
+                if (searchData != null) {
+                    if (searchData.error != null) {
+                        ToastUtils.showSingleToast(searchData.error.msg);
+                    } else if (searchData.result != null) {
+                        List<ThreadListData.ThreadInfo> list = new ArrayList<>();
+                        SearchListData.SearchResult result = searchData.result;
+                        for (SearchListData.Search search : result.data) {
+                            ThreadListData.ThreadInfo thread = new ThreadListData.ThreadInfo();
+                            thread.fid = search.fid;
+                            thread.tid = search.id;
+                            thread.lightReply = Integer.valueOf(search.lights);
+                            thread.replies = search.replies;
+                            thread.userName = search.username;
+                            thread.title = search.title;
+                            long time = Long.valueOf(search.addtime);
+                            Date date = new Date(time);
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                            thread.time = format.format(date);
+                            list.add(thread);
+                        }
+                        mThreadListView.showThreadList(list, isRefresh);
+                    } else {
+                        ToastUtils.showSingleToast("找不到相应内容哦");
+                    }
+                } else {
+                    ToastUtils.showSingleToast("找不到相应内容哦");
+                }
+                mThreadListView.hideLoading();
+            }
+
+            @Override
+            public void onFailure(String message) {
+                ToastUtils.showSingleToast("查询失败");
+                mThreadListView.hideLoading();
             }
         });
     }

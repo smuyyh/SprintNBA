@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -29,6 +33,7 @@ import com.yuyh.cavaliers.ui.adapter.ThreadInfoListAdapter;
 import com.yuyh.cavaliers.ui.view.ThreadListView;
 import com.yuyh.cavaliers.widget.LoadMoreRecyclerView;
 import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.library.utils.IMEUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.util.ArrayList;
@@ -83,6 +88,9 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     private ThreadListPresenterImpl presenter;
 
     private String last = "";
+    private int pageIndex = 1;
+    private String key;
+    private String type = Constant.THREAD_TYPE_NEW;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -103,7 +111,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
             showThreadInfo(forum);
         }
         presenter.initialized();
-        presenter.onThreadReceive(Constant.SortType.NEW.getType(), "", true);
+        presenter.onThreadReceive(type, "", true);
         initToolbar(toolbar);
         initFloatingMenu();
         initRecyclerView();
@@ -173,6 +181,12 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
         adapter.bind(forumInfoList);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                IMEUtils.hideSoftInput(ThreadListActivity.this);
+            }
+        },500);
     }
 
     @Override
@@ -220,12 +234,18 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
 
         @Override
         public void onRefresh() {
-            presenter.onThreadReceive(Constant.SortType.NEW.getType(), "", true);
+            pageIndex = 0;
+            presenter.onThreadReceive(type, "", true);
         }
 
         @Override
         public void onLoadMore() {
-            presenter.onThreadReceive(Constant.SortType.NEW.getType(), last, false);
+            if (presenter.loadType == ThreadListPresenterImpl.TYPE_LIST)
+                presenter.onThreadReceive(type, last, false);
+            else {
+                pageIndex++;
+                presenter.onStartSearch(key, pageIndex, false);
+            }
         }
     }
 
@@ -280,11 +300,47 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     void floatingSwitch() {
         if (floatingSwitch.getLabelText().equals("按回帖时间排序")) {
             presenter.onThreadReceive(Constant.THREAD_TYPE_HOT, "", true);
+            type = Constant.THREAD_TYPE_HOT;
             floatingSwitch.setLabelText("按发帖时间排序");
         } else {
             presenter.onThreadReceive(Constant.THREAD_TYPE_NEW, "", true);
+            type = Constant.THREAD_TYPE_NEW;
             floatingSwitch.setLabelText("按回帖时间排序");
         }
         floatingMenu.toggleMenuButton(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_thread, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);//在菜单中找到对应控件的item
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                presenter.onStartSearch(query, 1, true);
+                key = query;
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        MenuItemCompat.setOnActionExpandListener(menuItem,
+                new MenuItemCompat.OnActionExpandListener() {//设置打开关闭动作监听
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+                        presenter.onThreadReceive(Constant.THREAD_TYPE_HOT, "", true);
+                        return true;
+                    }
+                });
+        return true;
     }
 }
