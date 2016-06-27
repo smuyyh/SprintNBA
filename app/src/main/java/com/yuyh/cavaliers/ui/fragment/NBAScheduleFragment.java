@@ -132,8 +132,9 @@ public class NBAScheduleFragment extends BaseLazyFragment {
 
     @Subscribe
     public void onEventMainThread(CalendarEvent msg) {
+        date = msg.getDate();
         LogUtils.i(msg.getDate());
-        requestMatchs(msg.getDate(), true);
+        requestMatchs(date, true);
     }
 
     @Override

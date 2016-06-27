@@ -29,6 +29,7 @@ import com.yuyh.cavaliers.ui.adapter.ThreadInfoListAdapter;
 import com.yuyh.cavaliers.ui.view.ThreadListView;
 import com.yuyh.cavaliers.widget.LoadMoreRecyclerView;
 import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +81,8 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
 
     private ThreadListPresenterImpl presenter;
 
+    private String last = "";
+
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.activity_thread_list;
@@ -98,7 +101,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
             showThreadInfo(forum);
         }
         presenter.initialized();
-        presenter.onThreadReceive(Constant.SortType.NEW.getType());
+        presenter.onThreadReceive(Constant.SortType.NEW.getType(), "", true);
         initToolbar(toolbar);
         initFloatingMenu();
         initRecyclerView();
@@ -142,7 +145,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
                 startActivity(intent);
             }
         });
-        recyclerView.setLoadMoreEnable(false);
+        recyclerView.setLoadMoreEnable(true);
         backdrop.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
 
     }
@@ -159,9 +162,12 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
 
     @Override
     public void showThreadList(List<ThreadListData.ThreadInfo> forumInfoList, boolean isRefresh) {
-        if (isRefresh)
+        if (isRefresh) {
             list.clear();
+            last = "";
+        }
         list.addAll(forumInfoList);
+        last = list.get(list.size() - 1).tid;
         adapter.bind(forumInfoList);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -195,6 +201,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     @Override
     public void showError(String msg) {
         hideLoadingDialog();
+        ToastUtils.showSingleToast(msg);
     }
 
     @Override
@@ -211,12 +218,12 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
 
         @Override
         public void onRefresh() {
-            presenter.onThreadReceive(Constant.SortType.NEW.getType());
+            presenter.onThreadReceive(Constant.SortType.NEW.getType(), "", true);
         }
 
         @Override
         public void onLoadMore() {
-
+            presenter.onThreadReceive(Constant.SortType.NEW.getType(), last, false);
         }
     }
 

@@ -15,6 +15,7 @@ import com.yuyh.cavaliers.presenter.impl.ThreadDetailPresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.VPThreadAdapter;
 import com.yuyh.cavaliers.ui.view.ThreadDetailView;
 import com.yuyh.cavaliers.widget.VerticalViewPager;
+import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.util.List;
 
@@ -120,7 +121,7 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
 
     @Override
     public void showError(String msg) {
-
+        ToastUtils.showSingleToast(msg);
     }
 
     @Override
@@ -151,7 +152,7 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
     public void goPost(String title) {
         Intent intent = new Intent(this, PostActivity.class);
         intent.putExtra(PostActivity.INTENT_TITLE, title);
-        intent.putExtra(PostActivity.INTENT_TITLE, Constant.TYPE_COMMENT);
+        intent.putExtra(PostActivity.INTENT_TYPE, Constant.TYPE_COMMENT);
         intent.putExtra(PostActivity.INTENT_FID, fid);
         intent.putExtra(PostActivity.INTENT_TID, tid);
         startActivity(intent);

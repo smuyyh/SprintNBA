@@ -36,28 +36,30 @@ public class ThreadListPresenterImpl implements Presenter {
         this.mThreadListView = threadListView;
     }
 
-    public void onThreadReceive(String type) {
+    public void onThreadReceive(String type, String last, boolean isRefresh) {
         mThreadListView.showLoading("");
         mThreadListView.onFloatingVisibility(View.VISIBLE);
         this.type = type;
         loadType = TYPE_LIST;
-        loadThreadList("", true);
+        loadThreadList(last, isRefresh);
         // TODO 获取版块关注状态
         getAttendStatus();
     }
 
     private void loadThreadList(String last, final boolean isRefresh) {
+        LogUtils.i("last=" + last + " isRefresh=" + isRefresh);
         HupuForumService.getForumPosts(fid, last, 20, lastTamp, type, new RequestCallback<ThreadListData>() {
             @Override
             public void onSuccess(ThreadListData threadListData) {
-                if (threadListData!=null && threadListData.result != null && threadListData.result.data != null) {
+                if (threadListData != null && threadListData.result != null && threadListData.result.data != null) {
                     mThreadListView.showThreadList(threadListData.result.data, isRefresh);
+                    mThreadListView.onLoadCompleted(threadListData.result.nextPage);
                 } else {
                     mThreadListView.showError("没有更多啦");
+                    mThreadListView.onLoadCompleted(false);
                 }
                 mThreadListView.hideLoading();
                 mThreadListView.onRefreshCompleted();
-                //mThreadListView.onLoadCompleted(threadListData.result.nextPage);
             }
 
             @Override
