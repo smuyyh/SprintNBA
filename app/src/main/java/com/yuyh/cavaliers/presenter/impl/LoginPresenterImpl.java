@@ -7,7 +7,7 @@ import com.yuyh.cavaliers.http.bean.cookie.User;
 import com.yuyh.cavaliers.http.bean.cookie.UserData;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.http.api.RequestCallback;
-import com.yuyh.cavaliers.http.util.UserStorage;
+import com.yuyh.cavaliers.http.utils.UserStorage;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.LoginView;
 import com.yuyh.cavaliers.utils.SettingPrefUtils;

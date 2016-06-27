@@ -1,17 +1,16 @@
 package com.yuyh.cavaliers.http.api.hupu.forum;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.yuyh.cavaliers.BuildConfig;
 import com.yuyh.cavaliers.http.api.RequestCallback;
-import com.yuyh.cavaliers.http.bean.BaseData;
+import com.yuyh.cavaliers.http.bean.base.BaseData;
 import com.yuyh.cavaliers.http.bean.forum.AttendStatusData;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadsSchemaInfoData;
 import com.yuyh.cavaliers.http.okhttp.OkHttpHelper;
-import com.yuyh.cavaliers.http.util.RequestHelper;
+import com.yuyh.cavaliers.http.utils.RequestHelper;
 import com.yuyh.cavaliers.utils.SettingPrefUtils;
 import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.data.ACache;
@@ -141,9 +140,9 @@ public class HupuForumService {
     /**
      * 评论或者回复
      *
-     * @param tid 帖子id
-     * @param fid 论坛id
-     * @param pid 回复id（评论时为空，回复某条回复的为回复的id）
+     * @param tid     帖子id
+     * @param fid     论坛id
+     * @param pid     回复id（评论时pid为空，回复某条回复pid为回复的id）
      * @param content 内容
      */
     public static void addReplyByApp(String tid, String fid, String pid, String content) {
@@ -157,13 +156,12 @@ public class HupuForumService {
         }
         String sign = RequestHelper.getRequestSign(params);
         params.put("sign", sign);
-        Log.d("groupApi", "gson.toJson(params):" + params);
 
         Call<BaseData> call = apiStr.addReplyByApp(params);
         call.enqueue(new Callback<BaseData>() {
             @Override
             public void onResponse(Call<BaseData> call, Response<BaseData> response) {
-                LogUtils.i("----"+response.body()+"----"+response.code());
+
             }
 
             @Override

@@ -1,5 +1,7 @@
 package com.yuyh.cavaliers.utils;
 
+import android.text.TextUtils;
+
 import com.yuyh.library.utils.data.PrefsUtils;
 
 /**
@@ -48,4 +50,15 @@ public class SettingPrefUtils {
         new PrefsUtils().put("nickname", nickname);
     }
 
+    public static boolean isLogin() {
+        return !TextUtils.isEmpty(getCookies()) && !TextUtils.isEmpty(getToken());
+    }
+
+    public static void logout() {
+        saveCookies("");
+        saveNickname("");
+        saveToken("");
+        saveUid("");
+        saveUsername("");
+    }
 }

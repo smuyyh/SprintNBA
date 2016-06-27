@@ -13,7 +13,7 @@ import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.base.BaseWebActivity;
-import com.yuyh.cavaliers.http.api.nba.TencentService;
+import com.yuyh.cavaliers.http.api.tecent.TencentService;
 import com.yuyh.cavaliers.http.bean.news.NewsIndex;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
 import com.yuyh.cavaliers.http.api.RequestCallback;

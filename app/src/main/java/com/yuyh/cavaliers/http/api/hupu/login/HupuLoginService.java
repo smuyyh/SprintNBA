@@ -1,7 +1,7 @@
 package com.yuyh.cavaliers.http.api.hupu.login;
 
 import com.yuyh.cavaliers.BuildConfig;
-import com.yuyh.cavaliers.http.util.StringConverter;
+import com.yuyh.cavaliers.http.utils.StringConverter;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;

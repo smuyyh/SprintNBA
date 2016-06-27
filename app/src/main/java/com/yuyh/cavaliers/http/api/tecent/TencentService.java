@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.http.api.nba;
+package com.yuyh.cavaliers.http.api.tecent;
 
 import com.yuyh.cavaliers.BuildConfig;
 import com.yuyh.cavaliers.http.bean.match.MatchCalendar;
@@ -12,8 +12,8 @@ import com.yuyh.cavaliers.http.bean.player.Teams;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.http.util.StringConverter;
-import com.yuyh.cavaliers.http.util.JsonParser;
+import com.yuyh.cavaliers.http.utils.StringConverter;
+import com.yuyh.cavaliers.http.utils.JsonParser;
 import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.data.ACache;
 import com.yuyh.library.utils.log.LogUtils;
@@ -26,6 +26,8 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
+ * 暂未替换为Retrofit2
+ *
  * @author yuyh.
  * @date 16/6/3.
  */

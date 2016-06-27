@@ -3,7 +3,6 @@ package com.yuyh.cavaliers.http.okhttp;
 import android.text.TextUtils;
 
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.http.util.UserStorage;
 import com.yuyh.cavaliers.utils.SettingPrefUtils;
 import com.yuyh.library.utils.log.LogUtils;
 
@@ -18,12 +17,6 @@ import okhttp3.Response;
  * Retrofit2 Cookie拦截器。用于保存和设置Cookies
  */
 public class CookieInterceptor implements Interceptor {
-
-    private UserStorage mUserStorage;
-
-    public CookieInterceptor(UserStorage mUserStorage) {
-        this.mUserStorage = mUserStorage;
-    }
 
     @Override
     public Response intercept(Chain chain) throws IOException {

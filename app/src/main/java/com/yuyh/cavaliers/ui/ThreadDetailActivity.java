@@ -9,12 +9,10 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
-import com.yuyh.cavaliers.http.api.hupu.forum.HupuForumService;
 import com.yuyh.cavaliers.presenter.impl.ThreadDetailPresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.VPThreadAdapter;
 import com.yuyh.cavaliers.ui.view.ThreadDetailView;
 import com.yuyh.cavaliers.widget.VerticalViewPager;
-import com.yuyh.library.utils.log.LogUtils;
 
 import java.util.List;
 
@@ -76,9 +74,6 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
         presenter = new ThreadDetailPresenterImpl(this, this);
         presenter.setParams(tid, fid, 1, "");
         presenter.initialized();
-
-        LogUtils.i("--add start--");
-        HupuForumService.addReplyByApp(tid, fid, "", "不错，顶一个哈~");
     }
 
     @Override

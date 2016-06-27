@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.http.api.nba;
+package com.yuyh.cavaliers.http.api.tecent;
 
 import retrofit.Callback;
 import retrofit.http.GET;

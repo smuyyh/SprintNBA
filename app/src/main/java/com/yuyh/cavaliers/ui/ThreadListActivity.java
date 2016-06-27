@@ -41,9 +41,11 @@ import butterknife.InjectView;
  */
 public class ThreadListActivity extends BaseSwipeBackCompatActivity implements ThreadListView, AppBarLayout.OnOffsetChangedListener {
 
-    public static final String INTENT_FORUM = "backimg";
+    public static final String INTENT_FORUM = "forum";
+    public static final String INTENT_FORUM_ID = "boardID";
 
     public ForumsData.Forum forum;
+    public String boardId;
 
     @InjectView(R.id.lmrvLoadMore)
     LoadMoreRecyclerView recyclerView;
@@ -86,9 +88,15 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     @Override
     protected void initViewsAndEvents() {
         forum = (ForumsData.Forum) getIntent().getSerializableExtra(INTENT_FORUM);
-        showThreadInfo(forum);
+        boardId = getIntent().getStringExtra(INTENT_FORUM_ID);
         appbar.addOnOffsetChangedListener(this);
-        presenter = new ThreadListPresenterImpl(forum.fid, this, this);
+        if(forum == null) {
+            presenter = new ThreadListPresenterImpl(boardId, this, this);
+            // TODO getForum
+        } else {
+            presenter = new ThreadListPresenterImpl(forum.fid, this, this);
+            showThreadInfo(forum);
+        }
         presenter.initialized();
         presenter.onThreadReceive(Constant.SortType.NEW.getType());
         initToolbar(toolbar);

@@ -13,7 +13,7 @@ import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.base.BaseWebActivity;
-import com.yuyh.cavaliers.http.api.nba.TencentService;
+import com.yuyh.cavaliers.http.api.tecent.TencentService;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;

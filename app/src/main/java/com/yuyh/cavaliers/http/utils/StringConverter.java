@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.http.util;
+package com.yuyh.cavaliers.http.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;

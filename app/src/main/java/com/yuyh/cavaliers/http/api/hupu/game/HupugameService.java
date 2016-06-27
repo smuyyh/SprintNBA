@@ -4,7 +4,7 @@ import com.yuyh.cavaliers.BuildConfig;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.bean.cookie.UserData;
 import com.yuyh.cavaliers.http.okhttp.OkHttpHelper;
-import com.yuyh.cavaliers.http.util.RequestHelper;
+import com.yuyh.cavaliers.http.utils.RequestHelper;
 import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.DeviceUtils;
 import com.yuyh.library.utils.data.safe.MD5;

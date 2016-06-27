@@ -1,7 +1,10 @@
-package com.yuyh.cavaliers.http.bean;
+package com.yuyh.cavaliers.http.bean.base;
+
+import com.yuyh.cavaliers.http.bean.base.BaseError;
 
 /**
- * Created by sll on 2015/8/22.
+ * @author yuyh.
+ * @date 2016/6/27.
  */
 public class BaseData {
 
@@ -16,4 +19,5 @@ public class BaseData {
   public String data;
   public String msg;
   public String result;
+  public BaseError error;
 }

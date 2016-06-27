@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
-import com.yuyh.cavaliers.http.util.UserStorage;
+import com.yuyh.cavaliers.http.utils.UserStorage;
 import com.yuyh.cavaliers.ui.LoginActivity;
 import com.yuyh.cavaliers.ui.PlayerListActivity;
 import com.yuyh.cavaliers.ui.TeamsListActivity;

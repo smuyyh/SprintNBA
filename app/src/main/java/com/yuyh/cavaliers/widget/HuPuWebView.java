@@ -16,8 +16,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.yuyh.cavaliers.base.BaseWebActivity;
-import com.yuyh.cavaliers.http.util.RequestHelper;
-import com.yuyh.cavaliers.http.util.UserStorage;
+import com.yuyh.cavaliers.http.utils.RequestHelper;
+import com.yuyh.cavaliers.ui.ThreadListActivity;
 import com.yuyh.cavaliers.utils.SettingPrefUtils;
 import com.yuyh.library.utils.DeviceUtils;
 import com.yuyh.library.utils.log.LogUtils;
@@ -31,12 +31,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 虎扑帖子详情页
+ */
 public class HuPuWebView extends WebView {
 
     private String basicUA;
     private Map<String, String> header;
 
-    UserStorage mUserStorage;
     RequestHelper mRequestHelper;
 
     public HuPuWebView(Context context) {
@@ -44,22 +46,12 @@ public class HuPuWebView extends WebView {
     }
 
     public HuPuWebView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mUserStorage = new UserStorage(context);
+        this(context, attrs, 0);
+    }
+
+    public HuPuWebView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         init();
-    }
-
-    public void setCallBack(HuPuWebViewCallBack callBack) {
-        this.callBack = callBack;
-    }
-
-    public class HuPuChromeClient extends WebChromeClient {
-
-        @Override
-        public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-            LogUtils.d("onConsoleMessage:" + consoleMessage.message() + ":" + consoleMessage.lineNumber());
-            return true;
-        }
     }
 
     private void init() {
@@ -87,14 +79,14 @@ public class HuPuWebView extends WebView {
         initWebViewClient();
         setWebChromeClient(new HuPuChromeClient());
         try {
-            //if (mUserStorage.isLogin()) {
+            if (SettingPrefUtils.isLogin()) {
                 CookieManager cookieManager = CookieManager.getInstance();
                 cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "u=" + URLEncoder.encode(SettingPrefUtils.getCookies(), "utf-8"));
                 cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "_gamesu=" + URLEncoder.encode(SettingPrefUtils.getToken(), "utf-8"));
                 cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "_inKanqiuApp=1");
                 cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "_kanqiu=1");
                 CookieSyncManager.getInstance().sync();
-            //}
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,22 +97,27 @@ public class HuPuWebView extends WebView {
         setWebViewClient(new HupuWebClient());
     }
 
+
+    public void setCallBack(HuPuWebViewCallBack callBack) {
+        this.callBack = callBack;
+    }
+
+    public class HuPuChromeClient extends WebChromeClient {
+        @Override
+        public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+            LogUtils.d("onConsoleMessage:" + consoleMessage.message() + ":" + consoleMessage.lineNumber());
+            return true;
+        }
+    }
+
     private class HupuWebClient extends WebViewClient {
         @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        public boolean shouldOverrideUrlLoading(WebView view, String url) { // 超链接监听
             LogUtils.d(Uri.decode(url));
             Uri uri = Uri.parse(url);
             String scheme = uri.getScheme();
-            if (url.startsWith("hupu") || url.startsWith("kanqiu")) {
-                if (scheme != null) {
-                    handleScheme(scheme, url);
-                }
-            } else if (scheme.equals("http") || scheme.equals("https")) {
-                // TODO
-                Intent intent = new Intent(getContext(), BaseWebActivity.class);
-                intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, url);
-                getContext().startActivity(intent);
-                //BrowserActivity.startActivity(getContext(), url);
+            if (scheme != null) {
+                handleScheme(scheme, url);
             }
             return true;
         }
@@ -142,6 +139,12 @@ public class HuPuWebView extends WebView {
         }
     }
 
+    /**
+     * 解析网页超链接
+     *
+     * @param scheme
+     * @param url
+     */
     private void handleScheme(String scheme, String url) {
         if (scheme != null) {
             if (scheme.equalsIgnoreCase("kanqiu")) {
@@ -149,7 +152,7 @@ public class HuPuWebView extends WebView {
             } else if (scheme.equalsIgnoreCase("browser")
                     || scheme.equalsIgnoreCase("http")
                     || scheme.equalsIgnoreCase("https")) {
-                // TODO BrowserActivity.startActivity(getContext(), url);
+                handleUrl(url);
             } else if (scheme.equalsIgnoreCase("hupu")) {
                 try {
                     JSONObject object = new JSONObject(Uri.decode(url.substring("hupu".length() + 3)));
@@ -175,11 +178,24 @@ public class HuPuWebView extends WebView {
             // TODO ContentActivity.startActivity(getContext(), "", tid, pid, TextUtils.isEmpty(page) ? 1 : Integer.valueOf(page));
         } else if (url.contains("board")) {
             String boardId = url.substring(url.lastIndexOf("/") + 1);
-            // TODO ThreadListActivity.startActivity(getContext(), boardId);
+            Intent intent = new Intent(getContext(), ThreadListActivity.class);
+            intent.putExtra(ThreadListActivity.INTENT_FORUM_ID, boardId);
+            getContext().startActivity(intent);
         } else if (url.contains("people")) {
             String uid = url.substring(url.lastIndexOf("/") + 1);
             // TODO UserProfileActivity.startActivity(getContext(), uid);
         }
+    }
+
+    /**
+     * 跳转
+     *
+     * @param url
+     */
+    private void handleUrl(String url) {
+        Intent intent = new Intent(getContext(), BaseWebActivity.class);
+        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, url);
+        getContext().startActivity(intent);
     }
 
     private void handleHuPu(String method, JSONObject data, String successcb) throws Exception {

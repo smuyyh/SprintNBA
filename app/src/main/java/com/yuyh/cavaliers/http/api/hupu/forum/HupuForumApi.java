@@ -1,6 +1,6 @@
 package com.yuyh.cavaliers.http.api.hupu.forum;
 
-import com.yuyh.cavaliers.http.bean.BaseData;
+import com.yuyh.cavaliers.http.bean.base.BaseData;
 import com.yuyh.cavaliers.http.bean.forum.AttendStatusData;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
