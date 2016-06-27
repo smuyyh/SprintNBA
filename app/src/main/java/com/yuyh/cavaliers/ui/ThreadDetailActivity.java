@@ -78,7 +78,7 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
         presenter.initialized();
 
         LogUtils.i("--add start--");
-        HupuForumService.addReplyByApp(tid, fid, "", "yyy");
+        HupuForumService.addReplyByApp(tid, fid, "", "不错，顶一个哈~");
     }
 
     @Override

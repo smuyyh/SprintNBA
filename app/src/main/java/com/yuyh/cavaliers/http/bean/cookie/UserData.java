@@ -1,5 +1,7 @@
 package com.yuyh.cavaliers.http.bean.cookie;
 
+import com.yuyh.cavaliers.http.bean.base.BaseError;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -30,6 +32,8 @@ public class UserData implements Serializable {
      */
 
     public int is_login;
+
+    public BaseError error;
 
     public static class LoginResult {
         public String uid;

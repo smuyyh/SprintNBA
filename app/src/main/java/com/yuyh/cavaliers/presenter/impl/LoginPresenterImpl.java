@@ -46,35 +46,37 @@ public class LoginPresenterImpl implements Presenter {
         HupugameService.login(userName, passWord, new RequestCallback<UserData>() {
             @Override
             public void onSuccess(UserData userData) {
-                if (userData != null && userData.is_login == 1) { // 登录成功
-                    UserData.LoginResult data = userData.result;
-                    String cookie = "";
-                    try {
-                        cookie = URLDecoder.decode(Constant.Cookie, "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                if(userData!= null) {
+                    if (userData != null && userData.is_login == 1) { // 登录成功
+                        UserData.LoginResult data = userData.result;
+                        String cookie = "";
+                        try {
+                            cookie = URLDecoder.decode(Constant.Cookie, "UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        LogUtils.d("cookie:" + cookie);
+                        String uid = cookie.split("\\|")[0];
+                        LogUtils.d("uid:" + uid);
+                        user.setUid(uid);
+                        user.setNickName(data.nickname);
+                        user.setToken(data.token);
+                        user.setCookie(cookie);
+                        user.setUserName(data.username);
+
+                        storage.setToken(data.token);
+                        storage.setUser(user);
+
+                        SettingPrefUtils.saveNickname(data.nickname);
+                        SettingPrefUtils.saveUid(data.uid);
+                        SettingPrefUtils.saveToken(data.token);
+                        SettingPrefUtils.saveUsername(data.username);
+                        loginView.loginSuccess();
+                        loginView.hideLoading();
+                    } else {
+                        loginView.hideLoading();
+                        ToastUtils.showSingleLongToast("登录失败");
                     }
-                    LogUtils.d("cookie:" + cookie);
-                    String uid = cookie.split("\\|")[0];
-                    LogUtils.d("uid:" + uid);
-                    user.setUid(uid);
-                    user.setNickName(data.nickname);
-                    user.setToken(data.token);
-                    user.setCookie(cookie);
-                    user.setUserName(data.username);
-
-                    storage.setToken(data.token);
-                    storage.setUser(user);
-
-                    SettingPrefUtils.saveNickname(data.nickname);
-                    SettingPrefUtils.saveUid(data.uid);
-                    SettingPrefUtils.saveToken(data.token);
-                    SettingPrefUtils.saveUsername(data.username);
-                    loginView.loginSuccess();
-                    loginView.hideLoading();
-                } else {
-                    loginView.hideLoading();
-                    ToastUtils.showSingleLongToast("登录失败");
                 }
             }
 
