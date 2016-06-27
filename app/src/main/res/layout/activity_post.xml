@@ -26,7 +26,8 @@
             android:paddingBottom="8.0dip"
             android:paddingLeft="5.0dip"
             android:paddingTop="8.0dip"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:ellipsize="end"/>
 
     </android.support.design.widget.TextInputLayout>
 

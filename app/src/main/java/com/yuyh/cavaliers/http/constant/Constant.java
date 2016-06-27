@@ -10,7 +10,12 @@ public class Constant {
 
     public static String Cookie = "";
 
-
+    public static final int TYPE_COMMENT = 1001;
+    public static final int TYPE_FEEDBACK = 1002;
+    public static final int TYPE_AT = 1003;
+    public static final int TYPE_POST = 1004;
+    public static final int TYPE_REPLY = 1005;
+    public static final int TYPE_QUOTE = 1006;
 
     public enum NewsType implements Serializable {
 

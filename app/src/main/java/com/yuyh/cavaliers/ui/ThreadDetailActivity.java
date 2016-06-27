@@ -1,6 +1,7 @@
 package com.yuyh.cavaliers.ui;
 
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
+import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.presenter.impl.ThreadDetailPresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.VPThreadAdapter;
 import com.yuyh.cavaliers.ui.view.ThreadDetailView;
@@ -117,16 +119,6 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
     }
 
     @Override
-    public void showLoading(String msg) {
-        showLoadingDialog();
-    }
-
-    @Override
-    public void hideLoading() {
-        hideLoadingDialog();
-    }
-
-    @Override
     public void showError(String msg) {
 
     }
@@ -153,6 +145,22 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
     @Override
     public void onToggleFloatingMenu() {
         floatingMenu.toggle(true);
+    }
+
+    @Override
+    public void goPost(String title) {
+        Intent intent = new Intent(this, PostActivity.class);
+        intent.putExtra(PostActivity.INTENT_TITLE, title);
+        intent.putExtra(PostActivity.INTENT_TITLE, Constant.TYPE_COMMENT);
+        intent.putExtra(PostActivity.INTENT_FID, fid);
+        intent.putExtra(PostActivity.INTENT_TID, tid);
+        startActivity(intent);
+    }
+
+    @Override
+    public void goReport() {
+        Intent intent = new Intent(this, PostActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.tvPre)
@@ -183,5 +191,14 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
     @OnClick(R.id.floatingCollect)
     void floatingCollect() {
         presenter.onCollectClick();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (floatingMenu.isOpened()) {
+            floatingMenu.close(true);
+            return;
+        }
+        super.onBackPressed();
     }
 }

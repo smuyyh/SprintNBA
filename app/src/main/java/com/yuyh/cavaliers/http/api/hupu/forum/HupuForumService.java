@@ -4,9 +4,10 @@ import android.text.TextUtils;
 
 import com.yuyh.cavaliers.BuildConfig;
 import com.yuyh.cavaliers.http.api.RequestCallback;
-import com.yuyh.cavaliers.http.bean.base.BaseData;
+import com.yuyh.cavaliers.http.bean.forum.AddReplyData;
 import com.yuyh.cavaliers.http.bean.forum.AttendStatusData;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
+import com.yuyh.cavaliers.http.bean.forum.PermissionData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadsSchemaInfoData;
 import com.yuyh.cavaliers.http.okhttp.OkHttpHelper;
@@ -145,7 +146,7 @@ public class HupuForumService {
      * @param pid     回复id（评论时pid为空，回复某条回复pid为回复的id）
      * @param content 内容
      */
-    public static void addReplyByApp(String tid, String fid, String pid, String content) {
+    public static void addReplyByApp(String tid, String fid, String pid, String content, final RequestCallback<AddReplyData> cbk) {
         Map<String, String> params = RequestHelper.getRequsetMap();
         params.put("tid", tid);
         params.put("content", content);
@@ -157,16 +158,16 @@ public class HupuForumService {
         String sign = RequestHelper.getRequestSign(params);
         params.put("sign", sign);
 
-        Call<BaseData> call = apiStr.addReplyByApp(params);
-        call.enqueue(new Callback<BaseData>() {
+        Call<AddReplyData> call = apiStr.addReplyByApp(params);
+        call.enqueue(new Callback<AddReplyData>() {
             @Override
-            public void onResponse(Call<BaseData> call, Response<BaseData> response) {
-
+            public void onResponse(Call<AddReplyData> call, Response<AddReplyData> response) {
+                cbk.onSuccess(response != null ? response.body() : null);
             }
 
             @Override
-            public void onFailure(Call<BaseData> call, Throwable t) {
-                LogUtils.e(t.getMessage());
+            public void onFailure(Call<AddReplyData> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
             }
         });
     }
@@ -234,4 +235,39 @@ public class HupuForumService {
             }
         });
     }
+
+    /**
+     * 检查权限
+     *
+     * @param fid    论坛id
+     * @param tid    帖子id
+     * @param action threadPublish  threadReply
+     */
+    public static void checkPermission(String fid, String tid, String action, final RequestCallback<PermissionData> cbk) {
+        Map<String, String> params = RequestHelper.getRequsetMap();
+        if (!TextUtils.isEmpty(fid)) {
+            params.put("fid", fid);
+        }
+        if (!TextUtils.isEmpty(tid)) {
+            params.put("tid", tid);
+        }
+        if (!TextUtils.isEmpty(action)) {
+            params.put("action", action);
+        }
+        String sign = RequestHelper.getRequestSign(params);
+
+        Call<PermissionData> call = apiStr.checkPermission(sign, params);
+        call.enqueue(new Callback<PermissionData>() {
+            @Override
+            public void onResponse(Call<PermissionData> call, Response<PermissionData> response) {
+                cbk.onSuccess(response != null ? response.body() : null);
+            }
+
+            @Override
+            public void onFailure(Call<PermissionData> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
+            }
+        });
+    }
+
 }

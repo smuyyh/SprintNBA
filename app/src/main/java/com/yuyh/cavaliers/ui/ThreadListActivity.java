@@ -90,7 +90,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
         forum = (ForumsData.Forum) getIntent().getSerializableExtra(INTENT_FORUM);
         boardId = getIntent().getStringExtra(INTENT_FORUM_ID);
         appbar.addOnOffsetChangedListener(this);
-        if(forum == null) {
+        if (forum == null) {
             presenter = new ThreadListPresenterImpl(boardId, this, this);
             // TODO getForum
         } else {
@@ -227,5 +227,14 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
                 hideLoadingDialog();
             }
         }, 1000);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (floatingMenu.isOpened()) {
+            floatingMenu.close(true);
+            return;
+        }
+        super.onBackPressed();
     }
 }

@@ -1,8 +1,9 @@
 package com.yuyh.cavaliers.http.api.hupu.forum;
 
-import com.yuyh.cavaliers.http.bean.base.BaseData;
+import com.yuyh.cavaliers.http.bean.forum.AddReplyData;
 import com.yuyh.cavaliers.http.bean.forum.AttendStatusData;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
+import com.yuyh.cavaliers.http.bean.forum.PermissionData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadsSchemaInfoData;
 
@@ -59,7 +60,7 @@ public interface HupuForumApi {
 
     @POST("threads/threadReply")
     @FormUrlEncoded
-    Call<BaseData> addReplyByApp(@FieldMap Map<String, String> params);
+    Call<AddReplyData> addReplyByApp(@FieldMap Map<String, String> params);
 
     @POST("threads/threadCollectAdd")
     @FormUrlEncoded
@@ -88,5 +89,5 @@ public interface HupuForumApi {
     void upload(@Part("file") MultipartBody.Part file, @PartMap Map<String, RequestBody> params);
 
     @GET("permission/check")
-    void checkPermission(@Query("sign") String sign, @QueryMap Map<String, String> params);
+    Call<PermissionData> checkPermission(@Query("sign") String sign, @QueryMap Map<String, String> params);
 }

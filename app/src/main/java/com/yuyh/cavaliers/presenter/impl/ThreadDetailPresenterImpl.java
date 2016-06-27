@@ -3,11 +3,12 @@ package com.yuyh.cavaliers.presenter.impl;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.hupu.forum.HupuForumService;
 import com.yuyh.cavaliers.http.bean.forum.ThreadsSchemaInfoData;
-import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.ThreadDetailView;
+import com.yuyh.cavaliers.utils.ShareUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +44,6 @@ public class ThreadDetailPresenterImpl implements Presenter {
         this.fid = fid;
         this.pid = pid;
         this.page = page;
-        //detailView.showLoading("");
-
     }
 
 
@@ -62,10 +61,8 @@ public class ThreadDetailPresenterImpl implements Presenter {
                     detailView.loadContent(page, urls);
                     isCollected = threadSchemaInfo.isCollected == 1;
                     detailView.isCollected(isCollected);
-                    //detailView.hideLoading();
                 } else {
                     detailView.showError("加载失败");
-                    //detailView.hideLoading();
                 }
             }
 
@@ -106,21 +103,24 @@ public class ThreadDetailPresenterImpl implements Presenter {
     }
 
     public void onCommendClick() {
+        detailView.goPost(title);
         detailView.onToggleFloatingMenu();
     }
 
     public void onShareClick() {
         if (!TextUtils.isEmpty(shareText)) {
-            //ShareUtils.share(mContext, shareText);
+            ShareUtils.share(context, shareText);
         }
         detailView.onToggleFloatingMenu();
     }
 
     public void onReportClick() {
+        detailView.goReport();
         detailView.onToggleFloatingMenu();
     }
 
     public void onCollectClick() {
+        // TODO 收藏/取消收藏
         detailView.onToggleFloatingMenu();
     }
 }

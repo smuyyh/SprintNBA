@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class BaseError {
     @SerializedName("id")
-    int code;
+    public int code;
     @SerializedName("text")
-    String msg;
+    public String msg;
 }

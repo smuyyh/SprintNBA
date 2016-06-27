@@ -1,18 +1,22 @@
 package com.yuyh.cavaliers.ui.view;
 
-import com.yuyh.cavaliers.ui.view.base.BaseView;
-
 import java.util.List;
 
 /**
  * @author yuyh.
  * @date 16/6/25.
  */
-public interface ThreadDetailView extends BaseView {
+public interface ThreadDetailView{
+
+    void showError(String msg);
 
     void loadContent(int page, List<String> urls);
 
     void isCollected(boolean isCollected);
 
     void onToggleFloatingMenu();
+
+    void goPost(String title);
+
+    void goReport();
 }
