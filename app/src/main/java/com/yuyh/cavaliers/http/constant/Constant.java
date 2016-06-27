@@ -17,6 +17,9 @@ public class Constant {
     public static final int TYPE_REPLY = 1005;
     public static final int TYPE_QUOTE = 1006;
 
+    public static final String THREAD_TYPE_HOT = "2";  //热帖
+    public static final String THREAD_TYPE_NEW = "1";//最新的帖子
+
     public enum NewsType implements Serializable {
 
         BANNER("banner"),      //头条

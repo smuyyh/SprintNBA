@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * @author yuyh.
@@ -98,6 +99,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
             // TODO getForum
         } else {
             presenter = new ThreadListPresenterImpl(forum.fid, this, this);
+            boardId = forum.fid;
             showThreadInfo(forum);
         }
         presenter.initialized();
@@ -243,5 +245,46 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    public void onScrollToTop() {
+        recyclerView.smoothScrollToPosition(0);
+    }
+
+    @OnClick(R.id.floatingAttention)
+    void floatingAttention() {
+        presenter.onAttentionClick();
+        floatingMenu.toggle(true);
+    }
+
+    @OnClick(R.id.floatingPost)
+    void floatingPost() {
+        floatingMenu.toggle(true);
+        Intent intent = new Intent(this, PostActivity.class);
+        intent.putExtra(PostActivity.INTENT_TITLE, "");
+        intent.putExtra(PostActivity.INTENT_TYPE, Constant.TYPE_POST);
+        intent.putExtra(PostActivity.INTENT_FID, boardId);
+        intent.putExtra(PostActivity.INTENT_TID, "");
+        intent.putExtra(PostActivity.INTENT_PID, "");
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.floatingRefresh)
+    void floatingRefresh() {
+        presenter.onRefresh();
+        floatingMenu.toggle(true);
+    }
+
+    @OnClick(R.id.floatingSwitch)
+    void floatingSwitch() {
+        if (floatingSwitch.getLabelText().equals("按回帖时间排序")) {
+            presenter.onThreadReceive(Constant.THREAD_TYPE_HOT, "", true);
+            floatingSwitch.setLabelText("按发帖时间排序");
+        } else {
+            presenter.onThreadReceive(Constant.THREAD_TYPE_NEW, "", true);
+            floatingSwitch.setLabelText("按回帖时间排序");
+        }
+        floatingMenu.toggleMenuButton(true);
     }
 }

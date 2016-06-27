@@ -92,4 +92,18 @@ public class ThreadListPresenterImpl implements Presenter {
             }
         });
     }
+
+    public void onAttentionClick() {
+        // TODO attention
+    }
+
+    public void onRefresh() {
+        mThreadListView.onScrollToTop();
+        if (loadType == TYPE_LIST) {
+            loadThreadList("", true);
+        } else {
+            pageIndex = 1;
+            //TODO loadSearchList();
+        }
+    }
 }

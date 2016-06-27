@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface ThreadListView extends BaseView {
 
+    void onScrollToTop();
+
     void showThreadList(List<ThreadListData.ThreadInfo> forumInfoList, boolean isRefresh);
 
     void showThreadInfo(ForumsData.Forum forum);

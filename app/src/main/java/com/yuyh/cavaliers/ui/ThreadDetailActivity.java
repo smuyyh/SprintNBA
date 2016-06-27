@@ -155,6 +155,7 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
         intent.putExtra(PostActivity.INTENT_TYPE, Constant.TYPE_COMMENT);
         intent.putExtra(PostActivity.INTENT_FID, fid);
         intent.putExtra(PostActivity.INTENT_TID, tid);
+        intent.putExtra(PostActivity.INTENT_PID, "");
         startActivity(intent);
     }
 
