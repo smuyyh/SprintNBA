@@ -63,7 +63,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.yuyh.cavaliers.widget.LoadMoreRecyclerView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/lmrvLoadMore"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

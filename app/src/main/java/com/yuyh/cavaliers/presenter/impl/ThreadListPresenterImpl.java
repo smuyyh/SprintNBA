@@ -77,10 +77,7 @@ public class ThreadListPresenterImpl implements Presenter {
             @Override
             public void onSuccess(ThreadListData threadListData) {
                 if (threadListData != null && threadListData.result != null && threadListData.result.data != null) {
-                    if(isRefresh)
-                        list.clear();
-                    list.addAll(threadListData.result.data);
-                    mThreadListView.showThreadList(list, isRefresh);
+                    mThreadListView.showThreadList(threadListData.result.data, isRefresh);
                     mThreadListView.onLoadCompleted(threadListData.result.nextPage);
                 } else {
                     mThreadListView.showError("没有更多啦");

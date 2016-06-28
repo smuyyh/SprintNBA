@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,7 @@ import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.presenter.impl.ThreadListPresenterImpl;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
-import com.yuyh.cavaliers.ui.adapter.ThreadInfoListAdapter;
+import com.yuyh.cavaliers.ui.adapter.ThreadListAdapter;
 import com.yuyh.cavaliers.ui.view.ThreadListView;
 import com.yuyh.cavaliers.widget.LoadMoreRecyclerView;
 import com.yuyh.library.utils.DimenUtils;
@@ -55,7 +56,8 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     public String boardId;
 
     @InjectView(R.id.lmrvLoadMore)
-    LoadMoreRecyclerView recyclerView;
+    RecyclerView recyclerView;
+    LinearLayoutManager linearLayoutManager;
 
     @InjectView(R.id.backdrop)
     ImageView backdrop;
@@ -82,7 +84,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     @InjectView(R.id.frameLayout)
     FrameLayout frameLayout;
 
-    private ThreadInfoListAdapter adapter;
+    private ThreadListAdapter adapter;
     private List<ThreadListData.ThreadInfo> list = new ArrayList<>();
 
     private ThreadListPresenterImpl presenter;
@@ -91,6 +93,9 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     private int pageIndex = 1;
     private String key;
     private String type = Constant.THREAD_TYPE_NEW;
+
+    private boolean isLoading;
+    private Handler handler = new Handler();
 
     @Override
     protected int getContentViewLayoutID() {
@@ -137,15 +142,16 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     }
 
     private void initRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(3)));
         recyclerView.setHasFixedSize(true);
 
         refreshLayout.setOnRefreshListener(new RefreshListener());
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.material_red));
-        recyclerView.setLoadMoreListener(new RefreshListener());
-        adapter = new ThreadInfoListAdapter();
+        //recyclerView.setLoadMoreListener(new RefreshListener());
+        adapter = new ThreadListAdapter(list, this, R.layout.list_item_thread);
         adapter.setOnItemClickListener(new OnListItemClickListener<ThreadListData.ThreadInfo>() {
             @Override
             public void onItemClick(View view, int position, ThreadListData.ThreadInfo data) {
@@ -156,7 +162,37 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
             }
         });
         recyclerView.setAdapter(adapter);
-        recyclerView.setLoadMoreEnable(true);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+                if (lastVisibleItemPosition + 1 == adapter.getItemCount()) { // 滑到倒数第二项就加载更多
+
+                    boolean isRefreshing = refreshLayout.isRefreshing();
+                    if (isRefreshing) {
+                        adapter.notifyItemRemoved(adapter.getItemCount());
+                        return;
+                    }
+                    if (!isLoading) {
+                        isLoading = true;
+                        if (presenter.loadType == ThreadListPresenterImpl.TYPE_LIST)
+                            presenter.onThreadReceive(type, last, false);
+                        else {
+                            pageIndex++;
+                            presenter.onStartSearch(key, pageIndex, false);
+                        }
+                        Log.d("test", "load more completed");
+                    }
+                }
+            }
+        });
         backdrop.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
 
     }
@@ -174,7 +210,12 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     @Override
     public void showThreadList(List<ThreadListData.ThreadInfo> forumInfoList, boolean isRefresh) {
         last = forumInfoList.get(forumInfoList.size() - 1).tid;
-        adapter.bind(forumInfoList);
+        if (isRefresh) {
+            list.clear();
+            last = "";
+        }
+        list.addAll(forumInfoList);
+        adapter.notifyDataSetChanged();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -216,7 +257,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
 
     @Override
     public void onLoadCompleted(boolean hasMore) {
-        recyclerView.onLoadCompleted(hasMore);
+        isLoading = false;
     }
 
     @Override

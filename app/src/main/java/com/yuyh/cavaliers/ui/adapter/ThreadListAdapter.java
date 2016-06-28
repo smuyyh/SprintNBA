@@ -1,6 +1,10 @@
 package com.yuyh.cavaliers.ui.adapter;
 
 import android.content.Context;
+import android.text.Html;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
@@ -17,6 +21,7 @@ import java.util.List;
 public class ThreadListAdapter extends HelperAdapter<ThreadListData.ThreadInfo> {
 
     private OnListItemClickListener listener;
+
     /**
      * @param data     数据源
      * @param context  上下文
@@ -27,9 +32,9 @@ public class ThreadListAdapter extends HelperAdapter<ThreadListData.ThreadInfo> 
     }
 
     @Override
-    protected void HelperBindData(HelperViewHolder viewHolder, int position, ThreadListData.ThreadInfo item) {
+    protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final ThreadListData.ThreadInfo item) {
 
-        viewHolder.setText(R.id.tvTitle, item.title)
+        viewHolder.setText(R.id.tvTitle, String.valueOf(Html.fromHtml(item.title)))
                 .setText(R.id.tvReply, item.replies)
                 .setText(R.id.tvSingleTime, item.forum == null ? item.time : item.forum.name)
                 .setVisible(R.id.grid, false);
@@ -39,9 +44,44 @@ public class ThreadListAdapter extends HelperAdapter<ThreadListData.ThreadInfo> 
         } else {
             viewHolder.setVisible(R.id.tvLight, false);
         }
+        viewHolder.setVisible(R.id.tvSingleTime, true);
+        viewHolder.setVisible(R.id.tvSummary, false);
+        viewHolder.setVisible(R.id.grid, false);
+        //showItemAnim(viewHolder.getItemView(), position);
+        viewHolder.getItemView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null)
+                    listener.onItemClick(viewHolder.getItemView(), position, item);
+            }
+        });
     }
 
     public void setOnItemClickListener(OnListItemClickListener listener) {
         this.listener = listener;
+    }
+
+    private int mLastPosition = -1;
+
+    public void showItemAnim(final View view, final int position) {
+        if (position > mLastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.item_bottom_in);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    view.setAlpha(1);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            view.startAnimation(animation);
+            mLastPosition = position;
+        }
     }
 }
