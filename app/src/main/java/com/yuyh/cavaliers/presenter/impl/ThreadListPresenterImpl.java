@@ -164,6 +164,7 @@ public class ThreadListPresenterImpl implements Presenter {
 
     public void onAttentionClick() {
         // TODO attention
+        ToastUtils.showSingleToast("暂不支持哦~");
     }
 
     public void onRefresh() {
@@ -172,7 +173,7 @@ public class ThreadListPresenterImpl implements Presenter {
             loadThreadList("", true);
         } else {
             pageIndex = 1;
-            //TODO loadSearchList();
+            loadSearchList(true);
         }
     }
 }

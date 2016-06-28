@@ -156,6 +156,8 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
 
     @Override
     public void goReport() {
+        Intent intent = new Intent(this, ReportActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.tvPre)

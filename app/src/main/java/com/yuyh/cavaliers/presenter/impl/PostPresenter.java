@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.hupu.forum.HupuForumService;
+import com.yuyh.cavaliers.http.bean.base.BaseData;
 import com.yuyh.cavaliers.http.bean.forum.AddReplyData;
 import com.yuyh.cavaliers.http.bean.forum.PermissionData;
 import com.yuyh.cavaliers.http.constant.Constant;
@@ -75,6 +76,20 @@ public class PostPresenter {
             @Override
             public void onFailure(String message) {
                 ToastUtils.showSingleToast("发送失败,请检查网络");
+            }
+        });
+    }
+
+    public void post(String fid, String content, String title) {
+        HupuForumService.addThread(title, content, fid, new RequestCallback<BaseData>() {
+            @Override
+            public void onSuccess(BaseData baseData) {
+
+            }
+
+            @Override
+            public void onFailure(String message) {
+
             }
         });
     }

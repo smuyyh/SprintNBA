@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.yuyh.cavaliers.BuildConfig;
 import com.yuyh.cavaliers.http.api.RequestCallback;
+import com.yuyh.cavaliers.http.bean.base.BaseData;
 import com.yuyh.cavaliers.http.bean.forum.AddReplyData;
 import com.yuyh.cavaliers.http.bean.forum.AttendStatusData;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
@@ -15,7 +16,6 @@ import com.yuyh.cavaliers.http.utils.RequestHelper;
 import com.yuyh.cavaliers.utils.SettingPrefUtils;
 import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.data.ACache;
-import com.yuyh.library.utils.log.LogUtils;
 
 import java.util.Map;
 
@@ -116,7 +116,7 @@ public class HupuForumService {
      * @param content 内容
      * @param fid     论坛id
      */
-    public static void addThread(String title, String content, String fid) {
+    public static void addThread(String title, String content, String fid, final RequestCallback<BaseData> cbk) {
         Map<String, String> params = RequestHelper.getRequsetMap();
         params.put("title", title);
         params.put("content", content);
@@ -124,16 +124,16 @@ public class HupuForumService {
         String sign = RequestHelper.getRequestSign(params);
         params.put("sign", sign);
 
-        Call<Object> call = apiStr.addThread(params);
-        call.enqueue(new retrofit2.Callback<Object>() {
+        Call<BaseData> call = apiStr.addThread(params);
+        call.enqueue(new retrofit2.Callback<BaseData>() {
             @Override
-            public void onResponse(Call<Object> call, retrofit2.Response<Object> response) {
-                LogUtils.i("----" + response.body());
+            public void onResponse(Call<BaseData> call, retrofit2.Response<BaseData> response) {
+                cbk.onSuccess(response != null ? response.body() : null);
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
-                LogUtils.e("-----" + t.getMessage());
+            public void onFailure(Call<BaseData> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
             }
         });
     }
@@ -265,6 +265,38 @@ public class HupuForumService {
 
             @Override
             public void onFailure(Call<PermissionData> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    /**
+     * (1, "广告或垃圾内容");
+     * (2, "色情暴露内容");
+     * (3, "政治敏感话题");
+     * (4, "人身攻击等恶意行为");
+     */
+    public static void submitReports(String tid, String pid, String type, String content, final RequestCallback<BaseData> cbk) {
+        Map<String, String> params = RequestHelper.getRequsetMap();
+        if (!TextUtils.isEmpty(tid)) {
+            params.put("tid", tid);
+        }
+        if (!TextUtils.isEmpty(pid)) {
+            params.put("pid", pid);
+        }
+        params.put("type", type);
+        params.put("content", content);
+        String sign = RequestHelper.getRequestSign(params);
+
+        Call<BaseData> call = apiStr.submitReports(sign, params);
+        call.enqueue(new Callback<BaseData>() {
+            @Override
+            public void onResponse(Call<BaseData> call, Response<BaseData> response) {
+                cbk.onSuccess(response != null ? response.body() : null);
+            }
+
+            @Override
+            public void onFailure(Call<BaseData> call, Throwable t) {
                 cbk.onFailure(t.getMessage());
             }
         });

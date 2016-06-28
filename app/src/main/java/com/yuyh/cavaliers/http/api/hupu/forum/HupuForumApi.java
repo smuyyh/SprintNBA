@@ -1,5 +1,6 @@
 package com.yuyh.cavaliers.http.api.hupu.forum;
 
+import com.yuyh.cavaliers.http.bean.base.BaseData;
 import com.yuyh.cavaliers.http.bean.forum.AddReplyData;
 import com.yuyh.cavaliers.http.bean.forum.AttendStatusData;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
@@ -56,7 +57,7 @@ public interface HupuForumApi {
 
     @POST("threads/threadPublish")
     @FormUrlEncoded
-    Call<Object> addThread(@FieldMap Map<String, String> params);
+    Call<BaseData> addThread(@FieldMap Map<String, String> params);
 
     @POST("threads/threadReply")
     @FormUrlEncoded
@@ -72,7 +73,7 @@ public interface HupuForumApi {
 
     @POST("threads/threadReport")
     @FormUrlEncoded
-    void submitReports(@Field("sign") String sign, @FieldMap Map<String, String> params);
+    Call<BaseData> submitReports(@Field("sign") String sign, @FieldMap Map<String, String> params);
 
     @GET("recommend/getThreadsList")
     void getRecommendThreadList(@Query("sign") String sign, @QueryMap Map<String, String> params);

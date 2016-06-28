@@ -51,6 +51,10 @@
             android:name=".ui.LoginActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.ReportActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

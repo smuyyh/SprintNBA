@@ -120,7 +120,7 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
         String content = etContent.getText().toString();
         if (type == Constant.TYPE_POST) {
             String title = etSubject.getText().toString();
-            //presenter.post(fid, content, title);
+            presenter.post(fid, content, title);
         } else {
             presenter.comment(tid, fid, pid, content);
         }
@@ -170,7 +170,7 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
                         }, 500);
                     }
                 });
-                //dialog.show();
+                dialog.show();
             }
         }
     }
