@@ -67,7 +67,7 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
                 setTitle("评论");
                 etSubject.setEnabled(false);
                 etSubject.setText("Comment:" + title);
-                etContent.setHint("请输入您的评论");
+                //etContent.setHint("请输入您的评论");
                 presenter.checkPermission(Constant.TYPE_COMMENT, fid, tid);
                 break;
             case Constant.TYPE_REPLY:
@@ -82,6 +82,7 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
                 etSubject.setEnabled(false);
                 etSubject.setText("Feedback:" + title);
                 etContent.setHint("请输入您的反馈信息");
+                etContent.requestFocus();
                 break;
             case Constant.TYPE_AT:
                 break;
@@ -138,7 +139,7 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
     }
 
     @Override
-    public void checkPermissionSuccess(boolean hasPermission, String msg, boolean retry) {
+    public void checkPermissionSuccess(boolean hasPermission, final int code, String msg, boolean retry) {
         if (!hasPermission) {
             dialog = new NormalDialog(this).isTitleShow(false).content(msg)
                     .showAnim(new BounceTopEnter()).dismissAnim(new SlideBottomExit())
@@ -156,7 +157,11 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
                 dialog.btnText("确定").setOnBtnClickL(new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
-                        dialog.dismiss();
+                        if (code == 4) {
+                            dialog.dismiss();
+                            Intent intent = new Intent(mContext, LoginActivity.class);
+                            startActivity(intent);
+                        }
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -165,7 +170,7 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
                         }, 500);
                     }
                 });
-                dialog.show();
+                //dialog.show();
             }
         }
     }

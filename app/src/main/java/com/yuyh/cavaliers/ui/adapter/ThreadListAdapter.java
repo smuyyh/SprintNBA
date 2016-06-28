@@ -5,6 +5,7 @@ import android.text.Html;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
@@ -34,8 +35,9 @@ public class ThreadListAdapter extends HelperAdapter<ThreadListData.ThreadInfo> 
     @Override
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final ThreadListData.ThreadInfo item) {
 
-        viewHolder.setText(R.id.tvTitle, String.valueOf(Html.fromHtml(item.title)))
-                .setText(R.id.tvReply, item.replies)
+        TextView tv = viewHolder.getView(R.id.tvTitle);
+        tv.setText(Html.fromHtml(item.title));
+        viewHolder.setText(R.id.tvReply, item.replies)
                 .setText(R.id.tvSingleTime, item.forum == null ? item.time : item.forum.name)
                 .setVisible(R.id.grid, false);
         if (item.lightReply > 0) {
@@ -47,7 +49,7 @@ public class ThreadListAdapter extends HelperAdapter<ThreadListData.ThreadInfo> 
         viewHolder.setVisible(R.id.tvSingleTime, true);
         viewHolder.setVisible(R.id.tvSummary, false);
         viewHolder.setVisible(R.id.grid, false);
-        //showItemAnim(viewHolder.getItemView(), position);
+        showItemAnim(viewHolder.getItemView(), position);
         viewHolder.getItemView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

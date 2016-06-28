@@ -34,7 +34,6 @@ import com.yuyh.cavaliers.ui.adapter.ThreadListAdapter;
 import com.yuyh.cavaliers.ui.view.ThreadListView;
 import com.yuyh.cavaliers.widget.LoadMoreRecyclerView;
 import com.yuyh.library.utils.DimenUtils;
-import com.yuyh.library.utils.IMEUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.util.ArrayList;
@@ -96,6 +95,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
 
     private boolean isLoading;
     private Handler handler = new Handler();
+    private SearchView searchView;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -216,12 +216,8 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
         }
         list.addAll(forumInfoList);
         adapter.notifyDataSetChanged();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                IMEUtils.hideSoftInput(ThreadListActivity.this);
-            }
-        }, 200);
+        if(searchView != null)
+            searchView.clearFocus();
     }
 
     @Override
@@ -349,7 +345,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_thread, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);//在菜单中找到对应控件的item
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

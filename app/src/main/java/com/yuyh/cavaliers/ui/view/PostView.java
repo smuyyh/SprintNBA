@@ -10,5 +10,5 @@ public interface PostView {
 
     void postFailure(String msg);
 
-    void checkPermissionSuccess(boolean hasPermission, String msg, boolean retry);
+    void checkPermissionSuccess(boolean hasPermission, int code, String msg, boolean retry);
 }
