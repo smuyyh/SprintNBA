@@ -5,11 +5,11 @@
         android:id="@+id/action_camera"
         android:icon="@drawable/ic_menu_camera"
         android:title="添加照片"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_send"
         android:icon="@drawable/ic_menu_send"
         android:title="发送"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>

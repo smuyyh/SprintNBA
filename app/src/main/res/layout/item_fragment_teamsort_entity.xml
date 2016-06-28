@@ -15,8 +15,8 @@
 
         <com.yuyh.library.view.image.CircleImageView
             android:id="@+id/team_icon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp" />

@@ -73,7 +73,7 @@ import java.util.ArrayList;
  * complete}
  */
 public abstract class FragmentListPageAdapter extends PagerAdapter {
-	private static final String TAG = "FragmentStatePagerAdapter";
+	private static final String TAG = "FragmentPagerAdapter";
 	private static final boolean DEBUG = false;
 
 	private final FragmentManager mFragmentManager;

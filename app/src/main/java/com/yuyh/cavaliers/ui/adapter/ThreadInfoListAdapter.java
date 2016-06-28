@@ -22,9 +22,6 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-/**
- * Created by sll on 2016/3/9.
- */
 public class ThreadInfoListAdapter extends RecyclerView.Adapter<ThreadInfoListAdapter.ViewHolder> {
 
     private List<ThreadInfo> threads = new ArrayList<>();
@@ -35,8 +32,7 @@ public class ThreadInfoListAdapter extends RecyclerView.Adapter<ThreadInfoListAd
     }
 
     public void bind(List<ThreadInfo> threads) {
-        this.threads.clear();
-        this.threads.addAll(threads);
+        this.threads = threads;
         notifyDataSetChanged();
     }
 

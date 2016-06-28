@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
+import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class ThreadListAdapter extends HelperAdapter<ThreadListData.ThreadInfo> {
 
-
+    private OnListItemClickListener listener;
     /**
      * @param data     数据源
      * @param context  上下文
@@ -38,5 +39,9 @@ public class ThreadListAdapter extends HelperAdapter<ThreadListData.ThreadInfo> 
         } else {
             viewHolder.setVisible(R.id.tvLight, false);
         }
+    }
+
+    public void setOnItemClickListener(OnListItemClickListener listener) {
+        this.listener = listener;
     }
 }

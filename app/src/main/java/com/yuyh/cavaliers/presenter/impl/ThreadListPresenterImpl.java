@@ -40,6 +40,8 @@ public class ThreadListPresenterImpl implements Presenter {
     public static final int TYPE_LIST = 1;
     public static final int TYPE_SEARCH = 2;
 
+    List<ThreadListData.ThreadInfo> list = new ArrayList<>();
+
     public ThreadListPresenterImpl(String fid, Context context, ThreadListView threadListView) {
         this.fid = fid;
         this.context = context;
@@ -75,7 +77,10 @@ public class ThreadListPresenterImpl implements Presenter {
             @Override
             public void onSuccess(ThreadListData threadListData) {
                 if (threadListData != null && threadListData.result != null && threadListData.result.data != null) {
-                    mThreadListView.showThreadList(threadListData.result.data, isRefresh);
+                    if(isRefresh)
+                        list.clear();
+                    list.addAll(threadListData.result.data);
+                    mThreadListView.showThreadList(list, isRefresh);
                     mThreadListView.onLoadCompleted(threadListData.result.nextPage);
                 } else {
                     mThreadListView.showError("没有更多啦");
@@ -116,12 +121,13 @@ public class ThreadListPresenterImpl implements Presenter {
                             thread.userName = search.username;
                             thread.title = search.title;
                             long time = Long.valueOf(search.addtime);
-                            Date date = new Date(time);
+                            Date date = new Date(time * 1000);
                             SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                             thread.time = format.format(date);
                             list.add(thread);
                         }
                         mThreadListView.showThreadList(list, isRefresh);
+                        mThreadListView.onLoadCompleted(result.hasNextPage == 1 ? true : false);
                     } else {
                         ToastUtils.showSingleToast("找不到相应内容哦");
                     }

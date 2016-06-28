@@ -31,4 +31,10 @@ public class VPThreadAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return urls.size();
     }
+
+    public void bind(List<String> urls){
+        this.urls.clear();
+        this.urls.addAll(urls);
+        notifyDataSetChanged();
+    }
 }

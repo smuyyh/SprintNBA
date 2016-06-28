@@ -155,6 +155,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
                 startActivity(intent);
             }
         });
+        recyclerView.setAdapter(adapter);
         recyclerView.setLoadMoreEnable(true);
         backdrop.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
 
@@ -172,21 +173,14 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
 
     @Override
     public void showThreadList(List<ThreadListData.ThreadInfo> forumInfoList, boolean isRefresh) {
-        if (isRefresh) {
-            list.clear();
-            last = "";
-        }
-        list.addAll(forumInfoList);
-        last = list.get(list.size() - 1).tid;
+        last = forumInfoList.get(forumInfoList.size() - 1).tid;
         adapter.bind(forumInfoList);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 IMEUtils.hideSoftInput(ThreadListActivity.this);
             }
-        },500);
+        }, 200);
     }
 
     @Override
@@ -287,7 +281,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
         intent.putExtra(PostActivity.INTENT_FID, boardId);
         intent.putExtra(PostActivity.INTENT_TID, "");
         intent.putExtra(PostActivity.INTENT_PID, "");
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     @OnClick(R.id.floatingRefresh)

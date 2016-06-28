@@ -1,6 +1,7 @@
 package com.yuyh.cavaliers.ui;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -126,6 +127,8 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
 
     @Override
     public void postSuccess() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
         finish();
     }
 
@@ -154,7 +157,12 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
                     @Override
                     public void onBtnClick() {
                         dialog.dismiss();
-                        finish();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, 500);
                     }
                 });
                 dialog.show();

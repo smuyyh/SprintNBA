@@ -9,12 +9,15 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
+import com.yuyh.cavaliers.event.ThreadContentEvent;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.presenter.impl.ThreadDetailPresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.VPThreadAdapter;
 import com.yuyh.cavaliers.ui.view.ThreadDetailView;
 import com.yuyh.cavaliers.widget.VerticalViewPager;
 import com.yuyh.library.utils.toast.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -120,7 +123,6 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
     @Override
     public void loadContent(int position, List<String> urls) {
         totalPage = urls.size();
-        viewPager.setCurrentItem(position - 1);
 
         if (mAdapter == null) {
             mAdapter = new VPThreadAdapter(getSupportFragmentManager(), urls);
@@ -149,7 +151,7 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
         intent.putExtra(PostActivity.INTENT_FID, fid);
         intent.putExtra(PostActivity.INTENT_TID, tid);
         intent.putExtra(PostActivity.INTENT_PID, "");
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     @Override
@@ -193,5 +195,14 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            viewPager.setCurrentItem(totalPage - 1);
+            onUpdatePager(viewPager.getCurrentItem() + 1, totalPage);
+            EventBus.getDefault().post(new ThreadContentEvent());
+        }
     }
 }

@@ -5,13 +5,15 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseAppCompatActivity;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.cavaliers.event.ThreadContentEvent;
 import com.yuyh.cavaliers.widget.HuPuWebView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -26,6 +28,8 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
     HuPuWebView hupuWebView;
     private String url;
     android.support.v7.widget.Toolbar mToolbar = null;
+
+    private boolean isNeedScrollToBottom = false;
 
     public static ThreadContentFragment newInstance(String url) {
         ThreadContentFragment mFragment = new ThreadContentFragment();
@@ -46,7 +50,7 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
         hupuWebView.loadUrl(url);
         hupuWebView.setCallBack(this);
         hupuWebView.setOnScrollChangedCallback(this);
-
+        EventBus.getDefault().register(this);
         mToolbar = ((BaseAppCompatActivity) mActivity).getToolbar();
     }
 
@@ -66,6 +70,7 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
             hupuWebView.removeAllViews();
             hupuWebView.destroy();
         }
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -77,11 +82,17 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
             }
         }, 500);
 
-        if (mToolbar.getVisibility() == View.GONE) {
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) hupuWebView.getLayoutParams();
-            params.setMargins(0, 0, 0, 0);
-            hupuWebView.setLayoutParams(params);
+        if (isNeedScrollToBottom) {
+            isNeedScrollToBottom = false;
+            hupuWebView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //hupuWebView.scrollTo(0, (int) (hupuWebView.getContentHeight()* hupuWebView.getScale()));
+                    hupuWebView.setScrollY((int) (hupuWebView.getContentHeight() * hupuWebView.getScale() - hupuWebView.getHeight()));
+                }
+            }, 500);
         }
+
     }
 
     @Override
@@ -116,5 +127,11 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Subscribe
+    public void onEventMainThread(ThreadContentEvent event) {
+        isNeedScrollToBottom = true;
+        hupuWebView.reload();
     }
 }
