@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.presenter.impl;
+package com.yuyh.cavaliers.ui.presenter.impl;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import com.yuyh.cavaliers.http.bean.cookie.UserData;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.utils.UserStorage;
-import com.yuyh.cavaliers.presenter.Presenter;
+import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.LoginView;
 import com.yuyh.cavaliers.utils.SettingPrefUtils;
 import com.yuyh.library.utils.log.LogUtils;

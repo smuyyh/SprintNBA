@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.presenter;
+package com.yuyh.cavaliers.ui.presenter;
 
 public interface NewsDetailPresenter {
 

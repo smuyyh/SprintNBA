@@ -1,11 +1,11 @@
-package com.yuyh.cavaliers.presenter.impl;
+package com.yuyh.cavaliers.ui.presenter.impl;
 
 import android.content.Context;
 
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.hupu.forum.HupuForumService;
 import com.yuyh.cavaliers.http.bean.base.BaseData;
-import com.yuyh.cavaliers.presenter.Presenter;
+import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.ReportView;
 
 import java.util.ArrayList;

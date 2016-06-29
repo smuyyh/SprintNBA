@@ -1,10 +1,10 @@
-package com.yuyh.cavaliers.presenter.impl;
+package com.yuyh.cavaliers.ui.presenter.impl;
 
 import android.content.Context;
 
-import com.yuyh.cavaliers.Interactor.StatsRankInteractor;
-import com.yuyh.cavaliers.Interactor.impl.StatsRankInteractorImpl;
-import com.yuyh.cavaliers.presenter.Presenter;
+import com.yuyh.cavaliers.ui.Interactor.StatsRankInteractor;
+import com.yuyh.cavaliers.ui.Interactor.impl.StatsRankInteractorImpl;
+import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.StatsRankView;
 
 /**

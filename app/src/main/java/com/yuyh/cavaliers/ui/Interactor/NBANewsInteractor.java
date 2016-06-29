@@ -1,5 +1,5 @@
 
-package com.yuyh.cavaliers.Interactor;
+package com.yuyh.cavaliers.ui.Interactor;
 
 public interface NBANewsInteractor {
 

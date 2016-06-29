@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.presenter.impl;
+package com.yuyh.cavaliers.ui.presenter.impl;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -10,7 +10,7 @@ import com.yuyh.cavaliers.http.api.hupu.game.HupugameService;
 import com.yuyh.cavaliers.http.bean.forum.AttendStatusData;
 import com.yuyh.cavaliers.http.bean.forum.SearchListData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
-import com.yuyh.cavaliers.presenter.Presenter;
+import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.ThreadListView;
 import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.library.utils.toast.ToastUtils;

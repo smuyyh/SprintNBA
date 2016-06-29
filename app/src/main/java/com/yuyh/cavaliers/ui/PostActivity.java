@@ -13,7 +13,7 @@ import com.flyco.dialog.widget.NormalDialog;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.presenter.impl.PostPresenter;
+import com.yuyh.cavaliers.ui.presenter.impl.PostPresenter;
 import com.yuyh.cavaliers.ui.view.PostView;
 
 import butterknife.InjectView;

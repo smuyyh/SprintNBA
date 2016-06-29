@@ -11,7 +11,7 @@ import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
 import com.yuyh.cavaliers.event.ThreadContentEvent;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.presenter.impl.ThreadDetailPresenterImpl;
+import com.yuyh.cavaliers.ui.presenter.impl.ThreadDetailPresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.VPThreadAdapter;
 import com.yuyh.cavaliers.ui.view.ThreadDetailView;
 import com.yuyh.cavaliers.widget.VerticalViewPager;

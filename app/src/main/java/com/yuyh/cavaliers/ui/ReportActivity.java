@@ -6,7 +6,7 @@ import android.widget.EditText;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
-import com.yuyh.cavaliers.presenter.impl.ReportPresenterImpl;
+import com.yuyh.cavaliers.ui.presenter.impl.ReportPresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.ReportAdapter;
 import com.yuyh.cavaliers.ui.view.ReportView;
 import com.yuyh.library.view.list.NoScrollListView;

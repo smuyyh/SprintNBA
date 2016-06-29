@@ -1,8 +1,8 @@
-package com.yuyh.cavaliers.Interactor.impl;
+package com.yuyh.cavaliers.ui.Interactor.impl;
 
 import android.content.Context;
 
-import com.yuyh.cavaliers.Interactor.HomeInteractor;
+import com.yuyh.cavaliers.ui.Interactor.HomeInteractor;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.utils.NavigationEntity;

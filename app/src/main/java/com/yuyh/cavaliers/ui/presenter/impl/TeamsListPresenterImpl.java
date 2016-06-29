@@ -1,13 +1,13 @@
-package com.yuyh.cavaliers.presenter.impl;
+package com.yuyh.cavaliers.ui.presenter.impl;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.yuyh.cavaliers.Interactor.TeamsListInteractor;
-import com.yuyh.cavaliers.Interactor.impl.TeamsListListInteractorImpl;
+import com.yuyh.cavaliers.ui.Interactor.TeamsListInteractor;
+import com.yuyh.cavaliers.ui.Interactor.impl.TeamsListListInteractorImpl;
 import com.yuyh.cavaliers.http.bean.player.Teams;
 import com.yuyh.cavaliers.http.api.RequestCallback;
-import com.yuyh.cavaliers.presenter.Presenter;
+import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.TeamsView;
 
 /**

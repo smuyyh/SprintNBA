@@ -27,7 +27,7 @@ import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.presenter.impl.ThreadListPresenterImpl;
+import com.yuyh.cavaliers.ui.presenter.impl.ThreadListPresenterImpl;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.ui.adapter.ThreadListAdapter;

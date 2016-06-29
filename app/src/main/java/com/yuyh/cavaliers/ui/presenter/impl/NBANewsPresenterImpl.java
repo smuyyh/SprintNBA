@@ -1,11 +1,11 @@
-package com.yuyh.cavaliers.presenter.impl;
+package com.yuyh.cavaliers.ui.presenter.impl;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.yuyh.cavaliers.Interactor.NBANewsInteractor;
-import com.yuyh.cavaliers.Interactor.impl.NBANewsInteractorImpl;
-import com.yuyh.cavaliers.presenter.Presenter;
+import com.yuyh.cavaliers.ui.Interactor.NBANewsInteractor;
+import com.yuyh.cavaliers.ui.Interactor.impl.NBANewsInteractorImpl;
+import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.NBANewsView;
 
 /**

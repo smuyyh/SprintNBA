@@ -1,6 +1,6 @@
-package com.yuyh.cavaliers.Interactor.impl;
+package com.yuyh.cavaliers.ui.Interactor.impl;
 
-import com.yuyh.cavaliers.Interactor.NBANewsInteractor;
+import com.yuyh.cavaliers.ui.Interactor.NBANewsInteractor;
 
 public class NBANewsInteractorImpl implements NBANewsInteractor {
 

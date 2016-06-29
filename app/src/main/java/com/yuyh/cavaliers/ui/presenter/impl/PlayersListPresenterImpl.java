@@ -1,14 +1,14 @@
-package com.yuyh.cavaliers.presenter.impl;
+package com.yuyh.cavaliers.ui.presenter.impl;
 
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.yuyh.cavaliers.Interactor.PlayersListInteractor;
-import com.yuyh.cavaliers.Interactor.impl.PlayersListListInteractorImpl;
+import com.yuyh.cavaliers.ui.Interactor.PlayersListInteractor;
+import com.yuyh.cavaliers.ui.Interactor.impl.PlayersListListInteractorImpl;
 import com.yuyh.cavaliers.http.bean.player.Players;
 import com.yuyh.cavaliers.http.api.RequestCallback;
-import com.yuyh.cavaliers.presenter.Presenter;
+import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.PlayersView;
 
 /**

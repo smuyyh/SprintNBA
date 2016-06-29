@@ -1,6 +1,6 @@
-package com.yuyh.cavaliers.Interactor.impl;
+package com.yuyh.cavaliers.ui.Interactor.impl;
 
-import com.yuyh.cavaliers.Interactor.PlayersListInteractor;
+import com.yuyh.cavaliers.ui.Interactor.PlayersListInteractor;
 import com.yuyh.cavaliers.http.api.tecent.TencentService;
 import com.yuyh.cavaliers.http.bean.player.Players;
 import com.yuyh.cavaliers.http.api.RequestCallback;

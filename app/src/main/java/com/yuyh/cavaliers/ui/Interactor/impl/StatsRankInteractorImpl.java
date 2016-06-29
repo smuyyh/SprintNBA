@@ -1,6 +1,6 @@
-package com.yuyh.cavaliers.Interactor.impl;
+package com.yuyh.cavaliers.ui.Interactor.impl;
 
-import com.yuyh.cavaliers.Interactor.StatsRankInteractor;
+import com.yuyh.cavaliers.ui.Interactor.StatsRankInteractor;
 import com.yuyh.cavaliers.http.constant.Constant;
 
 import java.util.LinkedHashMap;

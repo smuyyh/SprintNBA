@@ -12,7 +12,7 @@ import android.widget.EditText;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
 import com.yuyh.cavaliers.http.utils.UserStorage;
-import com.yuyh.cavaliers.presenter.impl.LoginPresenterImpl;
+import com.yuyh.cavaliers.ui.presenter.impl.LoginPresenterImpl;
 import com.yuyh.cavaliers.ui.view.LoginView;
 import com.yuyh.library.utils.toast.ToastUtils;
 
