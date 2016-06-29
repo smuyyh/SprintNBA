@@ -136,7 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="\u3000\u3000本应用数据来自NBA中文官网与HuPu体育，纯免费应用，不涉及商业利益，若被告知需停止共享与使用，作者会立即下架并删除该应用。"
+                    android:text="\u3000\u3000本应用数据来自NBA中文官网与HuPu体育，纯免费应用，个人未从中获取任何利益，若被告知需停止共享与使用，作者会立即下架并删除该应用。"
                     android:textColor="@color/linkText" />
 
             </LinearLayout>
