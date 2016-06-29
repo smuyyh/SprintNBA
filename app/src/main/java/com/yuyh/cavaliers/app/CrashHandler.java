@@ -5,8 +5,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
+import android.os.Looper;
 
+import com.yuyh.cavaliers.http.bean.bmob.AppCrashMessage;
 import com.yuyh.library.utils.log.LogUtils;
+import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -18,9 +21,12 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+
 /**
  * UncaughtException处理类,当程序发生Uncaught异常的时候,有该类来接管程序,并记录发送错误报告.
- *
+ * <p/>
  * Created by yuyuhang on 15/12/7.
  */
 public class CrashHandler implements UncaughtExceptionHandler {
@@ -49,7 +55,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
      * 获取CrashHandler实例 ,单例模式
      */
     public static CrashHandler getInstance() {
-        if(INSTANCE == null)
+        if (INSTANCE == null)
             INSTANCE = new CrashHandler();
         return INSTANCE;
     }
@@ -76,6 +82,15 @@ public class CrashHandler implements UncaughtExceptionHandler {
             //如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler.uncaughtException(thread, ex);
         } else {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Looper.prepare();
+                    ToastUtils.showSingleToast("哎呀，程序发生异常啦...");
+                    Looper.loop();
+                }
+            }).start();
+
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -105,6 +120,26 @@ public class CrashHandler implements UncaughtExceptionHandler {
     }
 
     /**
+     * 上传crash信息至服务器
+     *
+     * @param msg
+     */
+    private void uploadCrashMessage(String msg) {
+        AppCrashMessage message = new AppCrashMessage();
+        message.setMessage(msg);
+        message.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if (e == null) {
+                    LogUtils.i("成功上传崩溃信息");
+                } else {
+                    LogUtils.i("上传崩溃信息失败");
+                }
+            }
+        });
+    }
+
+    /**
      * 收集设备参数信息
      *
      * @param ctx
@@ -120,7 +155,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 infos.put("versionCode", versionCode);
             }
         } catch (NameNotFoundException e) {
-            LogUtils.e("CrashHandleran.NameNotFoundException---> error occured when collect package info",e);
+            LogUtils.e("CrashHandleran.NameNotFoundException---> error occured when collect package info", e);
         }
         Field[] fields = Build.class.getDeclaredFields();
         for (Field field : fields) {
@@ -162,6 +197,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         sb.append(result);
         sb.append("--------------------end---------------------------");
         LogUtils.e(sb.toString());
+        uploadCrashMessage(sb.toString());
         return null;
     }
 }

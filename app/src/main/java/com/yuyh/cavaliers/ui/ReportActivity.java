@@ -6,7 +6,7 @@ import android.widget.EditText;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
-import com.yuyh.cavaliers.presenter.ReportPresenter;
+import com.yuyh.cavaliers.presenter.impl.ReportPresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.ReportAdapter;
 import com.yuyh.cavaliers.ui.view.ReportView;
 import com.yuyh.library.view.list.NoScrollListView;
@@ -36,7 +36,7 @@ public class ReportActivity extends BaseSwipeBackCompatActivity implements Repor
     private List<String> list = new ArrayList<>();
 
     private int type = 1;
-    private ReportPresenter presenter;
+    private ReportPresenterImpl presenter;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -59,7 +59,7 @@ public class ReportActivity extends BaseSwipeBackCompatActivity implements Repor
             }
         });
 
-        presenter = new ReportPresenter(this, this);
+        presenter = new ReportPresenterImpl(this, this);
         presenter.initialized();
     }
 

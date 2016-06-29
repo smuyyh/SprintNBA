@@ -1,10 +1,11 @@
-package com.yuyh.cavaliers.presenter;
+package com.yuyh.cavaliers.presenter.impl;
 
 import android.content.Context;
 
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.hupu.forum.HupuForumService;
 import com.yuyh.cavaliers.http.bean.base.BaseData;
+import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.ReportView;
 
 import java.util.ArrayList;
@@ -14,12 +15,12 @@ import java.util.List;
  * @author yuyh.
  * @date 16/6/28.
  */
-public class ReportPresenter implements Presenter {
+public class ReportPresenterImpl implements Presenter {
 
     private Context context;
     private ReportView reportView;
 
-    public ReportPresenter(Context context, ReportView reportView) {
+    public ReportPresenterImpl(Context context, ReportView reportView) {
         this.context = context;
         this.reportView = reportView;
     }
