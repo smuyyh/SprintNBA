@@ -3,6 +3,7 @@
     <color name="colorPrimary">#FF5055</color>
     <color name="colorPrimaryDark">#FF5055</color>
     <color name="colorAccent">#FF5055</color>
+    <color name="colorPrimaryFocus">#DD5055</color>
     <color name="colorWindowBg">#FFFEFEFE</color>
     <color name="mainBg">#ECECEC</color>
     <color name="primary_text">#212121</color>

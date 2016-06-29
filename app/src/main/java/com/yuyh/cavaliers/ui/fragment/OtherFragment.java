@@ -13,10 +13,10 @@ import com.yuyh.cavaliers.http.utils.UserStorage;
 import com.yuyh.cavaliers.ui.LoginActivity;
 import com.yuyh.cavaliers.ui.PlayerListActivity;
 import com.yuyh.cavaliers.ui.TeamsListActivity;
+import com.yuyh.cavaliers.utils.CacheUtils;
 import com.yuyh.cavaliers.utils.SettingPrefUtils;
 import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.data.ACache;
-import com.yuyh.library.utils.data.PrefsUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.library.view.image.CircleImageView;
 
@@ -48,6 +48,8 @@ public class OtherFragment extends BaseLazyFragment {
     RelativeLayout rlFeedback;
     @InjectView(R.id.rlAbout)
     RelativeLayout rlAbout;
+    @InjectView(R.id.tvCacheSize)
+    TextView tvCacheSize;
 
     @InjectView(R.id.tvUserName)
     TextView tvUserName;
@@ -67,6 +69,7 @@ public class OtherFragment extends BaseLazyFragment {
         if (!TextUtils.isEmpty(nickname)) {
             tvUserName.setText(nickname);
         }
+        tvCacheSize.setText(CacheUtils.getCacheSize(mActivity));
     }
 
     @Override
@@ -85,11 +88,14 @@ public class OtherFragment extends BaseLazyFragment {
 
     @OnClick(R.id.rlClearCache)
     public void clearCache() {
-        PrefsUtils prefs = new PrefsUtils();
-        prefs.clearAll();
+        // PrefsUtils prefs = new PrefsUtils();
+        // prefs.clearAll();
         ACache cache = ACache.get(AppUtils.getAppContext());
         cache.clear();
+        CacheUtils.cleanApplicationCache(mActivity);
         ToastUtils.showSingleLongToast("缓存清理成功");
+        tvCacheSize.setText(CacheUtils.getCacheSize(mActivity));
+        ACache.get(AppUtils.getAppContext());
     }
 
     @OnClick(R.id.rlTeam)
@@ -106,6 +112,12 @@ public class OtherFragment extends BaseLazyFragment {
 
     @OnClick(R.id.rlTeamSchedule)
     public void teamSchedule() {
+    }
+
+    @Override
+    protected void onResumeLazy() {
+        super.onResumeLazy();
+        tvCacheSize.setText(CacheUtils.getCacheSize(mActivity));
     }
 
     @Override

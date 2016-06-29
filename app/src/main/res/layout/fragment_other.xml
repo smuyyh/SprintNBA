@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.yuyh.library.view.list.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/mainBg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -230,12 +231,22 @@
                 android:src="@drawable/more_icon_set_clear" />
 
             <TextView
+                android:id="@+id/tvClearCache"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/ivClearCache"
                 android:text="清除缓存"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/tvCacheSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="45dp"
                 android:textSize="16dp" />
 
             <ImageView
@@ -327,6 +338,18 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/mainBg" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/common_button_selector"
+            android:text="退出登录"
+            android:textColor="@android:color/white"
+            android:textSize="16dp" />
 
     </LinearLayout>
 </com.yuyh.library.view.list.ReboundScrollView>
