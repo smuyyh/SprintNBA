@@ -19,7 +19,7 @@ import android.widget.ListView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseAppCompatActivity;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
-import com.yuyh.cavaliers.bean.NavigationEntity;
+import com.yuyh.cavaliers.utils.NavigationEntity;
 import com.yuyh.cavaliers.event.CalendarEvent;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.presenter.impl.HomePresenterImpl;

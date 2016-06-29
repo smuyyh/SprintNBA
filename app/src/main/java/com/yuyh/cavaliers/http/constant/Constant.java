@@ -20,6 +20,8 @@ public class Constant {
     public static final String THREAD_TYPE_HOT = "2";  //热帖
     public static final String THREAD_TYPE_NEW = "1";//最新的帖子
 
+    public static final String SPAN_LINK_COLOR = "#6a8cb3";
+
     public enum NewsType implements Serializable {
 
         BANNER("banner"),      //头条

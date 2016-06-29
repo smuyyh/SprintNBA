@@ -12,6 +12,8 @@ import android.graphics.RectF;
 import com.squareup.picasso.Transformation;
 
 /**
+ * Picasso 圆角图片
+ *
  * @author yuyh.
  * @date 2016/6/28.
  */

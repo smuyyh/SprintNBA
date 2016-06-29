@@ -1,5 +1,5 @@
 
-package com.yuyh.cavaliers.bean;
+package com.yuyh.cavaliers.utils;
 
 public class NavigationEntity {
 

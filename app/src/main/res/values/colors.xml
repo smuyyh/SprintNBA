@@ -6,6 +6,7 @@
     <color name="colorPrimaryFocus">#DD5055</color>
     <color name="colorWindowBg">#FFFEFEFE</color>
     <color name="mainBg">#ECECEC</color>
+    <color name="linkText">#ECECEC</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
     <color name="primary_text_red">#FF5055</color>

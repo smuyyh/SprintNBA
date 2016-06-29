@@ -22,7 +22,7 @@ public class AlignTextView extends TextView {
     private int width; // textview宽度
     private List<String> lines = new ArrayList<String>(); // 分割后的行
     private List<Integer> tailLines = new ArrayList<Integer>(); // 尾行
-    private Align align = Align.ALIGN_CENTER; // 默认最后一行左对齐
+    private Align align = Align.ALIGN_LEFT; // 默认最后一行左对齐
 
     // 尾行对齐方式,针对段落最后一行
     public enum Align {

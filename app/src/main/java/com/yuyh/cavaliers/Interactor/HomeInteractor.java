@@ -4,7 +4,7 @@ package com.yuyh.cavaliers.Interactor;
 import android.content.Context;
 
 import com.yuyh.cavaliers.base.BaseLazyFragment;
-import com.yuyh.cavaliers.bean.NavigationEntity;
+import com.yuyh.cavaliers.utils.NavigationEntity;
 
 import java.util.List;
 

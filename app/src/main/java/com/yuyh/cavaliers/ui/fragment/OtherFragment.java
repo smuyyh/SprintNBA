@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.http.utils.UserStorage;
+import com.yuyh.cavaliers.ui.AboutActivity;
 import com.yuyh.cavaliers.ui.LoginActivity;
 import com.yuyh.cavaliers.ui.PlayerListActivity;
 import com.yuyh.cavaliers.ui.TeamsListActivity;
@@ -112,6 +113,12 @@ public class OtherFragment extends BaseLazyFragment {
 
     @OnClick(R.id.rlTeamSchedule)
     public void teamSchedule() {
+    }
+
+    @OnClick(R.id.rlAbout)
+    public void about(){
+        Intent intent = new Intent(mActivity, AboutActivity.class);
+        startActivity(intent);
     }
 
     @Override
