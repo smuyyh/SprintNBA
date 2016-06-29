@@ -13,7 +13,7 @@
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/btn_back_normal" />
+        android:src="@drawable/button_back_selector" />
 
     <ImageButton
         android:id="@+id/browser_controller_forward"
@@ -22,7 +22,7 @@
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/btn_forward_normal" />
+        android:src="@drawable/button_forwaed_selector" />
 
     <ImageButton
         android:id="@+id/browser_controller_refresh"
@@ -31,7 +31,7 @@
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/btn_refresh_normal" />
+        android:src="@drawable/button_refresh_selector" />
 
     <ImageButton
         android:id="@+id/browser_controller_go"
@@ -40,6 +40,6 @@
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/btn_export_normal" />
+        android:src="@drawable/button_export_selector" />
 
 </LinearLayout>
