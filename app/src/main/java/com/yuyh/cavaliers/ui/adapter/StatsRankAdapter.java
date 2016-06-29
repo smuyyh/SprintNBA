@@ -33,7 +33,6 @@ public class StatsRankAdapter extends HelperAdapter<StatsRank.RankItem> {
         viewHolder.setText(R.id.tvRank, "NO." + item.serial + "")
                 .setText(R.id.tvData, item.value)
                 .setText(R.id.tvName, item.playerName)
-                .setText(R.id.tvTeam, item.teamName)
                 .setImageUrl(R.id.ivHead, item.playerIcon)
                 .setImageUrl(R.id.ivTeam, item.teamIcon);
         viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {

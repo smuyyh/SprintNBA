@@ -5,11 +5,16 @@ import android.content.Context;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.hupu.forum.HupuForumService;
 import com.yuyh.cavaliers.http.bean.base.BaseData;
+import com.yuyh.cavaliers.http.bean.bmob.Feedback;
 import com.yuyh.cavaliers.http.bean.forum.AddReplyData;
 import com.yuyh.cavaliers.http.bean.forum.PermissionData;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.ui.view.PostView;
+import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
+
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * @author yuyh.
@@ -55,6 +60,14 @@ public class PostPresenter {
                 });
     }
 
+    /**
+     * 评论
+     *
+     * @param tid
+     * @param fid
+     * @param pid
+     * @param content
+     */
     public void comment(String tid, String fid, String pid, String content) {
         HupuForumService.addReplyByApp(tid, fid, pid, content, new RequestCallback<AddReplyData>() {
             @Override
@@ -80,6 +93,13 @@ public class PostPresenter {
         });
     }
 
+    /**
+     * 发布帖子
+     *
+     * @param fid
+     * @param content
+     * @param title
+     */
     public void post(String fid, String content, String title) {
         HupuForumService.addThread(title, content, fid, new RequestCallback<BaseData>() {
             @Override
@@ -90,6 +110,33 @@ public class PostPresenter {
             @Override
             public void onFailure(String message) {
 
+            }
+        });
+    }
+
+    /**
+     * 提交反馈
+     *
+     * @param title
+     * @param content
+     */
+    public void feedback(String title, String content) {
+        postView.showLoadding();
+        Feedback feedback = new Feedback();
+        feedback.setTitle(title);
+        feedback.setMessage(content);
+        feedback.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if (e == null) {
+                    ToastUtils.showSingleToast("成功提交反馈");
+                    postView.feedbackSuccess();
+                    postView.hideLoadding();
+                } else {
+                    ToastUtils.showSingleToast("提交失败");
+                    LogUtils.i("bmob失败：" + e.getMessage() + "," + e.getErrorCode());
+                    postView.hideLoadding();
+                }
             }
         });
     }

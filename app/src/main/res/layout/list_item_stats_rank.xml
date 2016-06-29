@@ -44,15 +44,6 @@
             android:layout_below="@+id/tvData"
             android:text="勒布朗-詹姆斯" />
 
-        <TextView
-            android:id="@+id/tvTeam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvData"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/tvName"
-            android:text="(骑士)" />
-
         <com.yuyh.library.view.image.CircleImageView
             android:id="@+id/ivTeam"
             android:layout_width="40dp"

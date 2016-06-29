@@ -59,6 +59,7 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
         title = intent.getStringExtra(INTENT_TITLE);
         presenter = new PostPresenter(this, this);
         initPostType();
+        invalidateOptionsMenu();
     }
 
     private void initPostType() {
@@ -79,10 +80,6 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
                 break;
             case Constant.TYPE_FEEDBACK:
                 setTitle("反馈");
-                etSubject.setEnabled(false);
-                etSubject.setText("Feedback:" + title);
-                etContent.setHint("请输入您的反馈信息");
-                etContent.requestFocus();
                 break;
             case Constant.TYPE_AT:
                 break;
@@ -99,6 +96,10 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_post, menu);
+        if (type == Constant.TYPE_FEEDBACK) {
+            MenuItem actionCamera = menu.findItem(R.id.action_camera);
+            actionCamera.setVisible(false);
+        }
         return true;
     }
 
@@ -121,9 +122,21 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
         if (type == Constant.TYPE_POST) {
             String title = etSubject.getText().toString();
             presenter.post(fid, content, title);
+        } else if (type == Constant.TYPE_FEEDBACK) {
+            presenter.feedback(etSubject.getText().toString(), content);
         } else {
             presenter.comment(tid, fid, pid, content);
         }
+    }
+
+    @Override
+    public void showLoadding() {
+        showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoadding() {
+        hideLoadingDialog();
     }
 
     @Override
@@ -136,6 +149,11 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
     @Override
     public void postFailure(String msg) {
 
+    }
+
+    @Override
+    public void feedbackSuccess() {
+        finish();
     }
 
     @Override
