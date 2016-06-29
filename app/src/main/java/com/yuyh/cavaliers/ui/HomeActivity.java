@@ -19,12 +19,12 @@ import android.widget.ListView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseAppCompatActivity;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
-import com.yuyh.cavaliers.utils.NavigationEntity;
 import com.yuyh.cavaliers.event.CalendarEvent;
 import com.yuyh.cavaliers.presenter.Presenter;
 import com.yuyh.cavaliers.presenter.impl.HomePresenterImpl;
 import com.yuyh.cavaliers.ui.adapter.VPHomeAdapter;
 import com.yuyh.cavaliers.ui.view.HomeView;
+import com.yuyh.cavaliers.utils.NavigationEntity;
 import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.library.view.viewpager.XViewPager;
 import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
@@ -36,6 +36,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import butterknife.InjectView;
+import cn.bmob.v3.update.BmobUpdateAgent;
 
 public class HomeActivity extends BaseAppCompatActivity implements HomeView {
 
@@ -66,12 +67,10 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
 
     @Override
     protected void initViewsAndEvents() {
+        BmobUpdateAgent.setUpdateOnlyWifi(true); // Wifi下面才提示APP更新
+        BmobUpdateAgent.update(this);
         Presenter presenter = new HomePresenterImpl(this, this);
         presenter.initialized();
-        //upuForumService.getAllForums();
-        //HupuForumService.getForumPosts("85", "", 20, "", "1");
-        //HupuForumService.getThreadInfo("16603856", "85", 1, "1");
-        //HupuForumService.addThread("haha", "85", "85");
     }
 
     @Override

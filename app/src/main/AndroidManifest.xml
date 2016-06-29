@@ -54,7 +54,7 @@
         <activity
             android:name=".ui.ThreadListActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name=".ui.LoginActivity"
             android:screenOrientation="portrait" />
@@ -65,6 +65,10 @@
             android:name=".ui.AboutActivity"
             android:screenOrientation="portrait" />
 
+
+        <activity
+            android:name="cn.bmob.v3.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 
 </manifest>
