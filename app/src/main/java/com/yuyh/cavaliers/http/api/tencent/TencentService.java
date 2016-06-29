@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.http.api.tecent;
+package com.yuyh.cavaliers.http.api.tencent;
 
 import com.yuyh.cavaliers.BuildConfig;
 import com.yuyh.cavaliers.http.bean.match.MatchCalendar;

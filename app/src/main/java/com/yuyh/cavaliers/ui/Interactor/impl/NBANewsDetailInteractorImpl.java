@@ -1,7 +1,7 @@
 package com.yuyh.cavaliers.ui.Interactor.impl;
 
 import com.yuyh.cavaliers.ui.Interactor.NBANewsDetailInteractor;
-import com.yuyh.cavaliers.http.api.tecent.TencentService;
+import com.yuyh.cavaliers.http.api.tencent.TencentService;
 import com.yuyh.cavaliers.http.bean.news.NewsDetail;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.constant.Constant;

@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import com.yuyh.cavaliers.R;
 
-
 public class LoadingDialog extends Dialog {
     private static LoadingDialog loadingDialog = null;
     public Animation animation;

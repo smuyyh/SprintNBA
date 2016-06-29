@@ -13,14 +13,19 @@ public class CardPagerAdapter extends PagerAdapter {
     private Context mContext;
     private OnCellItemClick defaultOnCellItemClick;
 
-    public CardPagerAdapter(Context ctx) {
+    private int pre; // 当前月往前显示的月数：eg：pre = 8， 那就往前推8个月开始显示
+    private int next;// 往后显示
+
+    public CardPagerAdapter(Context ctx, int pre, int next) {
         mContext = ctx;
+        this.pre = pre;
+        this.next = next;
     }
 
     @Override
     public Object instantiateItem(View collection, final int position) {
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MONTH, position);
+        cal.add(Calendar.MONTH, position - pre);
         CalendarCard card = new CalendarCard(mContext);
         card.setDateDisplay(cal);
         card.notifyChanges();
@@ -62,11 +67,7 @@ public class CardPagerAdapter extends PagerAdapter {
     @Override
     public int getCount() {
         // TODO almoast ifinite ;-)
-        return Integer.MAX_VALUE;
-    }
-
-    public OnCellItemClick getDefaultOnCellItemClick() {
-        return defaultOnCellItemClick;
+        return pre + next;
     }
 
     public void setDefaultOnCellItemClick(OnCellItemClick defaultOnCellItemClick) {

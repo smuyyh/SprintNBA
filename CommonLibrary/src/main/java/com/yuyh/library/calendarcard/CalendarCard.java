@@ -1,6 +1,10 @@
 package com.yuyh.library.calendarcard;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,7 +106,21 @@ public class CalendarCard extends RelativeLayout {
         mOnItemRenderDefault = new OnItemRender() {
             @Override
             public void onRender(CheckableLayout v, CardGridItem item) {
-                ((TextView) v.getChildAt(0)).setText(item.getDayOfMonth().toString());
+                Calendar itemCal = item.getDate();
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                if (dateDisplay != null && year == dateDisplay.get(Calendar.YEAR)
+                        && month == dateDisplay.get(Calendar.MONTH)
+                        && day == item.getDayOfMonth()) {
+                    SpannableString sp = new SpannableString(item.getDayOfMonth().toString());
+                    sp.setSpan(new ForegroundColorSpan(Color.RED), 0, item.getDayOfMonth().toString().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    ((TextView) v.getChildAt(0)).setText(sp);
+                } else {
+                    ((TextView) v.getChildAt(0)).setText(item.getDayOfMonth().toString());
+                }
             }
         };
 
@@ -224,7 +242,8 @@ public class CalendarCard extends RelativeLayout {
 
     public void setDateDisplay(Calendar dateDisplay) {
         this.dateDisplay = dateDisplay;
-        cardTitle.setText(new SimpleDateFormat("MMM yyyy", Locale.getDefault()).format(dateDisplay.getTime()));
+        String time = new SimpleDateFormat("MMM yyyy", Locale.getDefault()).format(dateDisplay.getTime());
+        cardTitle.setText(time);
     }
 
     public OnCellItemClick getOnCellItemClick() {

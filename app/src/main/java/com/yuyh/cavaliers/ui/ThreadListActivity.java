@@ -32,7 +32,6 @@ import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.ui.adapter.ThreadListAdapter;
 import com.yuyh.cavaliers.ui.view.ThreadListView;
-import com.yuyh.cavaliers.widget.LoadMoreRecyclerView;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 
@@ -162,37 +161,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
             }
         });
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
-                if (lastVisibleItemPosition + 1 == adapter.getItemCount()) { // 滑到倒数第二项就加载更多
-
-                    boolean isRefreshing = refreshLayout.isRefreshing();
-                    if (isRefreshing) {
-                        adapter.notifyItemRemoved(adapter.getItemCount());
-                        return;
-                    }
-                    if (!isLoading) {
-                        isLoading = true;
-                        if (presenter.loadType == ThreadListPresenterImpl.TYPE_LIST)
-                            presenter.onThreadReceive(type, last, false);
-                        else {
-                            pageIndex++;
-                            presenter.onStartSearch(key, pageIndex, false);
-                        }
-                        Log.d("test", "load more completed");
-                    }
-                }
-            }
-        });
+        recyclerView.addOnScrollListener(new RefreshListener());
         backdrop.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
 
     }
@@ -216,7 +185,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
         }
         list.addAll(forumInfoList);
         adapter.notifyDataSetChanged();
-        if(searchView != null)
+        if (searchView != null)
             searchView.clearFocus();
     }
 
@@ -261,7 +230,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
         refreshLayout.setRefreshing(false);
     }
 
-    private class RefreshListener implements SwipeRefreshLayout.OnRefreshListener, LoadMoreRecyclerView.LoadMoreListener {
+    private class RefreshListener extends RecyclerView.OnScrollListener implements SwipeRefreshLayout.OnRefreshListener {
 
         @Override
         public void onRefresh() {
@@ -270,12 +239,32 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
         }
 
         @Override
-        public void onLoadMore() {
-            if (presenter.loadType == ThreadListPresenterImpl.TYPE_LIST)
-                presenter.onThreadReceive(type, last, false);
-            else {
-                pageIndex++;
-                presenter.onStartSearch(key, pageIndex, false);
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+
+            int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+            if (lastVisibleItemPosition + 1 == adapter.getItemCount()) { // 滑到倒数第二项就加载更多
+
+                boolean isRefreshing = refreshLayout.isRefreshing();
+                if (isRefreshing) {
+                    adapter.notifyItemRemoved(adapter.getItemCount());
+                    return;
+                }
+                if (!isLoading) {
+                    isLoading = true;
+                    if (presenter.loadType == ThreadListPresenterImpl.TYPE_LIST)
+                        presenter.onThreadReceive(type, last, false);
+                    else {
+                        pageIndex++;
+                        presenter.onStartSearch(key, pageIndex, false);
+                    }
+                    Log.d("test", "load more completed");
+                }
             }
         }
     }

@@ -10,24 +10,26 @@ public class CalendarCardPager extends ViewPager {
     private CardPagerAdapter mCardPagerAdapter;
     private OnCellItemClick mOnCellItemClick;
 
+    private int pre = 6; // 往前显示半年
+    private int next = 12; // 往后显示一年
+
+    public CalendarCardPager(Context context) {
+        this(context, null);
+    }
+
+    public CalendarCardPager(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
     public CalendarCardPager(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs);
         init(context);
     }
 
-    public CalendarCardPager(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
-    }
-
-    public CalendarCardPager(Context context) {
-        super(context);
-        init(context);
-    }
-
     private void init(Context context) {
-        mCardPagerAdapter = new CardPagerAdapter(context);
+        mCardPagerAdapter = new CardPagerAdapter(context, pre, next);
         setAdapter(mCardPagerAdapter);
+        setCurrentItem(pre);
     }
 
     public CardPagerAdapter getCardPagerAdapter() {
