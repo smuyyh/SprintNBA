@@ -8,6 +8,9 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import com.yuyh.library.utils.io.FileUtils;
+import com.yuyh.library.utils.log.LogUtils;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -258,6 +261,10 @@ public class ACache {
      */
     public void put(String key, byte[] value) {
         File file = mCache.newFile(key);
+        if (!file.exists()) {
+            LogUtils.d("-----" + file.getAbsolutePath() + "------");
+            FileUtils.createFile(file);
+        }
         FileOutputStream out = null;
         try {
             out = new FileOutputStream(file);

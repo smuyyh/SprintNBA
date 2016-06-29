@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 
 import com.yuyh.library.AppUtils;
+import com.yuyh.library.utils.log.LogUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -42,7 +43,7 @@ public class FileUtils {
     }
 
     /**
-     * 创建文件夹
+     * 递归创建文件夹
      *
      * @param dirPath
      * @return 创建失败返回""
@@ -50,17 +51,42 @@ public class FileUtils {
     public static String createDir(String dirPath) {
         try {
             File file = new File(dirPath);
-            if(file.getParentFile().exists()){
+            if (file.getParentFile().exists()) {
+                LogUtils.i("----- 创建文件夹"+file.getAbsolutePath());
                 file.mkdir();
                 return file.getAbsolutePath();
-            }else{
+            } else {
                 createDir(file.getParentFile().getAbsolutePath());
+                LogUtils.i("----- 创建文件夹"+file.getAbsolutePath());
                 file.mkdir();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return dirPath;
+    }
+
+    /**
+     * 递归创建文件夹
+     *
+     * @param file
+     * @return 创建失败返回""
+     */
+    public static String createFile(File file) {
+        try {
+            if (file.getParentFile().exists()) {
+                LogUtils.i("----- 创建文件"+file.getAbsolutePath());
+                file.createNewFile();
+                return file.getAbsolutePath();
+            } else {
+                createDir(file.getParentFile().getAbsolutePath());
+                file.createNewFile();
+                LogUtils.i("----- 创建文件"+file.getAbsolutePath());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     /**
@@ -123,7 +149,7 @@ public class FileUtils {
      *
      * @param context
      * @param resId
-     * @return            文件内容
+     * @return 文件内容
      */
     public static String getFileFromRaw(Context context, int resId) {
         if (context == null) {

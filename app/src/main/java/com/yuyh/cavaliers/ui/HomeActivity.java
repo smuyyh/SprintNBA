@@ -72,7 +72,6 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         //HupuForumService.getForumPosts("85", "", 20, "", "1");
         //HupuForumService.getThreadInfo("16603856", "85", 1, "1");
         //HupuForumService.addThread("haha", "85", "85");
-
     }
 
     @Override
