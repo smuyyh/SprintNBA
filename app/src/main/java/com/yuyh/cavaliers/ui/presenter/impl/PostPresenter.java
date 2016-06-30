@@ -46,10 +46,10 @@ public class PostPresenter {
                             if (permissionData.error != null) {
                                 postView.checkPermissionSuccess(false, permissionData.error.code, permissionData.error.msg, false);
                             } else {
-                                postView.checkPermissionSuccess(true, permissionData.error.code, "", false);
+                                postView.checkPermissionSuccess(true, 0, "", false);
                             }
                         } else {
-                            postView.checkPermissionSuccess(false, permissionData.error.code, "获取评论权限失败，请重试", true);
+                            postView.checkPermissionSuccess(false, 0, "获取评论权限失败，请重试", true);
                         }
                     }
 
