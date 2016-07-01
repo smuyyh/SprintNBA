@@ -76,10 +76,15 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity implements N
 
     @Override
     protected void initViewsAndEvents() {
+        showLoadingDialog();
         inflate = LayoutInflater.from(this);
         Intent intent = getIntent();
         String title = intent.getStringExtra(TITLE);
-        setTitle("详细新闻");
+        if (!TextUtils.isEmpty(title)) {
+            setTitle(title);
+        } else {
+            setTitle("详细新闻");
+        }
         String arcId = intent.getStringExtra(ARTICLE_ID);
         initPhotoView();
         NewsDetailPresenter presenter = new NewsDetailPresenterImpl(this, this);
@@ -256,5 +261,6 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity implements N
             }
 
         }
+        hideLoadingDialog();
     }
 }

@@ -7,6 +7,7 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Surface;
 
 import java.lang.reflect.InvocationTargetException;
@@ -97,11 +98,20 @@ public class JCMediaManager implements MediaPlayer.OnPreparedListener, MediaPlay
                     break;
                 case HANDLER_SETDISPLAY:
                     if (msg.obj == null) {
-                        instance().mediaPlayer.setSurface(null);
+                        try {
+                            instance().mediaPlayer.setSurface(null);
+                        } catch (IllegalStateException e){
+                            Log.e("media","MediaPlayer IllegalStateException"+e.toString());
+                        }
                     } else {
                         Surface holder = (Surface) msg.obj;
                         if (holder.isValid()) {
-                            instance().mediaPlayer.setSurface(holder);
+                            try {
+                                instance().mediaPlayer.setSurface(holder);
+                            } catch (IllegalStateException e){
+                                Log.e("media","MediaPlayer IllegalStateException"+e.toString());
+                            }
+
                         }
                     }
                     break;

@@ -34,7 +34,8 @@
                     android:gravity="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tvNewsDetailTime"
@@ -43,7 +44,6 @@
                     android:layout_gravity="right"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
-                    android:text="2015-07-01"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
 

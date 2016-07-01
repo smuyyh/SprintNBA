@@ -20,7 +20,8 @@
         android:layout_gravity="bottom"
         android:background="#AACCCCCC"
         android:gravity="left|center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tvVideoTitle"

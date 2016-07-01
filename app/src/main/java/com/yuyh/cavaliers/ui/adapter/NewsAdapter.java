@@ -49,10 +49,11 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
 
         if (item.atype.equals("2")) {
             final JCVideoPlayerStandard videoPlayer = viewHolder.getView(R.id.vpVideo);
+            videoPlayer.setUp("", item.title);
             TencentService.getVideoRealUrl(item.vid, new RequestCallback<VideoRealUrl>() {
                 @Override
                 public void onSuccess(VideoRealUrl videoRealUrl) {
-                    videoPlayer.setUp(videoRealUrl.url, "");
+                    videoPlayer.setUp(videoRealUrl.url, item.title);
                 }
 
                 @Override
