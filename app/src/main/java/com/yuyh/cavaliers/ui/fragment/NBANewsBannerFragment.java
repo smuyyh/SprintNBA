@@ -13,10 +13,10 @@ import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.base.BaseWebActivity;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.tencent.TencentService;
 import com.yuyh.cavaliers.http.bean.news.NewsIndex;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
-import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
@@ -30,6 +30,8 @@ import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 public class NBANewsBannerFragment extends BaseLazyFragment {
 
@@ -187,6 +189,12 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
                 hideLoadingDialog();
             }
         }, 1000);
+    }
+
+    @Override
+    protected void onPauseLazy() {
+        super.onPauseLazy();
+        JCVideoPlayer.releaseAllVideos();
     }
 
     @Override

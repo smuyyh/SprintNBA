@@ -9,7 +9,10 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.yuyh.cavaliers.R;
+import com.yuyh.cavaliers.http.api.RequestCallback;
+import com.yuyh.cavaliers.http.api.tencent.TencentService;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
+import com.yuyh.cavaliers.http.bean.news.VideoRealUrl;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.utils.CircleTransform;
@@ -45,18 +48,32 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final NewsItem.NewsItemBean item) {
 
         if (item.atype.equals("2")) {
-            JCVideoPlayerStandard videoPlayer = viewHolder.getView(R.id.vpVideo);
-            videoPlayer.setUp("", "");
+            final JCVideoPlayerStandard videoPlayer = viewHolder.getView(R.id.vpVideo);
+            TencentService.getVideoRealUrl(item.vid, new RequestCallback<VideoRealUrl>() {
+                @Override
+                public void onSuccess(VideoRealUrl videoRealUrl) {
+                    videoPlayer.setUp(videoRealUrl.url, "");
+                }
+
+                @Override
+                public void onFailure(String message) {
+
+                }
+            });
             Picasso.with(mContext).load(item.imgurl).into(videoPlayer.thumbImageView);
             viewHolder.setText(R.id.tvVideoTitle, item.title)
                     .setText(R.id.tvVideoTime, item.pub_time);
+            ViewGroup.LayoutParams params = videoPlayer.getLayoutParams();
+            params.height = DimenUtils.getScreenWidth() / 2;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            videoPlayer.setLayoutParams(params);
         } else {
             ImageView iv = viewHolder.getView(R.id.ivBannerImg);
             Picasso.with(mContext).load(item.imgurl).transform(new CircleTransform()).into(iv);
-            ViewGroup.LayoutParams para = iv.getLayoutParams();
-            para.height = DimenUtils.getScreenWidth() / 2;
-            para.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            iv.setLayoutParams(para);
+            ViewGroup.LayoutParams params = iv.getLayoutParams();
+            params.height = DimenUtils.getScreenWidth() / 2;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            iv.setLayoutParams(params);
             viewHolder.setText(R.id.tvBannerTitle, item.title)
                     .setText(R.id.tvBannerTime, item.pub_time);
 
