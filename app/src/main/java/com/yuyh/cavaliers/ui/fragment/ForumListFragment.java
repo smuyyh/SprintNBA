@@ -66,7 +66,7 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
             }
         });
 
-        adapter = new ForumListAdapter(list, mActivity, R.layout.list_item_teams, R.layout.item_fragment_forum_title);
+        adapter = new ForumListAdapter(list, mActivity, R.layout.item_list_teams, R.layout.item_fragment_forum_title);
         adapter.setOnListItemClickListener(new OnListItemClickListener<ForumsData.Forum>() {
             @Override
             public void onItemClick(View view, int position, ForumsData.Forum data) {

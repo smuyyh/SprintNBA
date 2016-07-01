@@ -20,9 +20,9 @@ import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseAppCompatActivity;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.event.CalendarEvent;
+import com.yuyh.cavaliers.ui.adapter.VPHomeAdapter;
 import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.presenter.impl.HomePresenterImpl;
-import com.yuyh.cavaliers.ui.adapter.VPHomeAdapter;
 import com.yuyh.cavaliers.ui.view.HomeView;
 import com.yuyh.cavaliers.utils.NavigationEntity;
 import com.yuyh.library.utils.toast.ToastUtils;
@@ -71,6 +71,9 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         presenter.initialized();
         BmobUpdateAgent.setUpdateOnlyWifi(true); // Wifi下面才提示APP更新
         BmobUpdateAgent.update(this);
+
+        //TencentService.getVideoRealUrl("x0309rai5a7");
+
     }
 
     @Override
@@ -148,7 +151,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
 
-        mNavListAdapter = new HelperAdapter<NavigationEntity>(navigationList, HomeActivity.this, R.layout.list_item_navigation) {
+        mNavListAdapter = new HelperAdapter<NavigationEntity>(navigationList, HomeActivity.this, R.layout.item_list_navigation) {
             @Override
             public void HelpConvert(HelperViewHolder viewHolder, int position, NavigationEntity item) {
                 viewHolder.setImageResource(R.id.list_item_navigation_icon, item.getIconResId())

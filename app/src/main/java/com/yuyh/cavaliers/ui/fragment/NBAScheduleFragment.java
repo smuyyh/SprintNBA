@@ -71,7 +71,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
             }
         });
 
-        adapter = new MatchAdapter(list, mActivity, R.layout.list_item_match);
+        adapter = new MatchAdapter(list, mActivity, R.layout.item_list_match);
         adapter.setOnItemClickListener(new OnListItemClickListener<Matchs.MatchsDataBean.MatchesBean>() {
             @Override
             public void onItemClick(View view, int position, Matchs.MatchsDataBean.MatchesBean data) {

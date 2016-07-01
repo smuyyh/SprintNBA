@@ -1,23 +1,26 @@
 package com.yuyh.cavaliers.http.api.tencent;
 
 import com.yuyh.cavaliers.BuildConfig;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.bean.match.MatchCalendar;
 import com.yuyh.cavaliers.http.bean.match.Matchs;
 import com.yuyh.cavaliers.http.bean.news.NewsDetail;
 import com.yuyh.cavaliers.http.bean.news.NewsIndex;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
+import com.yuyh.cavaliers.http.bean.news.VideoRealUrl;
 import com.yuyh.cavaliers.http.bean.player.Players;
 import com.yuyh.cavaliers.http.bean.player.StatsRank;
 import com.yuyh.cavaliers.http.bean.player.Teams;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
-import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.http.utils.StringConverter;
 import com.yuyh.cavaliers.http.utils.JsonParser;
+import com.yuyh.cavaliers.http.utils.PullRealUrlParser;
+import com.yuyh.cavaliers.http.utils.StringConverter;
 import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.data.ACache;
 import com.yuyh.library.utils.log.LogUtils;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 import retrofit.Callback;
@@ -33,10 +36,7 @@ import retrofit.client.Response;
  */
 public class TencentService {
 
-    public static RestAdapter rest = new RestAdapter.Builder().setEndpoint(BuildConfig.TENCENT_SERVER).build();
     public static RestAdapter restStr = new RestAdapter.Builder().setEndpoint(BuildConfig.TENCENT_SERVER).setConverter(new StringConverter()).build();
-
-    public static TencentApi api = rest.create(TencentApi.class);
     public static TencentApi apiStr = restStr.create(TencentApi.class);
 
 
@@ -350,6 +350,31 @@ public class TencentService {
             public void failure(RetrofitError error) {
                 cbk.onFailure(error.getMessage());
                 cache.remove(key);
+            }
+        });
+    }
+
+    public static void getVideoRealUrl(String vid, final RequestCallback<VideoRealUrl> cbk) {
+        RestAdapter rest = new RestAdapter.Builder().setEndpoint(BuildConfig.TECENT_URL_SERVER).setConverter(new StringConverter()).build();
+        TencentVideoApi api = rest.create(TencentVideoApi.class);
+
+        api.getVideoRealUrl(vid, new Callback<String>() {
+            @Override
+            public void success(String s, Response response) {
+                PullRealUrlParser parser = new PullRealUrlParser();
+                try {
+                    VideoRealUrl url = parser.parse(new ByteArrayInputStream(s.getBytes("UTF-8")));
+                    cbk.onSuccess(url);
+                } catch (Exception e) {
+                    LogUtils.e("解析xml异常:" + e.getMessage());
+                }
+                cbk.onFailure("解析出错");
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                LogUtils.e(error.getMessage());
+                cbk.onFailure(error.getMessage());
             }
         });
     }

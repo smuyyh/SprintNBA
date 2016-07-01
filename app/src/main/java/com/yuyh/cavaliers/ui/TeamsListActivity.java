@@ -42,7 +42,7 @@ public class TeamsListActivity extends BaseSwipeBackCompatActivity implements Te
     protected void initViewsAndEvents() {
         showLoadingDialog();
         setTitle("球队列表");
-        adapter = new TeamsListAdapter(list, this, R.layout.list_item_teams);
+        adapter = new TeamsListAdapter(list, this, R.layout.item_list_teams);
         adapter.setOnListItemClickListener(this);
         lvAllTeam.setAdapter(adapter);
         presenter = new TeamsListPresenterImpl(this, this);

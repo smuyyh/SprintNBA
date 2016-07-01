@@ -19,40 +19,55 @@ import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
 import java.util.List;
 
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+
 /**
  * Created by Kyrie.Y on 2016/6/6.
  */
-public class BannerAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
+public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
 
     private OnListItemClickListener mOnItemClickListener = null;
+    private String cdnCode = "/18907E7BE0798990/";
+    private String paltform = "840303";
+    private String br = "60";
+    private String fmt = "mp4";
 
     /**
      * @param data     数据源
      * @param context  上下文
      * @param layoutId 布局Id
      */
-    public BannerAdapter(List<NewsItem.NewsItemBean> data, Context context, int... layoutId) {
+    public NewsAdapter(List<NewsItem.NewsItemBean> data, Context context, int... layoutId) {
         super(data, context, layoutId);
     }
 
     @Override
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final NewsItem.NewsItemBean item) {
-        ImageView iv = viewHolder.getView(R.id.ivBannerImg);
-        Picasso.with(mContext).load(item.getImgurl()).transform(new CircleTransform()).into(iv);
-        viewHolder.setText(R.id.tvBannerTitle, item.getTitle())
-                .setText(R.id.tvBannerTime, item.getPub_time());
-        viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                if (mOnItemClickListener != null)
-                    mOnItemClickListener.onItemClick(viewHolder.getItemView(), position, item);
-            }
-        });
-        ImageView image = (ImageView) viewHolder.getItemView().findViewById(R.id.ivBannerImg);
-        ViewGroup.LayoutParams para = image.getLayoutParams();
-        para.height = DimenUtils.getScreenWidth() / 2;
-        para.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        image.setLayoutParams(para);
+
+        if (item.atype.equals("2")) {
+            JCVideoPlayerStandard videoPlayer = viewHolder.getView(R.id.vpVideo);
+            videoPlayer.setUp("", "");
+            Picasso.with(mContext).load(item.imgurl).into(videoPlayer.thumbImageView);
+            viewHolder.setText(R.id.tvVideoTitle, item.title)
+                    .setText(R.id.tvVideoTime, item.pub_time);
+        } else {
+            ImageView iv = viewHolder.getView(R.id.ivBannerImg);
+            Picasso.with(mContext).load(item.imgurl).transform(new CircleTransform()).into(iv);
+            ViewGroup.LayoutParams para = iv.getLayoutParams();
+            para.height = DimenUtils.getScreenWidth() / 2;
+            para.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            iv.setLayoutParams(para);
+            viewHolder.setText(R.id.tvBannerTitle, item.title)
+                    .setText(R.id.tvBannerTime, item.pub_time);
+
+            viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {
+                @Override
+                protected void onNoDoubleClick(View view) {
+                    if (mOnItemClickListener != null)
+                        mOnItemClickListener.onItemClick(viewHolder.getItemView(), position, item);
+                }
+            });
+        }
         showItemAnim(viewHolder.getItemView(), position);
     }
 
@@ -82,5 +97,12 @@ public class BannerAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
             view.startAnimation(animation);
             mLastPosition = position;
         }
+    }
+
+    @Override
+    public int checkLayoutIndex(NewsItem.NewsItemBean item, int position) {
+        if (item.atype.equals("2"))
+            return 1;
+        return 0;
     }
 }

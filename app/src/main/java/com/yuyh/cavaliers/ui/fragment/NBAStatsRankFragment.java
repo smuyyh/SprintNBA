@@ -79,7 +79,7 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
             protected void onNoDoubleClick(View view) {
             }
         });
-        adapter = new StatsRankAdapter(mList, mActivity, R.layout.list_item_stats_rank);
+        adapter = new StatsRankAdapter(mList, mActivity, R.layout.item_list_stats_rank);
         adapter.setOnItemClickListener(new OnListItemClickListener<StatsRank.RankItem>() {
             @Override
             public void onItemClick(View view, int position, StatsRank.RankItem data) {

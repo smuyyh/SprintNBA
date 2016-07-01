@@ -23,7 +23,7 @@ import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.NewsDetailActivity;
-import com.yuyh.cavaliers.ui.adapter.BannerAdapter;
+import com.yuyh.cavaliers.ui.adapter.NewsAdapter;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
@@ -38,7 +38,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     private MaterialRefreshLayout materialRefreshLayout;
     private SupportRecyclerView recyclerView;
     private View emptyView;
-    private BannerAdapter adapter;
+    private NewsAdapter adapter;
     private List<NewsItem.NewsItemBean> list = new ArrayList<>();
     private List<String> indexs = new ArrayList<>();
     private int start = 0; // 查询数据起始位置
@@ -66,26 +66,26 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
                 requestIndex(true);
             }
         });
-        adapter = new BannerAdapter(list, mActivity, R.layout.list_item_banner);
+        adapter = new NewsAdapter(list, mActivity, R.layout.item_list_news_normal, R.layout.item_list_news_video);
         adapter.setOnItemClickListener(new OnListItemClickListener<NewsItem.NewsItemBean>() {
             @Override
             public void onItemClick(View view, int position, NewsItem.NewsItemBean data) {
-                Intent intent = null;
+                Intent intent;
                 switch (newsType) {
                     case VIDEO:
                     case DEPTH:
                     case HIGHLIGHT:
                         intent = new Intent(mActivity, BaseWebActivity.class);
-                        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, data.getUrl());
-                        intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, data.getTitle());
+                        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, data.url);
+                        intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, data.title);
                         startActivity(intent);
                         break;
                     case BANNER:
                     case NEWS:
                     default:
                         intent = new Intent(mActivity, NewsDetailActivity.class);
-                        intent.putExtra(NewsDetailActivity.TITLE, data.getTitle());
-                        intent.putExtra(NewsDetailActivity.ARTICLE_ID, data.getIndex());
+                        intent.putExtra(NewsDetailActivity.TITLE, data.title);
+                        intent.putExtra(NewsDetailActivity.ARTICLE_ID, data.index);
                         startActivity(intent);
                         break;
 
@@ -129,7 +129,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
             public void onSuccess(NewsItem newsItem) {
                 if (isRefresh)
                     list.clear();
-                list.addAll(newsItem.getData());
+                list.addAll(newsItem.data);
                 adapter.notifyDataSetChanged();
                 complete();
             }

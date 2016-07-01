@@ -31,7 +31,7 @@ public class PlayersAdapter extends IndexableAdapter<Players.Player> {
 
     @Override
     protected ViewHolder onCreateViewHolder(ViewGroup parent) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.list_item_teams, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_list_teams, parent, false);
         return new PlayersHolder(view);
     }
 

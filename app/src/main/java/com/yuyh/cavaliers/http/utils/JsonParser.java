@@ -19,6 +19,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -83,15 +85,24 @@ public class JsonParser {
             } else if (entry.getKey().equals("version")) {
                 newsItem.setVersion(entry.getValue().toString());
             } else if (entry.getKey().equals("data")) {
+                //JsonObject data = (JsonObject) new com.google.gson.JsonParser().parse(entry.getValue().toString());
                 JSONObject data = JSON.parseObject(entry.getValue().toString()); // articleIds=    NullPoint
                 List<NewsItem.NewsItemBean> list = new ArrayList<NewsItem.NewsItemBean>();
+                //Set<String> keySet = data.keySet();
                 for (Map.Entry<String, Object> item : data.entrySet()) {
                     Gson gson = new Gson();
                     NewsItem.NewsItemBean bean = gson.fromJson(item.getValue().toString(), NewsItem.NewsItemBean.class);
-                    bean.setIndex(item.getKey());
+                    bean.index = item.getKey();
                     list.add(bean);
                 }
-                newsItem.setData(list);
+                // 由于fastjson获取出来的entrySet是乱序的  所以这边重新排序
+                Collections.sort(list, new Comparator<NewsItem.NewsItemBean>() {
+                    @Override
+                    public int compare(NewsItem.NewsItemBean lhs, NewsItem.NewsItemBean rhs) {
+                        return rhs.index.compareTo(lhs.index);
+                    }
+                });
+                newsItem.data = list;
             }
         }
         return newsItem;
@@ -101,56 +112,58 @@ public class JsonParser {
         NewsDetail detail = new NewsDetail();
         String dataStr = JsonParser.parseBase(detail, jsonStr);
         JSONObject data = JSON.parseObject(dataStr);
-        for (Map.Entry<String, Object> entry : data.entrySet()) {
-            if (entry.getKey().equals("title")) {
-                detail.title = entry.getValue().toString();
-            } else if (entry.getKey().equals("abstract")) {
-                detail.abstractX = entry.getValue().toString();
-            } else if (entry.getKey().equals("content")) {
-                String contentStr = entry.getValue().toString();
+        if(data!=null) {
+            for (Map.Entry<String, Object> entry : data.entrySet()) {
+                if (entry.getKey().equals("title")) {
+                    detail.title = entry.getValue().toString();
+                } else if (entry.getKey().equals("abstract")) {
+                    detail.abstractX = entry.getValue().toString();
+                } else if (entry.getKey().equals("content")) {
+                    String contentStr = entry.getValue().toString();
 
-                try {
-                    List<Map<String, String>> list = new LinkedList<>();
-                    JSONArray jsonArray = new JSONArray(contentStr);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        org.json.JSONObject item = jsonArray.getJSONObject(i); // 得到每个对象
-                        Map<String, String> map = new HashMap<>();
-                        if (item.get("type").equals("text")) {
-                            map.put("text", item.get("info").toString());
-                        } else if (item.get("type").equals("img")) {
-                            String imgStr = item.get("img").toString();
-                            JSONObject imgObj = JSON.parseObject(imgStr);
-                            for (Map.Entry<String, Object> imgItem : imgObj.entrySet()) {
-                                if (imgItem.getKey().toString().startsWith("imgurl") && !TextUtils.isEmpty(imgItem.getValue().toString())) {
-                                    JSONObject imgUrlObj = JSON.parseObject(imgItem.getValue().toString());
-                                    String url = imgUrlObj.getString("imgurl");
-                                    map.put("img", url);
-                                    break;
+                    try {
+                        List<Map<String, String>> list = new LinkedList<>();
+                        JSONArray jsonArray = new JSONArray(contentStr);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            org.json.JSONObject item = jsonArray.getJSONObject(i); // 得到每个对象
+                            Map<String, String> map = new HashMap<>();
+                            if (item.get("type").equals("text")) {
+                                map.put("text", item.get("info").toString());
+                            } else if (item.get("type").equals("img")) {
+                                String imgStr = item.get("img").toString();
+                                JSONObject imgObj = JSON.parseObject(imgStr);
+                                for (Map.Entry<String, Object> imgItem : imgObj.entrySet()) {
+                                    if (imgItem.getKey().toString().startsWith("imgurl") && !TextUtils.isEmpty(imgItem.getValue().toString())) {
+                                        JSONObject imgUrlObj = JSON.parseObject(imgItem.getValue().toString());
+                                        String url = imgUrlObj.getString("imgurl");
+                                        map.put("img", url);
+                                        break;
+                                    }
                                 }
                             }
+                            list.add(map);
                         }
-                        list.add(map);
+                        detail.content = list;
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    detail.content = list;
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } else if (entry.getKey().equals("url")) {
+                    detail.url = entry.getValue().toString();
+                } else if (entry.getKey().equals("imgurl")) {
+                    detail.imgurl = entry.getValue().toString();
+                } else if (entry.getKey().equals("imgurl1")) {
+                    detail.imgurl1 = entry.getValue().toString();
+                } else if (entry.getKey().equals("imgurl2")) {
+                    detail.imgurl2 = entry.getValue().toString();
+                } else if (entry.getKey().equals("pub_time")) {
+                    detail.time = entry.getValue().toString();
+                } else if (entry.getKey().equals("atype")) {
+                    detail.atype = entry.getValue().toString();
+                } else if (entry.getKey().equals("commentId")) {
+                    detail.commentId = entry.getValue().toString();
+                } else {
+                    detail.newsAppId = entry.getValue().toString();
                 }
-            } else if (entry.getKey().equals("url")) {
-                detail.url = entry.getValue().toString();
-            } else if (entry.getKey().equals("imgurl")) {
-                detail.imgurl = entry.getValue().toString();
-            } else if (entry.getKey().equals("imgurl1")) {
-                detail.imgurl1 = entry.getValue().toString();
-            } else if (entry.getKey().equals("imgurl2")) {
-                detail.imgurl2 = entry.getValue().toString();
-            } else if (entry.getKey().equals("pub_time")) {
-                detail.time = entry.getValue().toString();
-            } else if (entry.getKey().equals("atype")) {
-                detail.atype = entry.getValue().toString();
-            } else if (entry.getKey().equals("commentId")) {
-                detail.commentId = entry.getValue().toString();
-            } else {
-                detail.newsAppId = entry.getValue().toString();
             }
         }
         return detail;
@@ -209,7 +222,7 @@ public class JsonParser {
         players.data = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(dataStr);
-            for (int i = 0; i < jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 String itemStr = jsonArray.getString(i);
                 Players.Player player = new Players.Player();
                 Gson gson = new Gson();

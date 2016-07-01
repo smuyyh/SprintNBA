@@ -144,7 +144,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
         refreshLayout.setOnRefreshListener(new RefreshListener());
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.material_red));
         //recyclerView.setLoadMoreListener(new RefreshListener());
-        adapter = new ThreadListAdapter(list, this, R.layout.list_item_thread);
+        adapter = new ThreadListAdapter(list, this, R.layout.item_list_threads);
         adapter.setOnItemClickListener(new OnListItemClickListener<ThreadListData.ThreadInfo>() {
             @Override
             public void onItemClick(View view, int position, ThreadListData.ThreadInfo data) {
