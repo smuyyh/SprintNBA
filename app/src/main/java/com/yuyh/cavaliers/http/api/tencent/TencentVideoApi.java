@@ -10,6 +10,6 @@ import retrofit.http.Query;
  */
 public interface TencentVideoApi {
 
-    @GET("/geturl?otype=xml&platform=1&ran=0%2E9652906153351068")
+    @GET("/getinfo?otype=xml&platform=1&ran=0%2E9652906153351068")
     void getVideoRealUrl(@Query("vid") String vid, Callback<String> resp);
 }

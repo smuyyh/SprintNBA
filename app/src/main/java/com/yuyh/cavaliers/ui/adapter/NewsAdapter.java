@@ -17,6 +17,7 @@ import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.utils.FrescoUtils;
 import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.library.utils.log.LogUtils;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
@@ -54,8 +55,10 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
             videoPlayer.setUp("", item.title);
             TencentService.getVideoRealUrl(item.vid, new RequestCallback<VideoRealUrl>() {
                 @Override
-                public void onSuccess(VideoRealUrl videoRealUrl) {
-                    videoPlayer.setUp(videoRealUrl.url, item.title);
+                public void onSuccess(VideoRealUrl real) {
+                    String url = real.url + real.vid + ".mp4?vkey=" + real.fvkey;
+                    LogUtils.i("real-url："+url);
+                    videoPlayer.setUp(url, item.title);
                 }
 
                 @Override
