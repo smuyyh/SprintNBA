@@ -8,13 +8,14 @@
     android:foreground="?attr/selectableItemBackground">
 
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/ivBannerImg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
-        android:src="@drawable/dwPrimary"/>
+        app:placeholderImage ="@drawable/dwPrimaryBg"
+        app:failureImage="@drawable/dwPrimaryBg"/>
 
     <LinearLayout
         android:layout_width="match_parent"

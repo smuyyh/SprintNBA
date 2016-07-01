@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black">
@@ -24,7 +25,7 @@
         android:layout_alignParentTop="true"
         android:background="#222222" />
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/thumb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,7 +36,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="#000000"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        app:placeholderImage ="@drawable/dwPrimaryBg"
+        app:failureImage="@drawable/dwPrimaryBg"/>
 
     <LinearLayout
         android:id="@+id/layout_bottom"

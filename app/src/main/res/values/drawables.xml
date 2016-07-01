@@ -4,6 +4,7 @@
 
     <drawable name="progress_bar_bg">#80FFFFFF</drawable>
     <drawable name="dwPrimary">@color/colorPrimaryDark</drawable>
+    <drawable name="dwPrimaryBg">@color/mainBg</drawable>
     <drawable name="dwTransparent">@android:color/transparent</drawable>
     <drawable name="transparent">@android:color/transparent</drawable>
 

@@ -17,6 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,7 +31,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
     public ImageView backButton;
     public ProgressBar bottomProgressBar, loadingProgressBar;
     public TextView titleTextView;
-    public ImageView thumbImageView;
+    public SimpleDraweeView thumbImageView;
     public ImageView coverImageView;
 
     protected static Timer DISSMISS_CONTROL_VIEW_TIMER;
@@ -51,7 +53,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
         bottomProgressBar = (ProgressBar) findViewById(R.id.bottom_progressbar);
         titleTextView = (TextView) findViewById(R.id.title);
         backButton = (ImageView) findViewById(R.id.back);
-        thumbImageView = (ImageView) findViewById(R.id.thumb);
+        thumbImageView = (SimpleDraweeView) findViewById(R.id.thumb);
         coverImageView = (ImageView) findViewById(R.id.cover);
         loadingProgressBar = (ProgressBar) findViewById(R.id.loading);
 

@@ -1,13 +1,13 @@
 package com.yuyh.cavaliers.ui.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.tencent.TencentService;
@@ -15,7 +15,7 @@ import com.yuyh.cavaliers.http.bean.news.NewsItem;
 import com.yuyh.cavaliers.http.bean.news.VideoRealUrl;
 import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
-import com.yuyh.cavaliers.utils.CircleTransform;
+import com.yuyh.cavaliers.utils.FrescoUtils;
 import com.yuyh.library.utils.DimenUtils;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
@@ -47,6 +47,8 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
     @Override
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final NewsItem.NewsItemBean item) {
 
+        Uri uri = Uri.parse(item.imgurl);
+
         if (item.atype.equals("2")) {
             final JCVideoPlayerStandard videoPlayer = viewHolder.getView(R.id.vpVideo);
             videoPlayer.setUp("", item.title);
@@ -61,16 +63,16 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
 
                 }
             });
-            Picasso.with(mContext).load(item.imgurl).into(videoPlayer.thumbImageView);
-            viewHolder.setText(R.id.tvVideoTitle, item.title)
-                    .setText(R.id.tvVideoTime, item.pub_time);
+
+            videoPlayer.thumbImageView.setController(FrescoUtils.getController(uri, videoPlayer.thumbImageView));
+            viewHolder.setText(R.id.tvVideoTitle, item.title).setText(R.id.tvVideoTime, item.pub_time);
             ViewGroup.LayoutParams params = videoPlayer.getLayoutParams();
             params.height = DimenUtils.getScreenWidth() / 2;
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;
             videoPlayer.setLayoutParams(params);
         } else {
-            ImageView iv = viewHolder.getView(R.id.ivBannerImg);
-            Picasso.with(mContext).load(item.imgurl).transform(new CircleTransform()).into(iv);
+            SimpleDraweeView iv = viewHolder.getView(R.id.ivBannerImg);
+            iv.setController(FrescoUtils.getController(uri, iv));
             ViewGroup.LayoutParams params = iv.getLayoutParams();
             params.height = DimenUtils.getScreenWidth() / 2;
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;
