@@ -41,12 +41,12 @@ public class LoginPresenterImpl implements Presenter {
 
     }
 
-    public void login(String userName, String passWord) {
+    public void login(final String username, final String password) {
         loginView.showLoading();
-        HupugameService.login(userName, passWord, new RequestCallback<UserData>() {
+        HupugameService.login(username, password, new RequestCallback<UserData>() {
             @Override
             public void onSuccess(UserData userData) {
-                if(userData!= null) {
+                if (userData != null) {
                     if (userData != null && userData.is_login == 1) { // 登录成功
                         UserData.LoginResult data = userData.result;
                         String cookie = "";
@@ -70,7 +70,8 @@ public class LoginPresenterImpl implements Presenter {
                         SettingPrefUtils.saveNickname(data.nickname);
                         SettingPrefUtils.saveUid(data.uid);
                         SettingPrefUtils.saveToken(data.token);
-                        SettingPrefUtils.saveUsername(data.username);
+                        SettingPrefUtils.saveUsername(username);
+                        SettingPrefUtils.savePassword(password);
                         loginView.loginSuccess();
                         loginView.hideLoading();
                     } else {

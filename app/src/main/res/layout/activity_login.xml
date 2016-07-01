@@ -37,13 +37,13 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="8dip">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/etUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="虎扑账号"
                 android:singleLine="true"
-                android:text=""
+                android:inputType="text"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="16sp" />
         </android.support.design.widget.TextInputLayout>
@@ -57,14 +57,13 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="8dip">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="虎扑密码"
                 android:inputType="textPassword"
                 android:singleLine="true"
-                android:text=""
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="16sp" />
         </android.support.design.widget.TextInputLayout>

@@ -37,7 +37,6 @@ public class BannerAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
 
     @Override
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final NewsItem.NewsItemBean item) {
-        //viewHolder.setImageUrl(R.id.ivBannerImg, item.getImgurl());
         ImageView iv = viewHolder.getView(R.id.ivBannerImg);
         Picasso.with(mContext).load(item.getImgurl()).transform(new CircleTransform()).into(iv);
         viewHolder.setText(R.id.tvBannerTitle, item.getTitle())

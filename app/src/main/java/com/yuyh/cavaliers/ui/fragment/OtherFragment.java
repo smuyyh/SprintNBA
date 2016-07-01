@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.http.utils.UserStorage;
 import com.yuyh.cavaliers.ui.AboutActivity;
 import com.yuyh.cavaliers.ui.LoginActivity;
 import com.yuyh.cavaliers.ui.PlayerListActivity;
@@ -142,7 +141,7 @@ public class OtherFragment extends BaseLazyFragment {
         switch (requestCode) {
             case REQ_LOGIN:
                 if (resultCode == Activity.RESULT_OK) {
-                    tvUserName.setText(UserStorage.getInstance().getUser().getNickName());
+                    tvUserName.setText(SettingPrefUtils.getNickname());
                 }
                 break;
             default:

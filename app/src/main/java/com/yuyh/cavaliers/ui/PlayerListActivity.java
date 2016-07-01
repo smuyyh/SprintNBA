@@ -9,10 +9,9 @@ import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
 import com.yuyh.cavaliers.base.BaseWebActivity;
 import com.yuyh.cavaliers.http.bean.player.Players;
+import com.yuyh.cavaliers.ui.adapter.PlayersAdapter;
 import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.presenter.impl.PlayersListPresenterImpl;
-import com.yuyh.cavaliers.ui.adapter.PlayersAdapter;
-import com.yuyh.cavaliers.ui.adapter.PlayersListAdapter;
 import com.yuyh.cavaliers.ui.view.PlayersView;
 import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.library.view.list.indexablelistview.IndexEntity;
@@ -34,7 +33,6 @@ public class PlayerListActivity extends BaseSwipeBackCompatActivity implements P
     @InjectView(R.id.searchview)
     SearchView mSearchView;
 
-    private PlayersListAdapter adapter;
     private PlayersAdapter playersAdapter;
     private List<Players.Player> list = new ArrayList<>();
     private Presenter presenter;

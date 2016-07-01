@@ -2,18 +2,16 @@ package com.yuyh.cavaliers.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
-import com.yuyh.cavaliers.http.utils.UserStorage;
 import com.yuyh.cavaliers.ui.presenter.impl.LoginPresenterImpl;
 import com.yuyh.cavaliers.ui.view.LoginView;
+import com.yuyh.cavaliers.utils.SettingPrefUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 
 import butterknife.InjectView;
@@ -22,29 +20,16 @@ import butterknife.OnClick;
 public class LoginActivity extends BaseSwipeBackCompatActivity implements LoginView {
 
     @InjectView(R.id.etUsername)
-    EditText etUsername;
+    TextInputEditText etUsername;
     @InjectView(R.id.etPassword)
-    EditText etPassword;
+    TextInputEditText etPassword;
 
     @InjectView(R.id.textInputUserName)
     TextInputLayout textInputUserName;
     @InjectView(R.id.textInputPassword)
     TextInputLayout textInputPassword;
 
-    @InjectView(R.id.btnLogin)
-    Button btnLogin;
-    @InjectView(R.id.btnRegist)
-    Button btnRegist;
-
     private LoginPresenterImpl presenter;
-    private UserStorage mUserStorage;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-    }
 
     @Override
     protected int getContentViewLayoutID() {
@@ -57,6 +42,8 @@ public class LoginActivity extends BaseSwipeBackCompatActivity implements LoginV
         etUsername.addTextChangedListener(new MTextWatcher(textInputUserName));
         etPassword.addTextChangedListener(new MTextWatcher(textInputPassword));
         presenter = new LoginPresenterImpl(this, this);
+        etUsername.setText(SettingPrefUtils.getUsername());
+        etPassword.setText(SettingPrefUtils.getPassword());
     }
 
     @OnClick(R.id.btnLogin)

@@ -17,14 +17,8 @@ import butterknife.OnClick;
  */
 public class AboutActivity extends BaseSwipeBackCompatActivity {
 
-    @InjectView(R.id.tvWeiboName)
-    TextView tvWeiboName;
     @InjectView(R.id.tvWeiboUrl)
     TextView tvWeiboUrl;
-    @InjectView(R.id.tvTecentQQ)
-    TextView tvTecentQQ;
-    @InjectView(R.id.tvEmail)
-    TextView tvEmail;
     @InjectView(R.id.tvBlog)
     TextView tvBlog;
 

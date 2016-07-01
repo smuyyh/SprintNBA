@@ -42,6 +42,14 @@ public class SettingPrefUtils {
         new PrefsUtils().put("username", username);
     }
 
+    public static String getPassword() {
+        return new PrefsUtils().get("password", "");
+    }
+
+    public static void savePassword(String password) {
+        new PrefsUtils().put("password", password);
+    }
+
     public static String getNickname() {
         return new PrefsUtils().get("nickname", "");
     }

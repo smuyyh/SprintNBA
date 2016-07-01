@@ -3,7 +3,6 @@ package com.yuyh.cavaliers.ui;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,7 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,10 +25,10 @@ import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.ui.presenter.impl.ThreadListPresenterImpl;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.ui.adapter.ThreadListAdapter;
+import com.yuyh.cavaliers.ui.presenter.impl.ThreadListPresenterImpl;
 import com.yuyh.cavaliers.ui.view.ThreadListView;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
@@ -63,8 +61,6 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     TextView tvSubTitle;
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(R.id.collapsing_toolbar)
-    CollapsingToolbarLayout collapsingToolbar;
     @InjectView(R.id.appbar)
     AppBarLayout appbar;
     @InjectView(R.id.refreshLayout)
@@ -79,8 +75,6 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     FloatingActionButton floatingRefresh;
     @InjectView(R.id.floatingMenu)
     FloatingActionMenu floatingMenu;
-    @InjectView(R.id.frameLayout)
-    FrameLayout frameLayout;
 
     private ThreadListAdapter adapter;
     private List<ThreadListData.ThreadInfo> list = new ArrayList<>();
