@@ -21,7 +21,7 @@ import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.MatchDetailActivity;
-import com.yuyh.cavaliers.ui.adapter.MatchAdapter;
+import com.yuyh.cavaliers.ui.adapter.MatchsAdapter;
 import com.yuyh.library.utils.DateUtils;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.log.LogUtils;
@@ -44,7 +44,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     private SupportRecyclerView recyclerView;
     private View emptyView;
 
-    private MatchAdapter adapter;
+    private MatchsAdapter adapter;
     private List<Matchs.MatchsDataBean.MatchesBean> list = new ArrayList<>();
 
     @Override
@@ -73,7 +73,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
             }
         });
 
-        adapter = new MatchAdapter(list, mActivity, R.layout.item_list_match);
+        adapter = new MatchsAdapter(list, mActivity, R.layout.item_list_match);
         adapter.setOnItemClickListener(new OnListItemClickListener<Matchs.MatchsDataBean.MatchesBean>() {
             @Override
             public void onItemClick(View view, int position, Matchs.MatchsDataBean.MatchesBean data) {

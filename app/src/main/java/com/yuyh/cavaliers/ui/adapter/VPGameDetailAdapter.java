@@ -20,11 +20,13 @@ import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
 public class VPGameDetailAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
     private LayoutInflater inflate;
     private String[] names;
+    private String mid;
 
-    public VPGameDetailAdapter(Context context, String[] names, FragmentManager fragmentManager) {
+    public VPGameDetailAdapter(Context context, String[] names, FragmentManager fragmentManager, String mid) {
         super(fragmentManager);
         inflate = LayoutInflater.from(context);
         this.names = names;
+        this.mid = mid;
     }
 
     @Override
@@ -46,7 +48,15 @@ public class VPGameDetailAdapter extends IndicatorViewPager.IndicatorFragmentPag
 
     @Override
     public Fragment getFragmentForPage(int position) {
-        Fragment fragment = new MatchLookForwardFragment();
+        Fragment fragment = null;
+        switch (position) {
+            case 0:
+                fragment = MatchLookForwardFragment.newInstance(mid);
+                break;
+            case 1:
+                fragment = MatchLookForwardFragment.newInstance(mid);
+                break;
+        }
         return fragment;
     }
 

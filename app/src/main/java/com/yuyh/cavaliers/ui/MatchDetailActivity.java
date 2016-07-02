@@ -2,10 +2,10 @@ package com.yuyh.cavaliers.ui;
 
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.cavaliers.R;
@@ -83,7 +83,7 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     protected void initViewsAndEvents() {
         mid = getIntent().getStringExtra(INTENT_MID);
         rlMatchToolbar.getBackground().setAlpha(0);
-        indicator.setScrollBar(new GameDetailScrollBar(getApplicationContext(), getResources().getColor(R.color.colorPrimary), 5));
+        indicator.setScrollBar(new GameDetailScrollBar(getApplicationContext(), getResources().getColor(R.color.colorPrimary), 8));
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         stickyNavLayout.setOnStickStateChangeListener(this);
         presenter = new MatchDetailPresenter(this, this);
@@ -93,7 +93,7 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
 
     @Override
     public void showTabViewPager(String[] names) {
-        adapter = new VPGameDetailAdapter(this, names, getSupportFragmentManager());
+        adapter = new VPGameDetailAdapter(this, names, getSupportFragmentManager(), mid);
         indicatorViewPager.setAdapter(adapter);
 
     }
@@ -101,8 +101,10 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     @Override
     public void showMatchInfo(MatchBaseInfo.BaseInfo info) {
         tvMatchTitle.setText(info.leftName + "vs" + info.rightName);
-        tvLeftRate.setText(info.leftWins + "胜" + info.leftLosses + "负");
-        tvRightRate.setText(info.rightWins + "胜" + info.rightLosses + "负");
+        if (!TextUtils.isEmpty(info.leftWins) && !TextUtils.isEmpty(info.leftLosses))
+            tvLeftRate.setText(info.leftWins + "胜" + info.leftLosses + "负");
+        if (!TextUtils.isEmpty(info.rightWins) && !TextUtils.isEmpty(info.rightLosses))
+            tvRightRate.setText(info.rightWins + "胜" + info.rightLosses + "负");
         String startTime = info.startDate + info.startHour;
         SimpleDateFormat format = new SimpleDateFormat("MM月dd日HH:mm");
         String state = "未开始";
@@ -131,11 +133,6 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     public void isStick(boolean isStick) {
         if (lastIsTopHidden != isStick) {
             lastIsTopHidden = isStick;
-            if (isStick) {
-                Toast.makeText(this, "本宝宝悬浮了", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, "本宝宝又不悬浮了", Toast.LENGTH_LONG).show();
-            }
         }
     }
 

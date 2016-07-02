@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import com.yuyh.cavaliers.BuildConfig;
 import com.yuyh.cavaliers.http.api.RequestCallback;
+import com.yuyh.cavaliers.http.bean.match.LiveDetail;
+import com.yuyh.cavaliers.http.bean.match.LiveIndex;
 import com.yuyh.cavaliers.http.bean.match.MatchBaseInfo;
 import com.yuyh.cavaliers.http.bean.match.MatchCalendar;
 import com.yuyh.cavaliers.http.bean.match.MatchStat;
@@ -180,6 +182,51 @@ public class TencentService {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 cbk.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void getMatchLiveIndex(String mid, final RequestCallback<LiveIndex> cbk) {
+        Call<String> call = api.getMatchLiveIndex(mid);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    LiveIndex liveIndex = JsonParser.parseWithGson(LiveIndex.class, jsonStr);
+                    cbk.onSuccess(liveIndex);
+                    LogUtils.d("resp:" + jsonStr);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void getMatchLiveDetail(String mid, String ids, final RequestCallback<LiveDetail> cbk) {
+        Call<String> call = api.getMatchLiveDetail(mid, ids);
+        call.enqueue(new Callback<String>() {
+
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    LiveDetail liveIndex = JsonParser.parseMatchLiveDetail(jsonStr);
+                    cbk.onSuccess(liveIndex);
+                    LogUtils.d("resp:" + jsonStr);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
             }
         });
     }

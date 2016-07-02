@@ -27,9 +27,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textSize="16dp"
             android:text="小牛 雷霆"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="16dp" />
 
     </RelativeLayout>
 
@@ -72,16 +72,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="30dp"
-                            android:layout_toLeftOf="@+id/tvMatchState"
-                            android:text="57胜20负" />
+                            android:layout_toLeftOf="@+id/tvMatchState" />
 
                         <TextView
                             android:id="@+id/tvRightRate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
-                            android:layout_toRightOf="@+id/tvMatchState"
-                            android:text="57胜20负" />
+                            android:layout_toRightOf="@+id/tvMatchState" />
 
                     </RelativeLayout>
 

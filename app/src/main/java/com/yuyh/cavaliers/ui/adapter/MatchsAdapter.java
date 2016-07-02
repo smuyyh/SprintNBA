@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Kyrie.Y on 2016/6/6.
  */
-public class MatchAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBean> {
+public class MatchsAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBean> {
 
     private OnListItemClickListener mOnItemClickListener = null;
 
@@ -24,7 +24,7 @@ public class MatchAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBea
      * @param context  上下文
      * @param layoutId 布局Id
      */
-    public MatchAdapter(List<Matchs.MatchsDataBean.MatchesBean> data, Context context, int... layoutId) {
+    public MatchsAdapter(List<Matchs.MatchsDataBean.MatchesBean> data, Context context, int... layoutId) {
         super(data, context, layoutId);
     }
 

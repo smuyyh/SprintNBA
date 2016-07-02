@@ -29,6 +29,13 @@ public interface TencentApi {
     @GET("/match/stat" + URL_SUFFIX)
     Call<String> getMatchStat(@Query("mid") String mid, @Query("tabType") String tabType);
 
+    // baseInfo?mid=100000:1468573
+    @GET("/match/textLiveIndex" + URL_SUFFIX)
+    Call<String> getMatchLiveIndex(@Query("mid") String mid);
+
+    @GET("/match/textLiveDetail" + URL_SUFFIX)
+    Call<String> getMatchLiveDetail(@Query("mid") String mid, @Query("ids") String ids);
+
     @GET("/news/index" + URL_SUFFIX)
     Call<String> getNewsIndex(@Query("column") String column);
 

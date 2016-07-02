@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yuyh.cavaliers.http.bean.base.Base;
+import com.yuyh.cavaliers.http.bean.match.LiveDetail;
 import com.yuyh.cavaliers.http.bean.match.MatchCalendar;
 import com.yuyh.cavaliers.http.bean.news.NewsDetail;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
@@ -74,6 +75,32 @@ public class JsonParser {
         }
         match.setData(bean);
         return match;
+    }
+
+    public static LiveDetail parseMatchLiveDetail(String jsonStr) {
+        LiveDetail detail = new LiveDetail();
+        detail.data = new LiveDetail.LiveDetailData();
+        String dataStr = JsonParser.parseBase(detail, jsonStr);
+        JSONObject data = JSON.parseObject(dataStr);
+        List<LiveDetail.LiveDetailData.LiveContent> list = new ArrayList<>();
+        for (Map.Entry<String, Object> item : data.entrySet()) {
+            if (item.getKey().equals("teamInfo")) {
+                String teamInfo = item.getValue().toString();
+                detail.data.teamInfo = new Gson().fromJson(teamInfo, LiveDetail.LiveDetailData.TeamInfo.class);
+            } else if (item.getKey().equals("detail")) {
+                JSONObject details = JSON.parseObject(item.getValue().toString());
+                for (Map.Entry<String, Object> entry : details.entrySet()) {
+                    LiveDetail.LiveDetailData.LiveContent content;
+                    String contentStr = entry.getValue().toString();
+                    Gson gson = new Gson();
+                    content = gson.fromJson(contentStr, LiveDetail.LiveDetailData.LiveContent.class);
+                    content.id = entry.getKey();
+                    list.add(content);
+                }
+            }
+        }
+        detail.data.detail = list;
+        return detail;
     }
 
     public static NewsItem parseNewsItem(String jsonStr) {

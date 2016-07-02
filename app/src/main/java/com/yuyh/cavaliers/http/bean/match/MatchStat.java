@@ -39,7 +39,10 @@ public class MatchStat extends Base {
              * type = 1  历史对阵
              * type = 2  近期战绩
              * type = 3  未来赛事
+             * type = 12 比分
              * type = 13 球队数据王
+             * type = 14 球队统计
+             * type = 16 场上球员
              */
             public String type;
             public String text;
