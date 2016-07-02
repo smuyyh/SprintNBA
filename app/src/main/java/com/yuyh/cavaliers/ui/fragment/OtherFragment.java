@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.cavaliers.base.BaseWebActivity;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.ui.AboutActivity;
 import com.yuyh.cavaliers.ui.LoginActivity;
@@ -114,6 +115,15 @@ public class OtherFragment extends BaseLazyFragment {
 
     @OnClick(R.id.rlTeamSchedule)
     public void teamSchedule() {
+    }
+
+    @OnClick(R.id.rlNBACal)
+    public void nbaCal() {
+        Intent intent = new Intent(mActivity, BaseWebActivity.class);
+        intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, "NBA日历");
+        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, "http://m.china.nba.com/importantdatetoapp/wap.htm");
+        intent.putExtra(BaseWebActivity.BUNDLE_KEY_SHOW_BOTTOM_BAR, false);
+        startActivity(intent);
     }
 
     @OnClick(R.id.rlFeedback)

@@ -110,7 +110,7 @@ public class BrowserLayout extends LinearLayout {
 
             @Override
             public void onClick(View v) {
-                loadUrl(mLoadUrl);
+                refresh(mLoadUrl);
             }
         });
 
@@ -131,6 +131,10 @@ public class BrowserLayout extends LinearLayout {
 
     public void loadUrl(String url) {
         mWebView.loadUrl(url);
+    }
+
+    public void refresh(String url) {
+        mWebView.reload();
     }
 
     public boolean canGoBack() {
@@ -202,6 +206,9 @@ public class BrowserLayout extends LinearLayout {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             mLoadUrl = url;
+            if(listener != null){
+                listener.onPageFinished();
+            }
         }
     }
 
@@ -233,6 +240,8 @@ public class BrowserLayout extends LinearLayout {
 
     public interface OnReceiveTitleListener {
         void onReceive(String title);
+
+        void onPageFinished();
     }
 
     public void setOnReceiveTitleListener(OnReceiveTitleListener listener) {

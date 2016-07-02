@@ -29,6 +29,7 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
 
     @Override
     protected void initViewsAndEvents() {
+        showLoadingDialog();
         Intent intent = getIntent();
         mWebTitle = intent.getStringExtra(BUNDLE_KEY_TITLE);
         mWebUrl = intent.getStringExtra(BUNDLE_KEY_URL);
@@ -40,11 +41,6 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
         }
 
         mBrowserLayout = ButterKnife.findById(this, R.id.common_web_browser_layout);
-        if (!TextUtils.isEmpty(mWebUrl)) {
-            mBrowserLayout.loadUrl(mWebUrl);
-        } else {
-            ToastUtils.showToast("获取URL地址失败");
-        }
         if (!isShowBottomBar) {
             mBrowserLayout.hideBrowserController();
         } else {
@@ -58,7 +54,17 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
                     setTitle(title);
                 }
             }
+
+            @Override
+            public void onPageFinished() {
+                hideLoadingDialog();
+            }
         });
+        if (!TextUtils.isEmpty(mWebUrl)) {
+            mBrowserLayout.loadUrl(mWebUrl);
+        } else {
+            ToastUtils.showToast("获取URL地址失败");
+        }
     }
 
     @Override
