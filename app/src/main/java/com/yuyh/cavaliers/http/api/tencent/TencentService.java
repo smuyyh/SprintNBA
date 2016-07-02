@@ -6,6 +6,7 @@ import com.yuyh.cavaliers.BuildConfig;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.bean.match.MatchBaseInfo;
 import com.yuyh.cavaliers.http.bean.match.MatchCalendar;
+import com.yuyh.cavaliers.http.bean.match.MatchStat;
 import com.yuyh.cavaliers.http.bean.match.Matchs;
 import com.yuyh.cavaliers.http.bean.news.NewsDetail;
 import com.yuyh.cavaliers.http.bean.news.NewsIndex;
@@ -153,6 +154,36 @@ public class TencentService {
             }
         });
     }
+
+    /**
+     * 获取比赛前瞻信息
+     *
+     * @param mid
+     * @param tabType
+     * @param cbk
+     */
+    public static void getMatchStat(String mid, String tabType, final RequestCallback<MatchStat> cbk) {
+        Call<String> call = api.getMatchStat(mid, tabType);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    MatchStat matchStat = JsonParser.parseWithGson(MatchStat.class, jsonStr);
+                    cbk.onSuccess(matchStat);
+                    LogUtils.d("resp:" + jsonStr);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
+            }
+        });
+    }
+
 
     /**
      * 获取所有新闻索引

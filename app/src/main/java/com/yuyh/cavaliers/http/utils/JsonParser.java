@@ -37,9 +37,9 @@ public class JsonParser {
         String data = "{}";
         for (Map.Entry<String, Object> entry : jsonObj.entrySet()) {
             if (entry.getKey().equals("code")) {
-                base.setCode(Integer.parseInt(entry.getValue().toString()));
+                base.code = Integer.parseInt(entry.getValue().toString());
             } else if (entry.getKey().equals("version")) {
-                base.setVersion(entry.getValue().toString());
+                base.version = entry.getValue().toString();
             } else {
                 data = entry.getValue().toString();
             }
@@ -78,33 +78,23 @@ public class JsonParser {
 
     public static NewsItem parseNewsItem(String jsonStr) {
         NewsItem newsItem = new NewsItem();
-        JSONObject jsonObj = JSON.parseObject(jsonStr);
-        for (Map.Entry<String, Object> entry : jsonObj.entrySet()) {
-            if (entry.getKey().equals("code")) {
-                newsItem.setCode(Integer.parseInt(entry.getValue().toString()));
-            } else if (entry.getKey().equals("version")) {
-                newsItem.setVersion(entry.getValue().toString());
-            } else if (entry.getKey().equals("data")) {
-                //JsonObject data = (JsonObject) new com.google.gson.JsonParser().parse(entry.getValue().toString());
-                JSONObject data = JSON.parseObject(entry.getValue().toString()); // articleIds=    NullPoint
-                List<NewsItem.NewsItemBean> list = new ArrayList<NewsItem.NewsItemBean>();
-                //Set<String> keySet = data.keySet();
-                for (Map.Entry<String, Object> item : data.entrySet()) {
-                    Gson gson = new Gson();
-                    NewsItem.NewsItemBean bean = gson.fromJson(item.getValue().toString(), NewsItem.NewsItemBean.class);
-                    bean.index = item.getKey();
-                    list.add(bean);
-                }
-                // 由于fastjson获取出来的entrySet是乱序的  所以这边重新排序
-                Collections.sort(list, new Comparator<NewsItem.NewsItemBean>() {
-                    @Override
-                    public int compare(NewsItem.NewsItemBean lhs, NewsItem.NewsItemBean rhs) {
-                        return rhs.index.compareTo(lhs.index);
-                    }
-                });
-                newsItem.data = list;
-            }
+        JSONObject data = JSON.parseObject(JsonParser.parseBase(newsItem, jsonStr)); // articleIds=    NullPoint
+        List<NewsItem.NewsItemBean> list = new ArrayList<NewsItem.NewsItemBean>();
+        //Set<String> keySet = data.keySet();
+        for (Map.Entry<String, Object> item : data.entrySet()) {
+            Gson gson = new Gson();
+            NewsItem.NewsItemBean bean = gson.fromJson(item.getValue().toString(), NewsItem.NewsItemBean.class);
+            bean.index = item.getKey();
+            list.add(bean);
         }
+        // 由于fastjson获取出来的entrySet是乱序的  所以这边重新排序
+        Collections.sort(list, new Comparator<NewsItem.NewsItemBean>() {
+            @Override
+            public int compare(NewsItem.NewsItemBean lhs, NewsItem.NewsItemBean rhs) {
+                return rhs.index.compareTo(lhs.index);
+            }
+        });
+        newsItem.data = list;
         return newsItem;
     }
 
@@ -112,7 +102,7 @@ public class JsonParser {
         NewsDetail detail = new NewsDetail();
         String dataStr = JsonParser.parseBase(detail, jsonStr);
         JSONObject data = JSON.parseObject(dataStr);
-        if(data!=null) {
+        if (data != null) {
             for (Map.Entry<String, Object> entry : data.entrySet()) {
                 if (entry.getKey().equals("title")) {
                     detail.title = entry.getValue().toString();

@@ -14,6 +14,7 @@ public interface TencentApi {
 
     String URL_SUFFIX = "?appver=1.0.2.2&appvid=1.0.2.2&network=WIFI";
 
+    //calendar?teamId=27&year=2016&month=7 // 查询球队赛程
     @GET("/match/calendar" + URL_SUFFIX)
     Call<String> getMatchCalendar(@Query("teamId") int teamId, @Query("year") int year, @Query("month") int month);
 
@@ -24,7 +25,9 @@ public interface TencentApi {
     @GET("/match/baseInfo" + URL_SUFFIX)
     Call<String> getMatchBaseInfo(@Query("mid") String mid);
 
-    //calendar?teamId=27&year=2016&month=7 // 查询球队赛程
+    // stat?mid=100000:1468573&tabType=3
+    @GET("/match/stat" + URL_SUFFIX)
+    Call<String> getMatchStat(@Query("mid") String mid, @Query("tabType") String tabType);
 
     @GET("/news/index" + URL_SUFFIX)
     Call<String> getNewsIndex(@Query("column") String column);

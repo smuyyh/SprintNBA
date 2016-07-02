@@ -71,7 +71,6 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         presenter.initialized();
         BmobUpdateAgent.setUpdateOnlyWifi(true); // Wifi下面才提示APP更新
         BmobUpdateAgent.update(this);
-
     }
 
     @Override
