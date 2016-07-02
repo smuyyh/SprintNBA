@@ -115,6 +115,8 @@ public class OtherFragment extends BaseLazyFragment {
 
     @OnClick(R.id.rlTeamSchedule)
     public void teamSchedule() {
+        Intent intent = new Intent(mActivity, TeamsListActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.rlNBACal)

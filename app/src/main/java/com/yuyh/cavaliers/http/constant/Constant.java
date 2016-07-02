@@ -22,6 +22,11 @@ public class Constant {
 
     public static final String SPAN_LINK_COLOR = "#6a8cb3";
 
+    public final static String deviceId = "Android";
+    public final static String guid = deviceId;
+    public final static String appver = "1.0.2.2";
+    public final static String appvid="1.0.2.2";
+
     public enum NewsType implements Serializable {
 
         BANNER("banner"),      //头条

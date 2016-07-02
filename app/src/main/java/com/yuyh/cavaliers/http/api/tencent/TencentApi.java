@@ -20,6 +20,10 @@ public interface TencentApi {
     @GET("/match/listByDate" + URL_SUFFIX)
     Call<String> getMatchsByData(@Query("date") String date);
 
+    // baseInfo?mid=100000:1468573
+    @GET("/match/baseInfo" + URL_SUFFIX)
+    Call<String> getMatchBaseInfo(@Query("mid") String mid);
+
     //calendar?teamId=27&year=2016&month=7 // 查询球队赛程
 
     @GET("/news/index" + URL_SUFFIX)
@@ -43,4 +47,6 @@ public interface TencentApi {
 
     @GET("/team/list" + URL_SUFFIX)
     Call<String> getTeamList();
+
+
 }

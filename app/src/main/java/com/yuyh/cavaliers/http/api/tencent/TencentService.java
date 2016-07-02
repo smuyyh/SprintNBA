@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.yuyh.cavaliers.BuildConfig;
 import com.yuyh.cavaliers.http.api.RequestCallback;
+import com.yuyh.cavaliers.http.bean.match.MatchBaseInfo;
 import com.yuyh.cavaliers.http.bean.match.MatchCalendar;
 import com.yuyh.cavaliers.http.bean.match.Matchs;
 import com.yuyh.cavaliers.http.bean.news.NewsDetail;
@@ -25,6 +26,8 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
@@ -119,6 +122,34 @@ public class TencentService {
             public void onFailure(Call<String> call, Throwable t) {
                 cbk.onFailure(t.getMessage());
                 cache.remove(key);
+            }
+        });
+    }
+
+    /**
+     * 获取比赛信息
+     *
+     * @param mid
+     * @param cbk
+     */
+    public static void getMatchBaseInfo(String mid, final RequestCallback<MatchBaseInfo> cbk) {
+        Call<String> call = api.getMatchBaseInfo(mid);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    MatchBaseInfo info = JsonParser.parseWithGson(MatchBaseInfo.class, jsonStr);
+                    cbk.onSuccess(info);
+                    LogUtils.d("resp:" + jsonStr);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
             }
         });
     }

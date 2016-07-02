@@ -30,22 +30,22 @@ public class MatchAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBea
 
     @Override
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final Matchs.MatchsDataBean.MatchesBean item) {
-        Matchs.MatchsDataBean.MatchesBean.MatchInfoBean matchInfo = item.getMatchInfo();
+        Matchs.MatchsDataBean.MatchesBean.MatchInfoBean matchInfo = item.matchInfo;
         String status;
-        if (matchInfo.getQuarter().equals("第4节") && matchInfo.getQuarterTime().equals("00:00"))
+        if (matchInfo.quarter.equals("第4节") && matchInfo.quarter.equals("00:00"))
             status = "已结束";
-        else if (matchInfo.getQuarter().equals("") && matchInfo.getQuarterTime().equals("12:00"))
-            status = matchInfo.getStartTime();
+        else if (matchInfo.quarter.equals("") && matchInfo.quarter.equals("12:00"))
+            status = matchInfo.startTime;
         else
-            status = matchInfo.getQuarter() + " " + matchInfo.getQuarterTime();
-        viewHolder.setText(R.id.tvLeftTeam, matchInfo.getLeftName())
-                .setText(R.id.tvRightTeam, matchInfo.getRightName())
+            status = matchInfo.quarter + " " + matchInfo.quarter;
+        viewHolder.setText(R.id.tvLeftTeam, matchInfo.leftName)
+                .setText(R.id.tvRightTeam, matchInfo.rightName)
                 .setText(R.id.tvMatchStatus, status)
-                .setText(R.id.tvLeftTeamPoint, matchInfo.getLeftGoal())
-                .setText(R.id.tvRightTeamPoint, matchInfo.getRightGoal())
-                .setText(R.id.tvMatchDesc, matchInfo.getMatchDesc())
-                .setImageUrl(R.id.ivLeftTeam, matchInfo.getLeftBadge())
-                .setImageUrl(R.id.ivRightTeam, matchInfo.getRightBadge());
+                .setText(R.id.tvLeftTeamPoint, matchInfo.leftGoal)
+                .setText(R.id.tvRightTeamPoint, matchInfo.rightGoal)
+                .setText(R.id.tvMatchDesc, matchInfo.matchDesc)
+                .setImageUrl(R.id.ivLeftTeam, matchInfo.leftBadge)
+                .setImageUrl(R.id.ivRightTeam, matchInfo.rightBadge);
 
         viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {
             @Override

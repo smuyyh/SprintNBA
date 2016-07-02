@@ -1,5 +1,6 @@
 package com.yuyh.cavaliers.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,6 +20,7 @@ import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
+import com.yuyh.cavaliers.ui.GameDetailActivity;
 import com.yuyh.cavaliers.ui.adapter.MatchAdapter;
 import com.yuyh.library.utils.DateUtils;
 import com.yuyh.library.utils.DimenUtils;
@@ -75,7 +77,8 @@ public class NBAScheduleFragment extends BaseLazyFragment {
         adapter.setOnItemClickListener(new OnListItemClickListener<Matchs.MatchsDataBean.MatchesBean>() {
             @Override
             public void onItemClick(View view, int position, Matchs.MatchsDataBean.MatchesBean data) {
-
+                Intent intent = new Intent(mActivity, GameDetailActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -95,7 +98,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
             @Override
             public void onSuccess(Matchs matchs) {
                 list.clear();
-                List<Matchs.MatchsDataBean.MatchesBean> mList = matchs.getData().getMatches();
+                List<Matchs.MatchsDataBean.MatchesBean> mList = matchs.getData().matches;
                 if (!mList.isEmpty()) {
                     for (Matchs.MatchsDataBean.MatchesBean bean : mList) {
                         list.add(bean);

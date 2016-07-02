@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:stick="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/common_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.yuyh.cavaliers.widget.StickyNavLayout
+        android:id="@+id/stickyNavLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/snlTopview"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="#4400ff00">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="软件介绍"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <com.yuyh.library.view.viewpager.indicator.FixedIndicatorView
+            android:id="@+id/snlIindicator"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/snlViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.yuyh.cavaliers.widget.StickyNavLayout>
+
+</LinearLayout>
