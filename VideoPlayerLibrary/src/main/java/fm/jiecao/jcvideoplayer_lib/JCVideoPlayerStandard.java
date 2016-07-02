@@ -53,6 +53,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
         bottomProgressBar = (ProgressBar) findViewById(R.id.bottom_progressbar);
         titleTextView = (TextView) findViewById(R.id.title);
         backButton = (ImageView) findViewById(R.id.back);
+        backButton.setVisibility(View.INVISIBLE);
         thumbImageView = (SimpleDraweeView) findViewById(R.id.thumb);
         coverImageView = (ImageView) findViewById(R.id.cover);
         loadingProgressBar = (ProgressBar) findViewById(R.id.loading);

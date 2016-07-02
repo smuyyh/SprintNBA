@@ -1,5 +1,6 @@
 package com.yuyh.cavaliers.http.utils;
 
+import android.text.TextUtils;
 import android.util.Xml;
 
 import com.yuyh.cavaliers.http.bean.news.VideoRealUrl;
@@ -38,7 +39,8 @@ public class PullRealUrlParser implements RealUrlParser {
                 case XmlPullParser.START_TAG:
                     if (parser.getName().equals("url")) {
                         String urlbase = parser.nextText();
-                        if (urlbase.contains("vlive.qqvideo.tc.qq.com")) {
+                        if ((urlbase.contains("vlive.qqvideo.tc.qq.com") || urlbase.contains("qqvideo.tc.qq.com"))
+                                && TextUtils.isEmpty(real.url)) {
                             real.url = urlbase;
                             LogUtils.i("url = " + real.url);
                         }

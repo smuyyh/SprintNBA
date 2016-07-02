@@ -2,12 +2,11 @@ package com.yuyh.cavaliers.ui.presenter.impl;
 
 import android.content.Context;
 
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.hupu.game.HupugameService;
 import com.yuyh.cavaliers.http.bean.cookie.User;
 import com.yuyh.cavaliers.http.bean.cookie.UserData;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.http.api.RequestCallback;
-import com.yuyh.cavaliers.http.utils.UserStorage;
 import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.LoginView;
 import com.yuyh.cavaliers.utils.SettingPrefUtils;
@@ -27,13 +26,10 @@ public class LoginPresenterImpl implements Presenter {
     private LoginView loginView;
 
     private User user = new User();
-    private UserStorage storage;
 
     public LoginPresenterImpl(Context context, LoginView loginView) {
         this.context = context;
         this.loginView = loginView;
-
-        storage = UserStorage.getInstance();
     }
 
     @Override
@@ -63,9 +59,6 @@ public class LoginPresenterImpl implements Presenter {
                         user.setToken(data.token);
                         user.setCookie(cookie);
                         user.setUserName(data.username);
-
-                        storage.setToken(data.token);
-                        storage.setUser(user);
 
                         SettingPrefUtils.saveNickname(data.nickname);
                         SettingPrefUtils.saveUid(data.uid);

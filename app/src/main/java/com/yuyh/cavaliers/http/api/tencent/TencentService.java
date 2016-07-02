@@ -1,5 +1,7 @@
 package com.yuyh.cavaliers.http.api.tencent;
 
+import android.text.TextUtils;
+
 import com.yuyh.cavaliers.BuildConfig;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.bean.match.MatchCalendar;
@@ -15,7 +17,6 @@ import com.yuyh.cavaliers.http.bean.player.TeamsRank;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.http.utils.JsonParser;
 import com.yuyh.cavaliers.http.utils.PullRealUrlParser;
-import com.yuyh.cavaliers.http.utils.StringConverter;
 import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.data.ACache;
 import com.yuyh.library.utils.log.LogUtils;
@@ -23,10 +24,9 @@ import com.yuyh.library.utils.log.LogUtils;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * 暂未替换为Retrofit2
@@ -36,8 +36,9 @@ import retrofit.client.Response;
  */
 public class TencentService {
 
-    public static RestAdapter restStr = new RestAdapter.Builder().setEndpoint(BuildConfig.TENCENT_SERVER).setConverter(new StringConverter()).build();
-    public static TencentApi apiStr = restStr.create(TencentApi.class);
+    static Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.TENCENT_SERVER)
+            .addConverterFactory(ScalarsConverterFactory.create()).build();
+    static TencentApi api = retrofit.create(TencentApi.class);
 
 
     /**
@@ -58,18 +59,25 @@ public class TencentService {
             cbk.onSuccess(match);
             return;
         }
-        apiStr.getMatchCalendar(teamId, year, month, new Callback<String>() {
 
+        Call<String> call = api.getMatchCalendar(teamId, year, month);
+        call.enqueue(new retrofit2.Callback<String>() {
             @Override
-            public void success(String jsonStr, Response response) {
-                MatchCalendar match = JsonParser.parseMatchCalendar(jsonStr);
-                cbk.onSuccess(match);
-                cache.put(key, match);
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    MatchCalendar match = JsonParser.parseMatchCalendar(jsonStr);
+                    cbk.onSuccess(match);
+                    cache.put(key, match);
+                    LogUtils.i("resp:" + jsonStr);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                cbk.onFailure(error.getMessage());
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
                 cache.remove(key);
             }
         });
@@ -91,18 +99,25 @@ public class TencentService {
             cbk.onSuccess(matchs);
             return;
         }
-        apiStr.getMatchsByData(date, new Callback<String>() {
+
+        Call<String> call = api.getMatchsByData(date);
+        call.enqueue(new retrofit2.Callback<String>() {
             @Override
-            public void success(String jsonStr, Response response) {
-                LogUtils.d(jsonStr);
-                Matchs matchs = JsonParser.parseWithGson(Matchs.class, jsonStr);
-                cbk.onSuccess(matchs);
-                cache.put(key, matchs);
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    LogUtils.d("resp:" + jsonStr);
+                    Matchs matchs = JsonParser.parseWithGson(Matchs.class, jsonStr);
+                    cbk.onSuccess(matchs);
+                    cache.put(key, matchs);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                cbk.onFailure(error.getMessage());
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
                 cache.remove(key);
             }
         });
@@ -124,18 +139,25 @@ public class TencentService {
             return;
         }
 
-        apiStr.getNewsIndex(newsType.getType(), new Callback<String>() {
+        Call<String> call = api.getNewsIndex(newsType.getType());
+        call.enqueue(new retrofit2.Callback<String>() {
             @Override
-            public void success(String jsonStr, Response response) {
-                NewsIndex index = JsonParser.parseWithGson(NewsIndex.class, jsonStr);
-                cbk.onSuccess(index);
-                cache.put(key, index);
-                LogUtils.d(jsonStr);
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    NewsIndex index = JsonParser.parseWithGson(NewsIndex.class, jsonStr);
+                    cbk.onSuccess(index);
+                    cache.put(key, index);
+                    LogUtils.d("resp:" + jsonStr);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                cbk.onFailure(error.getMessage());
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
+                cache.remove(key);
             }
         });
     }
@@ -157,19 +179,24 @@ public class TencentService {
             return;
         }
 
-        // 由于新闻列表json采用动态key，故无法直接通过Gson解析成对象，这里做自定义解析
-        apiStr.getNewsItem(newsType.getType(), articleIds, new Callback<String>() {
+        Call<String> call = api.getNewsItem(newsType.getType(), articleIds);
+        call.enqueue(new retrofit2.Callback<String>() {
             @Override
-            public void success(String jsonStr, Response response) {
-                NewsItem newsItem = JsonParser.parseNewsItem(jsonStr);
-                cbk.onSuccess(newsItem);
-                cache.put(key, newsItem);
-                LogUtils.d("resp:" + jsonStr);
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    NewsItem newsItem = JsonParser.parseNewsItem(jsonStr);
+                    cbk.onSuccess(newsItem);
+                    cache.put(key, newsItem);
+                    LogUtils.d("resp:" + jsonStr);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                cbk.onFailure(error.getMessage());
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
                 cache.remove(key);
             }
         });
@@ -192,17 +219,25 @@ public class TencentService {
             cbk.onSuccess(detail);
             return;
         }
-        apiStr.getNewsDetail(newsType.getType(), articleId, new Callback<String>() {
+
+        Call<String> call = api.getNewsDetail(newsType.getType(), articleId);
+        call.enqueue(new retrofit2.Callback<String>() {
             @Override
-            public void success(String jsonStr, Response response) {
-                NewsDetail detail = JsonParser.parseNewsDetail(jsonStr);
-                cbk.onSuccess(detail);
-                cache.put(key, detail);
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    NewsDetail detail = JsonParser.parseNewsDetail(jsonStr);
+                    cbk.onSuccess(detail);
+                    cache.put(key, detail);
+                    LogUtils.d("resp:" + jsonStr);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                cbk.onFailure(error.getMessage());
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
                 cache.remove(key);
             }
         });
@@ -228,17 +263,24 @@ public class TencentService {
             return;
         }
 
-        apiStr.getStatsRank(statType.getType(), num, tabType.getType(), seasonId, new Callback<String>() {
+        Call<String> call = api.getStatsRank(statType.getType(), num, tabType.getType(), seasonId);
+        call.enqueue(new retrofit2.Callback<String>() {
             @Override
-            public void success(String jsonStr, Response response) {
-                StatsRank rank = JsonParser.parseStatsRank(jsonStr);
-                cbk.onSuccess(rank);
-                cache.put(key, rank);
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    StatsRank rank = JsonParser.parseStatsRank(jsonStr);
+                    cbk.onSuccess(rank);
+                    cache.put(key, rank);
+                    LogUtils.d("resp:" + jsonStr);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                cbk.onFailure(error.getMessage());
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
                 cache.remove(key);
             }
         });
@@ -259,34 +301,41 @@ public class TencentService {
             return;
         }
 
-        apiStr.getTeamsRank(new Callback<String>() {
+        Call<String> call = api.getTeamsRank();
+        call.enqueue(new retrofit2.Callback<String>() {
             @Override
-            public void success(String s, Response response) {
-                TeamsRank rank = JsonParser.parseTeamsRank(s);
-                if (rank != null) {
-                    rank.all = new ArrayList<>();
-                    TeamsRank.TeamBean eastTitle = new TeamsRank.TeamBean();
-                    eastTitle.type = 1;
-                    eastTitle.name = "东部联盟";
-                    rank.all.add(eastTitle);
-                    rank.all.addAll(rank.east);
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    LogUtils.i("resp:" + jsonStr);
+                    TeamsRank rank = JsonParser.parseTeamsRank(jsonStr);
+                    if (rank != null) {
+                        rank.all = new ArrayList<>();
+                        TeamsRank.TeamBean eastTitle = new TeamsRank.TeamBean();
+                        eastTitle.type = 1;
+                        eastTitle.name = "东部联盟";
+                        rank.all.add(eastTitle);
+                        rank.all.addAll(rank.east);
 
-                    TeamsRank.TeamBean westTitle = new TeamsRank.TeamBean();
-                    westTitle.type = 2;
-                    westTitle.name = "西部联盟";
-                    rank.all.add(westTitle);
-                    rank.all.addAll(rank.west);
-                    cbk.onSuccess(rank);
-                    cache.put(key, rank);
+                        TeamsRank.TeamBean westTitle = new TeamsRank.TeamBean();
+                        westTitle.type = 2;
+                        westTitle.name = "西部联盟";
+                        rank.all.add(westTitle);
+                        rank.all.addAll(rank.west);
+                        cbk.onSuccess(rank);
+                        cache.put(key, rank);
+                    } else {
+                        cbk.onFailure("数据解析失败");
+                        cache.remove(key);
+                    }
                 } else {
-                    cbk.onFailure("数据解析失败");
-                    cache.remove(key);
+                    cbk.onFailure("获取数据失败");
                 }
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                cbk.onFailure(error.getMessage());
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
                 cache.remove(key);
             }
         });
@@ -306,17 +355,25 @@ public class TencentService {
             cbk.onSuccess(players);
             return;
         }
-        apiStr.getPlayerList(new Callback<String>() {
+
+        Call<String> call = api.getPlayerList();
+        call.enqueue(new retrofit2.Callback<String>() {
             @Override
-            public void success(String jsonStr, Response response) {
-                Players players = JsonParser.parsePlayersList(jsonStr);
-                cbk.onSuccess(players);
-                cache.put(key, players);
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    Players players = JsonParser.parsePlayersList(jsonStr);
+                    cbk.onSuccess(players);
+                    cache.put(key, players);
+                    LogUtils.d("resp:" + jsonStr);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                cbk.onFailure(error.getMessage());
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
                 cache.remove(key);
             }
         });
@@ -338,43 +395,57 @@ public class TencentService {
             return;
         }
 
-        apiStr.getTeamList(new Callback<String>() {
+        Call<String> call = api.getTeamList();
+        call.enqueue(new retrofit2.Callback<String>() {
             @Override
-            public void success(String jsonStr, Response response) {
-                Teams teams = JsonParser.parseWithGson(Teams.class, jsonStr);
-                cbk.onSuccess(teams);
-                cache.put(key, teams);
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    Teams teams = JsonParser.parseWithGson(Teams.class, jsonStr);
+                    cbk.onSuccess(teams);
+                    cache.put(key, teams);
+                    LogUtils.d("resp:" + jsonStr);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                cbk.onFailure(error.getMessage());
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
                 cache.remove(key);
             }
         });
     }
 
     public static void getVideoRealUrl(String vid, final RequestCallback<VideoRealUrl> cbk) {
-        RestAdapter rest = new RestAdapter.Builder().setEndpoint(BuildConfig.TECENT_URL_SERVER).setConverter(new StringConverter()).build();
-        TencentVideoApi api = rest.create(TencentVideoApi.class);
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.TECENT_URL_SERVER)
+                .addConverterFactory(ScalarsConverterFactory.create()).build();
+        TencentVideoApi api = retrofit.create(TencentVideoApi.class);
 
-        api.getVideoRealUrl(vid, new Callback<String>() {
+        Call<String> call = api.getVideoRealUrl(vid);
+        call.enqueue(new retrofit2.Callback<String>() {
             @Override
-            public void success(String s, Response response) {
-                PullRealUrlParser parser = new PullRealUrlParser();
-                try {
-                    VideoRealUrl url = parser.parse(new ByteArrayInputStream(s.getBytes("UTF-8")));
-                    cbk.onSuccess(url);
-                } catch (Exception e) {
-                    LogUtils.e("解析xml异常:" + e.getMessage());
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String xmlStr = response.body();
+                    PullRealUrlParser parser = new PullRealUrlParser();
+                    try {
+                        VideoRealUrl url = parser.parse(new ByteArrayInputStream(xmlStr.getBytes("UTF-8")));
+                        cbk.onSuccess(url);
+                    } catch (Exception e) {
+                        LogUtils.e("解析xml异常:" + e.getMessage());
+                        cbk.onFailure("解析出错");
+                    }
+                } else {
+                    cbk.onFailure("获取数据失败");
                 }
-                cbk.onFailure("解析出错");
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                LogUtils.e(error.getMessage());
-                cbk.onFailure(error.getMessage());
+            public void onFailure(Call<String> call, Throwable t) {
+                LogUtils.e(t.getMessage());
+                cbk.onFailure(t.getMessage());
             }
         });
     }

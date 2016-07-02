@@ -14,6 +14,8 @@
     <!--允许读取手机状态 用于创建BmobInstallation-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:name=".app.CavsApp"
         android:allowBackup="true"
@@ -24,7 +26,8 @@
         <activity
             android:name=".ui.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoneTranslucent">
+            android:theme="@style/AppTheme.NoneTranslucent"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

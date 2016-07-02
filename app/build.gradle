@@ -40,9 +40,9 @@ dependencies {
     compile project(':VideoPlayerLibrary')
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:cardview-v7:23.4.0'
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:converter-scalars:2.0.0-beta4'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.alibaba:fastjson:1.2.12'
     compile 'com.github.bumptech.glide:glide:3.7.0'

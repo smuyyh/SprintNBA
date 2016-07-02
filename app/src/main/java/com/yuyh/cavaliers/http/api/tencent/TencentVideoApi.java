@@ -1,8 +1,8 @@
 package com.yuyh.cavaliers.http.api.tencent;
 
-import retrofit.Callback;
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * @author yuyh.
@@ -11,5 +11,5 @@ import retrofit.http.Query;
 public interface TencentVideoApi {
 
     @GET("/getinfo?otype=xml&platform=1&ran=0%2E9652906153351068")
-    void getVideoRealUrl(@Query("vid") String vid, Callback<String> resp);
+    Call<String> getVideoRealUrl(@Query("vid") String vid);
 }

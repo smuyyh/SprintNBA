@@ -72,8 +72,6 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         BmobUpdateAgent.setUpdateOnlyWifi(true); // Wifi下面才提示APP更新
         BmobUpdateAgent.update(this);
 
-        //TencentService.getVideoRealUrl("x0309rai5a7");
-
     }
 
     @Override
@@ -117,6 +115,11 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //JCVideoPlayer.releaseAllVideos();
+    }
 
     @Override
     protected void onDestroy() {

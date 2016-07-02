@@ -1,8 +1,8 @@
 package com.yuyh.cavaliers.http.api.tencent;
 
-import retrofit.Callback;
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * @author yuyh.
@@ -15,29 +15,32 @@ public interface TencentApi {
     String URL_SUFFIX = "?appver=1.0.2.2&appvid=1.0.2.2&network=WIFI";
 
     @GET("/match/calendar" + URL_SUFFIX)
-    void getMatchCalendar(@Query("teamId") int teamId, @Query("year") int year, @Query("month") int month, Callback<String> resp);
+    Call<String> getMatchCalendar(@Query("teamId") int teamId, @Query("year") int year, @Query("month") int month);
 
     @GET("/match/listByDate" + URL_SUFFIX)
-    void getMatchsByData(@Query("date") String date, Callback<String> resp);
+    Call<String> getMatchsByData(@Query("date") String date);
+
+    //calendar?teamId=27&year=2016&month=7 // 查询球队赛程
 
     @GET("/news/index" + URL_SUFFIX)
-    void getNewsIndex(@Query("column") String column, Callback<String> resp);
+    Call<String> getNewsIndex(@Query("column") String column);
 
     @GET("/news/item" + URL_SUFFIX)
-    void getNewsItem(@Query("column") String column, @Query("articleIds") String articleIds, Callback<String> resp);
+    Call<String> getNewsItem(@Query("column") String column, @Query("articleIds") String articleIds);
 
     @GET("/news/detail" + URL_SUFFIX)
-    void getNewsDetail(@Query("column") String column, @Query("articleId") String articleId, Callback<String> resp);
+    Call<String> getNewsDetail(@Query("column") String column, @Query("articleId") String articleId);
 
     @GET("/player/statsRank" + URL_SUFFIX)
-    void getStatsRank(@Query("statType") String statType, @Query("num") int num, @Query("tabType") String tabType, @Query("seasonId") String seasonId, Callback<String> resp);
+    Call<String> getStatsRank(@Query("statType") String statType, @Query("num") int num, @Query("tabType") String tabType, @Query("seasonId") String seasonId);
 
+    // rankByDivision // 分区排名
     @GET("/team/rank" + URL_SUFFIX)
-    void getTeamsRank(Callback<String> resp);
+    Call<String> getTeamsRank();
 
     @GET("/player/list" + URL_SUFFIX)
-    void getPlayerList(Callback<String> resp);
+    Call<String> getPlayerList();
 
     @GET("/team/list" + URL_SUFFIX)
-    void getTeamList(Callback<String> resp);
+    Call<String> getTeamList();
 }
