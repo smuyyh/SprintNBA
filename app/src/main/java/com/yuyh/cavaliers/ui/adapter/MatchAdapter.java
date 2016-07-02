@@ -32,9 +32,9 @@ public class MatchAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBea
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final Matchs.MatchsDataBean.MatchesBean item) {
         Matchs.MatchsDataBean.MatchesBean.MatchInfoBean matchInfo = item.matchInfo;
         String status;
-        if (matchInfo.quarter.equals("第4节") && matchInfo.quarter.equals("00:00"))
+        if (matchInfo.quarter.equals("第4节") && matchInfo.quarterTime.equals("00:00"))
             status = "已结束";
-        else if (matchInfo.quarter.equals("") && matchInfo.quarter.equals("12:00"))
+        else if (matchInfo.quarter.equals("") && matchInfo.quarterTime.equals("12:00"))
             status = matchInfo.startTime;
         else
             status = matchInfo.quarter + " " + matchInfo.quarter;

@@ -132,7 +132,7 @@ public class TencentService {
      * @param mid
      * @param cbk
      */
-    public static void getMatchBaseInfo(String mid, final RequestCallback<MatchBaseInfo> cbk) {
+    public static void getMatchBaseInfo(String mid, final RequestCallback<MatchBaseInfo.BaseInfo> cbk) {
         Call<String> call = api.getMatchBaseInfo(mid);
         call.enqueue(new Callback<String>() {
             @Override
@@ -140,7 +140,7 @@ public class TencentService {
                 if (response != null && !TextUtils.isEmpty(response.body())) {
                     String jsonStr = response.body();
                     MatchBaseInfo info = JsonParser.parseWithGson(MatchBaseInfo.class, jsonStr);
-                    cbk.onSuccess(info);
+                    cbk.onSuccess(info.data);
                     LogUtils.d("resp:" + jsonStr);
                 } else {
                     cbk.onFailure("获取数据失败");

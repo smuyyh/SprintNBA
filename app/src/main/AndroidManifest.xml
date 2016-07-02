@@ -68,7 +68,7 @@
             android:name=".ui.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.GameDetailActivity"
+            android:name=".ui.MatchDetailActivity"
             android:screenOrientation="portrait" />
 
 

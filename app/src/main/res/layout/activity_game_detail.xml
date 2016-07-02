@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:stick="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/match_detail_bg"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/common_toolbar"
+    <RelativeLayout
+        android:id="@+id/rlMatchToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/jc_back"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="比赛"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tvMatchTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="小牛 雷霆"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
 
     <com.yuyh.cavaliers.widget.StickyNavLayout
         android:id="@+id/stickyNavLayout"
@@ -19,27 +41,129 @@
         <RelativeLayout
             android:id="@+id/snlTopview"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="#4400ff00">
+            android:layout_height="wrap_content">
 
-            <TextView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="软件介绍"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tvMatchState"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="未开始" />
+
+                        <TextView
+                            android:id="@+id/tvLeftRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="30dp"
+                            android:layout_toLeftOf="@+id/tvMatchState"
+                            android:text="57胜20负" />
+
+                        <TextView
+                            android:id="@+id/tvRightRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@+id/tvMatchState"
+                            android:text="57胜20负" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tvMatchType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="夏季联赛" />
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/ivMatchLeftTeam"
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true" />
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/ivMatchRightTeam"
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true" />
+
+                        <TextView
+                            android:id="@+id/tvMatchLeftScore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@+id/ivMatchLeftTeam"
+                            android:text="-"
+                            android:textSize="30dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvMatchRightScore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="20dp"
+                            android:layout_toLeftOf="@+id/ivMatchRightTeam"
+                            android:text="-"
+                            android:textSize="30dp"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tvMatchStartTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="07月02日   21：00   美航中心" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </FrameLayout>
+
+
         </RelativeLayout>
 
         <com.yuyh.library.view.viewpager.indicator.FixedIndicatorView
             android:id="@+id/snlIindicator"
             android:layout_width="match_parent"
-            android:layout_height="35dp" />
+            android:layout_height="35dp"
+            android:background="@color/white" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/snlViewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/white" />
     </com.yuyh.cavaliers.widget.StickyNavLayout>
 
 </LinearLayout>

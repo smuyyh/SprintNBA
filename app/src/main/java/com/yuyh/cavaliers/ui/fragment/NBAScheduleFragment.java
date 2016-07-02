@@ -20,7 +20,7 @@ import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
-import com.yuyh.cavaliers.ui.GameDetailActivity;
+import com.yuyh.cavaliers.ui.MatchDetailActivity;
 import com.yuyh.cavaliers.ui.adapter.MatchAdapter;
 import com.yuyh.library.utils.DateUtils;
 import com.yuyh.library.utils.DimenUtils;
@@ -77,7 +77,8 @@ public class NBAScheduleFragment extends BaseLazyFragment {
         adapter.setOnItemClickListener(new OnListItemClickListener<Matchs.MatchsDataBean.MatchesBean>() {
             @Override
             public void onItemClick(View view, int position, Matchs.MatchsDataBean.MatchesBean data) {
-                Intent intent = new Intent(mActivity, GameDetailActivity.class);
+                Intent intent = new Intent(mActivity, MatchDetailActivity.class);
+                intent.putExtra(MatchDetailActivity.INTENT_MID, data.matchInfo.mid);
                 startActivity(intent);
             }
         });

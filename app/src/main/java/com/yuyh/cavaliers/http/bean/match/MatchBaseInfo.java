@@ -9,6 +9,7 @@ import com.yuyh.cavaliers.http.bean.base.Base;
 public class MatchBaseInfo extends Base {
 
 
+    public BaseInfo data;
     /**
      * leftId : 25
      * leftName : 雷霆
@@ -35,27 +36,29 @@ public class MatchBaseInfo extends Base {
      * rightLosses : 40
      */
 
-    public String leftId;
-    public String leftName;
-    public String leftBadge;
-    public String leftGoal;
-    public String leftUrl;
-    public String rightId;
-    public String rightName;
-    public String rightBadge;
-    public String rightGoal;
-    public String rightUrl;
-    public String matchPeriod;
-    public String matchType;
-    public String quarterDesc;
-    public String startDate;
-    public String startHour;
-    public String venue;
-    public String desc;
-    public String hasLiveText;
-    public String updateFrequency;
-    public String leftWins;
-    public String leftLosses;
-    public String rightWins;
-    public String rightLosses;
+    public static class BaseInfo {
+        public String leftId;
+        public String leftName;
+        public String leftBadge;
+        public String leftGoal;
+        public String leftUrl;
+        public String rightId;
+        public String rightName;
+        public String rightBadge;
+        public String rightGoal;
+        public String rightUrl;
+        public String matchPeriod;
+        public String matchType;
+        public String quarterDesc;
+        public String startDate;
+        public String startHour;
+        public String venue;
+        public String desc;
+        public String hasLiveText;
+        public String updateFrequency;
+        public String leftWins;
+        public String leftLosses;
+        public String rightWins;
+        public String rightLosses;
+    }
 }
