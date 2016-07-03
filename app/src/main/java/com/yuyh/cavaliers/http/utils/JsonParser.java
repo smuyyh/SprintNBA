@@ -89,13 +89,15 @@ public class JsonParser {
                 detail.data.teamInfo = new Gson().fromJson(teamInfo, LiveDetail.LiveDetailData.TeamInfo.class);
             } else if (item.getKey().equals("detail")) {
                 JSONObject details = JSON.parseObject(item.getValue().toString());
-                for (Map.Entry<String, Object> entry : details.entrySet()) {
-                    LiveDetail.LiveDetailData.LiveContent content;
-                    String contentStr = entry.getValue().toString();
-                    Gson gson = new Gson();
-                    content = gson.fromJson(contentStr, LiveDetail.LiveDetailData.LiveContent.class);
-                    content.id = entry.getKey();
-                    list.add(content);
+                if (details != null) {
+                    for (Map.Entry<String, Object> entry : details.entrySet()) {
+                        LiveDetail.LiveDetailData.LiveContent content;
+                        String contentStr = entry.getValue().toString();
+                        Gson gson = new Gson();
+                        content = gson.fromJson(contentStr, LiveDetail.LiveDetailData.LiveContent.class);
+                        content.id = entry.getKey();
+                        list.add(content);
+                    }
                 }
             }
         }

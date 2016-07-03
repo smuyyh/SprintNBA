@@ -302,8 +302,6 @@ public class HuPuWebView extends WebView {
     protected void onScrollChanged(final int l, final int t, final int oldl, final int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
 
-        //LogUtils.d(t+"-----"+oldt);
-
         if (mOnScrollChangedCallback != null) {
             mOnScrollChangedCallback.onScroll(l - oldl, t - oldt, t, oldt);
         }

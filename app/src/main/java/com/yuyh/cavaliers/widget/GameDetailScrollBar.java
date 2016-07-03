@@ -2,7 +2,6 @@ package com.yuyh.cavaliers.widget;
 
 import android.content.Context;
 
-import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.library.view.viewpager.indicator.slidebar.ColorBar;
 
 /**
@@ -21,6 +20,5 @@ public class GameDetailScrollBar extends ColorBar {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        LogUtils.i("------"+position);
     }
 }

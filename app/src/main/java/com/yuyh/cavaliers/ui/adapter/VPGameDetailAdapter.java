@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.yuyh.cavaliers.R;
+import com.yuyh.cavaliers.ui.fragment.MatchLiveFragment;
 import com.yuyh.cavaliers.ui.fragment.MatchLookForwardFragment;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.view.viewpager.indicator.FragmentListPageAdapter;
@@ -54,7 +55,7 @@ public class VPGameDetailAdapter extends IndicatorViewPager.IndicatorFragmentPag
                 fragment = MatchLookForwardFragment.newInstance(mid);
                 break;
             case 1:
-                fragment = MatchLookForwardFragment.newInstance(mid);
+                fragment = MatchLiveFragment.newInstance(mid);
                 break;
         }
         return fragment;

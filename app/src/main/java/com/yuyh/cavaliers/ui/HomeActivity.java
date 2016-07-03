@@ -20,9 +20,6 @@ import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseAppCompatActivity;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.event.CalendarEvent;
-import com.yuyh.cavaliers.http.api.RequestCallback;
-import com.yuyh.cavaliers.http.api.tencent.TencentService;
-import com.yuyh.cavaliers.http.bean.match.LiveDetail;
 import com.yuyh.cavaliers.ui.adapter.VPHomeAdapter;
 import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.presenter.impl.HomePresenterImpl;
@@ -75,18 +72,18 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         BmobUpdateAgent.setUpdateOnlyWifi(true); // Wifi下面才提示APP更新
         BmobUpdateAgent.update(this);
 
-        TencentService.getMatchLiveDetail("100000:1468573","2114250_3512017050,2114245_3049673407,2114240_316335712,2114239_2708956373,2114238_2321711018,2114235_1553094487,2114234_1852838280,2114224_4276030988,2114223_2251746044,2114222_711067958",
-        new RequestCallback<LiveDetail>(){
-            @Override
-            public void onSuccess(LiveDetail liveDetail) {
-
-            }
-
-            @Override
-            public void onFailure(String message) {
-
-            }
-        });
+//        TencentService.getMatchLiveDetail("100000:1468573","2114238_2321711018,2114235_1553094487,2114234_1852838280,2114224_4276030988,2114223_2251746044,2114222_711067958",
+//        new RequestCallback<LiveDetail>(){
+//            @Override
+//            public void onSuccess(LiveDetail liveDetail) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(String message) {
+//
+//            }
+//        });
     }
 
     @Override
