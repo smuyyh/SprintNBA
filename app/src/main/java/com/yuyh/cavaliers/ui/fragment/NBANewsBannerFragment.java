@@ -31,8 +31,6 @@ import com.yuyh.library.utils.toast.ToastUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-
 public class NBANewsBannerFragment extends BaseLazyFragment {
 
     public static final String INTENT_INT_INDEX = "intent_int_index";
@@ -194,7 +192,6 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     @Override
     protected void onPauseLazy() {
         super.onPauseLazy();
-        JCVideoPlayer.releaseAllVideos();
     }
 
     @Override

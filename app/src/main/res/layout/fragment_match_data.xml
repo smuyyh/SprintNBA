@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/snlScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvMatchPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/title_layout"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="比分" />
+
+        <com.yuyh.library.view.list.NoScrollListView
+            android:id="@+id/lvMatchPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/tvMatchTeamStatistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/title_layout"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="球队统计" />
+
+        <com.yuyh.library.view.list.NoScrollListView
+            android:id="@+id/lvMatchTeamStatistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" />
+    </LinearLayout>
+</ScrollView>

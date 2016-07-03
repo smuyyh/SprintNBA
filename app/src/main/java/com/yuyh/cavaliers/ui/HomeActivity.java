@@ -71,19 +71,6 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         presenter.initialized();
         BmobUpdateAgent.setUpdateOnlyWifi(true); // Wifi下面才提示APP更新
         BmobUpdateAgent.update(this);
-
-//        TencentService.getMatchLiveDetail("100000:1468573","2114238_2321711018,2114235_1553094487,2114234_1852838280,2114224_4276030988,2114223_2251746044,2114222_711067958",
-//        new RequestCallback<LiveDetail>(){
-//            @Override
-//            public void onSuccess(LiveDetail liveDetail) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(String message) {
-//
-//            }
-//        });
     }
 
     @Override

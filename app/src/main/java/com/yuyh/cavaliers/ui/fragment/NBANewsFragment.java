@@ -6,9 +6,9 @@ import android.support.v4.view.ViewPager;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.cavaliers.ui.adapter.VPNewsAdapter;
 import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.presenter.impl.NBANewsPresenterImpl;
-import com.yuyh.cavaliers.ui.adapter.VPNewsAdapter;
 import com.yuyh.cavaliers.ui.view.NBANewsView;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
@@ -16,6 +16,8 @@ import com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView;
 import com.yuyh.library.view.viewpager.indicator.slidebar.DrawableBar;
 import com.yuyh.library.view.viewpager.indicator.slidebar.ScrollBar;
 import com.yuyh.library.view.viewpager.indicator.transition.OnTransitionTextListener;
+
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 /**
  * @author yuyh.
@@ -68,5 +70,11 @@ public class NBANewsFragment extends BaseLazyFragment implements NBANewsView {
         if (isVisibleToUser) {
             mActivity.invalidateOptionsMenu();
         }
+    }
+
+    @Override
+    protected void onPauseLazy() {
+        super.onPauseLazy();
+        JCVideoPlayer.releaseAllVideos();
     }
 }

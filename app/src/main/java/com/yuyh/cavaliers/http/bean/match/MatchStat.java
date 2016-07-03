@@ -47,6 +47,13 @@ public class MatchStat extends Base {
             public String type;
             public String text;
 
+            public List<Goals> goals; // 比分
+
+            public static class Goals {
+                private List<String> head;
+                private List<List<String>> rows;
+            }
+
             public List<MaxPlayers> maxPlayers;                // 最佳球员
 
             public static class MaxPlayers {
@@ -103,6 +110,35 @@ public class MatchStat extends Base {
                     public String competitionName;
                 }
             }
+
+
+            public PlayerStats playerStats;                      // 场上球员
+
+            public static class PlayerStats {
+
+                public List<TeamBean> left;
+                public List<TeamBean> right;
+
+                public static class TeamBean {
+                    private List<String> head;
+
+                    private String playerId;
+                    private String playerName;
+                    private String playerIcon;
+                    private String playerJerseyNum;
+                    private String detailUrl;
+                    private List<String> row;
+                }
+            }
+
+            public List<TeamStats> teamStats;                     // 球队统计
+
+            public static class TeamStats {
+                private String text;
+                private String leftVal;
+                private String rightVal;
+            }
+
         }
     }
 

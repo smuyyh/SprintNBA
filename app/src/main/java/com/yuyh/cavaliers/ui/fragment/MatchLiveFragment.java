@@ -45,7 +45,7 @@ public class MatchLiveFragment extends BaseLazyFragment implements MatchLiveView
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
-        setContentView(R.layout.fragment_game_live);
+        setContentView(R.layout.fragment_match_live);
         ButterKnife.inject(this, getContentView());
         initData();
     }
