@@ -101,6 +101,13 @@ public class JsonParser {
                 }
             }
         }
+        // 由于fastjson获取出来的entrySet是乱序的  所以这边重新排序
+        Collections.sort(list, new Comparator<LiveDetail.LiveDetailData.LiveContent>() {
+            @Override
+            public int compare(LiveDetail.LiveDetailData.LiveContent lhs, LiveDetail.LiveDetailData.LiveContent rhs) {
+                return rhs.id.compareTo(lhs.id);
+            }
+        });
         detail.data.detail = list;
         return detail;
     }

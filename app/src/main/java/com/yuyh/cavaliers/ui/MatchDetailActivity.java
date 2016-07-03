@@ -111,9 +111,11 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
         try {
             Date date = format.parse(startTime);
             if (date.getTime() > System.currentTimeMillis()) { // 未开始
-
             } else {
                 state = info.quarterDesc;
+                if (state.contains("第4节") && state.contains("00:00")) {
+                    state = "已结束";
+                }
             }
         } catch (ParseException e) {
             e.printStackTrace();

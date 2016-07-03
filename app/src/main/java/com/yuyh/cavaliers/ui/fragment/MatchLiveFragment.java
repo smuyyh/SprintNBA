@@ -1,9 +1,9 @@
 package com.yuyh.cavaliers.ui.fragment;
 
 import android.os.Bundle;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.cjj.MaterialRefreshLayout;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.http.bean.match.LiveDetail;
@@ -24,8 +24,8 @@ import butterknife.InjectView;
 public class MatchLiveFragment extends BaseLazyFragment implements MatchLiveView {
 
     @InjectView(R.id.refresh)
-    MaterialRefreshLayout materialRefreshLayout;
-    @InjectView(R.id.lvMatchLive)
+    FrameLayout materialRefreshLayout;
+    @InjectView(R.id.snlScrollView)
     ListView lvMatchLive;
 
     private List<LiveDetail.LiveDetailData.LiveContent> list = new ArrayList<>();
@@ -54,8 +54,7 @@ public class MatchLiveFragment extends BaseLazyFragment implements MatchLiveView
         adapter = new MatchLiveAdapter(list, mActivity, R.layout.item_list_match_live);
         lvMatchLive.setAdapter(adapter);
         mid = getArguments().getString("mid");
-        presenter = new MatchLivePresenter(mActivity, this);
-        presenter.getLiveContent(mid);
+        presenter = new MatchLivePresenter(mActivity, this, mid);
     }
 
 
@@ -71,5 +70,24 @@ public class MatchLiveFragment extends BaseLazyFragment implements MatchLiveView
     public void addList(List<LiveDetail.LiveDetailData.LiveContent> detail) {
         list.addAll(0, detail);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onPauseLazy() {
+        super.onPauseLazy();
+        presenter.shutDownTimerTask();
+    }
+
+    @Override
+    protected void onResumeLazy() {
+        super.onResumeLazy();
+        presenter.shutDownTimerTask();
+        presenter.initialized();
+    }
+
+    @Override
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
+        presenter.shutDownTimerTask();
     }
 }

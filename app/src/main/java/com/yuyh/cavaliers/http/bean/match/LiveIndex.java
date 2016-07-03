@@ -10,9 +10,9 @@ import java.util.List;
  */
 public class LiveIndex extends Base {
 
-    Index data;
+    public Index data;
 
     public static class Index{
-        List<String> index;
+        public List<String> index;
     }
 }
