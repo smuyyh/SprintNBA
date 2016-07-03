@@ -22,12 +22,14 @@ public class VPGameDetailAdapter extends IndicatorViewPager.IndicatorFragmentPag
     private LayoutInflater inflate;
     private String[] names;
     private String mid;
+    private boolean isStart;
 
-    public VPGameDetailAdapter(Context context, String[] names, FragmentManager fragmentManager, String mid) {
+    public VPGameDetailAdapter(Context context, String[] names, FragmentManager fragmentManager, String mid, boolean isStart) {
         super(fragmentManager);
         inflate = LayoutInflater.from(context);
         this.names = names;
         this.mid = mid;
+        this.isStart = isStart;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class VPGameDetailAdapter extends IndicatorViewPager.IndicatorFragmentPag
         }
         TextView textView = (TextView) convertView;
         textView.setText(names[position % names.length]);
-        int padding = DimenUtils.dpToPxInt(15);
+        int padding = DimenUtils.dpToPxInt(14);
         textView.setPadding(padding, 0, padding, 0);
         return convertView;
     }
@@ -50,13 +52,32 @@ public class VPGameDetailAdapter extends IndicatorViewPager.IndicatorFragmentPag
     @Override
     public Fragment getFragmentForPage(int position) {
         Fragment fragment = null;
-        switch (position) {
-            case 0:
-                fragment = MatchLookForwardFragment.newInstance(mid);
-                break;
-            case 1:
-                fragment = MatchLiveFragment.newInstance(mid);
-                break;
+        if (isStart) {
+            switch (position) {
+                case 0:
+                    fragment = MatchLookForwardFragment.newInstance(mid);
+                    break;
+                case 1:
+                    fragment = MatchLookForwardFragment.newInstance(mid);
+                    break;
+                case 2:
+                    fragment = MatchLiveFragment.newInstance(mid);
+                    break;
+                case 3:
+                default:
+                    fragment = MatchLookForwardFragment.newInstance(mid);
+                    break;
+            }
+        } else {
+            switch (position) {
+                case 0:
+                    fragment = MatchLookForwardFragment.newInstance(mid);
+                    break;
+                case 1:
+                default:
+                    fragment = MatchLiveFragment.newInstance(mid);
+                    break;
+            }
         }
         return fragment;
     }

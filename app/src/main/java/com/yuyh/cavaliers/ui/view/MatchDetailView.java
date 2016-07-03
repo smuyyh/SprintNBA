@@ -9,7 +9,7 @@ import com.yuyh.cavaliers.ui.view.base.BaseView;
  */
 public interface MatchDetailView extends BaseView{
 
-    void showTabViewPager(String names[]);
+    void showTabViewPager(String names[], boolean isStart);
 
     void showMatchInfo(MatchBaseInfo.BaseInfo matchBaseInfo);
 }

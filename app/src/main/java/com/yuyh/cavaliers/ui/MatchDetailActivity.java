@@ -17,8 +17,8 @@ import com.yuyh.cavaliers.ui.view.MatchDetailView;
 import com.yuyh.cavaliers.utils.FrescoUtils;
 import com.yuyh.cavaliers.widget.GameDetailScrollBar;
 import com.yuyh.cavaliers.widget.StickyNavLayout;
-import com.yuyh.library.view.viewpager.indicator.FixedIndicatorView;
 import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
+import com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,7 +38,7 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     @InjectView(R.id.snlViewPager)
     ViewPager viewPager;
     @InjectView(R.id.snlIindicator)
-    FixedIndicatorView indicator;
+    ScrollIndicatorView indicator;
     @InjectView(R.id.stickyNavLayout)
     StickyNavLayout stickyNavLayout;
 
@@ -87,13 +87,12 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         stickyNavLayout.setOnStickStateChangeListener(this);
         presenter = new MatchDetailPresenter(this, this);
-        presenter.initialized();
         presenter.getMatchBaseInfo(mid);
     }
 
     @Override
-    public void showTabViewPager(String[] names) {
-        adapter = new VPGameDetailAdapter(this, names, getSupportFragmentManager(), mid);
+    public void showTabViewPager(String[] names, boolean isStart) {
+        adapter = new VPGameDetailAdapter(this, names, getSupportFragmentManager(), mid, isStart);
         indicatorViewPager.setAdapter(adapter);
 
     }
@@ -111,11 +110,13 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
         try {
             Date date = format.parse(startTime);
             if (date.getTime() > System.currentTimeMillis()) { // 未开始
+                presenter.getTab(false);
             } else {
                 state = info.quarterDesc;
                 if (state.contains("第4节") && state.contains("00:00")) {
                     state = "已结束";
                 }
+                presenter.getTab(true);
             }
         } catch (ParseException e) {
             e.printStackTrace();

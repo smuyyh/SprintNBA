@@ -58,7 +58,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="8dp">
 
                         <TextView
                             android:id="@+id/tvMatchState"
@@ -97,15 +97,15 @@
 
                         <com.facebook.drawee.view.SimpleDraweeView
                             android:id="@+id/ivMatchLeftTeam"
-                            android:layout_width="55dp"
-                            android:layout_height="55dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true" />
 
                         <com.facebook.drawee.view.SimpleDraweeView
                             android:id="@+id/ivMatchRightTeam"
-                            android:layout_width="55dp"
-                            android:layout_height="55dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true" />
 
@@ -114,7 +114,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_toRightOf="@+id/ivMatchLeftTeam"
                             android:text="-"
                             android:textSize="30dp"
@@ -125,7 +125,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginRight="15dp"
                             android:layout_toLeftOf="@+id/ivMatchRightTeam"
                             android:text="-"
                             android:textSize="30dp"
@@ -152,7 +152,7 @@
 
         </RelativeLayout>
 
-        <com.yuyh.library.view.viewpager.indicator.FixedIndicatorView
+        <com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView
             android:id="@+id/snlIindicator"
             android:layout_width="match_parent"
             android:layout_height="35dp"

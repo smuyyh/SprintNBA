@@ -4,5 +4,5 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:textColor="@color/primary_text"
-    android:textSize="16dp" />
+    android:textColor="@color/secondary_text"
+    android:textSize="14dp" />

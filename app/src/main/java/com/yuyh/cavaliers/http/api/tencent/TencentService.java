@@ -161,7 +161,7 @@ public class TencentService {
      * 获取比赛前瞻信息
      *
      * @param mid
-     * @param tabType
+     * @param tabType 1：比赛数据  2：技术统计  3：比赛前瞻
      * @param cbk
      */
     public static void getMatchStat(String mid, String tabType, final RequestCallback<MatchStat> cbk) {

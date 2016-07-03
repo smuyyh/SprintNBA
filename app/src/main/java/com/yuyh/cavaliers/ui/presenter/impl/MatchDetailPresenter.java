@@ -24,8 +24,16 @@ public class MatchDetailPresenter implements Presenter {
 
     @Override
     public void initialized() {
-        String names[] = new String[]{"比赛前瞻", "图文直播"};
-        detailView.showTabViewPager(names);
+    }
+
+    public void getTab(boolean isStart) {
+        String names[];
+        if (isStart) {
+            names = new String[]{"比赛数据", "技术统计", "图文直播", "精彩视频"};
+        } else {
+            names = new String[]{"比赛前瞻", "图文直播"};
+        }
+        detailView.showTabViewPager(names, isStart);
     }
 
     public void getMatchBaseInfo(String mid) {
