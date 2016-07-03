@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.http.bean.match.MatchStat;
-import com.yuyh.cavaliers.ui.adapter.MatchDetailAdapter;
+import com.yuyh.cavaliers.ui.adapter.MatchLFAdapter;
 import com.yuyh.cavaliers.ui.presenter.impl.MatchLookForwardPresenter;
 import com.yuyh.cavaliers.ui.view.MatchLookForwardView;
 import com.yuyh.library.utils.toast.ToastUtils;
@@ -95,7 +95,7 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
 
     @Override
     public void showMaxPlayer(List<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> maxPlayers) {
-        MatchDetailAdapter adapter = new MatchDetailAdapter(maxPlayers, mActivity, R.layout.item_list_maxplayer);
+        MatchLFAdapter adapter = new MatchLFAdapter(maxPlayers, mActivity, R.layout.item_list_maxplayer);
         lvMaxPlayer.setAdapter(adapter);
         lvMaxPlayer.setVisibility(View.VISIBLE);
     }

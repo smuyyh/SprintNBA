@@ -13,6 +13,7 @@ import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 import java.util.List;
 
 /**
+ * recycleView 的adapter  暂未用到
  * @author yuyh.
  * @date 16/7/2.
  */

@@ -1,6 +1,8 @@
 package com.yuyh.cavaliers.ui.fragment;
 
 import android.os.Bundle;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
@@ -9,7 +11,10 @@ import com.yuyh.cavaliers.ui.presenter.impl.MatchDataPresenter;
 import com.yuyh.cavaliers.ui.view.MatchDataView;
 import com.yuyh.library.utils.toast.ToastUtils;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * 比赛数据
@@ -19,8 +24,16 @@ import butterknife.ButterKnife;
  */
 public class MatchDataFragment extends BaseLazyFragment implements MatchDataView {
 
+    @InjectView(R.id.tvMatchPoint)
+    TextView tvMatchPoint;
+    @InjectView(R.id.lvMatchPoint)
+    ListView lvMatchPoint;
+    @InjectView(R.id.tvMatchTeamStatistics)
+    TextView tvMatchTeamStatistics;
+    @InjectView(R.id.lvMatchTeamStatistics)
+    ListView lvMatchTeamStatistics;
+
     private MatchDataPresenter presenter;
-    private MatchStat.MatchStatInfo.MatchTeamInfo info;
 
     public static MatchDataFragment newInstance(String mid) {
         Bundle args = new Bundle();
@@ -41,6 +54,7 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     private void initData() {
         presenter = new MatchDataPresenter(mActivity, this);
         presenter.initialized();
+        presenter.getMatchStats(getArguments().getString("mid"), "1");
     }
 
     @Override
@@ -64,5 +78,15 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     @Override
     public void showError(String msg) {
         ToastUtils.showSingleToast(msg);
+    }
+
+    @Override
+    public void showMatchPoint(List<MatchStat.MatchStatInfo.StatsBean.Goals> list) {
+
+    }
+
+    @Override
+    public void showTeamStatistics(List<MatchStat.MatchStatInfo.StatsBean.TeamStats> teamStats) {
+
     }
 }

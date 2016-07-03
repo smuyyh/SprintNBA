@@ -47,7 +47,7 @@ public class MatchStat extends Base {
             public String type;
             public String text;
 
-            public List<Goals> goals; // 比分
+            public List<Goals> goals;                          // 比分
 
             public static class Goals {
                 private List<String> head;
