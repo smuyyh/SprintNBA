@@ -92,9 +92,9 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
 
     @Override
     public void showTabViewPager(String[] names, boolean isStart) {
+        hideLoadingDialog();
         adapter = new VPGameDetailAdapter(this, names, getSupportFragmentManager(), mid, isStart);
         indicatorViewPager.setAdapter(adapter);
-
     }
 
     @Override

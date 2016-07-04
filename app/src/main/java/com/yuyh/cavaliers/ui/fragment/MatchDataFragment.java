@@ -2,15 +2,18 @@ package com.yuyh.cavaliers.ui.fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.http.bean.match.MatchStat;
+import com.yuyh.cavaliers.ui.adapter.MatchStatisticsAdapter;
 import com.yuyh.cavaliers.ui.presenter.impl.MatchDataPresenter;
 import com.yuyh.cavaliers.ui.view.MatchDataView;
 import com.yuyh.cavaliers.utils.FrescoUtils;
@@ -28,6 +31,9 @@ import butterknife.InjectView;
  * @date 16/6/5.
  */
 public class MatchDataFragment extends BaseLazyFragment implements MatchDataView {
+
+    @InjectView(R.id.snlScrollView)
+    ScrollView snlScrollView;
 
     @InjectView(R.id.tvMatchPoint)
     TextView tvMatchPoint;
@@ -69,6 +75,8 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     }
 
     private void initData() {
+        showLoadingDialog();
+        lvMatchTeamStatistics.setFocusable(false);
         presenter = new MatchDataPresenter(mActivity, this);
         presenter.initialized();
         presenter.getMatchStats(getArguments().getString("mid"), "1");
@@ -119,15 +127,28 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
             }
             if (right != null) {
                 TextView tv2 = (TextView) inflater.inflate(R.layout.tab_match_point, null);
-                tv2.setText(left.get(i));
+                tv2.setText(right.get(i));
                 tv2.setLayoutParams(params);
                 llMatchPointRight.addView(tv2, i + 1);
             }
         }
+        complete();
     }
 
     @Override
     public void showTeamStatistics(List<MatchStat.MatchStatInfo.StatsBean.TeamStats> teamStats) {
+        MatchStatisticsAdapter adapter = new MatchStatisticsAdapter(teamStats, mActivity, R.layout.item_list_match_team_statistics);
+        lvMatchTeamStatistics.setAdapter(adapter);
+        complete();
+    }
 
+    public void complete(){
+        snlScrollView.smoothScrollTo(0,20);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideLoadingDialog();
+            }
+        }, 1000);
     }
 }

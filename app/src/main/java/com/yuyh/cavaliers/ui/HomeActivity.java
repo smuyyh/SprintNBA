@@ -54,12 +54,6 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
     private static int REQUEST_DATE_CODE = 1;
     private int mCurrentMenuCheckedPos = 0;
 
-    private int mCheckedListItemColorResIds[] = {
-            R.color.navigation_checked_picture_text_color,
-            R.color.navigation_checked_video_text_color,
-            R.color.navigation_checked_music_text_color,
-    };
-
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.activity_main;

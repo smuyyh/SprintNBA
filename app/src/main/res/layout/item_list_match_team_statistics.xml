@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/tvLeftVal"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="30"
+        android:textColor="@color/primary_text"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/tvRightVal"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="30"
+        android:textColor="@color/primary_text"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/tvStatisticsName"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="得分" />
+
+    <LinearLayout
+        android:id="@+id/llLeftProgress"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/tvStatisticsName"
+        android:layout_toRightOf="@+id/tvLeftVal"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llRightProgress"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/tvRightVal"
+        android:layout_toRightOf="@+id/tvStatisticsName"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+</RelativeLayout>

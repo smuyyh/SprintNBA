@@ -10,15 +10,9 @@
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
     <color name="primary_text_red">#FF5055</color>
-    <color name="navigation_checked_news_text_color">#FF4E3E80</color>
-    <color name="navigation_checked_picture_text_color">#FFBA4A49</color>
-    <color name="navigation_checked_video_text_color">#FFF16022</color>
-    <color name="navigation_checked_music_text_color">#FF14BF81</color>
-    <color name="navigation_checked_favor_text_color">#FFE1C247</color>
 
-    <color name="icons">#FFFFFF</color>
     <color name="divider">#8fB6B6B6</color>
-    <color name="title_layout">#B6B6B6</color>
+    <color name="title_layout">#C6C6C6</color>
     <color name="entity_layout">#CCCCCC</color>
 
     <color name="white">#FFFFFFFF</color>
@@ -29,7 +23,6 @@
     <color name="material_blue">#ff03A9F4</color>
     <color name="material_yellow">#ffFFEB3B</color>
 
-    <color name="btn_pressed_green_solid">#B6DA53</color>
     <color name="btn_login_normal">#FF5055</color>
     <color name="btn_login_pressed">#DD5055</color>
     <color name="btn_register_normal">#ffffff</color>

@@ -135,11 +135,9 @@ public class MatchStat extends Base {
 
             public static class TeamStats {
                 public String text;
-                public String leftVal;
-                public String rightVal;
+                public Integer leftVal;
+                public Integer rightVal;
             }
-
         }
     }
-
 }

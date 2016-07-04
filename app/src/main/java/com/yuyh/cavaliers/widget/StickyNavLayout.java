@@ -366,7 +366,7 @@ public class StickyNavLayout extends LinearLayout {
                 mInnerScrollView = (ViewGroup) (v.findViewById(R.id.snlScrollView));
             }
         } else {
-            throw new RuntimeException("mViewPager  should be  used  FragmentPagerAdapter or  FragmentStatePagerAdapter  !");
+            //throw new RuntimeException("mViewPager  should be  used  FragmentPagerAdapter or  FragmentStatePagerAdapter  !");
         }
     }
 

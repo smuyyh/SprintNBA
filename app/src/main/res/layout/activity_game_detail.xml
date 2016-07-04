@@ -13,13 +13,13 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:drawableLeft="@drawable/jc_back"
             android:drawablePadding="10dp"
             android:gravity="center"
             android:paddingLeft="10dp"
-            android:text="比赛"
+            android:text="返回"
             android:textColor="@color/white" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="小牛 雷霆"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="16dp" />
 
@@ -93,7 +93,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="夏季联赛" />
+                            android:text="" />
 
                         <com.facebook.drawee.view.SimpleDraweeView
                             android:id="@+id/ivMatchLeftTeam"
@@ -142,7 +142,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="07月02日   21：00   美航中心" />
+                            android:text="" />
 
                     </RelativeLayout>
 

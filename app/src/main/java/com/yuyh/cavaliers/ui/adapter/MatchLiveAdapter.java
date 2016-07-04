@@ -32,7 +32,7 @@ public class MatchLiveAdapter extends HelperAdapter<LiveDetail.LiveDetailData.Li
         final View itemView = viewHolder.getConvertView();
 
 
-        ViewTreeObserver vto = itemView.getViewTreeObserver();
+        final ViewTreeObserver vto = itemView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -40,6 +40,7 @@ public class MatchLiveAdapter extends HelperAdapter<LiveDetail.LiveDetailData.Li
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams();
                 params.height = itemView.getHeight();
                 line.setLayoutParams(params);
+                vto.removeOnGlobalLayoutListener(this);
             }
         });
     }
