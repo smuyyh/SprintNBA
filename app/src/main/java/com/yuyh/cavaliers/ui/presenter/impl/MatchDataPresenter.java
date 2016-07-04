@@ -38,7 +38,7 @@ public class MatchDataPresenter implements Presenter {
                     for (MatchStat.MatchStatInfo.StatsBean bean : stats) {
                         if (bean.type.equals("12")) {
                             if (bean.goals != null && !bean.goals.isEmpty()) {
-                                dataView.showMatchPoint(bean.goals);
+                                dataView.showMatchPoint(bean.goals, data.teamInfo);
                             }
                         } else if (bean.type.equals("14")) {
                             if (bean.teamStats != null && !bean.teamStats.isEmpty()) {

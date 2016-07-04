@@ -1,14 +1,19 @@
 package com.yuyh.cavaliers.ui.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.http.bean.match.MatchStat;
 import com.yuyh.cavaliers.ui.presenter.impl.MatchDataPresenter;
 import com.yuyh.cavaliers.ui.view.MatchDataView;
+import com.yuyh.cavaliers.utils.FrescoUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.util.List;
@@ -26,14 +31,25 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
 
     @InjectView(R.id.tvMatchPoint)
     TextView tvMatchPoint;
-    @InjectView(R.id.lvMatchPoint)
-    ListView lvMatchPoint;
     @InjectView(R.id.tvMatchTeamStatistics)
     TextView tvMatchTeamStatistics;
     @InjectView(R.id.lvMatchTeamStatistics)
     ListView lvMatchTeamStatistics;
 
+    @InjectView(R.id.llMatchPointHead)
+    LinearLayout llMatchPointHead;
+    @InjectView(R.id.llMatchPointLeft)
+    LinearLayout llMatchPointLeft;
+    @InjectView(R.id.llMatchPointRight)
+    LinearLayout llMatchPointRight;
+
+    @InjectView(R.id.ivMatchPointLeft)
+    SimpleDraweeView ivMatchPointLeft;
+    @InjectView(R.id.ivMatchPointRight)
+    SimpleDraweeView ivMatchPointRight;
+
     private MatchDataPresenter presenter;
+    private LayoutInflater inflater;
 
     public static MatchDataFragment newInstance(String mid) {
         Bundle args = new Bundle();
@@ -48,6 +64,7 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_match_data);
         ButterKnife.inject(this, getContentView());
+        inflater = LayoutInflater.from(mActivity);
         initData();
     }
 
@@ -81,8 +98,32 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     }
 
     @Override
-    public void showMatchPoint(List<MatchStat.MatchStatInfo.StatsBean.Goals> list) {
-
+    public void showMatchPoint(List<MatchStat.MatchStatInfo.StatsBean.Goals> list, MatchStat.MatchStatInfo.MatchTeamInfo teamInfo) {
+        ivMatchPointLeft.setController(FrescoUtils.getController(Uri.parse(teamInfo.leftBadge), ivMatchPointLeft));
+        ivMatchPointRight.setController(FrescoUtils.getController(Uri.parse(teamInfo.rightBadge), ivMatchPointRight));
+        MatchStat.MatchStatInfo.StatsBean.Goals goals = list.get(0);
+        List<String> head = goals.head;
+        List<String> left = goals.rows.get(0);
+        List<String> right = goals.rows.get(1);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
+        for (int i = 0; i < head.size() && i < left.size() && i < right.size(); i++) {
+            TextView tv = (TextView) inflater.inflate(R.layout.tab_match_point, null);
+            tv.setText(head.get(i));
+            tv.setLayoutParams(params);
+            llMatchPointHead.addView(tv, i + 1);
+            if (left != null) {
+                TextView tv1 = (TextView) inflater.inflate(R.layout.tab_match_point, null);
+                tv1.setText(left.get(i));
+                tv1.setLayoutParams(params);
+                llMatchPointLeft.addView(tv1, i + 1);
+            }
+            if (right != null) {
+                TextView tv2 = (TextView) inflater.inflate(R.layout.tab_match_point, null);
+                tv2.setText(left.get(i));
+                tv2.setLayoutParams(params);
+                llMatchPointRight.addView(tv2, i + 1);
+            }
+        }
     }
 
     @Override

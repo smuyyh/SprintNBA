@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface MatchDataView extends BaseView {
 
-    void showMatchPoint(List<MatchStat.MatchStatInfo.StatsBean.Goals> list);
+    void showMatchPoint(List<MatchStat.MatchStatInfo.StatsBean.Goals> list, MatchStat.MatchStatInfo.MatchTeamInfo teamInfo);
 
     void showTeamStatistics(List<MatchStat.MatchStatInfo.StatsBean.TeamStats> teamStats);
 }
