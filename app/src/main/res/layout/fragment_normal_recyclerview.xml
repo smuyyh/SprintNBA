@@ -21,16 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/tvEmptyView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:paddingBottom="20dp"
-        android:paddingTop="20dp"
-        android:text="暂无数据"
-        android:textSize="16sp"
-        android:visibility="gone" />
+    <include
+        layout="@layout/layout_common_empty_view"/>
 
 
 </com.cjj.MaterialRefreshLayout>

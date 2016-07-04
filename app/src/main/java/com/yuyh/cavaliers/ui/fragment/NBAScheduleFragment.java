@@ -6,17 +6,15 @@ import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.TextView;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.event.CalendarEvent;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.tencent.TencentService;
 import com.yuyh.cavaliers.http.bean.match.Matchs;
-import com.yuyh.cavaliers.http.api.RequestCallback;
-import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
@@ -32,6 +30,9 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * @author yuyh.
  * @date 16/6/5.
@@ -40,9 +41,12 @@ public class NBAScheduleFragment extends BaseLazyFragment {
 
     private String date = "";
 
-    private MaterialRefreshLayout materialRefreshLayout;
-    private SupportRecyclerView recyclerView;
-    private View emptyView;
+    @InjectView(R.id.refresh)
+    MaterialRefreshLayout materialRefreshLayout;
+    @InjectView(R.id.recyclerview)
+    SupportRecyclerView recyclerView;
+    @InjectView(R.id.emptyView)
+    View emptyView;
 
     private MatchsAdapter adapter;
     private List<Matchs.MatchsDataBean.MatchesBean> list = new ArrayList<>();
@@ -51,6 +55,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_normal_recyclerview);
+        ButterKnife.inject(this, getContentView());
         date = DateUtils.format(System.currentTimeMillis(), "yyyy-MM-dd");
         LogUtils.i(date);
         EventBus.getDefault().register(this);
@@ -62,17 +67,6 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     }
 
     private void initView() {
-        recyclerView = (SupportRecyclerView) findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        emptyView = findViewById(R.id.tvEmptyView);
-        ((TextView) emptyView).setText("今日暂无比赛\n");
-        emptyView.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                //requestMatchs(date, true);
-            }
-        });
-
         adapter = new MatchsAdapter(list, mActivity, R.layout.item_list_match);
         adapter.setOnItemClickListener(new OnListItemClickListener<Matchs.MatchsDataBean.MatchesBean>() {
             @Override
@@ -82,13 +76,10 @@ public class NBAScheduleFragment extends BaseLazyFragment {
                 startActivity(intent);
             }
         });
-
-        recyclerView.setEmptyView(emptyView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(5)));
-
-        materialRefreshLayout = (MaterialRefreshLayout) findViewById(R.id.refresh);
         materialRefreshLayout.setMaterialRefreshListener(new RefreshListener());
         materialRefreshLayout.setLoadMore(false);
     }
@@ -98,6 +89,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
         TencentService.getMatchsByDate(date, isRefresh, new RequestCallback<Matchs>() {
             @Override
             public void onSuccess(Matchs matchs) {
+                complete();
                 list.clear();
                 List<Matchs.MatchsDataBean.MatchesBean> mList = matchs.getData().matches;
                 if (!mList.isEmpty()) {
@@ -106,7 +98,6 @@ public class NBAScheduleFragment extends BaseLazyFragment {
                     }
                 }
                 adapter.notifyDataSetChanged();
-                complete();
             }
 
             @Override
@@ -124,6 +115,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     }
 
     private void complete() {
+        recyclerView.setEmptyView(emptyView);
         materialRefreshLayout.finishRefresh();
         materialRefreshLayout.finishRefreshLoadMore();
         new Handler().postDelayed(new Runnable() {

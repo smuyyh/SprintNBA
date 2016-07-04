@@ -5,21 +5,19 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.TextView;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
-import com.yuyh.cavaliers.ui.presenter.Presenter;
-import com.yuyh.cavaliers.ui.presenter.impl.ForumListPresenterImpl;
-import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.ThreadListActivity;
 import com.yuyh.cavaliers.ui.adapter.ForumListAdapter;
+import com.yuyh.cavaliers.ui.presenter.Presenter;
+import com.yuyh.cavaliers.ui.presenter.impl.ForumListPresenterImpl;
 import com.yuyh.cavaliers.ui.view.ForumListView;
 import com.yuyh.library.utils.DimenUtils;
 
@@ -39,7 +37,7 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
     MaterialRefreshLayout materialRefreshLayout;
     @InjectView(R.id.recyclerview)
     SupportRecyclerView recyclerView;
-    @InjectView(R.id.tvEmptyView)
+    @InjectView(R.id.emptyView)
     View emptyView;
 
     private ForumListAdapter adapter;
@@ -58,14 +56,6 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
     }
 
     private void initView() {
-        ((TextView) emptyView).setText("暂无论坛版块数据\n");
-        emptyView.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                //requestMatchs(date, true);
-            }
-        });
-
         adapter = new ForumListAdapter(list, mActivity, R.layout.item_list_teams, R.layout.item_fragment_forum_title);
         adapter.setOnListItemClickListener(new OnListItemClickListener<ForumsData.Forum>() {
             @Override
@@ -76,6 +66,11 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
 
             }
         });
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(2)));
+        recyclerView.setHasFixedSize(true);
         materialRefreshLayout.setLoadMore(false);
         materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
@@ -83,12 +78,6 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
                 presenter.initialized();
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.setEmptyView(emptyView);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(2)));
-        recyclerView.setHasFixedSize(true);
     }
 
     @Override
@@ -105,5 +94,22 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
         list.addAll(forumList);
         adapter.notifyDataSetChanged();
         materialRefreshLayout.finishRefresh();
+        hideLoading();
+    }
+
+    @Override
+    public void showLoading(String msg) {
+        showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoading() {
+        hideLoadingDialog();
+    }
+
+    @Override
+    public void showError(String message) {
+        recyclerView.setEmptyView(emptyView);
+        hideLoading();
     }
 }

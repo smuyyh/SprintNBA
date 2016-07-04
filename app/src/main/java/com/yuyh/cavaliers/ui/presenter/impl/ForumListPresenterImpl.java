@@ -27,6 +27,7 @@ public class ForumListPresenterImpl implements Presenter {
 
     @Override
     public void initialized() {
+        forumListView.showLoading("");
         HupuForumService.getAllForums(new RequestCallback<ForumsData>() {
             @Override
             public void onSuccess(ForumsData forumsData) {
@@ -47,12 +48,14 @@ public class ForumListPresenterImpl implements Presenter {
                             break;
                         }
                     }
+                } else {
+                    forumListView.showError("暂无数据");
                 }
             }
 
             @Override
             public void onFailure(String message) {
-
+                forumListView.showError(message);
             }
         });
     }

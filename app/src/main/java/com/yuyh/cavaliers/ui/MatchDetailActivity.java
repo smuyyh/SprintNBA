@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -45,6 +46,8 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
 
     @InjectView(R.id.rlMatchToolbar)
     RelativeLayout rlMatchToolbar;
+    @InjectView(R.id.tvBack)
+    TextView tvBack;
     @InjectView(R.id.tvMatchTitle)
     TextView tvMatchTitle;
     @InjectView(R.id.tvLeftRate)
@@ -87,6 +90,12 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
         indicator.setScrollBar(new GameDetailScrollBar(getApplicationContext(), getResources().getColor(R.color.colorPrimary), DimenUtils.dpToPxInt(3)));
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         stickyNavLayout.setOnStickStateChangeListener(this);
+        tvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         presenter = new MatchDetailPresenter(this, this);
         presenter.getMatchBaseInfo(mid);
     }

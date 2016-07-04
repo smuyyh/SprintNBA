@@ -18,7 +18,6 @@ import com.yuyh.cavaliers.http.api.tencent.TencentService;
 import com.yuyh.cavaliers.http.bean.news.NewsIndex;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
@@ -31,13 +30,18 @@ import com.yuyh.library.utils.toast.ToastUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class NBANewsBannerFragment extends BaseLazyFragment {
 
     public static final String INTENT_INT_INDEX = "intent_int_index";
-
-    private MaterialRefreshLayout materialRefreshLayout;
-    private SupportRecyclerView recyclerView;
-    private View emptyView;
+    @InjectView(R.id.refresh)
+    MaterialRefreshLayout materialRefreshLayout;
+    @InjectView(R.id.recyclerview)
+    SupportRecyclerView recyclerView;
+    @InjectView(R.id.emptyView)
+    View emptyView;
     private NewsAdapter adapter;
     private List<NewsItem.NewsItemBean> list = new ArrayList<>();
     private List<String> indexs = new ArrayList<>();
@@ -50,6 +54,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_normal_recyclerview);
+        ButterKnife.inject(this, getContentView());
         showLoadingDialog();
         newsType = (Constant.NewsType) getArguments().getSerializable(INTENT_INT_INDEX);
         initView();
@@ -57,15 +62,6 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     }
 
     private void initView() {
-        recyclerView = (SupportRecyclerView) findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        emptyView = findViewById(R.id.tvEmptyView);
-        emptyView.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                requestIndex(true);
-            }
-        });
         adapter = new NewsAdapter(list, mActivity, R.layout.item_list_news_normal, R.layout.item_list_news_video);
         adapter.setOnItemClickListener(new OnListItemClickListener<NewsItem.NewsItemBean>() {
             @Override
@@ -92,10 +88,10 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
                 }
             }
         });
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(5)));
-        materialRefreshLayout = (MaterialRefreshLayout) findViewById(R.id.refresh);
         materialRefreshLayout.setMaterialRefreshListener(new RefreshListener());
     }
 
@@ -103,7 +99,6 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
         TencentService.getNewsIndex(newsType, isRefresh, new RequestCallback<NewsIndex>() {
             @Override
             public void onSuccess(NewsIndex newsIndex) {
-                recyclerView.setEmptyView(emptyView);
                 indexs.clear();
                 start = 0;
                 for (NewsIndex.IndexBean bean : newsIndex.data) {
@@ -116,7 +111,6 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
 
             @Override
             public void onFailure(String message) {
-                recyclerView.setEmptyView(emptyView);
                 complete();
                 LogUtils.i(message);
             }
@@ -179,6 +173,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
     }
 
     private void complete() {
+        recyclerView.setEmptyView(emptyView);
         materialRefreshLayout.finishRefresh();
         materialRefreshLayout.finishRefreshLoadMore();
         new Handler().postDelayed(new Runnable() {

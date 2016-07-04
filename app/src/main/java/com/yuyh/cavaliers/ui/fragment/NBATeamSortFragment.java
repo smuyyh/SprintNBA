@@ -6,17 +6,15 @@ import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.TextView;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.base.BaseWebActivity;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.tencent.TencentService;
 import com.yuyh.cavaliers.http.bean.player.TeamsRank;
-import com.yuyh.cavaliers.http.api.RequestCallback;
-import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
@@ -28,6 +26,9 @@ import com.yuyh.library.utils.log.LogUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * @author yuyh.
  * @date 16/6/5.
@@ -36,9 +37,12 @@ public class NBATeamSortFragment extends BaseLazyFragment {
 
     private String date = "";
 
-    private MaterialRefreshLayout materialRefreshLayout;
-    private SupportRecyclerView recyclerView;
-    private View emptyView;
+    @InjectView(R.id.refresh)
+    MaterialRefreshLayout materialRefreshLayout;
+    @InjectView(R.id.recyclerview)
+    SupportRecyclerView recyclerView;
+    @InjectView(R.id.emptyView)
+    View emptyView;
 
     private TeamsRankAdapter adapter;
     private List<TeamsRank.TeamBean> list = new ArrayList<>();
@@ -47,6 +51,7 @@ public class NBATeamSortFragment extends BaseLazyFragment {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_normal_recyclerview);
+        ButterKnife.inject(this, getContentView());
         date = DateUtils.format(System.currentTimeMillis(), "yyyy-MM-dd");
         LogUtils.i(date);
 
@@ -57,17 +62,7 @@ public class NBATeamSortFragment extends BaseLazyFragment {
     }
 
     private void initView() {
-        recyclerView = (SupportRecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        emptyView = findViewById(R.id.tvEmptyView);
-        ((TextView) emptyView).setText("暂无球队排名数据\n");
-        emptyView.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                //requestMatchs(date, true);
-            }
-        });
-
         adapter = new TeamsRankAdapter(list, mActivity, R.layout.item_fragment_teamsort_entity, R.layout.item_fragment_teamsort_title);
         adapter.setOnItemClickListener(new OnListItemClickListener<TeamsRank.TeamBean>() {
             @Override
@@ -78,13 +73,9 @@ public class NBATeamSortFragment extends BaseLazyFragment {
                 startActivity(intent);
             }
         });
-
-        recyclerView.setEmptyView(emptyView);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(1)));
-
-        materialRefreshLayout = (MaterialRefreshLayout) findViewById(R.id.refresh);
         materialRefreshLayout.setMaterialRefreshListener(new RefreshListener());
         materialRefreshLayout.setLoadMore(false);
     }
@@ -115,6 +106,7 @@ public class NBATeamSortFragment extends BaseLazyFragment {
     }
 
     private void complete() {
+        recyclerView.setEmptyView(emptyView);
         materialRefreshLayout.finishRefresh();
         materialRefreshLayout.finishRefreshLoadMore();
         new Handler().postDelayed(new Runnable() {

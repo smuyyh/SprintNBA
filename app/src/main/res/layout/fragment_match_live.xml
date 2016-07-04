@@ -14,9 +14,7 @@
         android:layout_height="match_parent"
         android:divider="@null" />
 
-    <include
-        android:id="@+id/emptyView"
-        layout="@layout/layout_common_empty_view" />
+    <include layout="@layout/layout_common_empty_view" />
 
 
 </FrameLayout>
