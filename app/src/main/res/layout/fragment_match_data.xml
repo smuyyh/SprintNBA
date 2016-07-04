@@ -10,20 +10,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvMatchPoint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/title_layout"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="比分" />
-
         <LinearLayout
             android:id="@+id/llMatchPoint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/tvMatchPoint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/title_layout"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="比分" />
 
             <LinearLayout
                 android:id="@+id/llMatchPointHead"
@@ -95,20 +96,28 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvMatchTeamStatistics"
+        <LinearLayout
+            android:id="@+id/llMatchTeamStatistics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/title_layout"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="球队统计" />
+            android:orientation="vertical"
+            android:visibility="invisible">
 
-        <com.yuyh.library.view.list.NoScrollListView
-            android:id="@+id/lvMatchTeamStatistics"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:divider="@null" />
+            <TextView
+                android:id="@+id/tvMatchTeamStatistics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/title_layout"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="球队统计" />
+
+            <com.yuyh.library.view.list.NoScrollListView
+                android:id="@+id/lvMatchTeamStatistics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:divider="@null" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -34,6 +35,11 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
 
     @InjectView(R.id.snlScrollView)
     ScrollView snlScrollView;
+
+    @InjectView(R.id.llMatchPoint)
+    LinearLayout llMatchPoint;
+    @InjectView(R.id.llMatchTeamStatistics)
+    LinearLayout llMatchTeamStatistics;
 
     @InjectView(R.id.tvMatchPoint)
     TextView tvMatchPoint;
@@ -132,6 +138,7 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
                 llMatchPointRight.addView(tv2, i + 1);
             }
         }
+        llMatchPoint.setVisibility(View.VISIBLE);
         complete();
     }
 
@@ -139,11 +146,12 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     public void showTeamStatistics(List<MatchStat.MatchStatInfo.StatsBean.TeamStats> teamStats) {
         MatchStatisticsAdapter adapter = new MatchStatisticsAdapter(teamStats, mActivity, R.layout.item_list_match_team_statistics);
         lvMatchTeamStatistics.setAdapter(adapter);
+        llMatchTeamStatistics.setVisibility(View.VISIBLE);
         complete();
     }
 
-    public void complete(){
-        snlScrollView.smoothScrollTo(0,20);
+    public void complete() {
+        snlScrollView.smoothScrollTo(0, 20);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -51,6 +51,7 @@ public class MatchLiveFragment extends BaseLazyFragment implements MatchLiveView
     }
 
     private void initData() {
+        showLoadingDialog();
         adapter = new MatchLiveAdapter(list, mActivity, R.layout.item_list_match_live);
         lvMatchLive.setAdapter(adapter);
         mid = getArguments().getString("mid");
@@ -70,6 +71,7 @@ public class MatchLiveFragment extends BaseLazyFragment implements MatchLiveView
     public void addList(List<LiveDetail.LiveDetailData.LiveContent> detail) {
         list.addAll(0, detail);
         adapter.notifyDataSetChanged();
+        hideLoadingDialog();
     }
 
     @Override

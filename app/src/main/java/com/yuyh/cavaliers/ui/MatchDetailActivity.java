@@ -17,6 +17,7 @@ import com.yuyh.cavaliers.ui.view.MatchDetailView;
 import com.yuyh.cavaliers.utils.FrescoUtils;
 import com.yuyh.cavaliers.widget.GameDetailScrollBar;
 import com.yuyh.cavaliers.widget.StickyNavLayout;
+import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
 import com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView;
 
@@ -83,7 +84,7 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     protected void initViewsAndEvents() {
         mid = getIntent().getStringExtra(INTENT_MID);
         rlMatchToolbar.getBackground().setAlpha(0);
-        indicator.setScrollBar(new GameDetailScrollBar(getApplicationContext(), getResources().getColor(R.color.colorPrimary), 8));
+        indicator.setScrollBar(new GameDetailScrollBar(getApplicationContext(), getResources().getColor(R.color.colorPrimary), DimenUtils.dpToPxInt(3)));
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         stickyNavLayout.setOnStickStateChangeListener(this);
         presenter = new MatchDetailPresenter(this, this);
@@ -109,7 +110,9 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
         String state = "未开始";
         try {
             Date date = format.parse(startTime);
-            if (date.getTime() > System.currentTimeMillis()) { // 未开始
+            String todayStr = format.format(new Date());
+            Date today = format.parse(todayStr);
+            if (date.getTime() > today.getTime()) { // 未开始
                 presenter.getTab(false);
             } else {
                 state = info.quarterDesc;

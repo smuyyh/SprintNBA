@@ -1,6 +1,7 @@
 package com.yuyh.cavaliers.ui.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
@@ -30,17 +31,20 @@ public class MatchLiveAdapter extends HelperAdapter<LiveDetail.LiveDetailData.Li
                 .setText(R.id.tvLiveContent, item.content);
 
         final View itemView = viewHolder.getConvertView();
-
-
-        final ViewTreeObserver vto = itemView.getViewTreeObserver();
+        ViewTreeObserver vto = itemView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                // 务必移除监听，会多次调用
+                if (Build.VERSION.SDK_INT < 16) {
+                    itemView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                } else {
+                    itemView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
                 View line = viewHolder.getView(R.id.viewLine);
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams();
                 params.height = itemView.getHeight();
                 line.setLayoutParams(params);
-                vto.removeOnGlobalLayoutListener(this);
             }
         });
     }

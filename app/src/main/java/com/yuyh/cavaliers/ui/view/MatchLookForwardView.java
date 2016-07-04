@@ -1,7 +1,6 @@
 package com.yuyh.cavaliers.ui.view;
 
 import com.yuyh.cavaliers.http.bean.match.MatchStat;
-import com.yuyh.cavaliers.ui.view.base.BaseView;
 
 import java.util.List;
 
@@ -9,7 +8,7 @@ import java.util.List;
  * @author yuyh.
  * @date 16/7/2.
  */
-public interface MatchLookForwardView extends BaseView {
+public interface MatchLookForwardView {
 
     void showTeamInfo(MatchStat.MatchStatInfo.MatchTeamInfo info);
 
@@ -20,5 +19,7 @@ public interface MatchLookForwardView extends BaseView {
     void showRecentMatchs(MatchStat.MatchStatInfo.StatsBean.TeamMatchs teamMatches);
 
     void showFutureMatchs(MatchStat.MatchStatInfo.StatsBean.TeamMatchs teamMatches);
+
+    void showError(String message);
 
 }

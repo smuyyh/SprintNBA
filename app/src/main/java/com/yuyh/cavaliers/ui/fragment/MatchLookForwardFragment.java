@@ -12,7 +12,6 @@ import com.yuyh.cavaliers.http.bean.match.MatchStat;
 import com.yuyh.cavaliers.ui.adapter.MatchLFAdapter;
 import com.yuyh.cavaliers.ui.presenter.impl.MatchLookForwardPresenter;
 import com.yuyh.cavaliers.ui.view.MatchLookForwardView;
-import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.util.List;
 
@@ -53,7 +52,6 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     ListView lvFutureMatchs;
 
     private MatchLookForwardPresenter presenter;
-    private MatchStat.MatchStatInfo.MatchTeamInfo info;
 
     public static MatchLookForwardFragment newInstance(String mid) {
         Bundle args = new Bundle();
@@ -72,6 +70,8 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     }
 
     private void initData() {
+        showLoadingDialog();
+        lvMaxPlayer.setFocusable(false);
         presenter = new MatchLookForwardPresenter(mActivity, this);
         presenter.initialized();
         presenter.getMatchStat(getArguments().getString("mid"), "3");
@@ -87,10 +87,10 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
 
     @Override
     public void showTeamInfo(MatchStat.MatchStatInfo.MatchTeamInfo info) {
-        this.info = info;
         tvLeftTeamName.setText(info.leftName);
         tvRightTeamName.setText(info.rightName);
         rlMatchTeam.setVisibility(View.VISIBLE);
+        hideLoadingDialog();
     }
 
     @Override
@@ -116,17 +116,7 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     }
 
     @Override
-    public void showLoading(String msg) {
-        showLoadingDialog();
-    }
-
-    @Override
-    public void hideLoading() {
+    public void showError(String message) {
         hideLoadingDialog();
-    }
-
-    @Override
-    public void showError(String msg) {
-        ToastUtils.showSingleToast(msg);
     }
 }
