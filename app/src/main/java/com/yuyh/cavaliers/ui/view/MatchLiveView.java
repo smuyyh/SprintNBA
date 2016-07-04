@@ -11,4 +11,6 @@ import java.util.List;
 public interface MatchLiveView {
 
     void addList(List<LiveDetail.LiveDetailData.LiveContent> detail);
+
+    void showError(String message);
 }

@@ -1,6 +1,7 @@
 package com.yuyh.cavaliers.ui.fragment;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
@@ -27,6 +28,8 @@ public class MatchLiveFragment extends BaseLazyFragment implements MatchLiveView
     FrameLayout materialRefreshLayout;
     @InjectView(R.id.snlScrollView)
     ListView lvMatchLive;
+    @InjectView(R.id.emptyView)
+    View emptyView;
 
     private List<LiveDetail.LiveDetailData.LiveContent> list = new ArrayList<>();
     private MatchLiveAdapter adapter;
@@ -72,6 +75,12 @@ public class MatchLiveFragment extends BaseLazyFragment implements MatchLiveView
         list.addAll(0, detail);
         adapter.notifyDataSetChanged();
         hideLoadingDialog();
+    }
+
+    @Override
+    public void showError(String message) {
+        hideLoadingDialog();
+        lvMatchLive.setEmptyView(emptyView);
     }
 
     @Override

@@ -56,7 +56,7 @@ public class MatchLivePresenter implements Presenter {
         TencentService.getMatchLiveIndex(mid, new RequestCallback<LiveIndex>() {
             @Override
             public void onSuccess(LiveIndex liveIndex) {
-                if (liveIndex != null && liveIndex.data != null) {
+                if (liveIndex.data != null && liveIndex.data.index != null && !liveIndex.data.index.isEmpty()) {
                     index.clear();
                     index.addAll(liveIndex.data.index);
 
@@ -73,12 +73,14 @@ public class MatchLivePresenter implements Presenter {
                         ids = ids.substring(0, ids.length() - 1);
                         getLiveContent(ids);
                     }
+                } else {
+                    liveView.showError("暂无数据");
                 }
             }
 
             @Override
             public void onFailure(String message) {
-
+                liveView.showError(message);
             }
         });
     }
@@ -93,7 +95,7 @@ public class MatchLivePresenter implements Presenter {
 
             @Override
             public void onFailure(String message) {
-
+                liveView.showError(message);
             }
         });
     }

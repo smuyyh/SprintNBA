@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.yuyh.library.view.list.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/snlScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainBg"
     android:scrollbars="none">
 
     <LinearLayout
@@ -10,97 +11,182 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvMaxPlayer"
+        <LinearLayout
+            android:id="@+id/llMaxPlayer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/title_layout"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="球队数据王" />
-
-        <RelativeLayout
-            android:id="@+id/rlMatchTeam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:visibility="gone">
 
             <TextView
-                android:id="@+id/tvLeftTeamName"
-                android:layout_width="90dp"
+                android:id="@+id/tvMaxPlayer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:background="@color/white"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
                 android:gravity="center"
-                android:text="雷霆"
-                android:textColor="@color/primary_text"
-                android:textSize="14dp" />
+                android:padding="3dp"
+                android:text="球队数据王" />
+
+            <RelativeLayout
+                android:id="@+id/rlMatchTeam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tvLeftTeamName"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="雷霆"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/tvRightTeamName"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="雷霆"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14dp" />
+            </RelativeLayout>
+
+            <com.yuyh.library.view.list.NoScrollListView
+                android:id="@+id/lvMaxPlayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llHistoryMatchs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
-                android:id="@+id/tvRightTeamName"
-                android:layout_width="90dp"
+                android:id="@+id/tvHistoryMatchs"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@color/white"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
                 android:gravity="center"
-                android:text="雷霆"
-                android:textColor="@color/primary_text"
-                android:textSize="14dp" />
-        </RelativeLayout>
+                android:padding="3dp"
+                android:text="历史对阵" />
 
-        <com.yuyh.library.view.list.NoScrollListView
-            android:id="@+id/lvMaxPlayer"
+            <com.yuyh.library.view.list.NoScrollListView
+                android:id="@+id/lvHistoryMatchs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:divider="@null" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llRecentMatchs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/tvHistoryMatchs"
+            <TextView
+                android:id="@+id/tvRecentMatchs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="近期战绩" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvRecentTitleLeft"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="活塞" />
+
+                <TextView
+                    android:id="@+id/tvRecentTitleRight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/title_layout"
+                    android:gravity="center"
+                    android:text="活塞" />
+            </LinearLayout>
+
+
+            <com.yuyh.library.view.list.NoScrollListView
+                android:id="@+id/lvRecentMatchs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:divider="@null" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llFutureMatchs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/title_layout"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="历史对阵" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-        <com.yuyh.library.view.list.NoScrollListView
-            android:id="@+id/lvHistoryMatchs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white" />
+            <TextView
+                android:id="@+id/tvFutureMatchs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="未来赛事" />
 
-        <TextView
-            android:id="@+id/tvRecentMatchs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/title_layout"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="近期战绩" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
 
-        <com.yuyh.library.view.list.NoScrollListView
-            android:id="@+id/lvRecentMatchs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white" />
+                <TextView
+                    android:id="@+id/tvFutureTitleLeft"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="活塞" />
 
-        <TextView
-            android:id="@+id/tvFutureMatchs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/title_layout"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="未来赛事" />
+                <TextView
+                    android:id="@+id/tvFutureTitleRight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/title_layout"
+                    android:gravity="center"
+                    android:text="活塞" />
+            </LinearLayout>
 
-        <com.yuyh.library.view.list.NoScrollListView
-            android:id="@+id/lvFutureMatchs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white" />
-
+            <com.yuyh.library.view.list.NoScrollListView
+                android:id="@+id/lvFutureMatchs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+        </LinearLayout>
 
     </LinearLayout>
 
-
-</ScrollView>
+</com.yuyh.library.view.list.ReboundScrollView>

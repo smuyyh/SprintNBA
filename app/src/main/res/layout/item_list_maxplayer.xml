@@ -6,9 +6,10 @@
     android:background="@color/white">
 
     <LinearLayout
-        android:layout_width="80dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="5dp">
 
@@ -37,7 +38,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="80dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:orientation="vertical"

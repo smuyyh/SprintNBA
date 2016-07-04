@@ -16,9 +16,9 @@ import java.util.List;
  * @author yuyh.
  * @date 16/7/2.
  */
-public class MatchLFAdapter extends HelperAdapter<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> {
+public class MatchLMaxPlayerdapter extends HelperAdapter<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> {
 
-    public MatchLFAdapter(List<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> mList, Context context, int... layoutIds) {
+    public MatchLMaxPlayerdapter(List<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> mList, Context context, int... layoutIds) {
         super(mList, context, layoutIds);
     }
 

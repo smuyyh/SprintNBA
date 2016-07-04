@@ -2,6 +2,7 @@ package com.yuyh.cavaliers.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -9,10 +10,13 @@ import android.widget.TextView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.http.bean.match.MatchStat;
-import com.yuyh.cavaliers.ui.adapter.MatchLFAdapter;
+import com.yuyh.cavaliers.ui.adapter.MatchHistoryAdapter;
+import com.yuyh.cavaliers.ui.adapter.MatchLMaxPlayerdapter;
+import com.yuyh.cavaliers.ui.adapter.MatchRecentAdapter;
 import com.yuyh.cavaliers.ui.presenter.impl.MatchLookForwardPresenter;
 import com.yuyh.cavaliers.ui.view.MatchLookForwardView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -25,6 +29,8 @@ import butterknife.InjectView;
 public class MatchLookForwardFragment extends BaseLazyFragment implements MatchLookForwardView {
 
 
+    @InjectView(R.id.llMaxPlayer)
+    LinearLayout llMaxPlayer;
     @InjectView(R.id.tvMaxPlayer)
     TextView tvMaxPlayer;
     @InjectView(R.id.lvMaxPlayer)
@@ -36,22 +42,43 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     @InjectView(R.id.tvRightTeamName)
     TextView tvRightTeamName;
 
+    @InjectView(R.id.llHistoryMatchs)
+    LinearLayout llHistoryMatchs;
     @InjectView(R.id.tvHistoryMatchs)
     TextView tvHistoryMatchs;
     @InjectView(R.id.lvHistoryMatchs)
     ListView lvHistoryMatchs;
 
+    @InjectView(R.id.llRecentMatchs)
+    LinearLayout llRecentMatchs;
     @InjectView(R.id.tvRecentMatchs)
     TextView tvRecentMatchs;
+    @InjectView(R.id.tvRecentTitleLeft)
+    TextView tvRecentTitleLeft;
+    @InjectView(R.id.tvRecentTitleRight)
+    TextView tvRecentTitleRight;
     @InjectView(R.id.lvRecentMatchs)
     ListView lvRecentMatchs;
 
+    @InjectView(R.id.llFutureMatchs)
+    LinearLayout llFutureMatchs;
     @InjectView(R.id.tvFutureMatchs)
     TextView tvFutureMatchs;
+    @InjectView(R.id.tvFutureTitleLeft)
+    TextView tvFutureTitleLeft;
+    @InjectView(R.id.tvFutureTitleRight)
+    TextView tvFutureTitleRight;
     @InjectView(R.id.lvFutureMatchs)
     ListView lvFutureMatchs;
 
     private MatchLookForwardPresenter presenter;
+    private List<MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam> recentList = new ArrayList<>();
+    private MatchRecentAdapter recentAdapter;
+    private List<MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam> futureList = new ArrayList<>();
+    private MatchRecentAdapter futureAdapter;
+
+    private int recentCurrent = 0;
+    private int futureCurrent = 0;
 
     public static MatchLookForwardFragment newInstance(String mid) {
         Bundle args = new Bundle();
@@ -89,30 +116,98 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     public void showTeamInfo(MatchStat.MatchStatInfo.MatchTeamInfo info) {
         tvLeftTeamName.setText(info.leftName);
         tvRightTeamName.setText(info.rightName);
+        tvRecentTitleLeft.setText(info.leftName);
+        tvRecentTitleRight.setText(info.rightName);
+        tvFutureTitleLeft.setText(info.leftName);
+        tvFutureTitleRight.setText(info.rightName);
         rlMatchTeam.setVisibility(View.VISIBLE);
         hideLoadingDialog();
     }
 
     @Override
     public void showMaxPlayer(List<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> maxPlayers) {
-        MatchLFAdapter adapter = new MatchLFAdapter(maxPlayers, mActivity, R.layout.item_list_maxplayer);
+        MatchLMaxPlayerdapter adapter = new MatchLMaxPlayerdapter(maxPlayers, mActivity, R.layout.item_list_maxplayer);
         lvMaxPlayer.setAdapter(adapter);
-        lvMaxPlayer.setVisibility(View.VISIBLE);
+        llMaxPlayer.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showHistoryMatchs(List<MatchStat.MatchStatInfo.StatsBean.VS> vs) {
-
+        MatchHistoryAdapter adapter = new MatchHistoryAdapter(vs, mActivity, R.layout.item_list_match_recent);
+        lvHistoryMatchs.setAdapter(adapter);
+        llHistoryMatchs.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void showRecentMatchs(MatchStat.MatchStatInfo.StatsBean.TeamMatchs teamMatches) {
-
+    public void showRecentMatchs(final MatchStat.MatchStatInfo.StatsBean.TeamMatchs teamMatches) {
+        recentList.clear();
+        recentList.addAll(teamMatches.left);
+        if (recentAdapter == null)
+            recentAdapter = new MatchRecentAdapter(true, recentList, mActivity, R.layout.item_list_match_recent);
+        lvRecentMatchs.setAdapter(recentAdapter);
+        tvRecentTitleLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (recentCurrent != 0) {
+                    recentList.clear();
+                    recentList.addAll(teamMatches.left);
+                    recentAdapter.notifyDataSetChanged();
+                    tvRecentTitleRight.setBackgroundColor(getResources().getColor(R.color.entity_layout));
+                    tvRecentTitleLeft.setBackgroundColor(getResources().getColor(R.color.white));
+                    recentCurrent = 0;
+                }
+            }
+        });
+        tvRecentTitleRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (recentCurrent == 0) {
+                    recentList.clear();
+                    recentList.addAll(teamMatches.right);
+                    recentAdapter.notifyDataSetChanged();
+                    tvRecentTitleRight.setBackgroundColor(getResources().getColor(R.color.white));
+                    tvRecentTitleLeft.setBackgroundColor(getResources().getColor(R.color.entity_layout));
+                    recentCurrent = 1;
+                }
+            }
+        });
+        llRecentMatchs.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void showFutureMatchs(MatchStat.MatchStatInfo.StatsBean.TeamMatchs teamMatches) {
-
+    public void showFutureMatchs(final MatchStat.MatchStatInfo.StatsBean.TeamMatchs teamMatches) {
+        futureList.clear();
+        futureList.addAll(teamMatches.left);
+        if (futureAdapter == null)
+            futureAdapter = new MatchRecentAdapter(false, futureList, mActivity, R.layout.item_list_match_recent);
+        lvFutureMatchs.setAdapter(futureAdapter);
+        tvFutureTitleLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (futureCurrent != 0) {
+                    futureList.clear();
+                    futureList.addAll(teamMatches.left);
+                    futureAdapter.notifyDataSetChanged();
+                    tvFutureTitleRight.setBackgroundColor(getResources().getColor(R.color.entity_layout));
+                    tvFutureTitleLeft.setBackgroundColor(getResources().getColor(R.color.white));
+                    futureCurrent = 0;
+                }
+            }
+        });
+        tvFutureTitleRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (futureCurrent == 0) {
+                    futureList.clear();
+                    futureList.addAll(teamMatches.right);
+                    futureAdapter.notifyDataSetChanged();
+                    tvFutureTitleRight.setBackgroundColor(getResources().getColor(R.color.white));
+                    tvFutureTitleLeft.setBackgroundColor(getResources().getColor(R.color.entity_layout));
+                    futureCurrent = 1;
+                }
+            }
+        });
+        llFutureMatchs.setVisibility(View.VISIBLE);
     }
 
     @Override

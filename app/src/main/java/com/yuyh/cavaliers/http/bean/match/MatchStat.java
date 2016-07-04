@@ -79,11 +79,11 @@ public class MatchStat extends Base {
                 public String matchId;
                 public String startTime;
                 public String leftName;
-                public String leftGoal;
+                public Integer leftGoal;
                 public String leftBadge;
                 public String leftUrl;
                 public String rightName;
-                public String rightGoal;
+                public Integer rightGoal;
                 public String rightBadge;
                 public String rightUrl;
                 public String matchDesc;
@@ -99,11 +99,11 @@ public class MatchStat extends Base {
                     public String startTime;
                     public String leftId;
                     public String leftName;
-                    public String leftGoal;
+                    public Integer leftGoal;
                     public String leftBadge;
                     public String leftUrl;
                     public String rightId;
-                    public String rightGoal;
+                    public Integer rightGoal;
                     public String rightName;
                     public String rightBadge;
                     public String rightUrl;
