@@ -19,7 +19,7 @@
             android:padding="3dp" />
 
         <HorizontalScrollView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:scrollbars="none">
@@ -28,7 +28,7 @@
                 android:id="@+id/lvPlayerDataLeft"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:dividerHeight="1dp"
+                android:divider="@null"
                 android:listSelector="@drawable/selector_common_list_view" />
 
         </HorizontalScrollView>
@@ -41,7 +41,7 @@
             android:padding="3dp" />
 
         <HorizontalScrollView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:scrollbars="none">

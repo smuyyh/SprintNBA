@@ -130,6 +130,12 @@ public class HelperViewHolder extends BaseViewHolder implements ViewHelper.AbsLi
         return this;
     }
 
+    public HelperViewHolder setInVisible(int viewId) {
+        View view = getView(viewId);
+        view.setVisibility(View.INVISIBLE);
+        return this;
+    }
+
     @Override
     public HelperViewHolder setTag(int viewId, Object tag) {
         View view = getView(viewId);

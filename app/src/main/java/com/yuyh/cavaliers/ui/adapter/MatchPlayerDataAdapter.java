@@ -34,6 +34,7 @@ public class MatchPlayerDataAdapter extends HelperAdapter<MatchStat.MatchStatInf
         if (item.head != null && !item.head.isEmpty()) {
             List<String> head = item.head;
             viewHolder.setText(R.id.tvMatchPlayer, head.get(0));
+            viewHolder.setInVisible(R.id.ivIsFirst);
             for (int i = 2; i < head.size(); i++) {
                 TextView tv = (TextView) inflater.inflate(R.layout.tab_match_point, null);
                 tv.setText(head.get(i));
