@@ -89,7 +89,6 @@ public class ScheduleFragment extends BaseLazyFragment {
         TencentService.getMatchsByDate(date, isRefresh, new RequestCallback<Matchs>() {
             @Override
             public void onSuccess(Matchs matchs) {
-                complete();
                 list.clear();
                 List<Matchs.MatchsDataBean.MatchesBean> mList = matchs.getData().matches;
                 if (!mList.isEmpty()) {
@@ -97,6 +96,7 @@ public class ScheduleFragment extends BaseLazyFragment {
                         list.add(bean);
                     }
                 }
+                complete();
             }
 
             @Override

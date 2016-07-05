@@ -42,6 +42,7 @@ public class MatchStat extends Base {
              * type = 12 比分
              * type = 13 球队数据王
              * type = 14 球队统计
+             * type = 15 球员统计
              * type = 16 场上球员
              */
             public String type;
@@ -112,10 +113,12 @@ public class MatchStat extends Base {
             }
 
 
-            public PlayerStats playerStats;                      // 场上球员
+            //public PlayerStats playerStats;                      // 场上球员 | 球员技术统计
 
+            public List<PlayerStats> playerStats;                // 球员技术统计
             public static class PlayerStats {
 
+                // 场上球员
                 public List<TeamBean> left;
                 public List<TeamBean> right;
 
@@ -129,6 +132,15 @@ public class MatchStat extends Base {
                     public String detailUrl;
                     public List<String> row;
                 }
+
+                // 技术统计
+                public String subText;
+                public List<String> head;
+                public List<String> row;
+                public String playerId;
+                public String onCrt;
+                public String started;
+                public String detailUrl;
             }
 
             public List<TeamStats> teamStats;                     // 球队统计
@@ -138,6 +150,8 @@ public class MatchStat extends Base {
                 public Integer leftVal;
                 public Integer rightVal;
             }
+
         }
+
     }
 }

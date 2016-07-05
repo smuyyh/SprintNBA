@@ -12,6 +12,7 @@ import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.ui.fragment.MatchDataFragment;
 import com.yuyh.cavaliers.ui.fragment.MatchLiveFragment;
 import com.yuyh.cavaliers.ui.fragment.MatchLookForwardFragment;
+import com.yuyh.cavaliers.ui.fragment.MatchPlayerDataFragment;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.view.viewpager.indicator.FragmentListPageAdapter;
 import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
@@ -59,7 +60,7 @@ public class VPGameDetailAdapter extends IndicatorViewPager.IndicatorFragmentPag
                     fragment = MatchDataFragment.newInstance(mid);
                     break;
                 case 1:
-                    fragment = MatchLookForwardFragment.newInstance(mid);
+                    fragment = MatchPlayerDataFragment.newInstance(mid);
                     break;
                 case 2:
                     fragment = MatchLiveFragment.newInstance(mid);

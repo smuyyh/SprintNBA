@@ -3,7 +3,6 @@ package com.yuyh.cavaliers.ui.fragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -61,7 +60,6 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     SimpleDraweeView ivMatchPointRight;
 
     private MatchDataPresenter presenter;
-    private LayoutInflater inflater;
 
     public static MatchDataFragment newInstance(String mid) {
         Bundle args = new Bundle();
@@ -76,7 +74,6 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_match_data);
         ButterKnife.inject(this, getContentView());
-        inflater = LayoutInflater.from(mActivity);
         initData();
     }
 
