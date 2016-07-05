@@ -9,7 +9,7 @@ import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.ui.adapter.VPNewsAdapter;
 import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.presenter.impl.NBANewsPresenterImpl;
-import com.yuyh.cavaliers.ui.view.NBANewsView;
+import com.yuyh.cavaliers.ui.view.NewsView;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
 import com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView;
@@ -23,7 +23,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
  * @author yuyh.
  * @date 16/6/5.
  */
-public class NBANewsFragment extends BaseLazyFragment implements NBANewsView {
+public class NewsFragment extends BaseLazyFragment implements NewsView {
 
 
     private IndicatorViewPager indicatorViewPager;

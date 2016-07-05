@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import com.yuyh.cavaliers.ui.Interactor.NBANewsInteractor;
 import com.yuyh.cavaliers.ui.Interactor.impl.NBANewsInteractorImpl;
 import com.yuyh.cavaliers.ui.presenter.Presenter;
-import com.yuyh.cavaliers.ui.view.NBANewsView;
+import com.yuyh.cavaliers.ui.view.NewsView;
 
 /**
  * @author yuyh.
@@ -15,10 +15,10 @@ import com.yuyh.cavaliers.ui.view.NBANewsView;
 public class NBANewsPresenterImpl implements Presenter {
 
     private Context mContext = null;
-    private NBANewsView mNewsView = null;
+    private NewsView mNewsView = null;
     private NBANewsInteractor mNewsInteractor = null;
 
-    public NBANewsPresenterImpl(Context context, @NonNull NBANewsView newsView) {
+    public NBANewsPresenterImpl(Context context, @NonNull NewsView newsView) {
         mContext = context;
         mNewsView = newsView;
         mNewsInteractor = new NBANewsInteractorImpl();

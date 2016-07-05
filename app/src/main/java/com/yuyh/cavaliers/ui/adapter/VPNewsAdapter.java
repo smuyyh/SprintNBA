@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.ui.fragment.NBANewsBannerFragment;
+import com.yuyh.cavaliers.ui.fragment.NewsListFragment;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.view.viewpager.indicator.FragmentListPageAdapter;
 import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
@@ -48,9 +48,9 @@ public class VPNewsAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdap
 
     @Override
     public Fragment getFragmentForPage(int position) {
-        NBANewsBannerFragment fragment = new NBANewsBannerFragment();
+        NewsListFragment fragment = new NewsListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(NBANewsBannerFragment.INTENT_INT_INDEX, position);
+        bundle.putInt(NewsListFragment.INTENT_INT_INDEX, position);
         Constant.NewsType newsTypeBundle;
         switch (position) {
             case 0:
@@ -70,7 +70,7 @@ public class VPNewsAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdap
                 newsTypeBundle = Constant.NewsType.HIGHLIGHT;
                 break;
         }
-        bundle.putSerializable(NBANewsBannerFragment.INTENT_INT_INDEX, newsTypeBundle);
+        bundle.putSerializable(NewsListFragment.INTENT_INT_INDEX, newsTypeBundle);
         fragment.setArguments(bundle);
         return fragment;
     }

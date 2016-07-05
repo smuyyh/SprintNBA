@@ -33,7 +33,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class NBANewsBannerFragment extends BaseLazyFragment {
+public class NewsListFragment extends BaseLazyFragment {
 
     public static final String INTENT_INT_INDEX = "intent_int_index";
     @InjectView(R.id.refresh)

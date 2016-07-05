@@ -7,10 +7,10 @@ import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.utils.NavigationEntity;
 import com.yuyh.cavaliers.ui.fragment.ForumListFragment;
-import com.yuyh.cavaliers.ui.fragment.NBANewsFragment;
-import com.yuyh.cavaliers.ui.fragment.NBAScheduleFragment;
-import com.yuyh.cavaliers.ui.fragment.NBAStatsRankFragment;
-import com.yuyh.cavaliers.ui.fragment.NBATeamSortFragment;
+import com.yuyh.cavaliers.ui.fragment.NewsFragment;
+import com.yuyh.cavaliers.ui.fragment.ScheduleFragment;
+import com.yuyh.cavaliers.ui.fragment.StatsRankFragment;
+import com.yuyh.cavaliers.ui.fragment.TeamSortFragment;
 import com.yuyh.cavaliers.ui.fragment.OtherFragment;
 
 import java.util.ArrayList;
@@ -21,10 +21,10 @@ public class HomeInteractorImpl implements HomeInteractor {
     @Override
     public List<BaseLazyFragment> getPagerFragments() {
         List<BaseLazyFragment> fragments = new ArrayList<BaseLazyFragment>() {{
-            add(new NBANewsFragment());
-            add(new NBAScheduleFragment());
-            add(new NBATeamSortFragment());
-            add(new NBAStatsRankFragment());
+            add(new NewsFragment());
+            add(new ScheduleFragment());
+            add(new TeamSortFragment());
+            add(new StatsRankFragment());
             add(new ForumListFragment());
             add(new OtherFragment());
         }};

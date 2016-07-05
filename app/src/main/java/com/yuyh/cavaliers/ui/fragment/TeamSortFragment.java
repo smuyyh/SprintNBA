@@ -11,21 +11,17 @@ import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
-import com.yuyh.cavaliers.event.CalendarEvent;
-import com.yuyh.cavaliers.http.api.RequestCallback;
-import com.yuyh.cavaliers.http.api.tencent.TencentService;
-import com.yuyh.cavaliers.http.bean.match.Matchs;
+import com.yuyh.cavaliers.base.BaseWebActivity;
+import com.yuyh.cavaliers.http.bean.player.TeamsRank;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
-import com.yuyh.cavaliers.ui.MatchDetailActivity;
-import com.yuyh.cavaliers.ui.adapter.MatchsAdapter;
+import com.yuyh.cavaliers.ui.adapter.TeamsRankAdapter;
+import com.yuyh.cavaliers.ui.presenter.impl.TeamSortPresenter;
+import com.yuyh.cavaliers.ui.view.TeamSortView;
 import com.yuyh.library.utils.DateUtils;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.log.LogUtils;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +33,7 @@ import butterknife.InjectView;
  * @author yuyh.
  * @date 16/6/5.
  */
-public class NBAScheduleFragment extends BaseLazyFragment {
+public class TeamSortFragment extends BaseLazyFragment implements TeamSortView {
 
     private String date = "";
 
@@ -48,8 +44,10 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     @InjectView(R.id.emptyView)
     View emptyView;
 
-    private MatchsAdapter adapter;
-    private List<Matchs.MatchsDataBean.MatchesBean> list = new ArrayList<>();
+    private TeamsRankAdapter adapter;
+    private List<TeamsRank.TeamBean> list = new ArrayList<>();
+
+    private TeamSortPresenter presenter;
 
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
@@ -58,58 +56,60 @@ public class NBAScheduleFragment extends BaseLazyFragment {
         ButterKnife.inject(this, getContentView());
         date = DateUtils.format(System.currentTimeMillis(), "yyyy-MM-dd");
         LogUtils.i(date);
-        EventBus.getDefault().register(this);
 
         mActivity.invalidateOptionsMenu();
 
         initView();
-        requestMatchs(date, true);
+        presenter = new TeamSortPresenter(mActivity, this);
+        presenter.requestTeamsRank(false);
     }
 
     private void initView() {
-        adapter = new MatchsAdapter(list, mActivity, R.layout.item_list_match);
-        adapter.setOnItemClickListener(new OnListItemClickListener<Matchs.MatchsDataBean.MatchesBean>() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        adapter = new TeamsRankAdapter(list, mActivity, R.layout.item_fragment_teamsort_entity, R.layout.item_fragment_teamsort_title);
+        adapter.setOnItemClickListener(new OnListItemClickListener<TeamsRank.TeamBean>() {
             @Override
-            public void onItemClick(View view, int position, Matchs.MatchsDataBean.MatchesBean data) {
-                Intent intent = new Intent(mActivity, MatchDetailActivity.class);
-                intent.putExtra(MatchDetailActivity.INTENT_MID, data.matchInfo.mid);
+            public void onItemClick(View view, int position, TeamsRank.TeamBean data) {
+                Intent intent = new Intent(mActivity, BaseWebActivity.class);
+                intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, data.name);
+                intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, data.detailUrl);
                 startActivity(intent);
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(5)));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(1)));
         materialRefreshLayout.setMaterialRefreshListener(new RefreshListener());
         materialRefreshLayout.setLoadMore(false);
     }
 
-    private void requestMatchs(String date, boolean isRefresh) {
-        showLoadingDialog();
-        TencentService.getMatchsByDate(date, isRefresh, new RequestCallback<Matchs>() {
-            @Override
-            public void onSuccess(Matchs matchs) {
-                complete();
-                list.clear();
-                List<Matchs.MatchsDataBean.MatchesBean> mList = matchs.getData().matches;
-                if (!mList.isEmpty()) {
-                    for (Matchs.MatchsDataBean.MatchesBean bean : mList) {
-                        list.add(bean);
-                    }
-                }
-            }
+    @Override
+    public void showTeamSort(List<TeamsRank.TeamBean> teamlist) {
+        list.clear();
+        list.addAll(teamlist);
+        complete();
+    }
 
-            @Override
-            public void onFailure(String message) {
-                complete();
-            }
-        });
+    @Override
+    public void showLoading(String msg) {
+        showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoading() {
+        hideLoadingDialog();
+    }
+
+    @Override
+    public void showError(String msg) {
+        hideLoading();
+        complete();
     }
 
     private class RefreshListener extends MaterialRefreshListener {
         @Override
         public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
-            requestMatchs(date, true);
+            presenter.requestTeamsRank(true);
         }
     }
 
@@ -123,14 +123,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
             public void run() {
                 hideLoadingDialog();
             }
-        }, 500);
-    }
-
-    @Subscribe
-    public void onEventMainThread(CalendarEvent msg) {
-        date = msg.getDate();
-        LogUtils.i(msg.getDate());
-        requestMatchs(date, true);
+        }, 800);
     }
 
     @Override
@@ -144,6 +137,5 @@ public class NBAScheduleFragment extends BaseLazyFragment {
     @Override
     protected void onDestroyViewLazy() {
         super.onDestroyViewLazy();
-        EventBus.getDefault().unregister(this);
     }
 }

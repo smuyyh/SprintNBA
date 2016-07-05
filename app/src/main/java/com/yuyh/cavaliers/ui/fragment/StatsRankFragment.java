@@ -8,23 +8,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.base.BaseWebActivity;
-import com.yuyh.cavaliers.http.api.RequestCallback;
-import com.yuyh.cavaliers.http.api.tencent.TencentService;
 import com.yuyh.cavaliers.http.bean.player.StatsRank;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.adapter.StatsRankAdapter;
-import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.presenter.impl.StatsRankPresenterImpl;
 import com.yuyh.cavaliers.ui.view.StatsRankView;
 import com.yuyh.cavaliers.widget.ToggleLayout;
 import com.yuyh.library.utils.DimenUtils;
-import com.yuyh.library.utils.log.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +34,7 @@ import butterknife.InjectView;
  * @author yuyh.
  * @date 16/6/5.
  */
-public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankView, ToggleLayout.OnToggleListener {
+public class StatsRankFragment extends BaseLazyFragment implements StatsRankView, ToggleLayout.OnToggleListener {
 
     @InjectView(R.id.tlTab)
     ToggleLayout tlTab;
@@ -50,12 +47,12 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
     @InjectView(R.id.emptyView)
     View emptyView;
 
-    private Presenter presenter;
+    private StatsRankPresenterImpl presenter;
 
     private Map<String, Constant.TabType> tab;
     private Map<String, Constant.StatType> stat;
-    private Constant.TabType curTab;
-    private Constant.StatType curStat;
+    private Constant.TabType curTab = Constant.TabType.EVERYDAY;
+    private Constant.StatType curStat = Constant.StatType.POINT;
 
     private List<StatsRank.RankItem> mList = new ArrayList<>();
     private StatsRankAdapter adapter;
@@ -89,6 +86,12 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
         tlStat.setOnToggleListener(this);
         tlTab.setOnToggleListener(this);
         materialRefreshLayout.setLoadMore(false);
+        materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                presenter.requestStatsRank(curStat, curTab);
+            }
+        });
     }
 
     @Override
@@ -103,38 +106,23 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
     }
 
     @Override
+    public void showStatList(List<StatsRank.RankItem> list) {
+        mList.clear();
+        mList.addAll(list);
+        complete();
+    }
+
+    @Override
     public void toggle(int position) {
         curStat = stat.get(tlStat.getCurrentItem());
         curTab = tab.get(tlTab.getCurrentItem());
-        requestStatsRank();
-    }
-
-    private void requestStatsRank() {
-        showLoadingDialog();
-        TencentService.getStatsRank(curStat, 20, curTab, "2015", true, new RequestCallback<StatsRank>() {
-            @Override
-            public void onSuccess(StatsRank statsRank) {
-                List<StatsRank.RankItem> list = statsRank.rankList;
-                if (list != null && !list.isEmpty()) {
-                    for (StatsRank.RankItem item : list) {
-                        LogUtils.i(item.playerName);
-                    }
-                    mList.clear();
-                    mList.addAll(list);
-                    complete();
-                }
-            }
-
-            @Override
-            public void onFailure(String message) {
-                complete();
-            }
-        });
+        presenter.requestStatsRank(curStat, curTab);
     }
 
     private void complete() {
         recyclerView.setEmptyView(emptyView);
         adapter.notifyDataSetChanged();
+        materialRefreshLayout.finishRefresh();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -154,5 +142,21 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
     @Override
     protected void onDestroyViewLazy() {
         super.onDestroyViewLazy();
+    }
+
+    @Override
+    public void showLoading(String msg) {
+        showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoading() {
+        hideLoading();
+    }
+
+    @Override
+    public void showError(String msg) {
+        hideLoading();
+        complete();
     }
 }

@@ -177,7 +177,11 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     public void onEventMainThread(BaseInfoEvent info) {
         tvMatchLeftScore.setText(info.leftGoal);
         tvMatchRightScore.setText(info.rightGoal);
-        tvMatchState.setText(info.quarter + " " + info.time);
+        String state = info.quarter + " " + info.time;
+        if (state.contains("第4节") && state.contains("00:00")) {
+            state = "已结束";
+        }
+        tvMatchState.setText(state);
     }
 
     @Override
