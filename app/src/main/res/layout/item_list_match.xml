@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="腾讯 CCTV5" />
+                    android:text="" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"

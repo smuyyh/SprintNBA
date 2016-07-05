@@ -32,12 +32,19 @@ public class MatchsAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBe
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final Matchs.MatchsDataBean.MatchesBean item) {
         Matchs.MatchsDataBean.MatchesBean.MatchInfoBean matchInfo = item.matchInfo;
         String status;
-        if (matchInfo.quarter.equals("第4节") && matchInfo.quarterTime.equals("00:00"))
+        if (matchInfo.quarter.equals("第4节") && matchInfo.quarterTime.equals("00:00")) {
             status = "已结束";
-        else if (matchInfo.quarter.equals("") && matchInfo.quarterTime.equals("12:00"))
+        } else if (matchInfo.quarter.equals("") && matchInfo.quarterTime.equals("12:00")) {
             status = matchInfo.startTime;
-        else
+        } else {
             status = matchInfo.quarter + " " + matchInfo.quarter;
+        }
+        String broadcasters = "";
+        if (matchInfo.broadcasters != null) {
+            for (String str : matchInfo.broadcasters) {
+                broadcasters += str;
+            }
+        }
         viewHolder.setText(R.id.tvLeftTeam, matchInfo.leftName)
                 .setText(R.id.tvRightTeam, matchInfo.rightName)
                 .setText(R.id.tvMatchStatus, status)
@@ -45,7 +52,8 @@ public class MatchsAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBe
                 .setText(R.id.tvRightTeamPoint, matchInfo.rightGoal)
                 .setText(R.id.tvMatchDesc, matchInfo.matchDesc)
                 .setImageUrl(R.id.ivLeftTeam, matchInfo.leftBadge)
-                .setImageUrl(R.id.ivRightTeam, matchInfo.rightBadge);
+                .setImageUrl(R.id.ivRightTeam, matchInfo.rightBadge)
+                .setText(R.id.tvBroadcasters, broadcasters);
 
         viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {
             @Override

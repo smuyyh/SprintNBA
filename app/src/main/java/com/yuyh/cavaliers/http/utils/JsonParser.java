@@ -146,7 +146,6 @@ public class JsonParser {
                     detail.abstractX = entry.getValue().toString();
                 } else if (entry.getKey().equals("content")) {
                     String contentStr = entry.getValue().toString();
-
                     try {
                         List<Map<String, String>> list = new LinkedList<>();
                         JSONArray jsonArray = new JSONArray(contentStr);
