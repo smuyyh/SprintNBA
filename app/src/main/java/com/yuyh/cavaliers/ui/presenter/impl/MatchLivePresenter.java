@@ -3,6 +3,7 @@ package com.yuyh.cavaliers.ui.presenter.impl;
 import android.app.Activity;
 import android.content.Context;
 
+import com.yuyh.cavaliers.event.BaseInfoEvent;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.tencent.TencentService;
 import com.yuyh.cavaliers.http.bean.match.LiveDetail;
@@ -10,6 +11,8 @@ import com.yuyh.cavaliers.http.bean.match.LiveIndex;
 import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.MatchLiveView;
 import com.yuyh.cavaliers.utils.AlarmTimer;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +94,14 @@ public class MatchLivePresenter implements Presenter {
             public void onSuccess(LiveDetail liveDetail) {
                 firstId = index.get(0);
                 liveView.addList(liveDetail.data.detail);
+                if (liveDetail.data.detail != null && !liveDetail.data.detail.isEmpty()) {
+                    LiveDetail.LiveDetailData.LiveContent content = liveDetail.data.detail.get(0);
+                    String leftGoal = content.leftGoal;
+                    String rightGoal = content.rightGoal;
+                    String quarter = content.quarter;
+                    String time = content.time;
+                    EventBus.getDefault().post(new BaseInfoEvent(leftGoal, rightGoal, quarter, time));
+                }
             }
 
             @Override

@@ -3,7 +3,6 @@ package com.yuyh.cavaliers.ui;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
+import com.yuyh.cavaliers.event.BaseInfoEvent;
 import com.yuyh.cavaliers.http.bean.match.MatchBaseInfo;
 import com.yuyh.cavaliers.ui.adapter.VPGameDetailAdapter;
 import com.yuyh.cavaliers.ui.presenter.impl.MatchDetailPresenter;
@@ -21,6 +21,9 @@ import com.yuyh.cavaliers.widget.StickyNavLayout;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
 import com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -76,8 +79,6 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
 
     private MatchDetailPresenter presenter;
 
-    private LayoutInflater inflate;
-
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.activity_game_detail;
@@ -85,6 +86,7 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
 
     @Override
     protected void initViewsAndEvents() {
+        EventBus.getDefault().register(this);
         mid = getIntent().getStringExtra(INTENT_MID);
         rlMatchToolbar.getBackground().setAlpha(0);
         indicator.setScrollBar(new GameDetailScrollBar(getApplicationContext(), getResources().getColor(R.color.colorPrimary), DimenUtils.dpToPxInt(3)));
@@ -169,5 +171,18 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     @Override
     public void showError(String msg) {
 
+    }
+
+    @Subscribe
+    public void onEventMainThread(BaseInfoEvent info) {
+        tvMatchLeftScore.setText(info.leftGoal);
+        tvMatchRightScore.setText(info.rightGoal);
+        tvMatchState.setText(info.quarter + " " + info.time);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
