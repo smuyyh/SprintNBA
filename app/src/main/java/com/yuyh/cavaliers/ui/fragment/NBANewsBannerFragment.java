@@ -124,7 +124,6 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
                 if (isRefresh)
                     list.clear();
                 list.addAll(newsItem.data);
-                adapter.notifyDataSetChanged();
                 complete();
             }
 
@@ -174,6 +173,7 @@ public class NBANewsBannerFragment extends BaseLazyFragment {
 
     private void complete() {
         recyclerView.setEmptyView(emptyView);
+        adapter.notifyDataSetChanged();
         materialRefreshLayout.finishRefresh();
         materialRefreshLayout.finishRefreshLoadMore();
         new Handler().postDelayed(new Runnable() {

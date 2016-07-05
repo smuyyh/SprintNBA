@@ -39,8 +39,8 @@ public class MatchStatisticsAdapter extends HelperAdapter<MatchStat.MatchStatInf
         final LinearLayout llLeftProgress = viewHolder.getView(R.id.llLeftProgress);
         final LinearLayout llRightProgress = viewHolder.getView(R.id.llRightProgress);
         int sum = item.leftVal + item.rightVal;
-        final float left = (float) item.leftVal / (float) sum;
-        final float right = (float) item.rightVal / (float) sum;
+        final float left = sum <= 0 ? 0 : (float) item.leftVal / (float) sum;
+        final float right = sum <= 0 ? 0 : (float) item.rightVal / (float) sum;
 
         ViewTreeObserver vto = llRightProgress.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

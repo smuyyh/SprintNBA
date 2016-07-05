@@ -11,17 +11,16 @@ import com.cjj.MaterialRefreshLayout;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
 import com.yuyh.cavaliers.base.BaseWebActivity;
+import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.tencent.TencentService;
 import com.yuyh.cavaliers.http.bean.player.StatsRank;
-import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.constant.Constant;
-import com.yuyh.cavaliers.ui.presenter.Presenter;
-import com.yuyh.cavaliers.ui.presenter.impl.StatsRankPresenterImpl;
-import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
 import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
 import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
 import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.adapter.StatsRankAdapter;
+import com.yuyh.cavaliers.ui.presenter.Presenter;
+import com.yuyh.cavaliers.ui.presenter.impl.StatsRankPresenterImpl;
 import com.yuyh.cavaliers.ui.view.StatsRankView;
 import com.yuyh.cavaliers.widget.ToggleLayout;
 import com.yuyh.library.utils.DimenUtils;
@@ -48,7 +47,7 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
     MaterialRefreshLayout materialRefreshLayout;
     @InjectView(R.id.recyclerview)
     SupportRecyclerView recyclerView;
-    @InjectView(R.id.tvEmptyView)
+    @InjectView(R.id.emptyView)
     View emptyView;
 
     private Presenter presenter;
@@ -74,11 +73,6 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
 
     private void initView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        emptyView.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-            }
-        });
         adapter = new StatsRankAdapter(mList, mActivity, R.layout.item_list_stats_rank);
         adapter.setOnItemClickListener(new OnListItemClickListener<StatsRank.RankItem>() {
             @Override
@@ -127,7 +121,6 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
                     }
                     mList.clear();
                     mList.addAll(list);
-                    adapter.notifyDataSetChanged();
                     complete();
                 }
             }
@@ -140,6 +133,8 @@ public class NBAStatsRankFragment extends BaseLazyFragment implements StatsRankV
     }
 
     private void complete() {
+        recyclerView.setEmptyView(emptyView);
+        adapter.notifyDataSetChanged();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

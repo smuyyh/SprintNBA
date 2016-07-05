@@ -87,7 +87,6 @@ public class NBATeamSortFragment extends BaseLazyFragment {
             public void onSuccess(TeamsRank teamsRank) {
                 list.clear();
                 list.addAll(teamsRank.all);
-                adapter.notifyDataSetChanged();
                 complete();
             }
 
@@ -107,6 +106,7 @@ public class NBATeamSortFragment extends BaseLazyFragment {
 
     private void complete() {
         recyclerView.setEmptyView(emptyView);
+        adapter.notifyDataSetChanged();
         materialRefreshLayout.finishRefresh();
         materialRefreshLayout.finishRefreshLoadMore();
         new Handler().postDelayed(new Runnable() {

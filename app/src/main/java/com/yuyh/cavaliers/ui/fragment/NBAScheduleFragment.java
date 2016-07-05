@@ -97,7 +97,6 @@ public class NBAScheduleFragment extends BaseLazyFragment {
                         list.add(bean);
                     }
                 }
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -116,6 +115,7 @@ public class NBAScheduleFragment extends BaseLazyFragment {
 
     private void complete() {
         recyclerView.setEmptyView(emptyView);
+        adapter.notifyDataSetChanged();
         materialRefreshLayout.finishRefresh();
         materialRefreshLayout.finishRefreshLoadMore();
         new Handler().postDelayed(new Runnable() {

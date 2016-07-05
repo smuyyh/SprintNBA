@@ -72,14 +72,14 @@
                             android:id="@+id/tvLeftRate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="25dp"
+                            android:layout_marginRight="15dp"
                             android:layout_toLeftOf="@+id/tvMatchState" />
 
                         <TextView
                             android:id="@+id/tvRightRate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="25dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_toRightOf="@+id/tvMatchState" />
 
                     </RelativeLayout>
@@ -94,7 +94,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/white" />
 
                         <com.facebook.drawee.view.SimpleDraweeView
                             android:id="@+id/ivMatchLeftTeam"
@@ -118,6 +119,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_toRightOf="@+id/ivMatchLeftTeam"
                             android:text="-"
+                            android:textColor="@color/white"
                             android:textSize="30dp"
                             android:textStyle="bold" />
 
@@ -129,6 +131,7 @@
                             android:layout_marginRight="15dp"
                             android:layout_toLeftOf="@+id/ivMatchRightTeam"
                             android:text="-"
+                            android:textColor="@color/white"
                             android:textSize="30dp"
                             android:textStyle="bold" />
 
