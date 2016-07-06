@@ -1,12 +1,15 @@
 package com.yuyh.cavaliers.ui.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.match.Matchs;
 import com.yuyh.cavaliers.support.NoDoubleClickListener;
 import com.yuyh.cavaliers.support.OnListItemClickListener;
+import com.yuyh.cavaliers.utils.FrescoUtils;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
@@ -31,6 +34,12 @@ public class ScheduleAdapter extends HelperAdapter<Matchs.MatchsDataBean.Matches
     @Override
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final Matchs.MatchsDataBean.MatchesBean item) {
         Matchs.MatchsDataBean.MatchesBean.MatchInfoBean matchInfo = item.matchInfo;
+
+        SimpleDraweeView ivLeft = viewHolder.getView(R.id.ivLeftTeam);
+        ivLeft.setController(FrescoUtils.getController(Uri.parse(matchInfo.leftBadge), ivLeft));
+        SimpleDraweeView ivRight = viewHolder.getView(R.id.ivRightTeam);
+        ivRight.setController(FrescoUtils.getController(Uri.parse(matchInfo.rightBadge), ivRight));
+
         String status;
         if (((matchInfo.quarter.contains("第4节") || matchInfo.quarter.contains("加时")) && !matchInfo.leftGoal.equals(matchInfo.rightGoal))
                 && matchInfo.quarterTime.contains("00:00")) {
@@ -52,8 +61,6 @@ public class ScheduleAdapter extends HelperAdapter<Matchs.MatchsDataBean.Matches
                 .setText(R.id.tvLeftTeamPoint, matchInfo.leftGoal)
                 .setText(R.id.tvRightTeamPoint, matchInfo.rightGoal)
                 .setText(R.id.tvMatchDesc, matchInfo.matchDesc)
-                .setImageUrl(R.id.ivLeftTeam, matchInfo.leftBadge)
-                .setImageUrl(R.id.ivRightTeam, matchInfo.rightBadge)
                 .setText(R.id.tvBroadcasters, broadcasters);
 
         viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {

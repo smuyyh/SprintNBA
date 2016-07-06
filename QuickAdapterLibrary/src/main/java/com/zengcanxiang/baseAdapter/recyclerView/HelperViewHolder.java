@@ -18,7 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.zengcanxiang.baseAdapter.interFace.ViewHelper;
 
 /**
@@ -89,8 +88,6 @@ public class HelperViewHolder extends BaseViewHolder implements ViewHelper.Recyc
 
     @Override
     public HelperViewHolder setImageUrl(int viewId, String imgUrl) {
-        ImageView iv = getView(viewId);
-        Picasso.with(mContext).load(imgUrl).into(iv);
         return this;
     }
 

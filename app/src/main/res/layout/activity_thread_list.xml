@@ -27,11 +27,13 @@
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                app:placeholderImage="@drawable/nba_default_large"
+                app:placeholderImageScaleType="centerCrop"/>
 
 
             <TextView
@@ -63,11 +65,12 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView
+        <com.yuyh.cavaliers.support.SupportRecyclerView
             android:id="@+id/lmrvLoadMore"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:visibility="gone"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

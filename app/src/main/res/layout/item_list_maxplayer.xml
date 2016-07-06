@@ -3,6 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
     <LinearLayout
@@ -17,7 +18,8 @@
             android:id="@+id/ivLeftPlayerIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            app:placeholderImage="@drawable/nba_default"/>
 
         <TextView
             android:id="@+id/tvLeftPlayerName"
@@ -48,7 +50,8 @@
             android:id="@+id/ivRightPlayerIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            app:placeholderImage="@drawable/nba_default"/>
 
         <TextView
             android:id="@+id/tvRightPlayerName"

@@ -1,11 +1,14 @@
 package com.yuyh.cavaliers.ui.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
 import com.yuyh.cavaliers.support.OnListItemClickListener;
+import com.yuyh.cavaliers.utils.FrescoUtils;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
@@ -26,8 +29,9 @@ public class ForumListAdapter extends HelperAdapter<ForumsData.Forum> {
     @Override
     protected void HelperBindData(HelperViewHolder viewHolder, final int position, final ForumsData.Forum item) {
         if (!item.fid.equals("0")) {
-            viewHolder.setText(R.id.tvTeamFullName, item.name)
-                    .setImageUrl(R.id.ivTeamLogo, item.logo);
+            viewHolder.setText(R.id.tvTeamFullName, item.name);
+            SimpleDraweeView ivTeamLogo = viewHolder.getView(R.id.ivTeamLogo);
+            ivTeamLogo.setController(FrescoUtils.getController(Uri.parse(item.logo), ivTeamLogo));
             viewHolder.getItemView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
-        app:placeholderImage ="@drawable/dwPrimaryBg"
+        app:placeholderImage ="@drawable/nba_default_large"
+        app:placeholderImageScaleType="centerCrop"
         app:failureImage="@drawable/dwPrimaryBg"/>
 
     <LinearLayout

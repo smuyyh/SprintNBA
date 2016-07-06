@@ -1,15 +1,16 @@
 package com.yuyh.cavaliers.ui.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.player.Players;
+import com.yuyh.cavaliers.utils.FrescoUtils;
 import com.yuyh.library.view.list.indexablelistview.IndexableAdapter;
 
 
@@ -39,21 +40,18 @@ public class PlayersAdapter extends IndexableAdapter<Players.Player> {
     protected void onBindViewHolder(ViewHolder holder, Players.Player entity) {
         PlayersHolder playersHolder = (PlayersHolder) holder;
         playersHolder.tvName.setText(entity.getName());
-        Picasso.with(mContext).load(entity.icon)
-                .placeholder(R.drawable.nba_default)
-                .resize(115, 93)
-                .into(playersHolder.ivHead);
+        playersHolder.ivHead.setController(FrescoUtils.getController(Uri.parse(entity.icon), playersHolder.ivHead));
     }
 
 
     class PlayersHolder extends IndexableAdapter.ViewHolder {
         TextView tvName;
-        ImageView ivHead;
+        SimpleDraweeView ivHead;
 
         public PlayersHolder(View view) {
             super(view);
             tvName = (TextView) view.findViewById(R.id.tvTeamFullName);
-            ivHead = (ImageView) view.findViewById(R.id.ivTeamLogo);
+            ivHead = (SimpleDraweeView) view.findViewById(R.id.ivTeamLogo);
         }
     }
 }

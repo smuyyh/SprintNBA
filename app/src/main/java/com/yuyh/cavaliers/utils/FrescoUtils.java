@@ -14,6 +14,13 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
  */
 public class FrescoUtils {
 
+    /**
+     * 渐进式加载
+     *
+     * @param uri
+     * @param draweeView
+     * @return
+     */
     public static PipelineDraweeController getController(Uri uri, SimpleDraweeView draweeView) {
         ImageRequest request = ImageRequestBuilder
                 .newBuilderWithSource(uri)

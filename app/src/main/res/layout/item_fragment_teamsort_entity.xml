@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,13 +14,15 @@
         android:background="?attr/selectableItemBackground"
         android:orientation="horizontal">
 
-        <com.yuyh.library.view.image.CircleImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/team_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp" />
+            android:layout_marginRight="6dp"
+            app:roundAsCircle="true"
+            app:placeholderImage="@drawable/nba_default"/>
 
         <TextView
             android:id="@+id/team_name"

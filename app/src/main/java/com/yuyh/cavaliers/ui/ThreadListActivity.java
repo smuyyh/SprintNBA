@@ -1,6 +1,7 @@
 package com.yuyh.cavaliers.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.MenuItemCompat;
@@ -10,16 +11,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.squareup.picasso.Picasso;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
@@ -27,9 +26,11 @@ import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
 import com.yuyh.cavaliers.http.constant.Constant;
 import com.yuyh.cavaliers.support.OnListItemClickListener;
 import com.yuyh.cavaliers.support.SpaceItemDecoration;
+import com.yuyh.cavaliers.support.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.adapter.ThreadListAdapter;
 import com.yuyh.cavaliers.ui.presenter.impl.ThreadListPresenterImpl;
 import com.yuyh.cavaliers.ui.view.ThreadListView;
+import com.yuyh.cavaliers.utils.FrescoUtils;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 
@@ -52,11 +53,11 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     public String boardId;
 
     @InjectView(R.id.lmrvLoadMore)
-    RecyclerView recyclerView;
+    SupportRecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
 
     @InjectView(R.id.backdrop)
-    ImageView backdrop;
+    SimpleDraweeView backdrop;
     @InjectView(R.id.tvSubTitle)
     TextView tvSubTitle;
     @InjectView(R.id.toolbar)
@@ -108,6 +109,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
             boardId = forum.fid;
             showThreadInfo(forum);
         }
+        //backdrop.setImageDrawable(getResources().getDrawable(R.drawable.nba_default_large));
         presenter.initialized();
         presenter.onThreadReceive(type, "", true);
         initToolbar(toolbar);
@@ -143,7 +145,6 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
 
         refreshLayout.setOnRefreshListener(new RefreshListener());
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.material_red));
-        //recyclerView.setLoadMoreListener(new RefreshListener());
         adapter = new ThreadListAdapter(list, this, R.layout.item_list_threads);
         adapter.setOnItemClickListener(new OnListItemClickListener<ThreadListData.ThreadInfo>() {
             @Override
@@ -156,8 +157,6 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
         });
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RefreshListener());
-        backdrop.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
-
     }
 
 
@@ -187,7 +186,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     public void showThreadInfo(ForumsData.Forum forum) {
         if (forum != null) {
             setTitle(forum.name);
-            Picasso.with(this).load(forum.backImg).into(backdrop);
+            backdrop.setController(FrescoUtils.getController(Uri.parse(forum.backImg), backdrop));
             tvSubTitle.setText(forum.description);
         }
     }
@@ -257,7 +256,6 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
                         pageIndex++;
                         presenter.onStartSearch(key, pageIndex, false);
                     }
-                    Log.d("test", "load more completed");
                 }
             }
         }

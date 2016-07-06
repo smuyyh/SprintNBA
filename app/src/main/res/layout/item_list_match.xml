@@ -40,11 +40,11 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/ivLeftTeam"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/ic_favorite" />
+                    app:placeholderImage="@drawable/nba_default"/>
 
                 <TextView
                     android:id="@+id/tvLeftTeam"
@@ -111,11 +111,11 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/ivRightTeam"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/ic_favorite" />
+                    app:placeholderImage="@drawable/nba_default"/>
 
                 <TextView
                     android:id="@+id/tvRightTeam"

@@ -1,13 +1,14 @@
 package com.yuyh.cavaliers.ui.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.player.Teams;
 import com.yuyh.cavaliers.support.OnListItemClickListener;
+import com.yuyh.cavaliers.utils.FrescoUtils;
 import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 
@@ -33,9 +34,8 @@ public class TeamsListAdapter extends HelperAdapter<Teams.TeamsBean.Team> {
     @Override
     public void HelpConvert(HelperViewHolder viewHolder, final int position, final Teams.TeamsBean.Team team) {
         viewHolder.setText(R.id.tvTeamFullName, team.fullCnName);
-        Picasso.with(mContext).load(team.logo)
-                .placeholder(R.drawable.nba_default)
-                .into((ImageView) viewHolder.getView(R.id.ivTeamLogo));
+        SimpleDraweeView iv = viewHolder.getView(R.id.ivTeamLogo);
+        iv.setController(FrescoUtils.getController(Uri.parse(team.logo), iv));
         viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

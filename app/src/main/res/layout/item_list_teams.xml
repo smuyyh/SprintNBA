@@ -14,12 +14,12 @@
         android:layout_height="wrap_content"
         android:padding="8dp">
 
-        <com.yuyh.library.view.image.CircleImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/ivTeamLogo"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_launcher" />
+            app:placeholderImage="@drawable/nba_default_large"/>
 
         <TextView
             android:id="@+id/tvTeamFullName"
