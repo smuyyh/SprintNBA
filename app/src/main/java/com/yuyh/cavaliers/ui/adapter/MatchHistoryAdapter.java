@@ -15,8 +15,13 @@ import java.util.List;
  */
 public class MatchHistoryAdapter extends HelperAdapter<MatchStat.MatchStatInfo.StatsBean.VS> {
 
+    private int primaryColor;
+    private int secondaryColor;
+
     public MatchHistoryAdapter(List<MatchStat.MatchStatInfo.StatsBean.VS> mList, Context context, int... layoutIds) {
         super(mList, context, layoutIds);
+        primaryColor = mContext.getResources().getColor(R.color.primary_text);
+        secondaryColor = mContext.getResources().getColor(R.color.secondary_text);
     }
 
     @Override
@@ -26,8 +31,6 @@ public class MatchHistoryAdapter extends HelperAdapter<MatchStat.MatchStatInfo.S
                 .setText(R.id.tvMatchRecentTime, item.startTime + "  " + item.matchDesc);
         viewHolder.setText(R.id.tvMatchRecentLeftPoint, item.leftGoal + "")
                 .setText(R.id.tvMatchRecentRightPoint, item.rightGoal + "");
-        int primaryColor = mContext.getResources().getColor(R.color.primary_text);
-        int secondaryColor = mContext.getResources().getColor(R.color.secondary_text);
         if (item.leftGoal > item.rightGoal) {
             viewHolder.setTextColor(R.id.tvMatchRecentLeft, primaryColor);
             viewHolder.setTextColor(R.id.tvMatchRecentLeftPoint, primaryColor);

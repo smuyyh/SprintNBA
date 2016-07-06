@@ -24,10 +24,12 @@ import java.util.List;
 public class MatchStatisticsAdapter extends HelperAdapter<MatchStat.MatchStatInfo.StatsBean.TeamStats> {
 
     private Context mContext;
+    private int colorPrimary;
 
     public MatchStatisticsAdapter(List<MatchStat.MatchStatInfo.StatsBean.TeamStats> mList, Context context, int... layoutIds) {
         super(mList, context, layoutIds);
         mContext = context;
+        colorPrimary = mContext.getResources().getColor(R.color.colorPrimary);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class MatchStatisticsAdapter extends HelperAdapter<MatchStat.MatchStatInf
                 }
 
                 View leftLine = new View(mContext);
-                leftLine.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimary));
+                leftLine.setBackgroundColor(colorPrimary);
                 int leftWidth = llLeftProgress.getWidth();
                 int newWidth = (int) (leftWidth * left);
                 LogUtils.e("newwidth = " + newWidth + " leftWidth=" + leftWidth + " left=" + left);
@@ -64,7 +66,7 @@ public class MatchStatisticsAdapter extends HelperAdapter<MatchStat.MatchStatInf
                 llLeftProgress.addView(leftLine);
 
                 View rightLine = new View(mContext);
-                rightLine.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimary));
+                rightLine.setBackgroundColor(colorPrimary);
                 int rightWidth = llRightProgress.getWidth();
                 LinearLayout.LayoutParams rightParams = new LinearLayout.LayoutParams((int) (rightWidth * right), ViewGroup.LayoutParams.MATCH_PARENT);
                 rightLine.setLayoutParams(rightParams);

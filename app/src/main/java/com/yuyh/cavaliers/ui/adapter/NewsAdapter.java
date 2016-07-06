@@ -31,10 +31,6 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
 
     private OnListItemClickListener mOnItemClickListener = null;
-    private String cdnCode = "/18907E7BE0798990/";
-    private String paltform = "840303";
-    private String br = "60";
-    private String fmt = "mp4";
 
     /**
      * @param data     数据源

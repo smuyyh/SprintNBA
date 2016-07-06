@@ -22,10 +22,15 @@ public class MatchRecentAdapter extends HelperAdapter<MatchStat.MatchStatInfo.St
     private Context mContext;
     private boolean isRecent; // 近期对阵/未来赛事
 
+    private int primaryColor;
+    private int secondaryColor;
+
     public MatchRecentAdapter(boolean isRecent, List<MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam> mList, Context context, int... layoutIds) {
         super(mList, context, layoutIds);
         mContext = context;
         this.isRecent = isRecent;
+        primaryColor = mContext.getResources().getColor(R.color.primary_text);
+        secondaryColor = mContext.getResources().getColor(R.color.secondary_text);
     }
 
     @Override
@@ -42,12 +47,9 @@ public class MatchRecentAdapter extends HelperAdapter<MatchStat.MatchStatInfo.St
                 .setText(R.id.tvMatchRecentRight, item.rightName)
                 .setText(R.id.tvMatchRecentTime, (!TextUtils.isEmpty(newTime) ? newTime : item.startTime)
                         + "  " + item.competitionName);
-        ;
         if (isRecent) {
             viewHolder.setText(R.id.tvMatchRecentLeftPoint, item.leftGoal + "")
                     .setText(R.id.tvMatchRecentRightPoint, item.rightGoal + "");
-            int primaryColor = mContext.getResources().getColor(R.color.primary_text);
-            int secondaryColor = mContext.getResources().getColor(R.color.secondary_text);
             if (item.leftGoal > item.rightGoal) {
                 viewHolder.setTextColor(R.id.tvMatchRecentLeft, primaryColor);
                 viewHolder.setTextColor(R.id.tvMatchRecentLeftPoint, primaryColor);
