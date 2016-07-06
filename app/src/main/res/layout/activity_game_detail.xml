@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/match_detail_bg"
     android:orientation="vertical">
 
@@ -34,139 +35,145 @@
 
     </RelativeLayout>
 
-    <com.yuyh.cavaliers.widget.StickyNavLayout
-        android:id="@+id/stickyNavLayout"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/snlTopview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="15dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp">
-
-                        <TextView
-                            android:id="@+id/tvMatchState"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="未开始" />
-
-                        <TextView
-                            android:id="@+id/tvLeftRate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="15dp"
-                            android:layout_toLeftOf="@+id/tvMatchState" />
-
-                        <TextView
-                            android:id="@+id/tvRightRate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_toRightOf="@+id/tvMatchState" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-                        <TextView
-                            android:id="@+id/tvMatchType"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text=""
-                            android:textColor="@color/white" />
-
-                        <com.facebook.drawee.view.SimpleDraweeView
-                            android:id="@+id/ivMatchLeftTeam"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true" />
-
-                        <com.facebook.drawee.view.SimpleDraweeView
-                            android:id="@+id/ivMatchRightTeam"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true" />
-
-                        <TextView
-                            android:id="@+id/tvMatchLeftScore"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="15dp"
-                            android:layout_toRightOf="@+id/ivMatchLeftTeam"
-                            android:text="-"
-                            android:textColor="@color/white"
-                            android:textSize="30dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvMatchRightScore"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="15dp"
-                            android:layout_toLeftOf="@+id/ivMatchRightTeam"
-                            android:text="-"
-                            android:textColor="@color/white"
-                            android:textSize="30dp"
-                            android:textStyle="bold" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/tvMatchStartTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="" />
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-            </FrameLayout>
-
-
-        </RelativeLayout>
-
-        <com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView
-            android:id="@+id/snlIindicator"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="@color/white" />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/snlViewPager"
+        <com.yuyh.cavaliers.widget.StickyNavLayout
+            android:id="@+id/stickyNavLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white" />
-    </com.yuyh.cavaliers.widget.StickyNavLayout>
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/snlTopview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="15dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:id="@+id/tvMatchState"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="未开始" />
+
+                            <TextView
+                                android:id="@+id/tvLeftRate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:layout_toLeftOf="@+id/tvMatchState" />
+
+                            <TextView
+                                android:id="@+id/tvRightRate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_toRightOf="@+id/tvMatchState" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                android:id="@+id/tvMatchType"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text=""
+                                android:textColor="@color/white" />
+
+                            <com.facebook.drawee.view.SimpleDraweeView
+                                android:id="@+id/ivMatchLeftTeam"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true" />
+
+                            <com.facebook.drawee.view.SimpleDraweeView
+                                android:id="@+id/ivMatchRightTeam"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true" />
+
+                            <TextView
+                                android:id="@+id/tvMatchLeftScore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="15dp"
+                                android:layout_toRightOf="@+id/ivMatchLeftTeam"
+                                android:text="-"
+                                android:textColor="@color/white"
+                                android:textSize="30dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvMatchRightScore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="15dp"
+                                android:layout_toLeftOf="@+id/ivMatchRightTeam"
+                                android:text="-"
+                                android:textColor="@color/white"
+                                android:textSize="30dp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tvMatchStartTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </FrameLayout>
+
+
+            </RelativeLayout>
+
+            <com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView
+                android:id="@+id/snlIindicator"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@color/white" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/snlViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+        </com.yuyh.cavaliers.widget.StickyNavLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

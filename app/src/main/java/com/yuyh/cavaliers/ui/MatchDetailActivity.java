@@ -1,7 +1,9 @@
 package com.yuyh.cavaliers.ui;
 
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -73,6 +75,9 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     @InjectView(R.id.ivMatchRightTeam)
     SimpleDraweeView ivMatchRightTeam;
 
+    @InjectView(R.id.swipeLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
     private IndicatorViewPager indicatorViewPager;
     private VPGameDetailAdapter adapter;
@@ -98,6 +103,10 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
                 finish();
             }
         });
+        swipeRefreshLayout.setColorSchemeResources(R.color.material_red, R.color.material_green);
+        swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT);
+        swipeRefreshLayout.setEnabled(true);
+        swipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
         presenter = new MatchDetailPresenter(this, this);
         presenter.getMatchBaseInfo(mid);
     }
@@ -127,7 +136,8 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
                 presenter.getTab(false);
             } else {
                 state = info.quarterDesc;
-                if (state.contains("第4节") && state.contains("00:00")) {
+                if (((state.contains("第4节") || state.contains("加时")) && !info.leftGoal.equals(info.rightGoal))
+                        && state.contains("00:00")) {
                     state = "已结束";
                 }
                 presenter.getTab(true);
@@ -156,6 +166,13 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     @Override
     public void scrollPercent(float percent) {
         rlMatchToolbar.getBackground().setAlpha((int) ((float) 255 * percent));
+        if (percent == 0) {
+            swipeRefreshLayout.setEnabled(true);
+            swipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
+        } else {
+            swipeRefreshLayout.setEnabled(false);
+            swipeRefreshLayout.setOnRefreshListener(null);
+        }
     }
 
     @Override
@@ -178,7 +195,8 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
         tvMatchLeftScore.setText(info.leftGoal);
         tvMatchRightScore.setText(info.rightGoal);
         String state = info.quarter + " " + info.time;
-        if (state.contains("第4节") && state.contains("00:00")) {
+        if (((state.contains("第4节") || state.contains("加时")) && !info.leftGoal.equals(info.rightGoal))
+                && state.contains("00:00")) {
             state = "已结束";
         }
         tvMatchState.setText(state);
@@ -189,4 +207,18 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
+    private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+
+        @Override
+        public void onRefresh() {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }, 2000);
+        }
+    };
+
 }

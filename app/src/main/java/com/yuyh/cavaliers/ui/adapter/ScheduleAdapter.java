@@ -5,8 +5,8 @@ import android.view.View;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.match.Matchs;
-import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
-import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
+import com.yuyh.cavaliers.support.NoDoubleClickListener;
+import com.yuyh.cavaliers.support.OnListItemClickListener;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Kyrie.Y on 2016/6/6.
  */
-public class MatchsAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBean> {
+public class ScheduleAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBean> {
 
     private OnListItemClickListener mOnItemClickListener = null;
 
@@ -24,7 +24,7 @@ public class MatchsAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBe
      * @param context  上下文
      * @param layoutId 布局Id
      */
-    public MatchsAdapter(List<Matchs.MatchsDataBean.MatchesBean> data, Context context, int... layoutId) {
+    public ScheduleAdapter(List<Matchs.MatchsDataBean.MatchesBean> data, Context context, int... layoutId) {
         super(data, context, layoutId);
     }
 
@@ -32,12 +32,13 @@ public class MatchsAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBe
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final Matchs.MatchsDataBean.MatchesBean item) {
         Matchs.MatchsDataBean.MatchesBean.MatchInfoBean matchInfo = item.matchInfo;
         String status;
-        if (matchInfo.quarter.equals("第4节") && matchInfo.quarterTime.equals("00:00")) {
+        if (((matchInfo.quarter.contains("第4节") || matchInfo.quarter.contains("加时")) && !matchInfo.leftGoal.equals(matchInfo.rightGoal))
+                && matchInfo.quarterTime.contains("00:00")) {
             status = "已结束";
         } else if (matchInfo.quarter.equals("") && matchInfo.quarterTime.equals("12:00")) {
             status = matchInfo.startTime;
         } else {
-            status = matchInfo.quarter + " " + matchInfo.quarter;
+            status = matchInfo.quarter + " " + matchInfo.quarterTime;
         }
         String broadcasters = "";
         if (matchInfo.broadcasters != null) {

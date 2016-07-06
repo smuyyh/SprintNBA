@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.forum.ForumsData;
-import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
+import com.yuyh.cavaliers.support.OnListItemClickListener;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 

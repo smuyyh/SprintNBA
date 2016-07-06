@@ -15,11 +15,11 @@ import com.yuyh.cavaliers.event.CalendarEvent;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.tencent.TencentService;
 import com.yuyh.cavaliers.http.bean.match.Matchs;
-import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
-import com.yuyh.cavaliers.recycleview.SpaceItemDecoration;
-import com.yuyh.cavaliers.recycleview.SupportRecyclerView;
+import com.yuyh.cavaliers.support.OnListItemClickListener;
+import com.yuyh.cavaliers.support.SpaceItemDecoration;
+import com.yuyh.cavaliers.support.SupportRecyclerView;
 import com.yuyh.cavaliers.ui.MatchDetailActivity;
-import com.yuyh.cavaliers.ui.adapter.MatchsAdapter;
+import com.yuyh.cavaliers.ui.adapter.ScheduleAdapter;
 import com.yuyh.library.utils.DateUtils;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.log.LogUtils;
@@ -48,7 +48,7 @@ public class ScheduleFragment extends BaseLazyFragment {
     @InjectView(R.id.emptyView)
     View emptyView;
 
-    private MatchsAdapter adapter;
+    private ScheduleAdapter adapter;
     private List<Matchs.MatchsDataBean.MatchesBean> list = new ArrayList<>();
 
     @Override
@@ -67,7 +67,7 @@ public class ScheduleFragment extends BaseLazyFragment {
     }
 
     private void initView() {
-        adapter = new MatchsAdapter(list, mActivity, R.layout.item_list_match);
+        adapter = new ScheduleAdapter(list, mActivity, R.layout.item_list_match);
         adapter.setOnItemClickListener(new OnListItemClickListener<Matchs.MatchsDataBean.MatchesBean>() {
             @Override
             public void onItemClick(View view, int position, Matchs.MatchsDataBean.MatchesBean data) {

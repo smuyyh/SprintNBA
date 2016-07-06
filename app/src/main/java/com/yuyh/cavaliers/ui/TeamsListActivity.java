@@ -11,7 +11,7 @@ import com.yuyh.cavaliers.base.BaseWebActivity;
 import com.yuyh.cavaliers.http.bean.player.Teams;
 import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.presenter.impl.TeamsListPresenterImpl;
-import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
+import com.yuyh.cavaliers.support.OnListItemClickListener;
 import com.yuyh.cavaliers.ui.adapter.TeamsListAdapter;
 import com.yuyh.cavaliers.ui.view.TeamsView;
 

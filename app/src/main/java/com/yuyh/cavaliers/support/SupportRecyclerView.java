@@ -1,4 +1,4 @@
-package com.yuyh.cavaliers.recycleview;
+package com.yuyh.cavaliers.support;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,8 @@ import android.view.View;
 import com.yuyh.library.utils.log.LogUtils;
 
 /**
+ * 支持emptyView
+ *
  * @author yuyh.
  * @date 16/6/10.
  */

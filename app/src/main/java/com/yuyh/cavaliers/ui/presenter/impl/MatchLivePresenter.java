@@ -3,7 +3,6 @@ package com.yuyh.cavaliers.ui.presenter.impl;
 import android.app.Activity;
 import android.content.Context;
 
-import com.yuyh.cavaliers.event.BaseInfoEvent;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.tencent.TencentService;
 import com.yuyh.cavaliers.http.bean.match.LiveDetail;
@@ -11,8 +10,6 @@ import com.yuyh.cavaliers.http.bean.match.LiveIndex;
 import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.MatchLiveView;
 import com.yuyh.cavaliers.utils.AlarmTimer;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +71,7 @@ public class MatchLivePresenter implements Presenter {
                     }
                     if (ids.length() > 1) {
                         ids = ids.substring(0, ids.length() - 1);
-                        getLiveContent(ids);
+                        getLiveContent(ids, true);
                     }
                 } else {
                     liveView.showError("暂无数据");
@@ -88,20 +85,12 @@ public class MatchLivePresenter implements Presenter {
         });
     }
 
-    public void getLiveContent(String ids) {
+    public void getLiveContent(String ids, final boolean front) {
         TencentService.getMatchLiveDetail(mid, ids, new RequestCallback<LiveDetail>() {
             @Override
             public void onSuccess(LiveDetail liveDetail) {
                 firstId = index.get(0);
-                liveView.addList(liveDetail.data.detail);
-                if (liveDetail.data.detail != null && !liveDetail.data.detail.isEmpty()) {
-                    LiveDetail.LiveDetailData.LiveContent content = liveDetail.data.detail.get(0);
-                    String leftGoal = content.leftGoal;
-                    String rightGoal = content.rightGoal;
-                    String quarter = content.quarter;
-                    String time = content.time;
-                    EventBus.getDefault().post(new BaseInfoEvent(leftGoal, rightGoal, quarter, time));
-                }
+                liveView.addList(liveDetail.data.detail, front);
             }
 
             @Override
@@ -109,6 +98,26 @@ public class MatchLivePresenter implements Presenter {
                 liveView.showError(message);
             }
         });
+    }
+
+    public void getMoreContent() {
+        String ids = "";
+        boolean start = false;
+        for (int i = 0, sum = 0; sum < 10 && i < index.size(); i++) { // 每次最多请求20条
+            if (index.get(i).equals(lastId)) {
+                start = true;
+            } else {
+                if (start) {
+                    sum++;
+                    ids += index.get(i) + ",";
+                    lastId = index.get(i);
+                }
+            }
+        }
+        if (ids.length() > 1) {
+            ids = ids.substring(0, ids.length() - 1);
+            getLiveContent(ids, false);
+        }
     }
 
     public void shutDownTimerTask() {

@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.player.Teams;
-import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
+import com.yuyh.cavaliers.support.OnListItemClickListener;
 import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 

@@ -14,8 +14,6 @@
     <!--允许读取手机状态 用于创建BmobInstallation-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <application
         android:name=".app.CavsApp"
         android:allowBackup="true"

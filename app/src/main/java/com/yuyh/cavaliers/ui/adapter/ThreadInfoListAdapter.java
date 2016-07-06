@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData.ThreadInfo;
-import com.yuyh.cavaliers.recycleview.NoDoubleClickListener;
-import com.yuyh.cavaliers.recycleview.OnListItemClickListener;
+import com.yuyh.cavaliers.support.NoDoubleClickListener;
+import com.yuyh.cavaliers.support.OnListItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
