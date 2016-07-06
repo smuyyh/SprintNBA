@@ -1,7 +1,6 @@
 package com.yuyh.cavaliers.ui;
 
 import android.net.Uri;
-import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -12,7 +11,8 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseSwipeBackCompatActivity;
-import com.yuyh.cavaliers.event.BaseInfoEvent;
+import com.yuyh.cavaliers.event.RefreshCompleteEvent;
+import com.yuyh.cavaliers.event.RefreshEvent;
 import com.yuyh.cavaliers.http.bean.match.MatchBaseInfo;
 import com.yuyh.cavaliers.ui.adapter.VPGameDetailAdapter;
 import com.yuyh.cavaliers.ui.presenter.impl.MatchDetailPresenter;
@@ -78,11 +78,10 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     @InjectView(R.id.swipeLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-
     private IndicatorViewPager indicatorViewPager;
     private VPGameDetailAdapter adapter;
-
     private MatchDetailPresenter presenter;
+    private boolean isNeedUpdateTab = true;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -113,6 +112,7 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
 
     @Override
     public void showTabViewPager(String[] names, boolean isStart) {
+        isNeedUpdateTab = false;
         hideLoadingDialog();
         adapter = new VPGameDetailAdapter(this, names, getSupportFragmentManager(), mid, isStart);
         indicatorViewPager.setAdapter(adapter);
@@ -133,14 +133,16 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
             String todayStr = format.format(new Date());
             Date today = format.parse(todayStr);
             if (date.getTime() > today.getTime()) { // 未开始
-                presenter.getTab(false);
+                if (isNeedUpdateTab)
+                    presenter.getTab(false);
             } else {
                 state = info.quarterDesc;
                 if (((state.contains("第4节") || state.contains("加时")) && !info.leftGoal.equals(info.rightGoal))
                         && state.contains("00:00")) {
                     state = "已结束";
                 }
-                presenter.getTab(true);
+                if (isNeedUpdateTab)
+                    presenter.getTab(true);
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -191,15 +193,8 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     }
 
     @Subscribe
-    public void onEventMainThread(BaseInfoEvent info) {
-        tvMatchLeftScore.setText(info.leftGoal);
-        tvMatchRightScore.setText(info.rightGoal);
-        String state = info.quarter + " " + info.time;
-        if (((state.contains("第4节") || state.contains("加时")) && !info.leftGoal.equals(info.rightGoal))
-                && state.contains("00:00")) {
-            state = "已结束";
-        }
-        tvMatchState.setText(state);
+    public void onEventMainThread(RefreshCompleteEvent event) {
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -209,15 +204,10 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     }
 
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
-
         @Override
         public void onRefresh() {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-            }, 2000);
+            presenter.getMatchBaseInfo(mid);
+            EventBus.getDefault().post(new RefreshEvent());
         }
     };
 

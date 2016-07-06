@@ -350,7 +350,8 @@
             android:background="@drawable/common_button_selector"
             android:text="退出登录"
             android:textColor="@android:color/white"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 </com.yuyh.library.view.list.ReboundScrollView>

@@ -39,7 +39,10 @@ public class PlayersAdapter extends IndexableAdapter<Players.Player> {
     protected void onBindViewHolder(ViewHolder holder, Players.Player entity) {
         PlayersHolder playersHolder = (PlayersHolder) holder;
         playersHolder.tvName.setText(entity.getName());
-        Picasso.with(mContext).load(entity.icon).resize(115, 93).placeholder(R.mipmap.ic_launcher).into(playersHolder.ivHead);
+        Picasso.with(mContext).load(entity.icon)
+                .placeholder(R.drawable.nba_default)
+                .resize(115, 93)
+                .into(playersHolder.ivHead);
     }
 
 

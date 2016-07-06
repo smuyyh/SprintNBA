@@ -47,7 +47,8 @@
                 android:divider="@null"
                 android:dividerHeight="0dp"
                 android:overScrollMode="never"
-                android:scrollbars="none" />
+                android:scrollbars="none"
+                android:listSelector="@drawable/selector_common_list_view"/>
         </RelativeLayout>
 
     </android.support.v4.widget.DrawerLayout>

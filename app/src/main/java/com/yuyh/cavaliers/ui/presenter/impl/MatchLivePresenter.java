@@ -49,7 +49,7 @@ public class MatchLivePresenter implements Presenter {
                 });
             }
         };
-        alarmTimer.start(4000);
+        alarmTimer.start(6000);
     }
 
     public void getLiveIndex() {
@@ -72,6 +72,8 @@ public class MatchLivePresenter implements Presenter {
                     if (ids.length() > 1) {
                         ids = ids.substring(0, ids.length() - 1);
                         getLiveContent(ids, true);
+                    } else {
+                        liveView.showError("暂无数据");
                     }
                 } else {
                     liveView.showError("暂无数据");
