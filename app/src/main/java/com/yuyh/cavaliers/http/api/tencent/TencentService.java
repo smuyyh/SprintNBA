@@ -172,7 +172,6 @@ public class TencentService {
                 if (response != null && !TextUtils.isEmpty(response.body())) {
                     String jsonStr = response.body();
                     MatchStat matchStat = JsonParser.parseWithGson(MatchStat.class, jsonStr);
-                    LogUtils.i("resp:"+matchStat.data.stats.get(0).playerStats);
                     cbk.onSuccess(matchStat);
                     LogUtils.d("resp:" + jsonStr);
                 } else {
