@@ -30,7 +30,7 @@
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/shape_about_me"
                 android:gravity="center"
-                android:text="关于我"
+                android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
@@ -94,16 +94,6 @@
                     android:textStyle="bold" />
 
                 <com.yuyh.library.view.text.AlignTextView
-                    android:id="@+id/tvTecentQQ"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Q Q：352091626"
-                    android:textColor="@color/white"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <com.yuyh.library.view.text.AlignTextView
                     android:id="@+id/tvEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -136,7 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="\u3000\u3000本应用数据来自NBA中文官网与HuPu体育，纯免费应用，个人未从中获取任何利益，若被告知需停止共享与使用，作者会立即下架并删除该应用。"
+                    android:text="@string/about_notice"
                     android:textColor="@color/linkText" />
 
             </LinearLayout>
