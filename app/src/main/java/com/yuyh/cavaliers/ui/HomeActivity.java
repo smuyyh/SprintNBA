@@ -196,7 +196,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
                 inflater.inflate(R.menu.menu_schedule, menu);
                 break;
             default:
-                inflater.inflate(R.menu.menu_home, menu);
+                //inflater.inflate(R.menu.menu_home, menu);
                 break;
         }
         return super.onPrepareOptionsMenu(menu);
