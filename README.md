@@ -14,31 +14,32 @@
 
 *   [ ] 代码优化
 *   [ ] MVP细节调整
-*   [ ] 虎扑论坛暂未实现的部分功能
+*   [ ] 虎扑论坛部分功能暂未实现
 *   [ ] 单支球队赛程
-*   [ ] 优化相关视频播放
+*   [ ] 优化相关视频播放。腾讯视频真实地址提取功能不稳定，导致部分视频不能播放。
+*   [ ] 部分BUG修复
 
 ## 应用截图
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_news.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_detail.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_img.jpeg?raw=true" width="280"/>
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_news.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_detail.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_img.jpeg?raw=true" width="200"/&gt;
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_video.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/video_play.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_schedule.jpeg?raw=true" width="280"/>
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_video.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/video_play.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_schedule.jpeg?raw=true" width="200"/&gt;
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_data.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_live.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_team_sort.jpeg?raw=true" width="280"/>
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_data.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_live.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_team_sort.jpeg?raw=true" width="200"/&gt;
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_player_stats.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_hupu.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_list.jpeg?raw=true" width="280"/>
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_player_stats.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_hupu.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_list.jpeg?raw=true" width="200"/&gt;
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_detail.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_other.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/team_detail.jpeg?raw=true" width="280"/>
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_detail.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_other.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/team_detail.jpeg?raw=true" width="200"/&gt;
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_list.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_detail.jpeg?raw=true" width="280"/>
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_list.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_detail.jpeg?raw=true" width="200"/&gt;
