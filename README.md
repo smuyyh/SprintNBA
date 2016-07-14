@@ -20,7 +20,7 @@
 
 ## 应用截图
 
-&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_news.jpeg?raw=true" width="200"/&gt;
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_news.jpeg?raw=true" width="200"/>
 &lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_detail.jpeg?raw=true" width="200"/&gt;
 &lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_img.jpeg?raw=true" width="200"/&gt;
 
