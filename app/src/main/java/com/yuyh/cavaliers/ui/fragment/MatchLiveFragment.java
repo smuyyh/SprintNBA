@@ -84,7 +84,6 @@ public class MatchLiveFragment extends BaseLazyFragment implements MatchLiveView
                 lvMatchLive.setOnScrollListener(new OnLvScrollListener(mListViewHeight) {
                     @Override
                     public void onBottom() {
-                        ToastUtils.showSingleToast("到达底部");
                         presenter.getMoreContent();
                     }
                 });

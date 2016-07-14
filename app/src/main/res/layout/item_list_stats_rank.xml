@@ -44,7 +44,7 @@
             android:layout_below="@+id/tvData"
             android:text="勒布朗-詹姆斯" />
 
-        <com.yuyh.library.view.image.CircleImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/ivTeam"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -52,15 +52,20 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:src="@mipmap/ic_launcher" />
+            app:actualImageScaleType="fitCenter"
+            app:placeholderImageScaleType="fitCenter"
+            app:placeholderImage="@drawable/nba_default"
+            app:roundAsCircle="true"/>
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/ivHead"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="20dp"
             android:layout_toLeftOf="@+id/ivTeam"
-            android:src="@mipmap/ic_launcher" />
+            app:actualImageScaleType="fitCenter"
+            app:placeholderImageScaleType="fitCenter"
+            app:placeholderImage="@drawable/nba_default"/>
 
 
     </RelativeLayout>

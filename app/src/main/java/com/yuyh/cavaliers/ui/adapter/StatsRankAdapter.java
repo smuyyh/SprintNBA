@@ -1,12 +1,15 @@
 package com.yuyh.cavaliers.ui.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.http.bean.player.StatsRank;
 import com.yuyh.cavaliers.support.NoDoubleClickListener;
 import com.yuyh.cavaliers.support.OnListItemClickListener;
+import com.yuyh.cavaliers.utils.FrescoUtils;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
@@ -32,9 +35,11 @@ public class StatsRankAdapter extends HelperAdapter<StatsRank.RankItem> {
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final StatsRank.RankItem item) {
         viewHolder.setText(R.id.tvRank, "NO." + item.serial + "")
                 .setText(R.id.tvData, item.value)
-                .setText(R.id.tvName, item.playerName)
-                .setImageUrl(R.id.ivHead, item.playerIcon)
-                .setImageUrl(R.id.ivTeam, item.teamIcon);
+                .setText(R.id.tvName, item.playerName);
+        SimpleDraweeView ivHead = viewHolder.getView(R.id.ivHead);
+        ivHead.setController(FrescoUtils.getController(Uri.parse(item.playerIcon), ivHead));
+        SimpleDraweeView ivTeam = viewHolder.getView(R.id.ivTeam);
+        ivTeam.setController(FrescoUtils.getController(Uri.parse(item.teamIcon), ivTeam));
         viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
