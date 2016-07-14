@@ -8,38 +8,37 @@
 
 ## 项目
 
-本项目采用 MaterialDesign + MVP + Retrofit2 开发。MVP分层写的可能不是很好，还在探索中。
+本项目采用 MaterialDesign + MVP + Retrofit2 开发。MVP分层写的可能不是很好，部分功能未完成，目前正在不断完善中，欢迎star。
 
 ## TODO
 
 *   [ ] 代码优化
 *   [ ] MVP细节调整
-*   [ ] 虎扑论坛暂未实现的部分功能。发帖功能需要一定的权限，暂未进行测试
+*   [ ] 虎扑论坛暂未实现的部分功能
 *   [ ] 单支球队赛程
-*   [ ] 优化相关视频播放。目前腾讯视频真实地址提取不稳定，导致有些视频无法播放。
-*   [ ] 部分BUG修复
+*   [ ] 优化相关视频播放
 
 ## 应用截图
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_news.jpeg?raw=true" width="260"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_detail.jpeg?raw=true" width="260"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_img.jpeg?raw=true" width="260"/>
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_news.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_detail.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_img.jpeg?raw=true" width="200"/&gt;
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_video.jpeg?raw=true" width="260"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/video_play.jpeg?raw=true" width="260"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_schedule.jpeg?raw=true" width="260"/>
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_video.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/video_play.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_schedule.jpeg?raw=true" width="200"/&gt;
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_data.jpeg?raw=true" width="260"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_live.jpeg?raw=true" width="260"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_team_sort.jpeg?raw=true" width="260"/>
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_data.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_live.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_team_sort.jpeg?raw=true" width="200"/&gt;
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_player_stats.jpeg?raw=true" width="260"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_hupu.jpeg?raw=true" width="260"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_list.jpeg?raw=true" width="260"/>
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_player_stats.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_hupu.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_list.jpeg?raw=true" width="200"/&gt;
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_detail.jpeg?raw=true" width="260"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_other.jpeg?raw=true" width="260"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/team_detail.jpeg?raw=true" width="260"/>
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_detail.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_other.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/team_detail.jpeg?raw=true" width="200"/&gt;
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_list.jpeg?raw=true" width="260"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_detail.jpeg?raw=true" width="260"/>
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_list.jpeg?raw=true" width="200"/&gt;
+&lt;img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_detail.jpeg?raw=true" width="200"/&gt;
