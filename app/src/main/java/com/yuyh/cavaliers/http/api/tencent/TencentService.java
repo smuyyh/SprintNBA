@@ -171,8 +171,10 @@ public class TencentService {
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response != null && !TextUtils.isEmpty(response.body())) {
                     String jsonStr = response.body();
-                    MatchStat matchStat = JsonParser.parseWithGson(MatchStat.class, jsonStr);
-                    cbk.onSuccess(matchStat);
+                    if(!jsonStr.contains("\"type\":\"16\"")) { // TODO 居然出现相同key而且数据格式不一样的json..后续再处理
+                        MatchStat matchStat = JsonParser.parseWithGson(MatchStat.class, jsonStr);
+                        cbk.onSuccess(matchStat);
+                    }
                     LogUtils.d("resp:" + jsonStr);
                 } else {
                     cbk.onFailure("获取数据失败");

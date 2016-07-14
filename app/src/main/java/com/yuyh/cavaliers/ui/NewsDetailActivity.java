@@ -27,11 +27,11 @@ import com.yuyh.cavaliers.http.bean.news.NewsDetail;
 import com.yuyh.cavaliers.ui.presenter.NewsDetailPresenter;
 import com.yuyh.cavaliers.ui.presenter.impl.NewsDetailPresenterImpl;
 import com.yuyh.cavaliers.ui.view.NewsDetailView;
+import com.yuyh.cavaliers.widget.PhotoView;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.io.FileUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.library.view.common.Info;
-import com.yuyh.library.view.image.PhotoView;
 
 import java.io.File;
 import java.io.FileNotFoundException;

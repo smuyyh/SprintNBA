@@ -1,4 +1,4 @@
-package com.yuyh.library.view.image;
+package com.yuyh.cavaliers.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;

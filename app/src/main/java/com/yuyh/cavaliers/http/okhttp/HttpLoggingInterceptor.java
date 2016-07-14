@@ -18,7 +18,7 @@ import okio.Buffer;
 import okio.BufferedSource;
 
 /**
- * Retrofit2 Logger拦截器。用于保存和设置Cookies
+ * Retrofit2 Logger拦截器。
  */
 public final class HttpLoggingInterceptor implements Interceptor {
     private static final Charset UTF8 = Charset.forName("UTF-8");

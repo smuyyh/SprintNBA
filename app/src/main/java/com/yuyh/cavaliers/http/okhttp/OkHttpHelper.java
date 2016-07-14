@@ -14,7 +14,7 @@ import okhttp3.OkHttpClient;
 public class OkHttpHelper {
 
     /**
-     * 自定义日志输入
+     * 自定义日志输出
      */
     static class MyLog implements HttpLoggingInterceptor.Logger {
         @Override

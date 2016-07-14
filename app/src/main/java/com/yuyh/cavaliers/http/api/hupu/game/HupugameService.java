@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @author yuyh.
  * @date 16/6/25.
  */
-public class HupugameService {
+public class HupuGameService {
 
     static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BuildConfig.HUPU_GAMES_SERVER)
