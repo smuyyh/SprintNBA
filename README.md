@@ -8,7 +8,7 @@
 
 ## 项目
 
-本项目采用 MaterialDesign + MVP + Retrofit2 开发。MVP分层写的可能不是很好，还在探索中。
+本项目采用 MaterialDesign + MVP + Retrofit2 开发。MVP分层写的可能不是很好，部分功能未完成，目前正在不断完善中，欢迎star ~ fork。
 
 ## TODO
 
