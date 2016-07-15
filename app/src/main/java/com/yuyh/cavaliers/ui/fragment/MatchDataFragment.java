@@ -12,12 +12,16 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.cavaliers.event.RefreshEvent;
 import com.yuyh.cavaliers.http.bean.match.MatchStat;
 import com.yuyh.cavaliers.ui.adapter.MatchStatisticsAdapter;
 import com.yuyh.cavaliers.ui.presenter.impl.MatchDataPresenter;
 import com.yuyh.cavaliers.ui.view.MatchDataView;
 import com.yuyh.cavaliers.utils.FrescoUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -74,6 +78,7 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_match_data);
         ButterKnife.inject(this, getContentView());
+        EventBus.getDefault().register(this);
         initData();
     }
 
@@ -155,5 +160,16 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
                 hideLoadingDialog();
             }
         }, 1000);
+    }
+
+    @Subscribe
+    public void onEventMainThread(RefreshEvent event) {
+        presenter.getMatchStats(getArguments().getString("mid"), "1");
+    }
+
+    @Override
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
+        EventBus.getDefault().unregister(this);
     }
 }

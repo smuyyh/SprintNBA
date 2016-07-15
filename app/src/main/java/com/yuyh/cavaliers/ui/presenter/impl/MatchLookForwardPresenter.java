@@ -2,11 +2,14 @@ package com.yuyh.cavaliers.ui.presenter.impl;
 
 import android.content.Context;
 
+import com.yuyh.cavaliers.event.RefreshCompleteEvent;
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.tencent.TencentService;
 import com.yuyh.cavaliers.http.bean.match.MatchStat;
 import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.view.MatchLookForwardView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -54,11 +57,13 @@ public class MatchLookForwardPresenter implements Presenter {
                         }
                     }
                 }
+                EventBus.getDefault().post(new RefreshCompleteEvent());
             }
 
             @Override
             public void onFailure(String message) {
                 forwardView.showError(message);
+                EventBus.getDefault().post(new RefreshCompleteEvent());
             }
         });
     }

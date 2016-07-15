@@ -6,11 +6,16 @@ import android.widget.TextView;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.cavaliers.event.RefreshCompleteEvent;
+import com.yuyh.cavaliers.event.RefreshEvent;
 import com.yuyh.cavaliers.http.bean.match.MatchStat;
 import com.yuyh.cavaliers.ui.adapter.MatchPlayerDataAdapter;
 import com.yuyh.cavaliers.ui.presenter.Presenter;
 import com.yuyh.cavaliers.ui.presenter.impl.MatchPlayerDataPresenter;
 import com.yuyh.cavaliers.ui.view.MatchPlayerDataView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +58,7 @@ public class MatchPlayerDataFragment extends BaseLazyFragment implements MatchPl
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_match_player_data);
         ButterKnife.inject(this, getContentView());
+        EventBus.getDefault().register(this);
         initData();
     }
 
@@ -104,5 +110,16 @@ public class MatchPlayerDataFragment extends BaseLazyFragment implements MatchPl
         leftAdapter.notifyDataSetChanged();
         rightAdapter.notifyDataSetChanged();
         hideLoading();
+    }
+
+    @Subscribe
+    public void onEventMainThread(RefreshEvent event) {
+        EventBus.getDefault().post(new RefreshCompleteEvent());
+    }
+
+    @Override
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
+        EventBus.getDefault().unregister(this);
     }
 }

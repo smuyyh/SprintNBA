@@ -9,12 +9,16 @@ import android.widget.TextView;
 
 import com.yuyh.cavaliers.R;
 import com.yuyh.cavaliers.base.BaseLazyFragment;
+import com.yuyh.cavaliers.event.RefreshEvent;
 import com.yuyh.cavaliers.http.bean.match.MatchStat;
 import com.yuyh.cavaliers.ui.adapter.MatchHistoryAdapter;
 import com.yuyh.cavaliers.ui.adapter.MatchLMaxPlayerdapter;
 import com.yuyh.cavaliers.ui.adapter.MatchRecentAdapter;
 import com.yuyh.cavaliers.ui.presenter.impl.MatchLookForwardPresenter;
 import com.yuyh.cavaliers.ui.view.MatchLookForwardView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +80,10 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     private MatchRecentAdapter recentAdapter;
     private List<MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam> futureList = new ArrayList<>();
     private MatchRecentAdapter futureAdapter;
+    private List<MatchStat.MatchStatInfo.StatsBean.VS> vs = new ArrayList<>();
+    private MatchHistoryAdapter hisAdapter;
+    private List<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> maxPlayers = new ArrayList<>();
+    private MatchLMaxPlayerdapter playerdapter;
 
     private int recentCurrent = 0;
     private int futureCurrent = 0;
@@ -93,6 +101,7 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_match_look_forward);
         ButterKnife.inject(this, getContentView());
+        EventBus.getDefault().register(this);
         initData();
     }
 
@@ -126,15 +135,23 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
 
     @Override
     public void showMaxPlayer(List<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> maxPlayers) {
-        MatchLMaxPlayerdapter adapter = new MatchLMaxPlayerdapter(maxPlayers, mActivity, R.layout.item_list_maxplayer);
-        lvMaxPlayer.setAdapter(adapter);
+        if(playerdapter == null) {
+            playerdapter = new MatchLMaxPlayerdapter(maxPlayers, mActivity, R.layout.item_list_maxplayer);
+            lvMaxPlayer.setAdapter(playerdapter);
+        }
+        playerdapter.notifyDataSetChanged();
         llMaxPlayer.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showHistoryMatchs(List<MatchStat.MatchStatInfo.StatsBean.VS> vs) {
-        MatchHistoryAdapter adapter = new MatchHistoryAdapter(vs, mActivity, R.layout.item_list_match_recent);
-        lvHistoryMatchs.setAdapter(adapter);
+        this.vs.clear();
+        this.vs.addAll(vs);
+        if(hisAdapter == null) {
+            hisAdapter = new MatchHistoryAdapter(this.vs, mActivity, R.layout.item_list_match_recent);
+            lvHistoryMatchs.setAdapter(hisAdapter);
+        }
+        hisAdapter.notifyDataSetChanged();
         llHistoryMatchs.setVisibility(View.VISIBLE);
     }
 
@@ -213,5 +230,16 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     @Override
     public void showError(String message) {
         hideLoadingDialog();
+    }
+
+    @Subscribe
+    public void onEventMainThread(RefreshEvent event) {
+        presenter.getMatchStat(getArguments().getString("mid"), "3");
+    }
+
+    @Override
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
+        EventBus.getDefault().unregister(this);
     }
 }
