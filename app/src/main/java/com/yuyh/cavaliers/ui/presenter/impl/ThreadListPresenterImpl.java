@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.yuyh.cavaliers.http.api.RequestCallback;
 import com.yuyh.cavaliers.http.api.hupu.forum.HupuForumService;
-import com.yuyh.cavaliers.http.api.hupu.game.HupuGameService;
+import com.yuyh.cavaliers.http.api.hupu.game.HupuGamesService;
 import com.yuyh.cavaliers.http.bean.forum.AttendStatusData;
 import com.yuyh.cavaliers.http.bean.forum.SearchListData;
 import com.yuyh.cavaliers.http.bean.forum.ThreadListData;
@@ -100,7 +100,7 @@ public class ThreadListPresenterImpl implements Presenter {
 
 
     private void loadSearchList(final boolean isRefresh) {
-        HupuGameService.search(key, fid, pageIndex, new RequestCallback<SearchListData>() {
+        HupuGamesService.search(key, fid, pageIndex, new RequestCallback<SearchListData>() {
             @Override
             public void onSuccess(SearchListData searchData) {
                 if (searchData != null) {

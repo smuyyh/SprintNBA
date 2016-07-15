@@ -5,10 +5,12 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.yuyh.cavaliers.http.bean.base.Base;
 import com.yuyh.cavaliers.http.bean.match.LiveDetail;
 import com.yuyh.cavaliers.http.bean.match.MatchCalendar;
+import com.yuyh.cavaliers.http.bean.match.MatchStat;
 import com.yuyh.cavaliers.http.bean.news.NewsDetail;
 import com.yuyh.cavaliers.http.bean.news.NewsItem;
 import com.yuyh.cavaliers.http.bean.player.Players;
@@ -49,7 +51,7 @@ public class JsonParser {
     }
 
     public static <T> T parseWithGson(Class<T> classOfT, String jsonStr) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().serializeNulls().registerTypeAdapter(MatchStat.MatchStatInfo.StatsBean.MaxPlayers.MatchPlayerInfo.class, new MatchPlayerInfoDefaultAdapter()).create();
         return gson.fromJson(jsonStr, classOfT);
     }
 

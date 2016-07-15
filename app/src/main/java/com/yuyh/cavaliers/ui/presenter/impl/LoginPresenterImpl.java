@@ -3,7 +3,7 @@ package com.yuyh.cavaliers.ui.presenter.impl;
 import android.content.Context;
 
 import com.yuyh.cavaliers.http.api.RequestCallback;
-import com.yuyh.cavaliers.http.api.hupu.game.HupuGameService;
+import com.yuyh.cavaliers.http.api.hupu.game.HupuGamesService;
 import com.yuyh.cavaliers.http.bean.cookie.User;
 import com.yuyh.cavaliers.http.bean.cookie.UserData;
 import com.yuyh.cavaliers.http.constant.Constant;
@@ -39,7 +39,7 @@ public class LoginPresenterImpl implements Presenter {
 
     public void login(final String username, final String password) {
         loginView.showLoading();
-        HupuGameService.login(username, password, new RequestCallback<UserData>() {
+        HupuGamesService.login(username, password, new RequestCallback<UserData>() {
             @Override
             public void onSuccess(UserData userData) {
                 if (userData != null) {
