@@ -2,6 +2,7 @@ package com.yuyh.cavaliers.http.bean.match;
 
 import com.yuyh.cavaliers.http.bean.base.Base;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -64,7 +65,7 @@ public class MatchStat extends Base {
                 public MatchPlayerInfo rightPlayer;
                 public String text;
 
-                public static class MatchPlayerInfo {
+                public static class MatchPlayerInfo implements Serializable{
                     public String playerId;
                     public String name;
                     public String icon;

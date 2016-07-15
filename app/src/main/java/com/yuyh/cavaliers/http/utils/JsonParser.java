@@ -35,6 +35,11 @@ import java.util.Map;
  */
 public class JsonParser {
 
+    static Gson gson = new GsonBuilder().serializeNulls()
+            .registerTypeAdapter(MatchStat.MatchStatInfo.StatsBean.MaxPlayers.MatchPlayerInfo.class, new MatchPlayerInfoDefaultAdapter())
+            .registerTypeHierarchyAdapter(List.class, new ListDefaultAdapter())
+            .create();
+
     public static String parseBase(Base base, String jsonStr) {
         JSONObject jsonObj = JSON.parseObject(jsonStr);
         String data = "{}";
@@ -51,7 +56,6 @@ public class JsonParser {
     }
 
     public static <T> T parseWithGson(Class<T> classOfT, String jsonStr) {
-        Gson gson = new GsonBuilder().serializeNulls().registerTypeAdapter(MatchStat.MatchStatInfo.StatsBean.MaxPlayers.MatchPlayerInfo.class, new MatchPlayerInfoDefaultAdapter()).create();
         return gson.fromJson(jsonStr, classOfT);
     }
 
