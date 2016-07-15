@@ -65,7 +65,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.yuyh.cavaliers.support.SupportRecyclerView
+        <com.yuyh.sprintnba.support.SupportRecyclerView
             android:id="@+id/lmrvLoadMore"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

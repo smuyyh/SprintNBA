@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yuyh.cavaliers">
+    package="com.yuyh.sprintnba">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,14 +15,14 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name=".app.SprintNBA"
+        android:name="com.yuyh.sprintnba.app.SprintNBA"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.HomeActivity"
+            android:name="com.yuyh.sprintnba.ui.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoneTranslucent"
             android:configChanges="orientation|keyboardHidden|screenSize">
@@ -33,40 +33,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.NewsDetailActivity"
+            android:name="com.yuyh.sprintnba.ui.NewsDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".base.BaseWebActivity" />
+        <activity android:name="com.yuyh.sprintnba.base.BaseWebActivity" />
         <activity
-            android:name=".ui.CalendarActivity"
+            android:name="com.yuyh.sprintnba.ui.CalendarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.TeamsListActivity"
+            android:name="com.yuyh.sprintnba.ui.TeamsListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.PlayerListActivity"
+            android:name="com.yuyh.sprintnba.ui.PlayerListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.ThreadDetailActivity"
+            android:name="com.yuyh.sprintnba.ui.ThreadDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.PostActivity"
+            android:name="com.yuyh.sprintnba.ui.PostActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.ThreadListActivity"
+            android:name="com.yuyh.sprintnba.ui.ThreadListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name=".ui.LoginActivity"
+            android:name="com.yuyh.sprintnba.ui.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.ReportActivity"
+            android:name="com.yuyh.sprintnba.ui.ReportActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.AboutActivity"
+            android:name="com.yuyh.sprintnba.ui.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.MatchDetailActivity"
+            android:name="com.yuyh.sprintnba.ui.MatchDetailActivity"
             android:screenOrientation="portrait" />
 
 

@@ -14,7 +14,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
-        <com.yuyh.cavaliers.widget.ToggleLayout
+        <com.yuyh.sprintnba.widget.ToggleLayout
             android:id="@+id/tlTab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:background="@color/colorPrimary" />
 
-        <com.yuyh.cavaliers.widget.ToggleLayout
+        <com.yuyh.sprintnba.widget.ToggleLayout
             android:id="@+id/tlStat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         app:wave_show="true">
 
 
-        <com.yuyh.cavaliers.support.SupportRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        <com.yuyh.sprintnba.support.SupportRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
