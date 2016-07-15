@@ -10,8 +10,6 @@ import retrofit2.http.Query;
  */
 public interface TencentApi {
 
-    //String NET_WORK = NetworkUtils.getNetworkType(CavsApp.getAppContext()) == NetworkUtils.NetWorkType.Wifi ? "WIFI" : "MOBILE";
-
     String URL_SUFFIX = "?appver=1.0.2.2&appvid=1.0.2.2&network=WIFI";
 
     //calendar?teamId=27&year=2016&month=7 // 查询球队赛程
