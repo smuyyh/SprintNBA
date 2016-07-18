@@ -93,7 +93,7 @@ public class MaterialWaveView extends View implements MaterialHeadListener {
 
 
     @Override
-    public void onComlete(MaterialRefreshLayout br) {
+    public void onComplete(MaterialRefreshLayout br) {
         waveHeight = 0;
         ValueAnimator animator =ValueAnimator.ofInt(headHeight,0);
         animator.setDuration(200);

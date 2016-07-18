@@ -140,14 +140,14 @@ public class MaterialHeadView extends FrameLayout implements MaterialHeadListene
     }
 
     @Override
-    public void onComlete(MaterialRefreshLayout materialRefreshLayout) {
+    public void onComplete(MaterialRefreshLayout materialRefreshLayout) {
         if(materialWaveView != null)
         {
-            materialWaveView.onComlete(materialRefreshLayout);
+            materialWaveView.onComplete(materialRefreshLayout);
         }
         if(circleProgressBar != null)
         {
-            circleProgressBar.onComlete(materialRefreshLayout);
+            circleProgressBar.onComplete(materialRefreshLayout);
             ViewCompat.setTranslationY(circleProgressBar,0);
             ViewCompat.setScaleX(circleProgressBar, 0);
             ViewCompat.setScaleY(circleProgressBar,0);
