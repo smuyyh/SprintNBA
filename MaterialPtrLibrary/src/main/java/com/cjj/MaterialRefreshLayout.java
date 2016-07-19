@@ -491,9 +491,9 @@ public class MaterialRefreshLayout extends FrameLayout {
             viewPropertyAnimatorCompat.start();
 
             if (mMaterialHeaderView != null) {
-                mMaterialHeaderView.onComlete(MaterialRefreshLayout.this);
+                mMaterialHeaderView.onComplete(MaterialRefreshLayout.this);
             } else if (mSunLayout != null) {
-                mSunLayout.onComlete(MaterialRefreshLayout.this);
+                mSunLayout.onComplete(MaterialRefreshLayout.this);
             }
 
             if (refreshListener != null) {
@@ -519,7 +519,7 @@ public class MaterialRefreshLayout extends FrameLayout {
             public void run() {
                 if (mMaterialFooterView != null && isLoadMoreing) {
                     isLoadMoreing = false;
-                    mMaterialFooterView.onComlete(MaterialRefreshLayout.this);
+                    mMaterialFooterView.onComplete(MaterialRefreshLayout.this);
                 }
             }
         });
