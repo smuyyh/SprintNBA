@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yuyh.cavaliers.widget.VerticalViewPager
+    <com.yuyh.sprintnba.widget.VerticalViewPager
         android:id="@+id/vvpComment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

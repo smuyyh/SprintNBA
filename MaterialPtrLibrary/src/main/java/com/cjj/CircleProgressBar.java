@@ -395,7 +395,7 @@ public class CircleProgressBar extends ImageView implements MaterialHeadListener
     }
 
     @Override
-    public void onComlete(MaterialRefreshLayout materialRefreshLayout) {
+    public void onComplete(MaterialRefreshLayout materialRefreshLayout) {
         if (mProgressDrawable != null) {
             mProgressDrawable.stop();
         }

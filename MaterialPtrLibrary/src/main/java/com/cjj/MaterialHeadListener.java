@@ -15,7 +15,7 @@ package com.cjj;
 * limitations under the License.
 */
 public interface MaterialHeadListener {
-    void onComlete(MaterialRefreshLayout materialRefreshLayout);
+    void onComplete(MaterialRefreshLayout materialRefreshLayout);
     void onBegin(MaterialRefreshLayout materialRefreshLayout);
     void onPull(MaterialRefreshLayout materialRefreshLayout, float fraction);
     void onRelease(MaterialRefreshLayout materialRefreshLayout, float fraction);

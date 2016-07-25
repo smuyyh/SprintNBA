@@ -14,7 +14,7 @@ import com.yuyh.library.utils.data.cipher.Cipher;
 public class PrefsUtils {
 
     private SharedPreferences sp;
-    private static String fileName = "CavsApp";
+    private static String fileName = "SprintNBA";
 
     public PrefsUtils() {
         this(fileName);

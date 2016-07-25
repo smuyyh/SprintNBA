@@ -189,7 +189,7 @@ public class SunLayout extends FrameLayout implements MaterialHeadListener {
     }
 
     @Override
-    public void onComlete(MaterialRefreshLayout materialRefreshLayout) {
+    public void onComplete(MaterialRefreshLayout materialRefreshLayout) {
         cancelSunLineAnim();
         ViewCompat.setScaleX(this, 0);
         ViewCompat.setScaleY(this, 0);

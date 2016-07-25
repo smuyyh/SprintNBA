@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_calendar_ok"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_ok"
+        android:title="确定"
+        app:showAsAction="always" />
+</menu>

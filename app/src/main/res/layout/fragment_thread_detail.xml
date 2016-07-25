@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:hardwareAccelerated="false">
 
-    <com.yuyh.cavaliers.widget.HuPuWebView
+    <com.yuyh.sprintnba.widget.HuPuWebView
         android:id="@+id/hupuWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
