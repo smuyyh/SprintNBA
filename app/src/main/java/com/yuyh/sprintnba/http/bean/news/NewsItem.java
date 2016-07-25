@@ -42,7 +42,7 @@ public class NewsItem extends Base {
          * footer : 14图
          */
         public String index;
-        public String atype; // 0：新闻  1:多图模式  2：视频
+        public String atype; // 0：新闻  1:多图模式  2:视频 h5:banner
         public String title;
         @SerializedName("abstract")
         public String abstractX;

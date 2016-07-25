@@ -7,6 +7,10 @@ import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+import com.flyco.animation.BounceEnter.BounceTopEnter;
+import com.flyco.animation.SlideExit.SlideBottomExit;
+import com.flyco.dialog.listener.OnBtnClickL;
+import com.flyco.dialog.widget.NormalDialog;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
 import com.yuyh.sprintnba.ui.presenter.impl.LoginPresenterImpl;
@@ -30,6 +34,7 @@ public class LoginActivity extends BaseSwipeBackCompatActivity implements LoginV
     TextInputLayout textInputPassword;
 
     private LoginPresenterImpl presenter;
+    private NormalDialog dialog;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -52,6 +57,21 @@ public class LoginActivity extends BaseSwipeBackCompatActivity implements LoginV
         String password = etPassword.getText().toString();
 
         presenter.login(username, password);
+    }
+
+    @OnClick(R.id.btnRegist)
+    public void register() {
+        dialog = new NormalDialog(this).isTitleShow(false)
+                .content("暂不支持虎扑账号注册，您可先到虎扑官网注册。期待后续版本更新~")
+                .showAnim(new BounceTopEnter()).dismissAnim(new SlideBottomExit())
+                .btnNum(1).btnText("确定");
+        dialog.setOnBtnClickL(new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     @Override

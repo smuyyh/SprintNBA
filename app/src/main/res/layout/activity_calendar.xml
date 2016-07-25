@@ -3,6 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include
@@ -10,9 +11,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.yuyh.library.calendarcard.CalendarCardPager
-        android:id="@+id/viewPagerCal"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnPrev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="prev"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:background="@null"/>
+
+        <TextView
+            android:id="@+id/tvCalendarDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="xxxx-xx"
+            android:textSize="18sp"
+            android:textColor="#000000"/>
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="next"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:background="@null"/>
+
+
+    </RelativeLayout>
+
+    <com.yuyh.sprintnba.widget.calendar.CalendarView
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

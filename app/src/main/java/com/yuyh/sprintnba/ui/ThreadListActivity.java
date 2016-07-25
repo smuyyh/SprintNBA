@@ -113,27 +113,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
         presenter.initialized();
         presenter.onThreadReceive(type, "", true);
         initToolbar(toolbar);
-        initFloatingMenu();
         initRecyclerView();
-        attachPostButtonToRecycle();
-    }
-
-    private void initFloatingMenu() {
-    }
-
-    private void attachPostButtonToRecycle() {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (Math.abs(dy) > 4) {
-                    if (dy > 0) {
-                        floatingMenu.hideMenuButton(true);
-                    } else {
-                        floatingMenu.showMenuButton(true);
-                    }
-                }
-            }
-        });
     }
 
     private void initRecyclerView() {

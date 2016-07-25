@@ -2,13 +2,15 @@ package com.yuyh.sprintnba.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
+import com.yuyh.library.utils.DateUtils;
+import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseLazyFragment;
 import com.yuyh.sprintnba.event.CalendarEvent;
@@ -20,9 +22,6 @@ import com.yuyh.sprintnba.support.SpaceItemDecoration;
 import com.yuyh.sprintnba.support.SupportRecyclerView;
 import com.yuyh.sprintnba.ui.MatchDetailActivity;
 import com.yuyh.sprintnba.ui.adapter.ScheduleAdapter;
-import com.yuyh.library.utils.DateUtils;
-import com.yuyh.library.utils.DimenUtils;
-import com.yuyh.library.utils.log.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -118,12 +117,7 @@ public class ScheduleFragment extends BaseLazyFragment {
         adapter.notifyDataSetChanged();
         materialRefreshLayout.finishRefresh();
         materialRefreshLayout.finishRefreshLoadMore();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                hideLoadingDialog();
-            }
-        }, 500);
+        hideLoadingDialog();
     }
 
     @Subscribe

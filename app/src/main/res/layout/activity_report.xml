@@ -24,10 +24,10 @@
                 android:id="@+id/tvTypes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/divider"
-                android:padding="10dp"
+                android:background="@color/title_layout"
+                android:padding="8dp"
                 android:text="请选择举报内容类型"
-                android:textSize="18sp" />
+                android:textSize="14dp" />
 
             <com.yuyh.library.view.list.NoScrollListView
                 android:id="@+id/lvTypes"

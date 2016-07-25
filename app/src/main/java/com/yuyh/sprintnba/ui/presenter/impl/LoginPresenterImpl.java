@@ -69,7 +69,10 @@ public class LoginPresenterImpl implements Presenter {
                         loginView.hideLoading();
                     } else {
                         loginView.hideLoading();
-                        ToastUtils.showSingleLongToast("登录失败");
+                        if (userData.error != null)
+                            ToastUtils.showSingleLongToast(userData.error.msg);
+                        else
+                            ToastUtils.showSingleLongToast("登录失败");
                     }
                 }
             }

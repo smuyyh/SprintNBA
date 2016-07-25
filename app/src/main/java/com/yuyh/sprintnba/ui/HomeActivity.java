@@ -204,7 +204,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        getMenuInflater().inflate(R.menu.menu_schedule, menu);
         return true;
     }
 
@@ -216,14 +216,10 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         }
 
         switch (item.getItemId()) {
-            case R.id.action_about_us:
-
-                break;
-            case R.id.action_setting:
-
-                break;
             case R.id.action_calendar:
                 startActivityForResult(new Intent(this, CalendarActivity.class), REQUEST_DATE_CODE);
+                break;
+            default:
                 break;
         }
         return super.onOptionsItemSelected(item);

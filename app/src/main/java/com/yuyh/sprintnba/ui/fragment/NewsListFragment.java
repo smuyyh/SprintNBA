@@ -106,7 +106,6 @@ public class NewsListFragment extends BaseLazyFragment {
                 }
                 String arcIds = parseIds();
                 requestNews(arcIds, isRefresh, false);
-                complete();
             }
 
             @Override
@@ -151,11 +150,6 @@ public class NewsListFragment extends BaseLazyFragment {
         @Override
         public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
             requestIndex(true);
-        }
-
-        @Override
-        public void onfinish() {
-
         }
 
         @Override

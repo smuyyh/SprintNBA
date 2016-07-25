@@ -3,6 +3,7 @@ package com.yuyh.sprintnba.ui.presenter.impl;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.sprintnba.http.api.RequestCallback;
 import com.yuyh.sprintnba.http.api.hupu.forum.HupuForumService;
 import com.yuyh.sprintnba.http.bean.forum.ThreadsSchemaInfoData;
@@ -120,6 +121,7 @@ public class ThreadDetailPresenterImpl implements Presenter {
     }
 
     public void onCollectClick() {
+        ToastUtils.showSingleToast("暂不支持哦~");
         // TODO 收藏/取消收藏
         detailView.onToggleFloatingMenu();
     }

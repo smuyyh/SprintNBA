@@ -1,18 +1,20 @@
 package com.yuyh.sprintnba.ui;
 
 import android.content.Intent;
-import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
-import com.yuyh.library.calendarcard.CalendarCardPager;
-import com.yuyh.library.calendarcard.CardGridItem;
-import com.yuyh.library.calendarcard.OnCellItemClick;
+import com.yuyh.sprintnba.widget.calendar.CalConstant;
+import com.yuyh.sprintnba.widget.calendar.CalendarView;
+import com.yuyh.sprintnba.widget.calendar.ICalendarView;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import java.util.Calendar;
 
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * @author yuyh.
@@ -20,8 +22,15 @@ import butterknife.InjectView;
  */
 public class CalendarActivity extends BaseSwipeBackCompatActivity {
 
-    @InjectView(R.id.viewPagerCal)
-    CalendarCardPager calendar;
+    @InjectView(R.id.calendar)
+    CalendarView calendar;
+
+    @InjectView(R.id.btnPrev)
+    Button btnPre;
+    @InjectView(R.id.tvCalendarDate)
+    TextView tvCalendarDate;
+    @InjectView(R.id.btnNext)
+    Button btnNext;
 
     public static final String CALENDAR_DATE = "calendar_data";
 
@@ -33,15 +42,44 @@ public class CalendarActivity extends BaseSwipeBackCompatActivity {
     @Override
     protected void initViewsAndEvents() {
         setTitle("日历");
-        calendar.setOnCellItemClick(new OnCellItemClick() {
+        calendar.setWeekTextStyle(3);
+        tvCalendarDate.setText(getYearMonthText(calendar.getYear(), calendar.getMonth()));
+        calendar.setOnRefreshListener(new ICalendarView.OnRefreshListener() {
             @Override
-            public void onCellClick(View v, CardGridItem item) {
-                String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(item.getDate().getTime());
+            public void onRefresh() {
+                tvCalendarDate.setText(getYearMonthText(calendar.getYear(), calendar.getMonth()));
+            }
+        });
+        calendar.setOnItemClickListener(new ICalendarView.OnItemClickListener() {
+            @Override
+            public void onItemClick(int day) {
+                int year = calendar.getYear();
+                int month = calendar.getMonth();
+                String date = year + "-" + month + "-" + day;
+                LogUtils.i("date = " + date);
                 Intent intent = new Intent();
                 intent.putExtra(CALENDAR_DATE, date);
                 setResult(RESULT_OK, intent);
                 finish();
             }
         });
+    }
+
+    @OnClick(R.id.btnPrev)
+    public void preMonth() {
+        Calendar c = calendar.getCalendar();
+        c.set(Calendar.MONTH, c.get(Calendar.MONTH) - 1);
+        calendar.refresh(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1);
+    }
+
+    @OnClick(R.id.btnNext)
+    public void nextMonth() {
+        Calendar c = calendar.getCalendar();
+        c.set(Calendar.MONTH, c.get(Calendar.MONTH) + 1);
+        calendar.refresh(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1);
+    }
+
+    private String getYearMonthText(int year, int month) {
+        return new StringBuilder().append(CalConstant.MONTH_NAME[month - 1]).append(", ").append(year).toString();
     }
 }
