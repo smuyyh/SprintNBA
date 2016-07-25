@@ -6,7 +6,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.sprintnba.http.bean.base.Base;
 import com.yuyh.sprintnba.http.bean.match.LiveDetail;
 import com.yuyh.sprintnba.http.bean.match.MatchCalendar;
@@ -16,7 +19,6 @@ import com.yuyh.sprintnba.http.bean.news.NewsItem;
 import com.yuyh.sprintnba.http.bean.player.Players;
 import com.yuyh.sprintnba.http.bean.player.StatsRank;
 import com.yuyh.sprintnba.http.bean.player.TeamsRank;
-import com.yuyh.library.utils.log.LogUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +30,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author yuyh.
@@ -62,13 +65,16 @@ public class JsonParser {
     public static MatchCalendar parseMatchCalendar(String jsonStr) {
         MatchCalendar match = new MatchCalendar();
         String dataStr = JsonParser.parseBase(match, jsonStr);
-        JSONObject data = JSON.parseObject(dataStr);
         MatchCalendar.MatchCalendarBean bean = new MatchCalendar.MatchCalendarBean();
-        for (Map.Entry<String, Object> entry : data.entrySet()) {
+        // json解析者
+        com.google.gson.JsonParser jsonParser = new com.google.gson.JsonParser();
+        JsonObject asJsonObject = jsonParser.parse(dataStr).getAsJsonObject();
+        Set<Map.Entry<String, JsonElement>> entrySet = asJsonObject.entrySet();
+        for (Map.Entry<String, JsonElement> entry : entrySet) {
             if (entry.getKey().equals("startTime")) {
-                bean.setStartTime(entry.getValue().toString());
+                bean.startTime = entry.getValue().toString();
             } else if (entry.getKey().equals("endTime")) {
-                bean.setEndTime(entry.getValue().toString());
+                bean.endTime = entry.getValue().toString();
             } else if (entry.getKey().equals("matchNum")) {
                 String matchNumStr = entry.getValue().toString();
                 Map<Integer, Integer> matchNum = new HashMap<>();
@@ -76,10 +82,10 @@ public class JsonParser {
                 for (Map.Entry<String, Object> item : matchNumObj.entrySet()) {
                     matchNum.put(Integer.parseInt(item.getKey()), Integer.parseInt(item.getValue().toString()));
                 }
-                bean.setMatchNum(matchNum);
+                //bean.matchNum = matchNum;
             }
         }
-        match.setData(bean);
+        match.data = bean;
         return match;
     }
 

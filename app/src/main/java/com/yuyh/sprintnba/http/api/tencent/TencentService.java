@@ -73,7 +73,7 @@ public class TencentService {
             public void onResponse(Call<String> call, retrofit2.Response<String> response) {
                 if (response != null && !TextUtils.isEmpty(response.body())) {
                     String jsonStr = response.body();
-                    MatchCalendar match = JsonParser.parseMatchCalendar(jsonStr);
+                    MatchCalendar match = JsonParser.parseWithGson(MatchCalendar.class, jsonStr);
                     cbk.onSuccess(match);
                     cache.put(key, match);
                     LogUtils.i("resp:" + jsonStr);

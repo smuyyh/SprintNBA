@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include
@@ -14,15 +14,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <Button
             android:id="@+id/btnPrev"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="prev"
             android:layout_marginLeft="10dp"
+            android:background="@null"
             android:padding="10dp"
-            android:background="@null"/>
+            android:text="prev" />
 
         <TextView
             android:id="@+id/tvCalendarDate"
@@ -30,18 +31,18 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="xxxx-xx"
-            android:textSize="18sp"
-            android:textColor="#000000"/>
+            android:textColor="#000000"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="next"
             android:layout_marginRight="10dp"
+            android:background="@null"
             android:padding="10dp"
-            android:background="@null"/>
+            android:text="next" />
 
 
     </RelativeLayout>
@@ -49,6 +50,12 @@
     <com.yuyh.sprintnba.widget.calendar.CalendarView
         android:id="@+id/calendar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvMatchNum"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" />
 
 </LinearLayout>

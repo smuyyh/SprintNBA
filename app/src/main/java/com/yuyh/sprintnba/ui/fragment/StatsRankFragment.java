@@ -82,7 +82,7 @@ public class StatsRankFragment extends BaseLazyFragment implements StatsRankView
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(5)));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(2)));
         tlStat.setOnToggleListener(this);
         tlTab.setOnToggleListener(this);
         materialRefreshLayout.setLoadMore(false);

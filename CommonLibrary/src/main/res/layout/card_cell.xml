@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<com.yuyh.library.calendarcard.CheckableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="1"
-    style="@style/CalendarCard.Cell"
-    android:clickable="true">
-
-</com.yuyh.library.calendarcard.CheckableLayout>
