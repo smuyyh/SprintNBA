@@ -133,7 +133,7 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity implements N
     }
 
     private void showSaveDialog() {
-        final String[] stringItems = {"保存图片", "微信分享"};
+        final String[] stringItems = {"保存图片"};
         final ActionSheetDialog dialog = new ActionSheetDialog(mContext, stringItems, mPhotoView);
         dialog.isTitleShow(false).show();
 

@@ -28,7 +28,7 @@ public class OkHttpHelper {
      *
      * @return
      */
-    public static OkHttpClient getAppClient() {
+    public static OkHttpClient getHupuClient() {
         CookieInterceptor mCookieInterceptor = new CookieInterceptor();
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new MyLog());
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -37,6 +37,18 @@ public class OkHttpHelper {
                 .connectTimeout(20 * 1000, TimeUnit.MILLISECONDS)
                 .readTimeout(20 * 1000, TimeUnit.MILLISECONDS)
                 .addInterceptor(mCookieInterceptor)
+                .addInterceptor(logging);
+        return builder.build();
+    }
+
+    public static OkHttpClient getTecentClient() {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new MyLog());
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .connectTimeout(20 * 1000, TimeUnit.MILLISECONDS)
+                .readTimeout(20 * 1000, TimeUnit.MILLISECONDS)
+                .retryOnConnectionFailure(true) // 失败重发
                 .addInterceptor(logging);
         return builder.build();
     }

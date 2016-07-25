@@ -3,14 +3,12 @@ package com.yuyh.sprintnba.http.utils;
 import android.text.TextUtils;
 import android.util.Xml;
 
-import com.yuyh.sprintnba.http.bean.news.VideoRealUrl;
 import com.yuyh.library.utils.log.LogUtils;
+import com.yuyh.sprintnba.http.bean.news.VideoRealUrl;
 
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 解析xml中的视频网址
@@ -25,7 +23,6 @@ public class PullRealUrlParser implements RealUrlParser {
     public VideoRealUrl parse(InputStream is) throws Exception {
 
         VideoRealUrl real = new VideoRealUrl();
-        List<String> list = new ArrayList<>();
 
         XmlPullParser parser = Xml.newPullParser(); //由android.util.Xml创建一个XmlPullParser实例
         parser.setInput(is, "UTF-8");
@@ -52,6 +49,12 @@ public class PullRealUrlParser implements RealUrlParser {
                         String vid = parser.nextText();
                         LogUtils.i("vid = " + vid);
                         real.vid = vid;
+                    } else if (parser.getName().equals("fn")) { // 目前发现直接用{vid}.mp4 有部分不能播放，用fn下的可以
+                        String fn = parser.nextText();
+                        if (fn.endsWith(".mp4")) {
+                            LogUtils.i("fn = " + fn);
+                            real.fn = fn;
+                        }
                     }
 
                     break;

@@ -34,7 +34,7 @@ public class HupuForumService {
     static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BuildConfig.HUPU_FORUM_SERVER)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(OkHttpHelper.getAppClient())
+            .client(OkHttpHelper.getHupuClient())
             .build();
 
     public static HupuForumApi apiStr = retrofit.create(HupuForumApi.class);

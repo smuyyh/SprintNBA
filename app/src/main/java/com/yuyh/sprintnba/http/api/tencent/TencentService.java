@@ -19,6 +19,7 @@ import com.yuyh.sprintnba.http.bean.player.StatsRank;
 import com.yuyh.sprintnba.http.bean.player.Teams;
 import com.yuyh.sprintnba.http.bean.player.TeamsRank;
 import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.http.okhttp.OkHttpHelper;
 import com.yuyh.sprintnba.http.utils.JsonParser;
 import com.yuyh.sprintnba.http.utils.PullRealUrlParser;
 import com.yuyh.library.AppUtils;
@@ -171,9 +172,9 @@ public class TencentService {
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response != null && !TextUtils.isEmpty(response.body())) {
                     String jsonStr = response.body();
-                   // if(!jsonStr.contains("\"type\":\"16\"")) { // TODO 居然出现相同key而且数据格式不一样的json..后续再处理
-                        MatchStat matchStat = JsonParser.parseWithGson(MatchStat.class, jsonStr);
-                        cbk.onSuccess(matchStat);
+                    // if(!jsonStr.contains("\"type\":\"16\"")) { // TODO 居然出现相同key而且数据格式不一样的json..后续再处理
+                    MatchStat matchStat = JsonParser.parseWithGson(MatchStat.class, jsonStr);
+                    cbk.onSuccess(matchStat);
                     //}
                     LogUtils.d("resp:" + jsonStr);
                 } else {
@@ -530,8 +531,10 @@ public class TencentService {
     }
 
     public static void getVideoRealUrl(String vid, final RequestCallback<VideoRealUrl> cbk) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.TECENT_URL_SERVER)
-                .addConverterFactory(ScalarsConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BuildConfig.TECENT_URL_SERVER)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .client(OkHttpHelper.getTecentClient()).build();
         TencentVideoApi api = retrofit.create(TencentVideoApi.class);
 
         Call<String> call = api.getVideoRealUrl(vid);

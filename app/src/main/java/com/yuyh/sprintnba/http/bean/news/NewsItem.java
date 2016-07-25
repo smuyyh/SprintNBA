@@ -59,6 +59,8 @@ public class NewsItem extends Base {
         public String footer;
         public List<String> images_3;
 
+        public String realUrl; // 存放腾讯视频真实地址
+
         public NewsItemBean(String imgurl, String title, String pub_time) {
             this.imgurl = imgurl;
             this.title = title;

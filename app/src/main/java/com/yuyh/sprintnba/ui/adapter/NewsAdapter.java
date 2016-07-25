@@ -2,6 +2,7 @@ package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -46,20 +47,23 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
 
         Uri uri = Uri.parse(item.imgurl);
 
-        if (item.atype.equals("2")) {
+        if (item.atype.equals("2") && TextUtils.isEmpty(item.realUrl)) { // 视频
             final JCVideoPlayerStandard videoPlayer = viewHolder.getView(R.id.vpVideo);
             videoPlayer.setUp("", item.title);
             TencentService.getVideoRealUrl(item.vid, new RequestCallback<VideoRealUrl>() {
                 @Override
                 public void onSuccess(VideoRealUrl real) {
-                    String url = real.url + real.vid + ".mp4?vkey=" + real.fvkey;
-                    LogUtils.i("real-url："+url);
+                    String vid = TextUtils.isEmpty(real.fn) ? real.vid + ".mp4" : real.fn;
+                    String url = real.url + vid + "?vkey=" + real.fvkey;
+                    item.realUrl = url;
+                    LogUtils.i("title：" + item.title);
+                    LogUtils.i("real-url：" + url);
                     videoPlayer.setUp(url, item.title);
                 }
 
                 @Override
                 public void onFailure(String message) {
-
+                    LogUtils.i("real-url：" + message);
                 }
             });
 
