@@ -33,8 +33,14 @@
                 android:layout_height="@dimen/home_menu_top_image_height"
                 android:layout_alignParentTop="true"
                 android:background="@color/colorPrimary"
+                android:gravity="center"
                 android:orientation="vertical">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_logo" />
             </LinearLayout>
 
             <ListView
@@ -46,9 +52,9 @@
                 android:cacheColorHint="@android:color/transparent"
                 android:divider="@null"
                 android:dividerHeight="0dp"
+                android:listSelector="@drawable/selector_common_list_view"
                 android:overScrollMode="never"
-                android:scrollbars="none"
-                android:listSelector="@drawable/selector_common_list_view"/>
+                android:scrollbars="none" />
         </RelativeLayout>
 
     </android.support.v4.widget.DrawerLayout>

@@ -133,7 +133,6 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                setTitle(getString(R.string.app_name));
             }
 
             @Override
