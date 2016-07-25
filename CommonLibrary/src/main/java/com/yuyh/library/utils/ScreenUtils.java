@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.provider.Settings;
+import android.util.TypedValue;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -15,6 +16,15 @@ import android.view.WindowManager;
  * @date 16/4/10.
  */
 public class ScreenUtils {
+
+    public static int getActionBarSize(Context context) {
+        TypedValue tv = new TypedValue();
+        if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            int actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, context.getResources().getDisplayMetrics());
+            return actionBarHeight;
+        }
+        return 0;
+    }
 
     /**
      * 当前是否是横屏

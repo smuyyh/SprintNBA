@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.OverScroller;
 import android.widget.Scroller;
 
+import com.yuyh.library.AppUtils;
+import com.yuyh.library.utils.ScreenUtils;
 import com.yuyh.library.view.common.Info;
 import com.yuyh.library.view.common.RotateGestureDetector;
 
@@ -95,19 +97,19 @@ public class PhotoView extends ImageView {
     private Runnable mCompleteCallBack;
 
     private OnLongClickListener mLongClick;
+    private Context mContext;
 
     public PhotoView(Context context) {
-        super(context);
-        init();
+        this(context, null);
     }
 
     public PhotoView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, 0);
     }
 
     public PhotoView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mContext = context;
         init();
     }
 
@@ -1218,7 +1220,7 @@ public class PhotoView extends ImageView {
     private static void getLocation(View target, int[] position) {
 
         position[0] += target.getLeft();
-        position[1] += target.getTop();
+        position[1] += target.getTop() - ScreenUtils.getActionBarSize(AppUtils.getAppContext())+15;
 
         ViewParent viewParent = target.getParent();
         while (viewParent instanceof View) {
