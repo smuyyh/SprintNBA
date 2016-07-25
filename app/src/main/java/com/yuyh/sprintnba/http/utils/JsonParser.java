@@ -6,13 +6,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.sprintnba.http.bean.base.Base;
 import com.yuyh.sprintnba.http.bean.match.LiveDetail;
-import com.yuyh.sprintnba.http.bean.match.MatchCalendar;
 import com.yuyh.sprintnba.http.bean.match.MatchStat;
 import com.yuyh.sprintnba.http.bean.news.NewsDetail;
 import com.yuyh.sprintnba.http.bean.news.NewsItem;
@@ -30,7 +27,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author yuyh.
@@ -60,33 +56,6 @@ public class JsonParser {
 
     public static <T> T parseWithGson(Class<T> classOfT, String jsonStr) {
         return gson.fromJson(jsonStr, classOfT);
-    }
-
-    public static MatchCalendar parseMatchCalendar(String jsonStr) {
-        MatchCalendar match = new MatchCalendar();
-        String dataStr = JsonParser.parseBase(match, jsonStr);
-        MatchCalendar.MatchCalendarBean bean = new MatchCalendar.MatchCalendarBean();
-        // json解析者
-        com.google.gson.JsonParser jsonParser = new com.google.gson.JsonParser();
-        JsonObject asJsonObject = jsonParser.parse(dataStr).getAsJsonObject();
-        Set<Map.Entry<String, JsonElement>> entrySet = asJsonObject.entrySet();
-        for (Map.Entry<String, JsonElement> entry : entrySet) {
-            if (entry.getKey().equals("startTime")) {
-                bean.startTime = entry.getValue().toString();
-            } else if (entry.getKey().equals("endTime")) {
-                bean.endTime = entry.getValue().toString();
-            } else if (entry.getKey().equals("matchNum")) {
-                String matchNumStr = entry.getValue().toString();
-                Map<Integer, Integer> matchNum = new HashMap<>();
-                JSONObject matchNumObj = JSON.parseObject(matchNumStr);
-                for (Map.Entry<String, Object> item : matchNumObj.entrySet()) {
-                    matchNum.put(Integer.parseInt(item.getKey()), Integer.parseInt(item.getValue().toString()));
-                }
-                //bean.matchNum = matchNum;
-            }
-        }
-        match.data = bean;
-        return match;
     }
 
     public static LiveDetail parseMatchLiveDetail(String jsonStr) {

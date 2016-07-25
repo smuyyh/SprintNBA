@@ -3,13 +3,12 @@ package com.yuyh.sprintnba.ui.adapter;
 import android.content.Context;
 import android.text.Html;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.http.bean.forum.ThreadListData;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
+import com.yuyh.sprintnba.utils.ItemAnimHelper;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
@@ -22,6 +21,7 @@ import java.util.List;
 public class ThreadListAdapter extends HelperAdapter<ThreadListData.ThreadInfo> {
 
     private OnListItemClickListener listener;
+    private ItemAnimHelper helper = new ItemAnimHelper();
 
     /**
      * @param data     数据源
@@ -49,7 +49,6 @@ public class ThreadListAdapter extends HelperAdapter<ThreadListData.ThreadInfo> 
         viewHolder.setVisible(R.id.tvSingleTime, true);
         viewHolder.setVisible(R.id.tvSummary, false);
         viewHolder.setVisible(R.id.grid, false);
-        showItemAnim(viewHolder.getItemView(), position);
         viewHolder.getItemView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,33 +56,10 @@ public class ThreadListAdapter extends HelperAdapter<ThreadListData.ThreadInfo> 
                     listener.onItemClick(viewHolder.getItemView(), position, item);
             }
         });
+        helper.showItemAnim(viewHolder.getItemView(), position);
     }
 
     public void setOnItemClickListener(OnListItemClickListener listener) {
         this.listener = listener;
-    }
-
-    private int mLastPosition = -1;
-
-    public void showItemAnim(final View view, final int position) {
-        if (position > mLastPosition) {
-            Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.item_bottom_in);
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    view.setAlpha(1);
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
-            view.startAnimation(animation);
-            mLastPosition = position;
-        }
     }
 }

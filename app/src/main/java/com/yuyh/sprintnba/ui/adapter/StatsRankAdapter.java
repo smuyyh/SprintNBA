@@ -10,6 +10,7 @@ import com.yuyh.sprintnba.http.bean.player.StatsRank;
 import com.yuyh.sprintnba.support.NoDoubleClickListener;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.utils.FrescoUtils;
+import com.yuyh.sprintnba.utils.ItemAnimHelper;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public class StatsRankAdapter extends HelperAdapter<StatsRank.RankItem> {
 
     private OnListItemClickListener mOnItemClickListener = null;
+    private ItemAnimHelper helper = new ItemAnimHelper();
 
     /**
      * @param data     数据源
@@ -47,6 +49,7 @@ public class StatsRankAdapter extends HelperAdapter<StatsRank.RankItem> {
                     mOnItemClickListener.onItemClick(viewHolder.getItemView(), position, item);
             }
         });
+        helper.showItemAnim(viewHolder.getItemView(), position);
     }
 
     public void setOnItemClickListener(OnListItemClickListener mOnItemClickListener) {

@@ -9,6 +9,7 @@ import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.http.bean.forum.ForumsData;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.utils.FrescoUtils;
+import com.yuyh.sprintnba.utils.ItemAnimHelper;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public class ForumListAdapter extends HelperAdapter<ForumsData.Forum> {
 
     private OnListItemClickListener listener;
+    private ItemAnimHelper helper = new ItemAnimHelper();
 
     public ForumListAdapter(List<ForumsData.Forum> mList, Context context, int... layoutIds) {
         super(mList, context, layoutIds);
@@ -42,6 +44,7 @@ public class ForumListAdapter extends HelperAdapter<ForumsData.Forum> {
         } else {
             viewHolder.setText(R.id.tvForumName, item.name);
         }
+        helper.showItemAnim(viewHolder.getItemView(), position);
     }
 
     public void setOnListItemClickListener(OnListItemClickListener listener) {
