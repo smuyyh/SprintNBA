@@ -1,10 +1,13 @@
 package com.yuyh.library.utils;
 
+import android.content.Context;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+
+import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -20,6 +23,13 @@ public class StringUtils {
 
     private StringUtils() {
         throw new AssertionError();
+    }
+
+    public static void copy(Context mContext, String stripped) {
+        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+        android.content.ClipData clip = android.content.ClipData.newPlainText("content", stripped);
+        clipboard.setPrimaryClip(clip);
+        ToastUtils.showToast("复制成功");
     }
 
     /**

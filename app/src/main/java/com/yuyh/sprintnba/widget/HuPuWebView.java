@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
@@ -15,13 +16,21 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.yuyh.library.utils.DeviceUtils;
+import com.yuyh.library.utils.StringUtils;
+import com.yuyh.library.utils.log.LogUtils;
+import com.yuyh.library.utils.toast.ToastUtils;
+import com.yuyh.sprintnba.base.BaseAppManager;
 import com.yuyh.sprintnba.base.BaseWebActivity;
+import com.yuyh.sprintnba.http.constant.Constant;
 import com.yuyh.sprintnba.http.utils.RequestHelper;
 import com.yuyh.sprintnba.ui.ImagePreViewActivity;
+import com.yuyh.sprintnba.ui.LoginActivity;
+import com.yuyh.sprintnba.ui.PostActivity;
+import com.yuyh.sprintnba.ui.ReportActivity;
+import com.yuyh.sprintnba.ui.ThreadDetailActivity;
 import com.yuyh.sprintnba.ui.ThreadListActivity;
 import com.yuyh.sprintnba.utils.SettingPrefUtils;
-import com.yuyh.library.utils.DeviceUtils;
-import com.yuyh.library.utils.log.LogUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,7 +73,7 @@ public class HuPuWebView extends WebView {
         settings.setSupportMultipleWindows(false);
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setDomStorageEnabled(true);
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT );
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         settings.setUseWideViewPort(true);
         if (Build.VERSION.SDK_INT > 6) {
             settings.setAppCacheEnabled(true);
@@ -81,10 +90,11 @@ public class HuPuWebView extends WebView {
         try {
             if (SettingPrefUtils.isLogin()) {
                 CookieManager cookieManager = CookieManager.getInstance();
-                cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "u=" + URLEncoder.encode(SettingPrefUtils.getCookies(), "utf-8"));
+                cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "u=" + SettingPrefUtils.getCookies());
                 cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "_gamesu=" + URLEncoder.encode(SettingPrefUtils.getToken(), "utf-8"));
                 cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "_inKanqiuApp=1");
                 cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "_kanqiu=1");
+                LogUtils.i("---------"+SettingPrefUtils.getCookies());
                 CookieSyncManager.getInstance().sync();
             }
         } catch (Exception e) {
@@ -175,7 +185,12 @@ public class HuPuWebView extends WebView {
             LogUtils.d("page:" + page);
             String pid = uri.getQueryParameter("pid");
             LogUtils.d("pid:" + pid);
-            // TODO ContentActivity.startActivity(getContext(), "", tid, pid, TextUtils.isEmpty(page) ? 1 : Integer.valueOf(page));
+            Intent intent = new Intent(getContext(), ThreadDetailActivity.class);
+            intent.putExtra(ThreadDetailActivity.INTENT_PID, pid);
+            intent.putExtra(ThreadDetailActivity.INTENT_TID, tid);
+            intent.putExtra(ThreadDetailActivity.INTENT_PAGE, TextUtils.isEmpty(page) ? 1 : Integer.valueOf(page));
+            intent.putExtra(ThreadDetailActivity.INTENT_FID, "");
+            getContext().startActivity(intent);
         } else if (url.contains("board")) {
             String boardId = url.substring(url.lastIndexOf("/") + 1);
             Intent intent = new Intent(getContext(), ThreadListActivity.class);
@@ -238,7 +253,13 @@ public class HuPuWebView extends WebView {
                 String userName = extra.getString("username");
                 String content = extra.getString("content");
                 if (open) {
-                    // TODO PostActivity.startActivity(getContext(), Constants.TYPE_REPLY, "", tid, String.valueOf(pid), content);
+                    Intent intent = new Intent(getContext(), PostActivity.class);
+                    intent.putExtra(PostActivity.INTENT_TITLE, content);
+                    intent.putExtra(PostActivity.INTENT_TYPE, Constant.TYPE_REPLY);
+                    intent.putExtra(PostActivity.INTENT_FID, "");
+                    intent.putExtra(PostActivity.INTENT_TID, tid);
+                    intent.putExtra(PostActivity.INTENT_PID, String.valueOf(pid));
+                    getContext().startActivity(intent);
                 }
                 break;
             case "hupu.album.view":
@@ -255,20 +276,24 @@ public class HuPuWebView extends WebView {
                 getContext().startActivity(intent);
                 break;
             case "hupu.ui.copy":
-                String copy = data.getString("content");
-                //TODO StringUtils.copy(getContext(), copy);
+                String content1 = data.getString("content");
+                StringUtils.copy(getContext(), content1);
                 break;
             case "hupu.ui.report":
                 JSONObject reportExtra = data.getJSONObject("extra");
                 String reportTid = reportExtra.getString("tid");
                 long reportPid = reportExtra.getLong("pid");
-                // TODO ReportActivity.startActivity(getContext(), reportTid, String.valueOf(reportPid));
+                Intent intent1 = new Intent(getContext(), ReportActivity.class);
+                intent1.putExtra(ReportActivity.INTENT_TID, reportTid);
+                intent1.putExtra(ReportActivity.INTENT_PID, String.valueOf(reportPid));
+                getContext().startActivity(intent1);
                 break;
             case "hupu.user.login":
-                // TODO LoginActivity.startActivity(getContext());ToastUtils.showToast("请先登录");
+                getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                ToastUtils.showToast("请先登录");
                 break;
             case "hupu.ui.pageclose":
-                //TODO AppManager.getAppManager().finishActivity();
+                BaseAppManager.getInstance().getForwardActivity().finish();
                 break;
         }
     }

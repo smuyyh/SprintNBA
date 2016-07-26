@@ -23,6 +23,8 @@ import butterknife.OnClick;
  */
 public class ReportActivity extends BaseSwipeBackCompatActivity implements ReportView {
 
+    public static final String INTENT_PID = "pid";
+    public static final String INTENT_TID = "tid";
 
     @InjectView(R.id.lvTypes)
     NoScrollListView lvTypes;
@@ -46,8 +48,8 @@ public class ReportActivity extends BaseSwipeBackCompatActivity implements Repor
     @Override
     protected void initViewsAndEvents() {
         setTitle("举报");
-        pid = getIntent().getStringExtra("pid");
-        tid = getIntent().getStringExtra("tid");
+        pid = getIntent().getStringExtra(INTENT_PID);
+        tid = getIntent().getStringExtra(INTENT_TID);
         adapter = new ReportAdapter(list, this, R.layout.item_list_report);
         lvTypes.setAdapter(adapter);
         lvTypes.setOnItemClickListener(new AdapterView.OnItemClickListener() {

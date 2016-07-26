@@ -30,7 +30,10 @@ import butterknife.OnClick;
  */
 public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements ThreadDetailView, ViewPager.OnPageChangeListener {
 
-    public static final String INTENT_THREAD_INFO = "threadinfo";
+    public static final String INTENT_PID = "pid";
+    public static final String INTENT_TID = "tid";
+    public static final String INTENT_PAGE = "page";
+    public static final String INTENT_FID = "fid";
 
     private String fid;
     private String tid;
@@ -67,10 +70,10 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
 
     @Override
     protected void initViewsAndEvents() {
-        fid = getIntent().getStringExtra("fid");
-        tid = getIntent().getStringExtra("tid");
-        page = getIntent().getIntExtra("page", 1);
-        pid = getIntent().getStringExtra("pid");
+        fid = getIntent().getStringExtra(INTENT_FID);
+        tid = getIntent().getStringExtra(INTENT_TID);
+        page = getIntent().getIntExtra(INTENT_PAGE, 1);
+        pid = getIntent().getStringExtra(INTENT_PID);
         setTitle("帖子详细");
 
         viewPager.setOffscreenPageLimit(1);
@@ -157,6 +160,8 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
     @Override
     public void goReport() {
         Intent intent = new Intent(this, ReportActivity.class);
+        intent.putExtra(ReportActivity.INTENT_TID, tid);
+        intent.putExtra(ReportActivity.INTENT_PID, "");
         startActivity(intent);
     }
 
