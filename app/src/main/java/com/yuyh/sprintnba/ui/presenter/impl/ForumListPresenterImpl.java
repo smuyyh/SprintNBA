@@ -35,7 +35,7 @@ public class ForumListPresenterImpl implements Presenter {
                 ArrayList<ForumsData.ForumsResult> data = forumsData.data;
                 if (data != null && !data.isEmpty()) {
                     for (ForumsData.ForumsResult result : data) {
-                        if (result.fid.equals("1")) {
+                        if (result.fid.equals("1") || result.fid.equals("232")) { // 目前只加入NBA和CBA
                             ArrayList<ForumsData.Forums> sub = result.sub;
                             for (ForumsData.Forums forums : sub) {
                                 ForumsData.Forum forum = new ForumsData.Forum();
@@ -45,7 +45,6 @@ public class ForumListPresenterImpl implements Presenter {
                                 list.addAll(forums.data);
                             }
                             forumListView.showForumList(list);
-                            break;
                         }
                     }
                 } else {
