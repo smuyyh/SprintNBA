@@ -67,15 +67,17 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
             case Constant.TYPE_COMMENT:
                 setTitle("评论");
                 etSubject.setEnabled(false);
-                etSubject.setText("Comment:" + title);
-                //etContent.setHint("请输入您的评论");
+                etSubject.setText("引用:" + title);
+                etContent.setHint("请输入您的评论");
+                etContent.requestFocus();
                 presenter.checkPermission(Constant.TYPE_COMMENT, fid, tid);
                 break;
             case Constant.TYPE_REPLY:
                 setTitle("回复");
                 etSubject.setEnabled(false);
-                etSubject.setText("Reply:" + title);
+                etSubject.setText("引用:" + title);
                 etContent.setHint("请输入您的回复");
+                etContent.requestFocus();
                 presenter.checkPermission(Constant.TYPE_REPLY, fid, tid);
                 break;
             case Constant.TYPE_FEEDBACK:

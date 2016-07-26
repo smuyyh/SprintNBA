@@ -102,7 +102,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
         appbar.addOnOffsetChangedListener(this);
         if (forum == null) {
             presenter = new ThreadListPresenterImpl(boardId, this, this);
-            // TODO getForum
+            presenter.getForumInfo();
         } else {
             presenter = new ThreadListPresenterImpl(forum.fid, this, this);
             boardId = forum.fid;

@@ -40,6 +40,12 @@ public class ImageUtils {
 
     private static String saveDir = Environment.getExternalStorageDirectory() + "/SprintNBA/images";
 
+    /**
+     * Fresco 保存图片。若有磁盘缓存，则从缓存拷贝，否则重新下载。
+     *
+     * @param context
+     * @param picUrl
+     */
     public static void saveImage(Context context, String picUrl) {
         //根据图片url获取到磁盘缓存CacheKey
         CacheKey cacheKey = DefaultCacheKeyFactory.getInstance().getEncodedCacheKey(ImageRequest.fromUri(Uri.parse(picUrl)));
@@ -57,23 +63,25 @@ public class ImageUtils {
         }
 
         String filename = System.currentTimeMillis() + ".jpg";
+        File file = new File(saveDir + "/" + filename);
         // 判断是否缓存
         if (localFile == null) {
-            ImageUtils.downLoadImage(Uri.parse(picUrl), saveDir, filename, context);
+            ImageUtils.downLoadImage(context, picUrl, file);
             return;
         } else {
-            ImageUtils.copyTo(context, localFile, new File(saveDir + "/" + filename));
+            ImageUtils.copyImage(context, localFile, file);
         }
     }
 
     /**
-     * 复制文件
+     * 保存文件
      *
-     * @param src 源文件
-     * @param dst 目标文件
+     * @param context
+     * @param src     源文件
+     * @param dst     目标文件
      * @return
      */
-    public static boolean copyTo(Context context, File src, File dst) {
+    public static boolean copyImage(Context context, File src, File dst) {
 
         FileInputStream fi = null;
         FileOutputStream fo = null;
@@ -120,9 +128,16 @@ public class ImageUtils {
         }
     }
 
-    public static void downLoadImage(Uri uri, final String saveDir, final String filename, final Context context) {
+    /**
+     * 下载图片并保存
+     *
+     * @param url
+     * @param dst
+     * @param context
+     */
+    public static void downLoadImage(final Context context, String url, final File dst) {
         ImageRequest imageRequest = ImageRequestBuilder
-                .newBuilderWithSource(uri)
+                .newBuilderWithSource(Uri.parse(url))
                 .setProgressiveRenderingEnabled(true)
                 .build();
         ImagePipeline imagePipeline = Fresco.getImagePipeline();
@@ -133,17 +148,16 @@ public class ImageUtils {
                 if (bitmap == null) {
                     ToastUtils.showSingleToast("图片保存失败，bitmap null");
                 }
-                File file = new File(saveDir, filename);
-                if (!file.exists())
-                    FileUtils.createFile(file);
+                if (!dst.exists())
+                    FileUtils.createFile(dst);
                 try {
-                    FileOutputStream fos = new FileOutputStream(file);
+                    FileOutputStream fos = new FileOutputStream(dst);
                     assert bitmap != null;
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                     fos.flush();
                     fos.close();
                     ToastUtils.showSingleToast("图片保存成功");
-                    insertImage(context, file.getAbsolutePath(), filename, null);
+                    insertImage(context, dst.getAbsolutePath(), dst.getName(), null);
                 } catch (IOException e) {
                     LogUtils.e("2:" + e.toString());
                     ToastUtils.showSingleToast("图片保存失败");
@@ -156,6 +170,13 @@ public class ImageUtils {
         }, CallerThreadExecutor.getInstance());
     }
 
+    /**
+     * 保存图片到本地并插入到图库
+     *
+     * @param context
+     * @param bmp
+     * @return
+     */
     public static boolean saveImageToGallery(Context context, Bitmap bmp) {
         String fileName = System.currentTimeMillis() + ".jpg";
         File file = new File(saveDir, fileName);
@@ -188,14 +209,14 @@ public class ImageUtils {
      * @return
      */
     public static boolean insertImage(Context context, String imagePath, String name, String description) {
-        // 其次把文件插入到系统图库
+        // 把文件插入到系统图库
         try {
             MediaStore.Images.Media.insertImage(context.getContentResolver(), imagePath, name, null);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
         }
-        // 最后通知图库更新
+        // 通知图库更新
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + imagePath)));
         return true;
     }

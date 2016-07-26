@@ -4,16 +4,19 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.yuyh.library.AppUtils;
+import com.yuyh.library.utils.data.ACache;
+import com.yuyh.library.utils.log.LogUtils;
+import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.sprintnba.http.api.RequestCallback;
 import com.yuyh.sprintnba.http.api.hupu.forum.HupuForumService;
 import com.yuyh.sprintnba.http.api.hupu.game.HupuGamesService;
 import com.yuyh.sprintnba.http.bean.forum.AttendStatusData;
+import com.yuyh.sprintnba.http.bean.forum.ForumsData;
 import com.yuyh.sprintnba.http.bean.forum.SearchListData;
 import com.yuyh.sprintnba.http.bean.forum.ThreadListData;
 import com.yuyh.sprintnba.ui.presenter.Presenter;
 import com.yuyh.sprintnba.ui.view.ThreadListView;
-import com.yuyh.library.utils.log.LogUtils;
-import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -174,6 +177,35 @@ public class ThreadListPresenterImpl implements Presenter {
         } else {
             pageIndex = 1;
             loadSearchList(true);
+        }
+    }
+
+    public void getForumInfo() {
+
+        final String key = "getAllForums";
+        final ACache cache = ACache.get(AppUtils.getAppContext());
+        ForumsData data = (ForumsData) cache.getAsObject(key);
+        boolean complete = false;
+        if (data != null) {
+            ArrayList<ForumsData.ForumsResult> list = data.data; // 所有大版块-> NBA/CBA/...
+            for (ForumsData.ForumsResult result : list) {
+                if (complete)
+                    break;
+                ArrayList<ForumsData.Forums> forumsList = result.sub; // 小版块类别 主版/球队分区/其他/...
+                for (ForumsData.Forums forums : forumsList) {
+                    if (complete)
+                        break;
+                    ArrayList<ForumsData.Forum> forumList = forums.data; // 版块列表 骑士/火箭/...
+                    for (ForumsData.Forum forum : forumList) {
+                        if (forum.fid.equals(fid)) {
+                            mThreadListView.showThreadInfo(forum);
+                            LogUtils.i("forum = "+forum.backImg);
+                            complete = true;
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }
