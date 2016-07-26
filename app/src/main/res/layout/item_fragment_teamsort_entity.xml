@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:clickable="true"
-    android:orientation="vertical">
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="1dp"
+    app:cardElevation="0dp">
 
     <LinearLayout
-        android:id="@+id/itemLayout"
+        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="?attr/selectableItemBackground"
         android:orientation="horizontal">
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -22,8 +21,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
-            app:roundAsCircle="true"
-            app:placeholderImage="@drawable/nba_default"/>
+            app:placeholderImage="@drawable/nba_default"
+            app:roundAsCircle="true" />
 
         <TextView
             android:id="@+id/team_name"
@@ -61,17 +60,10 @@
             android:id="@+id/difference"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginRight="6dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/primary_text"
-            android:layout_marginRight="6dp"/>
+            android:textColor="@color/primary_text" />
+
     </LinearLayout>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/divider"
-        android:visibility="gone" />
-
-</LinearLayout>
+</android.support.v7.widget.CardView>

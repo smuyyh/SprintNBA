@@ -9,6 +9,9 @@ import android.view.View;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
+import com.yuyh.library.utils.DateUtils;
+import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseLazyFragment;
 import com.yuyh.sprintnba.base.BaseWebActivity;
@@ -19,9 +22,6 @@ import com.yuyh.sprintnba.support.SupportRecyclerView;
 import com.yuyh.sprintnba.ui.adapter.TeamsRankAdapter;
 import com.yuyh.sprintnba.ui.presenter.impl.TeamSortPresenter;
 import com.yuyh.sprintnba.ui.view.TeamSortView;
-import com.yuyh.library.utils.DateUtils;
-import com.yuyh.library.utils.DimenUtils;
-import com.yuyh.library.utils.log.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,6 @@ public class TeamSortFragment extends BaseLazyFragment implements TeamSortView {
     }
 
     private void initView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         adapter = new TeamsRankAdapter(list, mActivity, R.layout.item_fragment_teamsort_entity, R.layout.item_fragment_teamsort_title);
         adapter.setOnItemClickListener(new OnListItemClickListener<TeamsRank.TeamBean>() {
             @Override
@@ -76,6 +75,7 @@ public class TeamSortFragment extends BaseLazyFragment implements TeamSortView {
                 startActivity(intent);
             }
         });
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(1)));
