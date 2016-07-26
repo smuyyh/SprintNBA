@@ -2,10 +2,7 @@ package com.yuyh.sprintnba.ui;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Environment;
 import android.os.Looper;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,22 +18,18 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.ActionSheetDialog;
+import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.library.utils.toast.ToastUtils;
+import com.yuyh.library.view.common.Info;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
 import com.yuyh.sprintnba.http.bean.news.NewsDetail;
 import com.yuyh.sprintnba.ui.presenter.NewsDetailPresenter;
 import com.yuyh.sprintnba.ui.presenter.impl.NewsDetailPresenterImpl;
 import com.yuyh.sprintnba.ui.view.NewsDetailView;
+import com.yuyh.sprintnba.utils.ImageUtils;
 import com.yuyh.sprintnba.widget.PhotoView;
-import com.yuyh.library.utils.DimenUtils;
-import com.yuyh.library.utils.io.FileUtils;
-import com.yuyh.library.utils.toast.ToastUtils;
-import com.yuyh.library.view.common.Info;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -145,7 +138,7 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity implements N
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if (saveImageToGallery(bmp)) {
+                        if (ImageUtils.saveImageToGallery(mContext, bmp)) {
                             Looper.prepare();
                             ToastUtils.showToast("保存图片成功");
                             Looper.loop();
@@ -163,47 +156,7 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity implements N
         });
     }
 
-    public boolean saveImageToGallery(Bitmap bmp) {
-        // 首先保存图片
-        File appDir = new File(Environment.getExternalStorageDirectory(), "Calaliers/images");
-        if (!appDir.exists()) {
-            FileUtils.createDir(appDir.getAbsolutePath());
-        }
-        String fileName = System.currentTimeMillis() + ".jpg";
-        File file = new File(appDir, fileName);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
-        }
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
 
-        // 其次把文件插入到系统图库
-        try {
-            MediaStore.Images.Media.insertImage(getContentResolver(),
-                    file.getAbsolutePath(), fileName, null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-        // 最后通知图库更新
-        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsolutePath())));
-        return true;
-    }
 
     @Override
     public void onBackPressed() {

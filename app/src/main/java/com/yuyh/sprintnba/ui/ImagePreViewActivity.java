@@ -88,7 +88,7 @@ public class ImagePreViewActivity extends BaseSwipeBackCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.savePicture) {
-            //mPresenter.saveImage(extraPics.get(viewPager.getCurrentItem()));
+            presenter.saveImage(extraPics.get(viewPager.getCurrentItem()));
         }
         return true;
     }

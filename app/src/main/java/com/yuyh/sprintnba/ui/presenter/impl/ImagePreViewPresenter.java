@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.yuyh.sprintnba.ui.presenter.Presenter;
 import com.yuyh.sprintnba.ui.view.ImagePreView;
+import com.yuyh.sprintnba.utils.ImageUtils;
 
 /**
  * @author yuyh.
@@ -22,5 +23,9 @@ public class ImagePreViewPresenter implements Presenter {
     @Override
     public void initialized() {
 
+    }
+
+    public void saveImage(String picUrl) {
+        ImageUtils.saveImage(context, picUrl);
     }
 }
