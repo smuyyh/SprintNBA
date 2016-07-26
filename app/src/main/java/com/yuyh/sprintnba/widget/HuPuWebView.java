@@ -17,6 +17,7 @@ import android.webkit.WebViewClient;
 
 import com.yuyh.sprintnba.base.BaseWebActivity;
 import com.yuyh.sprintnba.http.utils.RequestHelper;
+import com.yuyh.sprintnba.ui.ImagePreViewActivity;
 import com.yuyh.sprintnba.ui.ThreadListActivity;
 import com.yuyh.sprintnba.utils.SettingPrefUtils;
 import com.yuyh.library.utils.DeviceUtils;
@@ -248,7 +249,10 @@ public class HuPuWebView extends WebView {
                     JSONObject image = images.getJSONObject(i);
                     extraPics.add(image.getString("url"));
                 }
-                // TODO ImagePreviewActivity.startActivity(getContext(), extraPics.get(index), extraPics);
+                Intent intent = new Intent(getContext(), ImagePreViewActivity.class);
+                intent.putExtra(ImagePreViewActivity.INTENT_URLS, extraPics);
+                intent.putExtra(ImagePreViewActivity.INTENT_URL, extraPics.get(index));
+                getContext().startActivity(intent);
                 break;
             case "hupu.ui.copy":
                 String copy = data.getString("content");

@@ -63,6 +63,9 @@
             android:name=".ui.ReportActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.ImagePreViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -71,7 +74,6 @@
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".ui.ImagePreViewActivity"></activity>
     </application>
 
 </manifest>
