@@ -5,9 +5,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/divider"
+    android:background="@color/mainBg"
     android:paddingBottom="8dp"
     android:paddingLeft="16dp"
     android:paddingTop="8dp"
-    android:textColor="@color/colorPrimary"
+    android:textColor="@color/primary_text"
     android:textSize="13sp"/>

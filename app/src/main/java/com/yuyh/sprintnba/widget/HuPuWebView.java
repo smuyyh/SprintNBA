@@ -94,7 +94,6 @@ public class HuPuWebView extends WebView {
                 cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "_gamesu=" + URLEncoder.encode(SettingPrefUtils.getToken(), "utf-8"));
                 cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "_inKanqiuApp=1");
                 cookieManager.setCookie("http://bbs.mobileapi.hupu.com", "_kanqiu=1");
-                LogUtils.i("---------"+SettingPrefUtils.getCookies());
                 CookieSyncManager.getInstance().sync();
             }
         } catch (Exception e) {
@@ -290,7 +289,7 @@ public class HuPuWebView extends WebView {
                 break;
             case "hupu.user.login":
                 getContext().startActivity(new Intent(getContext(), LoginActivity.class));
-                ToastUtils.showToast("请先登录");
+                ToastUtils.showToast("请先登录哦~");
                 break;
             case "hupu.ui.pageclose":
                 BaseAppManager.getInstance().getForwardActivity().finish();
