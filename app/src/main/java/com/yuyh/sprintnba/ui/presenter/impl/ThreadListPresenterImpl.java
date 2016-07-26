@@ -199,7 +199,6 @@ public class ThreadListPresenterImpl implements Presenter {
                     for (ForumsData.Forum forum : forumList) {
                         if (forum.fid.equals(fid)) {
                             mThreadListView.showThreadInfo(forum);
-                            LogUtils.i("forum = "+forum.backImg);
                             complete = true;
                             break;
                         }
