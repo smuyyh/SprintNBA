@@ -80,10 +80,6 @@ public class CalendarView extends View implements View.OnTouchListener, ICalenda
     private int backgroundColor = CalConstant.BACKGROUND_COLOR;
     private Paint textPaint;
     private Paint weekTextPaint;
-    private Paint grayPaint;
-    private Paint whitePaint;
-    private Paint bluePaint;
-    private Paint blackPaint;
     private Paint todayBgPaint;
     private Paint selectedDayBgPaint;
     private Paint selectedDayTextPaint;
@@ -131,19 +127,11 @@ public class CalendarView extends View implements View.OnTouchListener, ICalenda
         weekTextPaint.setTextSize(cellHeight * 0.4f);
         weekTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
-        whitePaint = RenderUtil.getPaint(Color.WHITE);
-
-        blackPaint = RenderUtil.getPaint(Color.BLACK);
-
-        bluePaint = RenderUtil.getPaint(Color.rgb(92, 158, 237));
-
-        grayPaint = RenderUtil.getPaint(Color.rgb(200, 200, 200));
-
-        todayBgPaint = RenderUtil.getPaint(Color.rgb(124, 180, 246));
+        todayBgPaint = RenderUtil.getPaint(Color.parseColor("#FF5055"));
         todayBgPaint.setStrokeWidth(3);
         todayBgPaint.setStyle(Paint.Style.STROKE);
 
-        selectedDayBgPaint = RenderUtil.getPaint(Color.rgb(124, 180, 246));
+        selectedDayBgPaint = RenderUtil.getPaint(Color.parseColor("#FF5055"));
 
         selectedDayTextPaint = RenderUtil.getPaint(Color.WHITE);
         selectedDayTextPaint.setTextSize(cellHeight * 0.4f);

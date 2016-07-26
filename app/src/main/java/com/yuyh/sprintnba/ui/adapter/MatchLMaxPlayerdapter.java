@@ -1,7 +1,6 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.sprintnba.R;
@@ -31,8 +30,8 @@ public class MatchLMaxPlayerdapter extends HelperAdapter<MatchStat.MatchStatInfo
                 .setText(R.id.tvType, item.text);
 
         SimpleDraweeView ivLeft = viewHolder.getView(R.id.ivLeftPlayerIcon);
-        ivLeft.setController(FrescoUtils.getController(Uri.parse(item.leftPlayer.icon), ivLeft));
+        ivLeft.setController(FrescoUtils.getController(item.leftPlayer.icon, ivLeft));
         SimpleDraweeView ivRight = viewHolder.getView(R.id.ivRightPlayerIcon);
-        ivRight.setController(FrescoUtils.getController(Uri.parse(item.rightPlayer.icon), ivRight));
+        ivRight.setController(FrescoUtils.getController(item.rightPlayer.icon, ivRight));
     }
 }

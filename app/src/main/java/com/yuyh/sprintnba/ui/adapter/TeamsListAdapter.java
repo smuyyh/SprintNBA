@@ -1,7 +1,6 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.View;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -35,7 +34,7 @@ public class TeamsListAdapter extends HelperAdapter<Teams.TeamsBean.Team> {
     public void HelpConvert(HelperViewHolder viewHolder, final int position, final Teams.TeamsBean.Team team) {
         viewHolder.setText(R.id.tvTeamFullName, team.fullCnName);
         SimpleDraweeView iv = viewHolder.getView(R.id.ivTeamLogo);
-        iv.setController(FrescoUtils.getController(Uri.parse(team.logo), iv));
+        iv.setController(FrescoUtils.getController(team.logo, iv));
         viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

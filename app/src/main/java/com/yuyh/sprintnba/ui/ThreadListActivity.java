@@ -1,7 +1,6 @@
 package com.yuyh.sprintnba.ui;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.MenuItemCompat;
@@ -19,6 +18,8 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
 import com.yuyh.sprintnba.http.bean.forum.ForumsData;
@@ -31,8 +32,6 @@ import com.yuyh.sprintnba.ui.adapter.ThreadListAdapter;
 import com.yuyh.sprintnba.ui.presenter.impl.ThreadListPresenterImpl;
 import com.yuyh.sprintnba.ui.view.ThreadListView;
 import com.yuyh.sprintnba.utils.FrescoUtils;
-import com.yuyh.library.utils.DimenUtils;
-import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -166,7 +165,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     public void showThreadInfo(ForumsData.Forum forum) {
         if (forum != null) {
             setTitle(forum.name);
-            backdrop.setController(FrescoUtils.getController(Uri.parse(forum.backImg), backdrop));
+            backdrop.setController(FrescoUtils.getController(forum.backImg, backdrop));
             tvSubTitle.setText(forum.description);
         }
     }

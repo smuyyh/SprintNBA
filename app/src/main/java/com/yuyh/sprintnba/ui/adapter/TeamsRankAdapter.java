@@ -1,7 +1,6 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.View;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -37,7 +36,7 @@ public class TeamsRankAdapter extends HelperAdapter<TeamsRank.TeamBean> {
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final TeamsRank.TeamBean item) {
         if (item.type == 0) {
             SimpleDraweeView iv = viewHolder.getView(R.id.team_icon);
-            iv.setController(FrescoUtils.getController(Uri.parse(item.badge), iv));
+            iv.setController(FrescoUtils.getController(item.badge, iv));
 
             viewHolder.setText(R.id.team_name, item.name)
                     .setText(R.id.win, item.win + "")

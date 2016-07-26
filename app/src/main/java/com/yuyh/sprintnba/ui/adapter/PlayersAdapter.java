@@ -1,17 +1,16 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.yuyh.library.view.list.indexablelistview.IndexableAdapter;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.http.bean.player.Players;
 import com.yuyh.sprintnba.utils.FrescoUtils;
-import com.yuyh.library.view.list.indexablelistview.IndexableAdapter;
 
 
 /**
@@ -40,7 +39,7 @@ public class PlayersAdapter extends IndexableAdapter<Players.Player> {
     protected void onBindViewHolder(ViewHolder holder, Players.Player entity) {
         PlayersHolder playersHolder = (PlayersHolder) holder;
         playersHolder.tvName.setText(entity.getName());
-        playersHolder.ivHead.setController(FrescoUtils.getController(Uri.parse(entity.icon), playersHolder.ivHead));
+        playersHolder.ivHead.setController(FrescoUtils.getController(entity.icon, playersHolder.ivHead));
     }
 
 

@@ -1,7 +1,6 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +44,6 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
     @Override
     protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final NewsItem.NewsItemBean item) {
 
-        Uri uri = Uri.parse(item.imgurl);
-
         if (item.atype.equals("2") && TextUtils.isEmpty(item.realUrl)) { // 视频
             final JCVideoPlayerStandard videoPlayer = viewHolder.getView(R.id.vpVideo);
             videoPlayer.setUp("", item.title);
@@ -67,7 +64,7 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
                 }
             });
 
-            videoPlayer.thumbImageView.setController(FrescoUtils.getController(uri, videoPlayer.thumbImageView));
+            videoPlayer.thumbImageView.setController(FrescoUtils.getController(item.imgurl, videoPlayer.thumbImageView));
             viewHolder.setText(R.id.tvVideoTitle, item.title).setText(R.id.tvVideoTime, item.pub_time);
             ViewGroup.LayoutParams params = videoPlayer.getLayoutParams();
             params.height = DimenUtils.getScreenWidth() / 2;
@@ -75,7 +72,7 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
             videoPlayer.setLayoutParams(params);
         } else {
             SimpleDraweeView iv = viewHolder.getView(R.id.ivBannerImg);
-            iv.setController(FrescoUtils.getController(uri, iv));
+            iv.setController(FrescoUtils.getController(item.imgurl, iv));
             ViewGroup.LayoutParams params = iv.getLayoutParams();
             params.height = DimenUtils.getScreenWidth() / 2;
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;

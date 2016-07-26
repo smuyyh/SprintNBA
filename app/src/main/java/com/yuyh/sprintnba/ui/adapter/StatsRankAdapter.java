@@ -1,7 +1,6 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.View;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -39,9 +38,9 @@ public class StatsRankAdapter extends HelperAdapter<StatsRank.RankItem> {
                 .setText(R.id.tvData, item.value)
                 .setText(R.id.tvName, item.playerName);
         SimpleDraweeView ivHead = viewHolder.getView(R.id.ivHead);
-        ivHead.setController(FrescoUtils.getController(Uri.parse(item.playerIcon), ivHead));
+        ivHead.setController(FrescoUtils.getController(item.playerIcon, ivHead));
         SimpleDraweeView ivTeam = viewHolder.getView(R.id.ivTeam);
-        ivTeam.setController(FrescoUtils.getController(Uri.parse(item.teamIcon), ivTeam));
+        ivTeam.setController(FrescoUtils.getController(item.teamIcon, ivTeam));
         viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {

@@ -1,7 +1,6 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.View;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -33,7 +32,7 @@ public class ForumListAdapter extends HelperAdapter<ForumsData.Forum> {
         if (!item.fid.equals("0")) {
             viewHolder.setText(R.id.tvTeamFullName, item.name);
             SimpleDraweeView ivTeamLogo = viewHolder.getView(R.id.ivTeamLogo);
-            ivTeamLogo.setController(FrescoUtils.getController(Uri.parse(item.logo), ivTeamLogo));
+            ivTeamLogo.setController(FrescoUtils.getController(item.logo, ivTeamLogo));
             viewHolder.getItemView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

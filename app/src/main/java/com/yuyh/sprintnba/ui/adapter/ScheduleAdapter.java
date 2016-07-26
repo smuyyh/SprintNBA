@@ -1,7 +1,6 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.View;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -38,9 +37,9 @@ public class ScheduleAdapter extends HelperAdapter<Matchs.MatchsDataBean.Matches
         Matchs.MatchsDataBean.MatchesBean.MatchInfoBean matchInfo = item.matchInfo;
 
         SimpleDraweeView ivLeft = viewHolder.getView(R.id.ivLeftTeam);
-        ivLeft.setController(FrescoUtils.getController(Uri.parse(matchInfo.leftBadge), ivLeft));
+        ivLeft.setController(FrescoUtils.getController(matchInfo.leftBadge, ivLeft));
         SimpleDraweeView ivRight = viewHolder.getView(R.id.ivRightTeam);
-        ivRight.setController(FrescoUtils.getController(Uri.parse(matchInfo.rightBadge), ivRight));
+        ivRight.setController(FrescoUtils.getController(matchInfo.rightBadge, ivRight));
 
         String status;
         if (((matchInfo.quarter.contains("第4节") || matchInfo.quarter.contains("加时")) && !matchInfo.leftGoal.equals(matchInfo.rightGoal))

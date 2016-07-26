@@ -1,6 +1,5 @@
 package com.yuyh.sprintnba.ui;
 
-import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -9,6 +8,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
+import com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
 import com.yuyh.sprintnba.event.RefreshCompleteEvent;
@@ -20,9 +22,6 @@ import com.yuyh.sprintnba.ui.view.MatchDetailView;
 import com.yuyh.sprintnba.utils.FrescoUtils;
 import com.yuyh.sprintnba.widget.GameDetailScrollBar;
 import com.yuyh.sprintnba.widget.StickyNavLayout;
-import com.yuyh.library.utils.DimenUtils;
-import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
-import com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -152,8 +151,8 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
         tvMatchStartTime.setText(info.startDate + "   " + info.startHour + "   " + info.venue);
         tvMatchLeftScore.setText(info.leftGoal);
         tvMatchRightScore.setText(info.rightGoal);
-        ivMatchLeftTeam.setController(FrescoUtils.getController(Uri.parse(info.leftBadge), ivMatchLeftTeam));
-        ivMatchRightTeam.setController(FrescoUtils.getController(Uri.parse(info.rightBadge), ivMatchRightTeam));
+        ivMatchLeftTeam.setController(FrescoUtils.getController(info.leftBadge, ivMatchLeftTeam));
+        ivMatchRightTeam.setController(FrescoUtils.getController(info.rightBadge, ivMatchRightTeam));
     }
 
     private boolean lastIsTopHidden;//记录上次是否悬浮

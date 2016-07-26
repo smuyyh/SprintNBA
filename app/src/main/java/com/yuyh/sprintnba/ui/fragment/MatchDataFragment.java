@@ -1,6 +1,5 @@
 package com.yuyh.sprintnba.ui.fragment;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseLazyFragment;
 import com.yuyh.sprintnba.event.RefreshEvent;
@@ -18,7 +18,6 @@ import com.yuyh.sprintnba.ui.adapter.MatchStatisticsAdapter;
 import com.yuyh.sprintnba.ui.presenter.impl.MatchDataPresenter;
 import com.yuyh.sprintnba.ui.view.MatchDataView;
 import com.yuyh.sprintnba.utils.FrescoUtils;
-import com.yuyh.library.utils.toast.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -118,8 +117,8 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
 
     @Override
     public void showMatchPoint(List<MatchStat.MatchStatInfo.StatsBean.Goals> list, MatchStat.MatchStatInfo.MatchTeamInfo teamInfo) {
-        ivMatchPointLeft.setController(FrescoUtils.getController(Uri.parse(teamInfo.leftBadge), ivMatchPointLeft));
-        ivMatchPointRight.setController(FrescoUtils.getController(Uri.parse(teamInfo.rightBadge), ivMatchPointRight));
+        ivMatchPointLeft.setController(FrescoUtils.getController(teamInfo.leftBadge, ivMatchPointLeft));
+        ivMatchPointRight.setController(FrescoUtils.getController(teamInfo.rightBadge, ivMatchPointRight));
         MatchStat.MatchStatInfo.StatsBean.Goals goals = list.get(0);
         List<String> head = goals.head;
         List<String> left = goals.rows.get(0);
