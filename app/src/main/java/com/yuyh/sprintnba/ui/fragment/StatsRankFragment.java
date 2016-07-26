@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
+import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseLazyFragment;
 import com.yuyh.sprintnba.base.BaseWebActivity;
@@ -21,7 +22,6 @@ import com.yuyh.sprintnba.ui.adapter.StatsRankAdapter;
 import com.yuyh.sprintnba.ui.presenter.impl.StatsRankPresenterImpl;
 import com.yuyh.sprintnba.ui.view.StatsRankView;
 import com.yuyh.sprintnba.widget.ToggleLayout;
-import com.yuyh.library.utils.DimenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,6 @@ public class StatsRankFragment extends BaseLazyFragment implements StatsRankView
     }
 
     private void initView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         adapter = new StatsRankAdapter(mList, mActivity, R.layout.item_list_stats_rank);
         adapter.setOnItemClickListener(new OnListItemClickListener<StatsRank.RankItem>() {
             @Override
@@ -80,6 +79,7 @@ public class StatsRankFragment extends BaseLazyFragment implements StatsRankView
                 startActivity(intent);
             }
         });
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(2)));

@@ -41,7 +41,6 @@
         android:background="@color/mainBg"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:paddingTop="5dp"
         app:isLoadMore="true"
         app:overlay="true"
         app:progress_colors="@array/material_colors"
@@ -51,13 +50,12 @@
         app:wave_show="true">
 
 
-        <com.yuyh.sprintnba.support.SupportRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        <com.yuyh.sprintnba.support.SupportRecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <include
-            layout="@layout/layout_common_empty_view"/>
+        <include layout="@layout/layout_common_empty_view" />
 
 
     </com.cjj.MaterialRefreshLayout>

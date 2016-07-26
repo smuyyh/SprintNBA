@@ -78,7 +78,7 @@ public class ScheduleFragment extends BaseLazyFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(5)));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(DimenUtils.dpToPxInt(3)));
         materialRefreshLayout.setMaterialRefreshListener(new RefreshListener());
         materialRefreshLayout.setLoadMore(false);
     }

@@ -43,16 +43,17 @@ public class TeamsRankAdapter extends HelperAdapter<TeamsRank.TeamBean> {
                     .setText(R.id.lose, item.lose + "")
                     .setText(R.id.win_percent, item.rate)
                     .setText(R.id.difference, item.difference);
-            viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {
-                @Override
-                protected void onNoDoubleClick(View view) {
-                    if (mOnItemClickListener != null)
-                        mOnItemClickListener.onItemClick(viewHolder.getItemView(), position, item);
-                }
-            });
         } else {
             viewHolder.setText(R.id.team_name, item.name);
         }
+
+        viewHolder.getItemView().setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View view) {
+                if (mOnItemClickListener != null && item.type == 0)
+                    mOnItemClickListener.onItemClick(viewHolder.getItemView(), position, item);
+            }
+        });
 
         helper.showItemAnim(viewHolder.getItemView(), position);
     }

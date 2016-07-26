@@ -6,6 +6,7 @@ import android.view.View;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.http.bean.player.Teams;
+import com.yuyh.sprintnba.support.NoDoubleClickListener;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.utils.FrescoUtils;
 import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
@@ -35,11 +36,11 @@ public class TeamsListAdapter extends HelperAdapter<Teams.TeamsBean.Team> {
         viewHolder.setText(R.id.tvTeamFullName, team.fullCnName);
         SimpleDraweeView iv = viewHolder.getView(R.id.ivTeamLogo);
         iv.setController(FrescoUtils.getController(team.logo, iv));
-        viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
+        viewHolder.getConvertView().setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            protected void onNoDoubleClick(View view) {
                 if (listener != null)
-                    listener.onItemClick(v, position, team);
+                    listener.onItemClick(view, position, team);
             }
         });
     }

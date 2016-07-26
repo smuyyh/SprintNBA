@@ -33,16 +33,16 @@ public class ForumListAdapter extends HelperAdapter<ForumsData.Forum> {
             viewHolder.setText(R.id.tvTeamFullName, item.name);
             SimpleDraweeView ivTeamLogo = viewHolder.getView(R.id.ivTeamLogo);
             ivTeamLogo.setController(FrescoUtils.getController(item.logo, ivTeamLogo));
-            viewHolder.getItemView().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null)
-                        listener.onItemClick(v, position, item);
-                }
-            });
         } else {
             viewHolder.setText(R.id.tvForumName, item.name);
         }
+        viewHolder.getItemView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null && !item.fid.equals("0"))
+                    listener.onItemClick(v, position, item);
+            }
+        });
         helper.showItemAnim(viewHolder.getItemView(), position);
     }
 

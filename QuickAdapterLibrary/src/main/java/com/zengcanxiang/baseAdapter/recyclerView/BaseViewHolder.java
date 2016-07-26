@@ -41,6 +41,4 @@ public class BaseViewHolder extends BH {
     public View getItemView() {
         return mConvertView;
     }
-
-
 }
