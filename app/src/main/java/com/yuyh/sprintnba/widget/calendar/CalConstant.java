@@ -25,6 +25,6 @@ public class CalConstant {
 
     public static final int MODE_SHOW_DATA_OF_THIS_MONTH = 1;
 
-    public static final String[] MONTH_NAME = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
+    public static final String[] MONTH_NAME = {"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
 
 }

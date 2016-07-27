@@ -23,7 +23,7 @@
             android:layout_marginLeft="10dp"
             android:background="@null"
             android:padding="10dp"
-            android:text="prev" />
+            android:text="PREV" />
 
         <TextView
             android:id="@+id/tvCalendarDate"
@@ -42,7 +42,7 @@
             android:layout_marginRight="10dp"
             android:background="@null"
             android:padding="10dp"
-            android:text="next" />
+            android:text="NEXT" />
 
 
     </RelativeLayout>
