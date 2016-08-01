@@ -36,7 +36,7 @@ public class PullRealUrlParser implements RealUrlParser {
                 case XmlPullParser.START_TAG:
                     if (parser.getName().equals("url")) {
                         String urlbase = parser.nextText();
-                        if ((urlbase.contains("vlive.qqvideo.tc.qq.com") || urlbase.contains("qqvideo.tc.qq.com"))
+                        if ((urlbase.contains(".tc.qq.com"))
                                 && TextUtils.isEmpty(real.url)) {
                             real.url = urlbase;
                             LogUtils.i("url = " + real.url);
