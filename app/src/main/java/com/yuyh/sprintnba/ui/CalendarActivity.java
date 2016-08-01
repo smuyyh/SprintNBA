@@ -50,7 +50,7 @@ public class CalendarActivity extends BaseSwipeBackCompatActivity implements Cal
         presenter = new CalendarPagePresenter(this, this);
         presenter.getMatchCount(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH) + 1);
 
-        calendar.setWeekTextStyle(3);
+        calendar.setWeekTextStyle(1);
         tvCalendarDate.setText(getYearMonthText(calendar.getYear(), calendar.getMonth()));
         calendar.setOnRefreshListener(new ICalendarView.OnRefreshListener() {
             @Override
