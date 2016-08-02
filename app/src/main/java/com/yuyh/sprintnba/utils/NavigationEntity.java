@@ -1,7 +1,9 @@
 
 package com.yuyh.sprintnba.utils;
 
-public class NavigationEntity {
+import java.io.Serializable;
+
+public class NavigationEntity implements Serializable{
 
     private int iconResId;
     private String name;

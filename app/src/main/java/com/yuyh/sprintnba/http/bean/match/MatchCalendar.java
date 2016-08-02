@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author yuyh.
  * @date 16/6/4.
  */
-public class MatchCalendar extends Base {
+public class MatchCalendar extends Base implements Serializable{
 
     /**
      * startTime : 1384012800
@@ -24,7 +24,7 @@ public class MatchCalendar extends Base {
         public String endTime;
         public MatchNum matchNum;
 
-        public static class MatchNum {
+        public static class MatchNum implements Serializable{
 
             @SerializedName("1")
             public String num1;
