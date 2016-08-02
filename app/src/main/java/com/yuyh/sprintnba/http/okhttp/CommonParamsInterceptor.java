@@ -11,7 +11,7 @@ import okhttp3.Response;
  * @author yuyh.
  * @date 2016/8/2.
  */
-public class TencentCommonInterceptor implements Interceptor {
+public class CommonParamsInterceptor implements Interceptor {
 
 
     @Override

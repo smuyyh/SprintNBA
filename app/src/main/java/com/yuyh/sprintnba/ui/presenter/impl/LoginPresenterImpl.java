@@ -54,11 +54,11 @@ public class LoginPresenterImpl implements Presenter {
                         LogUtils.d("cookie:" + cookie);
                         String uid = cookie.split("\\|")[0];
                         LogUtils.d("uid:" + uid);
-                        user.setUid(uid);
-                        user.setNickName(data.nickname);
-                        user.setToken(data.token);
-                        user.setCookie(cookie);
-                        user.setUserName(data.username);
+                        user.uid = uid;
+                        user.nickName = data.nickname;
+                        user.token = data.token;
+                        user.cookie = cookie;
+                        user.userName = data.username;
 
                         SettingPrefUtils.saveNickname(data.nickname);
                         SettingPrefUtils.saveUid(data.uid);

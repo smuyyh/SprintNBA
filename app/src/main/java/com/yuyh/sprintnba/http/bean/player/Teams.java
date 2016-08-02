@@ -27,7 +27,7 @@ public class Teams extends Base{
 
         public List<Team> east;
 
-        public static class Team implements Serializable{
+        public static class Team implements Serializable {
             public String teamId;
             public String teamName;
             public String fullCnName;

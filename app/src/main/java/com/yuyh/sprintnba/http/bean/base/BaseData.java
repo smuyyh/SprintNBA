@@ -1,10 +1,12 @@
 package com.yuyh.sprintnba.http.bean.base;
 
+import java.io.Serializable;
+
 /**
  * @author yuyh.
  * @date 2016/6/27.
  */
-public class BaseData {
+public class BaseData implements Serializable {
 
     /**
      * uid : 4847679

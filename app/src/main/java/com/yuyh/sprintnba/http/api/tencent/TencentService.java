@@ -36,7 +36,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
- * 暂未替换为Retrofit2
  *
  * @author yuyh.
  * @date 16/6/3.

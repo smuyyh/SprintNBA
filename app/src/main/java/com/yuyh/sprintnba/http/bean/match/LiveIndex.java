@@ -8,7 +8,7 @@ import java.util.List;
  * @author yuyh.
  * @date 16/7/2.
  */
-public class LiveIndex extends Base {
+public class LiveIndex extends Base{
 
     public Index data;
 

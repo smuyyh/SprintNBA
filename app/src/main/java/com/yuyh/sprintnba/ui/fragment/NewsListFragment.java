@@ -102,7 +102,7 @@ public class NewsListFragment extends BaseLazyFragment {
                 indexs.clear();
                 start = 0;
                 for (NewsIndex.IndexBean bean : newsIndex.data) {
-                    indexs.add(bean.getId());
+                    indexs.add(bean.id);
                 }
                 String arcIds = parseIds();
                 requestNews(arcIds, isRefresh, false);

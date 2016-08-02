@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author yuyh.
  * @date 16/6/4.
  */
-public class MatchCalendar extends Base implements Serializable{
+public class MatchCalendar extends Base {
 
     /**
      * startTime : 1384012800

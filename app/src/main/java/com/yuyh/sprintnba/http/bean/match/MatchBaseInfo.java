@@ -2,6 +2,8 @@ package com.yuyh.sprintnba.http.bean.match;
 
 import com.yuyh.sprintnba.http.bean.base.Base;
 
+import java.io.Serializable;
+
 /**
  * @author yuyh.
  * @date 16/7/2.
@@ -36,7 +38,7 @@ public class MatchBaseInfo extends Base {
      * rightLosses : 40
      */
 
-    public static class BaseInfo {
+    public static class BaseInfo implements Serializable {
         public String leftId;
         public String leftName;
         public String leftBadge;

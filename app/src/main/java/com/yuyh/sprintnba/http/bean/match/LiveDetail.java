@@ -2,6 +2,7 @@ package com.yuyh.sprintnba.http.bean.match;
 
 import com.yuyh.sprintnba.http.bean.base.Base;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,16 +13,16 @@ public class LiveDetail extends Base {
 
     public LiveDetailData data;
 
-    public static class LiveDetailData {
+    public static class LiveDetailData implements Serializable {
         public TeamInfo teamInfo;
         public List<LiveContent> detail;
 
-        public static class TeamInfo {
+        public static class TeamInfo implements Serializable {
             public String leftName;
             public String rightName;
         }
 
-        public static class LiveContent {
+        public static class LiveContent implements Serializable {
             public String id;
             public String ctype;
             public String content;

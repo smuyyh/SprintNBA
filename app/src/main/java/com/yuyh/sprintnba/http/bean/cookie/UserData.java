@@ -35,7 +35,7 @@ public class UserData implements Serializable {
 
     public BaseError error;
 
-    public static class LoginResult {
+    public static class LoginResult implements Serializable {
         public String uid;
         public String username;
         public String nickname;
@@ -58,7 +58,7 @@ public class UserData implements Serializable {
 
         public List<BindBean> bind;
 
-        public static class BindBean {
+        public static class BindBean implements Serializable {
             public int channel;
             public int status;
             public int is_bind;

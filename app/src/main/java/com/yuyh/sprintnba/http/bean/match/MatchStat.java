@@ -13,13 +13,13 @@ public class MatchStat extends Base {
 
     public MatchStatInfo data;
 
-    public static class MatchStatInfo {
+    public static class MatchStatInfo implements Serializable {
 
         public String livePeriod;
 
         public MatchTeamInfo teamInfo;
 
-        public static class MatchTeamInfo {
+        public static class MatchTeamInfo implements Serializable {
             public String leftId;
             public String leftName;
             public String leftBadge;
@@ -35,7 +35,7 @@ public class MatchStat extends Base {
 
         public List<StatsBean> stats;
 
-        public static class StatsBean {
+        public static class StatsBean implements Serializable {
             /**
              * type = 1  历史对阵
              * type = 2  近期战绩
@@ -51,14 +51,14 @@ public class MatchStat extends Base {
 
             public List<Goals> goals;                          // 比分
 
-            public static class Goals {
+            public static class Goals implements Serializable {
                 public List<String> head;
                 public List<List<String>> rows;
             }
 
             public List<MaxPlayers> maxPlayers;                // 最佳球员
 
-            public static class MaxPlayers {
+            public static class MaxPlayers implements Serializable {
                 public String leftVal;
                 public String rightVal;
                 public MatchPlayerInfo leftPlayer;
@@ -77,7 +77,7 @@ public class MatchStat extends Base {
 
             public List<VS> vs;                                 // 历史对阵
 
-            public static class VS {
+            public static class VS implements Serializable {
                 public String matchId;
                 public String startTime;
                 public String leftName;
@@ -93,11 +93,11 @@ public class MatchStat extends Base {
 
             public TeamMatchs teamMatches;                      // 近期战绩 | 未来赛事
 
-            public static class TeamMatchs {
+            public static class TeamMatchs implements Serializable {
                 public List<TeamMatchsTeam> left;
                 public List<TeamMatchsTeam> right;
 
-                public static class TeamMatchsTeam {
+                public static class TeamMatchsTeam implements Serializable {
                     public String startTime;
                     public String leftId;
                     public String leftName;
@@ -117,13 +117,13 @@ public class MatchStat extends Base {
             //public PlayerStats playerStats;                      // 场上球员 | 球员技术统计
 
             public List<PlayerStats> playerStats;                // 球员技术统计
-            public static class PlayerStats {
+            public static class PlayerStats implements Serializable {
 
                 // 场上球员
                 public List<TeamBean> left;
                 public List<TeamBean> right;
 
-                public static class TeamBean {
+                public static class TeamBean implements Serializable {
                     public List<String> head;
 
                     public String playerId;
@@ -146,7 +146,7 @@ public class MatchStat extends Base {
 
             public List<TeamStats> teamStats;                     // 球队统计
 
-            public static class TeamStats {
+            public static class TeamStats implements Serializable {
                 public String text;
                 public Integer leftVal;
                 public Integer rightVal;

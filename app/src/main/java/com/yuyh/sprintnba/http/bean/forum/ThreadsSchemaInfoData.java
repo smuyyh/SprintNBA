@@ -1,6 +1,8 @@
 package com.yuyh.sprintnba.http.bean.forum;
 
-public class ThreadsSchemaInfoData {
+import java.io.Serializable;
+
+public class ThreadsSchemaInfoData implements Serializable {
 
     /**
      * {
@@ -37,7 +39,7 @@ public class ThreadsSchemaInfoData {
     public String authorPuid;
     public String fid;
 
-    public static class Share {
+    public static class Share implements Serializable {
         public String weibo;
         public String url;
         public String img;

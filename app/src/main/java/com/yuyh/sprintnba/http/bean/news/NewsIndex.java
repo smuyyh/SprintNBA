@@ -22,41 +22,9 @@ public class NewsIndex extends Base {
     public List<IndexBean> data;
 
     public static class IndexBean implements Serializable {
-        private String type;
-        private String id;
-        private String column;
-        private String needUpdate;
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getColumn() {
-            return column;
-        }
-
-        public void setColumn(String column) {
-            this.column = column;
-        }
-
-        public String getNeedUpdate() {
-            return needUpdate;
-        }
-
-        public void setNeedUpdate(String needUpdate) {
-            this.needUpdate = needUpdate;
-        }
+        public String type;
+        public String id;
+        public String column;
+        public String needUpdate;
     }
 }
