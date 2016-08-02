@@ -13,47 +13,47 @@ public interface TencentApi {
     String URL_SUFFIX = "?appver=1.0.2.2&appvid=1.0.2.2&network=WIFI";
 
     //calendar?teamId=27&year=2016&month=7 // 查询球队赛程
-    @GET("/match/calendar" + URL_SUFFIX)
+    @GET("/match/calendar")
     Call<String> getMatchCalendar(@Query("teamId") int teamId, @Query("year") int year, @Query("month") int month);
 
-    @GET("/match/listByDate" + URL_SUFFIX)
+    @GET("/match/listByDate")
     Call<String> getMatchsByData(@Query("date") String date);
 
     // baseInfo?mid=100000:1468573
-    @GET("/match/baseInfo" + URL_SUFFIX)
+    @GET("/match/baseInfo")
     Call<String> getMatchBaseInfo(@Query("mid") String mid);
 
     // stat?mid=100000:1468573&tabType=3
-    @GET("/match/stat" + URL_SUFFIX)
+    @GET("/match/stat")
     Call<String> getMatchStat(@Query("mid") String mid, @Query("tabType") String tabType);
 
     // baseInfo?mid=100000:1468573
-    @GET("/match/textLiveIndex" + URL_SUFFIX)
+    @GET("/match/textLiveIndex")
     Call<String> getMatchLiveIndex(@Query("mid") String mid);
 
-    @GET("/match/textLiveDetail" + URL_SUFFIX)
+    @GET("/match/textLiveDetail")
     Call<String> getMatchLiveDetail(@Query("mid") String mid, @Query("ids") String ids);
 
-    @GET("/news/index" + URL_SUFFIX)
+    @GET("/news/index")
     Call<String> getNewsIndex(@Query("column") String column);
 
-    @GET("/news/item" + URL_SUFFIX)
+    @GET("/news/item")
     Call<String> getNewsItem(@Query("column") String column, @Query("articleIds") String articleIds);
 
-    @GET("/news/detail" + URL_SUFFIX)
+    @GET("/news/detail")
     Call<String> getNewsDetail(@Query("column") String column, @Query("articleId") String articleId);
 
-    @GET("/player/statsRank" + URL_SUFFIX)
+    @GET("/player/statsRank")
     Call<String> getStatsRank(@Query("statType") String statType, @Query("num") int num, @Query("tabType") String tabType, @Query("seasonId") String seasonId);
 
     // rankByDivision // 分区排名
-    @GET("/team/rank" + URL_SUFFIX)
+    @GET("/team/rank")
     Call<String> getTeamsRank();
 
-    @GET("/player/list" + URL_SUFFIX)
+    @GET("/player/list")
     Call<String> getPlayerList();
 
-    @GET("/team/list" + URL_SUFFIX)
+    @GET("/team/list")
     Call<String> getTeamList();
 
 

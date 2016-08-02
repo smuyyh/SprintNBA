@@ -44,7 +44,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class TencentService {
 
     static Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.TENCENT_SERVER)
-            .addConverterFactory(ScalarsConverterFactory.create()).build();
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .client(OkHttpHelper.getTecentClient()).build();
     static TencentApi api = retrofit.create(TencentApi.class);
 
 

@@ -49,7 +49,8 @@ public class OkHttpHelper {
                 .connectTimeout(20 * 1000, TimeUnit.MILLISECONDS)
                 .readTimeout(20 * 1000, TimeUnit.MILLISECONDS)
                 .retryOnConnectionFailure(true) // 失败重发
-                .addInterceptor(logging);
+                .addInterceptor(logging)
+                .addInterceptor(new TencentCommonInterceptor());
         return builder.build();
     }
 }
