@@ -14,6 +14,11 @@
 ###V1.0
 初次版本，含NBA新闻、视频花絮、赛程及文字直播、技术统计、球队及球员数据排行、详细资料，虎扑论坛专区。
 
+## 下载
+APK本地下载：[SprintNBA-1.0.apk](https://raw.githubusercontent.com/smuyyh/SprintNBA/master/app/release/SprintNBA-1.0.apk)
+
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/download.png?raw=true" width="200"/>
+
 ## TODO
 
 *   [ ] 代码优化
