@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.yuyh.sprintnba.R;
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.ui.fragment.NewsListFragment;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.view.viewpager.indicator.FragmentListPageAdapter;

@@ -2,7 +2,7 @@ package com.yuyh.sprintnba.http.okhttp;
 
 import android.text.TextUtils;
 
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.utils.SettingPrefUtils;
 import com.yuyh.library.utils.log.LogUtils;
 

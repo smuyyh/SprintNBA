@@ -4,7 +4,7 @@ import com.yuyh.sprintnba.ui.Interactor.NBANewsDetailInteractor;
 import com.yuyh.sprintnba.http.api.tencent.TencentService;
 import com.yuyh.sprintnba.http.bean.news.NewsDetail;
 import com.yuyh.sprintnba.http.api.RequestCallback;
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 
 /**
  * @author yuyh.

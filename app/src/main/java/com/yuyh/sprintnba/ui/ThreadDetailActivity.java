@@ -10,7 +10,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
 import com.yuyh.sprintnba.event.ThreadContentEvent;
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.ui.presenter.impl.ThreadDetailPresenterImpl;
 import com.yuyh.sprintnba.ui.adapter.VPThreadAdapter;
 import com.yuyh.sprintnba.ui.view.ThreadDetailView;

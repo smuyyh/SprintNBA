@@ -24,7 +24,7 @@ import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
 import com.yuyh.sprintnba.http.bean.forum.ForumsData;
 import com.yuyh.sprintnba.http.bean.forum.ThreadListData;
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.support.SpaceItemDecoration;
 import com.yuyh.sprintnba.support.SupportRecyclerView;

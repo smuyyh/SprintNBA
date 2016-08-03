@@ -4,7 +4,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.util.Linkify;
 
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 
 import java.util.regex.Pattern;
 

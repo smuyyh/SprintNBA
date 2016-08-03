@@ -2,11 +2,10 @@ package com.yuyh.sprintnba.http.utils;
 
 import android.content.Context;
 
-import com.yuyh.sprintnba.utils.SettingPrefUtils;
-import com.yuyh.library.AppUtils;
-import com.yuyh.library.utils.DeviceUtils;
 import com.yuyh.library.utils.data.safe.MD5;
 import com.yuyh.library.utils.log.LogUtils;
+import com.yuyh.sprintnba.app.Constant;
+import com.yuyh.sprintnba.utils.SettingPrefUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -31,7 +30,7 @@ public class RequestHelper {
 
     public static HashMap<String, String> getRequsetMap() {
         HashMap<String, String> map = new HashMap<>();
-        map.put("client", DeviceUtils.getIMEI(AppUtils.getAppContext()));
+        map.put("client", Constant.deviceId);
         map.put("night", "0");
         try {
             map.put("token", URLEncoder.encode(SettingPrefUtils.getToken(), "UTF-8"));

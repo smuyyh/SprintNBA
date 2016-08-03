@@ -76,11 +76,13 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
             videoPlayer.setLayoutParams(params);
         } else {
             SimpleDraweeView iv = viewHolder.getView(R.id.ivBannerImg);
-            iv.setController(FrescoUtils.getController(item.imgurl, iv));
-            ViewGroup.LayoutParams params = iv.getLayoutParams();
-            params.height = DimenUtils.getScreenWidth() / 2;
-            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            iv.setLayoutParams(params);
+            if (iv != null) { // @bugreport NullPointerException
+                iv.setController(FrescoUtils.getController(item.imgurl, iv));
+                ViewGroup.LayoutParams params = iv.getLayoutParams();
+                params.height = DimenUtils.getScreenWidth() / 2;
+                params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                iv.setLayoutParams(params);
+            }
             viewHolder.setText(R.id.tvBannerTitle, item.title)
                     .setText(R.id.tvBannerTime, item.pub_time);
 

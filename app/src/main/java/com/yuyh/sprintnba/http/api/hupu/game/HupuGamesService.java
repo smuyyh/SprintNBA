@@ -1,14 +1,13 @@
 package com.yuyh.sprintnba.http.api.hupu.game;
 
+import com.yuyh.library.utils.data.safe.MD5;
 import com.yuyh.sprintnba.BuildConfig;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.http.api.RequestCallback;
 import com.yuyh.sprintnba.http.bean.cookie.UserData;
 import com.yuyh.sprintnba.http.bean.forum.SearchListData;
 import com.yuyh.sprintnba.http.okhttp.OkHttpHelper;
 import com.yuyh.sprintnba.http.utils.RequestHelper;
-import com.yuyh.library.AppUtils;
-import com.yuyh.library.utils.DeviceUtils;
-import com.yuyh.library.utils.data.safe.MD5;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +40,8 @@ public class HupuGamesService {
      */
     public static void login(String userName, String passWord, final RequestCallback<UserData> cbk) {
         HashMap<String, String> params = new HashMap<>();
-        String deviceId = DeviceUtils.getIMEI(AppUtils.getAppContext());
+        //String deviceId = DeviceUtils.getIMEI(AppUtils.getAppContext());
+        String deviceId = Constant.deviceId;
         params.put("client", deviceId);
         params.put("username", userName);
         params.put("password", MD5.getMD5(passWord));
@@ -79,7 +79,7 @@ public class HupuGamesService {
         String sign = RequestHelper.getRequestSign(params);
         params.put("sign", sign);
 
-        Call<SearchListData> call = apiStr.search(params, DeviceUtils.getIMEI(AppUtils.getAppContext()));
+        Call<SearchListData> call = apiStr.search(params, Constant.deviceId);
         call.enqueue(new Callback<SearchListData>() {
             @Override
             public void onResponse(Call<SearchListData> call, Response<SearchListData> response) {

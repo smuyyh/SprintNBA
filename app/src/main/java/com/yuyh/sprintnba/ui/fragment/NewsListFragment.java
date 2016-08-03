@@ -17,7 +17,7 @@ import com.yuyh.sprintnba.http.api.RequestCallback;
 import com.yuyh.sprintnba.http.api.tencent.TencentService;
 import com.yuyh.sprintnba.http.bean.news.NewsIndex;
 import com.yuyh.sprintnba.http.bean.news.NewsItem;
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.support.SpaceItemDecoration;
 import com.yuyh.sprintnba.support.SupportRecyclerView;

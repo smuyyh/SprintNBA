@@ -18,7 +18,7 @@ import com.yuyh.sprintnba.http.bean.player.Players;
 import com.yuyh.sprintnba.http.bean.player.StatsRank;
 import com.yuyh.sprintnba.http.bean.player.Teams;
 import com.yuyh.sprintnba.http.bean.player.TeamsRank;
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.http.okhttp.OkHttpHelper;
 import com.yuyh.sprintnba.http.utils.JsonParser;
 import com.yuyh.sprintnba.http.utils.PullRealUrlParser;

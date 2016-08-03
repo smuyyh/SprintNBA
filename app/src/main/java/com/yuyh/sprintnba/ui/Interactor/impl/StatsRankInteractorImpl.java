@@ -1,7 +1,7 @@
 package com.yuyh.sprintnba.ui.Interactor.impl;
 
 import com.yuyh.sprintnba.ui.Interactor.StatsRankInteractor;
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

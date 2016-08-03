@@ -16,13 +16,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.yuyh.library.utils.DeviceUtils;
 import com.yuyh.library.utils.StringUtils;
 import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.base.BaseAppManager;
 import com.yuyh.sprintnba.base.BaseWebActivity;
-import com.yuyh.sprintnba.http.constant.Constant;
 import com.yuyh.sprintnba.http.utils.RequestHelper;
 import com.yuyh.sprintnba.ui.ImagePreViewActivity;
 import com.yuyh.sprintnba.ui.LoginActivity;
@@ -223,7 +222,7 @@ public class HuPuWebView extends WebView {
                     jSONObject.put("appName", "com.hupu.games");
                     jSONObject.put("lowDevice", false);
                     jSONObject.put("scheme", "hupu");
-                    jSONObject.put("did", DeviceUtils.getIMEI(getContext()));
+                    jSONObject.put("did", Constant.deviceId);
                     jSONObject.put("platform", "Android");
                     jSONObject.put("device", Build.PRODUCT);
                     jSONObject.put("osVer", Build.VERSION.RELEASE);

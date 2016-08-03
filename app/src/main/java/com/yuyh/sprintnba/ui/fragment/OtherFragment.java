@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseLazyFragment;
 import com.yuyh.sprintnba.base.BaseWebActivity;
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.ui.AboutActivity;
 import com.yuyh.sprintnba.ui.LoginActivity;
 import com.yuyh.sprintnba.ui.PlayerListActivity;

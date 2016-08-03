@@ -1,5 +1,6 @@
 package com.yuyh.sprintnba.ui;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -16,7 +17,14 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.yuyh.library.permission.Acp;
+import com.yuyh.library.permission.AcpListener;
+import com.yuyh.library.permission.AcpOptions;
+import com.yuyh.library.utils.DeviceUtils;
+import com.yuyh.library.utils.toast.ToastUtils;
+import com.yuyh.library.view.viewpager.XViewPager;
 import com.yuyh.sprintnba.R;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.base.BaseAppCompatActivity;
 import com.yuyh.sprintnba.base.BaseLazyFragment;
 import com.yuyh.sprintnba.event.CalendarEvent;
@@ -25,8 +33,6 @@ import com.yuyh.sprintnba.ui.presenter.Presenter;
 import com.yuyh.sprintnba.ui.presenter.impl.HomePresenterImpl;
 import com.yuyh.sprintnba.ui.view.HomeView;
 import com.yuyh.sprintnba.utils.NavigationEntity;
-import com.yuyh.library.utils.toast.ToastUtils;
-import com.yuyh.library.view.viewpager.XViewPager;
 import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 
@@ -65,6 +71,28 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         presenter.initialized();
         BmobUpdateAgent.setUpdateOnlyWifi(true); // Wifi下面才提示APP更新
         BmobUpdateAgent.update(this);
+        // Android6.0 权限申请
+        Acp.getInstance(this).request(new AcpOptions.Builder()
+                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE)
+                        .setRationalMessage("以下权限需要您授权，否则将不能正常使用App。\n" +
+                                "1、读取SD卡权限\n" +
+                                "2、读取手机IMEI")
+                        .build(),
+                new AcpListener() {
+                    @Override
+                    public void onGranted() {
+                        Constant.deviceId = DeviceUtils.getIMEI(HomeActivity.this);
+                    }
+
+                    @Override
+                    public void onDenied(List<String> permissions) {
+                        String str = "";
+                        for (String permission : permissions) {
+                            str += permission + "\n";
+                        }
+                        ToastUtils.showSingleLongToast(str + "权限拒绝，可能会引起APP异常退出");
+                    }
+                });
     }
 
     @Override

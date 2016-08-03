@@ -5,7 +5,7 @@ import android.content.Context;
 import com.yuyh.sprintnba.http.api.RequestCallback;
 import com.yuyh.sprintnba.http.api.tencent.TencentService;
 import com.yuyh.sprintnba.http.bean.player.StatsRank;
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.ui.Interactor.StatsRankInteractor;
 import com.yuyh.sprintnba.ui.Interactor.impl.StatsRankInteractorImpl;
 import com.yuyh.sprintnba.ui.presenter.Presenter;

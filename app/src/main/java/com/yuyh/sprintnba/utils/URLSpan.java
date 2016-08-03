@@ -9,7 +9,7 @@ import android.text.TextUtils;
 import android.text.style.ClickableSpan;
 import android.view.View;
 
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 
 public class URLSpan extends ClickableSpan implements ParcelableSpan {
 

@@ -8,7 +8,7 @@ import com.yuyh.sprintnba.http.bean.base.BaseData;
 import com.yuyh.sprintnba.http.bean.bmob.Feedback;
 import com.yuyh.sprintnba.http.bean.forum.AddReplyData;
 import com.yuyh.sprintnba.http.bean.forum.PermissionData;
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.ui.view.PostView;
 import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.library.utils.toast.ToastUtils;

@@ -1,7 +1,7 @@
 
 package com.yuyh.sprintnba.ui.Interactor;
 
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 
 import java.util.Map;
 

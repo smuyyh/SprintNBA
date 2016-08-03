@@ -6,7 +6,7 @@ import com.yuyh.sprintnba.http.api.RequestCallback;
 import com.yuyh.sprintnba.http.api.hupu.game.HupuGamesService;
 import com.yuyh.sprintnba.http.bean.cookie.User;
 import com.yuyh.sprintnba.http.bean.cookie.UserData;
-import com.yuyh.sprintnba.http.constant.Constant;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.ui.presenter.Presenter;
 import com.yuyh.sprintnba.ui.view.LoginView;
 import com.yuyh.sprintnba.utils.SettingPrefUtils;
