@@ -34,6 +34,14 @@ APK本地下载：[SprintNBA-1.0.apk](https://raw.githubusercontent.com/smuyyh/S
 *   [ ] 优化相关视频播放。腾讯视频真实地址提取功能不稳定，导致部分视频不能播放。
 *   [ ] 部分BUG修复
 
+## 友情提示
+由于反馈信息及崩溃信息上传至Bmob云数据库，并且该项目已在百度应用商店上线，为了避免其他fork&colne等的项目run起来的信息干扰到，所以bmob api key暂不提供，有需要的童鞋可自行到bmob后台申请一个，并根据字段建立反馈及崩溃信息这两个表。然后在Application配置
+```java
+BmobConfig config = new BmobConfig.Builder(this)
+    .setApplicationId("")//设置appkey  bmob申请
+    .build();
+```
+
 ## 应用截图
 
 <img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_news.jpeg?raw=true" width="280"/>

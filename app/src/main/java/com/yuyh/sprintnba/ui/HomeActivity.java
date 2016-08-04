@@ -97,7 +97,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_MENU) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_MENU && mDrawerLayout != null) {
             if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
             } else {

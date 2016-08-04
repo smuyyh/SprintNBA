@@ -38,7 +38,7 @@ public class SprintNBA extends Application {
 
     private void initBmob() {
         BmobConfig config = new BmobConfig.Builder(this)
-                .setApplicationId("e47d1b58418a7db9bc0f66c3628f11dc")//设置appkey
+                .setApplicationId("")//设置appkey
                 .setConnectTimeout(30)//请求超时时间（单位为秒）：默认15s
                 .setUploadBlockSize(1024 * 1024)//文件分片上传时每片的大小（单位字节），默认512*1024
                 .setFileExpiration(2500)//文件的过期时间(单位为秒)：默认1800s
