@@ -1,6 +1,7 @@
 package com.yuyh.sprintnba.ui.presenter.impl;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.yuyh.sprintnba.http.api.RequestCallback;
 import com.yuyh.sprintnba.http.api.hupu.forum.HupuForumService;
@@ -101,15 +102,30 @@ public class PostPresenter {
      * @param title
      */
     public void post(String fid, String content, String title) {
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(content)) {
+            ToastUtils.showSingleToast("标题和内容不能为空哦~");
+            return;
+        }
         HupuForumService.addThread(title, content, fid, new RequestCallback<BaseData>() {
             @Override
             public void onSuccess(BaseData baseData) {
-
+                if (baseData != null) {
+                    if (baseData.error != null) {
+                        ToastUtils.showSingleToast("发送失败：" + baseData.error.msg);
+                    } else if (baseData.status == 200) {
+                        ToastUtils.showSingleToast("发送成功");
+                        postView.postSuccess();
+                    } else {
+                        ToastUtils.showSingleToast("发送失败");
+                    }
+                } else {
+                    ToastUtils.showSingleToast("发送失败,请检查网络");
+                }
             }
 
             @Override
             public void onFailure(String message) {
-
+                ToastUtils.showSingleToast("发送失败,请检查网络");
             }
         });
     }
@@ -121,6 +137,10 @@ public class PostPresenter {
      * @param content
      */
     public void feedback(String title, String content) {
+        if (!(TextUtils.isEmpty(title) && TextUtils.isEmpty(content))) {
+            ToastUtils.showSingleToast("标题和内容至少填一项哦~");
+            return;
+        }
         postView.showLoadding();
         Feedback feedback = new Feedback();
         feedback.setTitle(title);

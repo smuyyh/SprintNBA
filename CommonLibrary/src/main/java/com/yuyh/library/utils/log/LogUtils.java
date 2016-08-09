@@ -86,7 +86,7 @@ public class LogUtils {
     }
 
     public static void i(String tag, Object msg, Throwable tr) {
-        log(tag, msg.toString(), tr, 'i');
+        log(tag, msg == null ? null : msg.toString(), tr, 'i');
     }
 
     /************************** Verbose ********************************/
