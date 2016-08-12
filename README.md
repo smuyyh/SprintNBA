@@ -34,12 +34,6 @@ APK本地下载：[SprintNBA-1.0.apk](https://raw.githubusercontent.com/smuyyh/S
 *   [ ] 优化相关视频播放。腾讯视频真实地址提取功能不稳定，导致部分视频不能播放。
 *   [ ] 部分BUG修复
 
-```java
-BmobConfig config = new BmobConfig.Builder(this)
-    .setApplicationId("")//设置appkey  bmob申请
-    .build();
-```
-
 ## 应用截图
 
 <img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_news.jpeg?raw=true" width="280"/>
