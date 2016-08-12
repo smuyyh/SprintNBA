@@ -197,7 +197,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         sb.append(result);
         sb.append("--------------------end---------------------------");
         LogUtils.e(sb.toString());
-        uploadCrashMessage(sb.toString());
+        // uploadCrashMessage(sb.toString());
         return null;
     }
 }
