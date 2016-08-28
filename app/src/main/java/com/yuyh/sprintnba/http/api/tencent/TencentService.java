@@ -85,7 +85,6 @@ public class TencentService {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 cbk.onFailure(t.getMessage());
-                cache.remove(key);
             }
         });
     }
@@ -125,7 +124,6 @@ public class TencentService {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 cbk.onFailure(t.getMessage());
-                cache.remove(key);
             }
         });
     }
@@ -269,7 +267,6 @@ public class TencentService {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 cbk.onFailure(t.getMessage());
-                cache.remove(key);
             }
         });
     }
@@ -309,7 +306,6 @@ public class TencentService {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 cbk.onFailure(t.getMessage());
-                cache.remove(key);
             }
         });
     }
@@ -350,7 +346,6 @@ public class TencentService {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 cbk.onFailure(t.getMessage());
-                cache.remove(key);
             }
         });
     }
@@ -393,7 +388,6 @@ public class TencentService {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 cbk.onFailure(t.getMessage());
-                cache.remove(key);
             }
         });
     }
@@ -448,7 +442,6 @@ public class TencentService {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 cbk.onFailure(t.getMessage());
-                cache.remove(key);
             }
         });
     }
@@ -486,7 +479,6 @@ public class TencentService {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 cbk.onFailure(t.getMessage());
-                cache.remove(key);
             }
         });
     }
@@ -525,7 +517,6 @@ public class TencentService {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 cbk.onFailure(t.getMessage());
-                cache.remove(key);
             }
         });
     }
