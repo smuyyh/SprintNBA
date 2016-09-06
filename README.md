@@ -36,25 +36,25 @@ APK本地下载：[SprintNBA-1.0.apk](https://raw.githubusercontent.com/smuyyh/S
 
 ## 应用截图
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_news.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_detail.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_img.jpeg?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_news.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_detail.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_img.png?raw=true" width="280"/>
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_video.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/video_play.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_schedule.jpeg?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_video.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/video_play.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_schedule.png?raw=true" width="280"/>
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_data.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_live.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_team_sort.jpeg?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_data.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_live.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_team_sort.png?raw=true" width="280"/>
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_player_stats.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_hupu.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_list.jpeg?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_player_stats.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_hupu.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_list.png?raw=true" width="280"/>
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_detail.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_other.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/team_detail.jpeg?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_detail.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_other.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/team_detail.png?raw=true" width="280"/>
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_list.jpeg?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_detail.jpeg?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_list.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_detail.png?raw=true" width="280"/>
