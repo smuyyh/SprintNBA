@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@android:color/transparent">
 
     <TextView
         android:id="@+id/tvLiveTime"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="3dp"
+        android:gravity="center_horizontal"
         android:text="03:11" />
-
-    <View
-        android:id="@+id/viewLine"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/tvLiveTime"
-        android:background="@color/divider" />
 
     <View
         android:layout_width="6dp"
@@ -55,7 +49,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
-                android:text="51:78"
                 android:textColor="@color/colorPrimary" />
 
         </RelativeLayout>
@@ -65,8 +58,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="詹姆斯上篮命中"
             android:textColor="@color/primary_text" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/ivLiveImage"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            app:failureImage="@drawable/dwPrimaryBg"
+            app:placeholderImage="@drawable/nba_default_large"
+            app:placeholderImageScaleType="centerCrop" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/ivLiveVideo"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            app:failureImage="@drawable/dwPrimaryBg"
+            app:placeholderImage="@drawable/nba_default_large"
+            app:placeholderImageScaleType="centerCrop" />
 
     </LinearLayout>
 

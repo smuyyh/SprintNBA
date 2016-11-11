@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface MatchLiveView {
 
-    void addList(List<LiveDetail.LiveDetailData.LiveContent> detail, boolean front);
+    void addList(List<LiveDetail.LiveContent> detail, boolean front);
 
     void showError(String message);
 }

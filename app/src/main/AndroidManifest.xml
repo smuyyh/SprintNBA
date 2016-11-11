@@ -55,8 +55,8 @@
         <activity
             android:name=".ui.ThreadListActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"
-            android:theme="@style/AppTheme.ThreadList"/>
+            android:theme="@style/AppTheme.ThreadList"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name=".ui.LoginActivity"
             android:screenOrientation="portrait" />
@@ -65,14 +65,15 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.ImagePreViewActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ThreadList" />
         <activity
             android:name=".ui.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MatchDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.ThreadList"/>
+            android:theme="@style/AppTheme.ThreadList" />
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />

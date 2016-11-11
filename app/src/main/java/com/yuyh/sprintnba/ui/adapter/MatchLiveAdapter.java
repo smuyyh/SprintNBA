@@ -1,51 +1,83 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
-import android.os.Build;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.RelativeLayout;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.sprintnba.R;
+import com.yuyh.sprintnba.base.BaseWebActivity;
 import com.yuyh.sprintnba.http.bean.match.LiveDetail;
+import com.yuyh.sprintnba.support.NoDoubleClickListener;
+import com.yuyh.sprintnba.ui.ImagePreViewActivity;
+import com.yuyh.sprintnba.utils.FrescoUtils;
 import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author yuyh.
  * @date 16/7/2.
  */
-public class MatchLiveAdapter extends HelperAdapter<LiveDetail.LiveDetailData.LiveContent> {
+public class MatchLiveAdapter extends HelperAdapter<LiveDetail.LiveContent> {
 
-    public MatchLiveAdapter(List<LiveDetail.LiveDetailData.LiveContent> mList, Context context, int... layoutIds) {
+    public MatchLiveAdapter(List<LiveDetail.LiveContent> mList, Context context, int... layoutIds) {
         super(mList, context, layoutIds);
     }
 
     @Override
-    public void HelpConvert(final HelperViewHolder viewHolder, int position, LiveDetail.LiveDetailData.LiveContent item) {
+    public void HelpConvert(final HelperViewHolder viewHolder, int position, LiveDetail.LiveContent item) {
+
         viewHolder.setText(R.id.tvLiveTime, item.time)
                 .setText(R.id.tvLiveTeam, item.teamName)
-                .setText(R.id.tvLiveScore, item.leftGoal + ":" + item.rightGoal)
                 .setText(R.id.tvLiveContent, item.content);
+        if (!(TextUtils.isEmpty(item.leftGoal) || TextUtils.isEmpty(item.rightGoal))) {
+            viewHolder.setVisible(R.id.tvLiveScore, true);
+            viewHolder.setText(R.id.tvLiveScore, item.leftGoal + ":" + item.rightGoal);
+        } else {
+            viewHolder.setInVisible(R.id.tvLiveScore);
+        }
 
-        final View itemView = viewHolder.getConvertView();
-        ViewTreeObserver vto = itemView.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                // 务必移除监听，会多次调用
-                if (Build.VERSION.SDK_INT < 16) {
-                    itemView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                } else {
-                    itemView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                }
-                View line = viewHolder.getView(R.id.viewLine);
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams();
-                params.height = itemView.getHeight();
-                line.setLayoutParams(params);
+        SimpleDraweeView image = viewHolder.getView(R.id.ivLiveImage);
+        if ("图片".equals(item.time) && item.image != null
+                && item.image.urls != null && item.image.urls.size() > 0) {
+            final List<LiveDetail.UrlsBean> urls = item.image.urls;
+            image.setVisibility(View.VISIBLE);
+            image.setController(FrescoUtils.getController(urls.get(0).small, image));
+            if (!TextUtils.isEmpty(urls.get(0).large)) {
+                image.setOnClickListener(new NoDoubleClickListener() {
+                    @Override
+                    protected void onNoDoubleClick(View view) {
+                        ImagePreViewActivity.start(mContext, new ArrayList<String>() {{
+                            add(urls.get(0).large);
+                        }}, urls.get(0).large);
+                    }
+                });
             }
-        });
+        } else {
+            image.setVisibility(View.GONE);
+        }
+
+        SimpleDraweeView video = viewHolder.getView(R.id.ivLiveVideo);
+        if ("视频".equals(item.time) && item.video != null) {
+            final LiveDetail.VideoBean videoBean = item.video;
+            if (!TextUtils.isEmpty(videoBean.pic_160x90)) {
+                video.setVisibility(View.VISIBLE);
+                video.setController(FrescoUtils.getController(videoBean.pic_160x90, video));
+                video.setOnClickListener(new NoDoubleClickListener() {
+                    @Override
+                    protected void onNoDoubleClick(View view) {
+                        BaseWebActivity.start(mContext, videoBean.playurl);
+                    }
+                });
+            } else {
+                video.setVisibility(View.GONE);
+            }
+        } else {
+            video.setVisibility(View.GONE);
+        }
+
     }
 }

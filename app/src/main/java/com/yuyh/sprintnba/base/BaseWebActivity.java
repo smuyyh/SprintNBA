@@ -1,12 +1,13 @@
 
 package com.yuyh.sprintnba.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.widget.BrowserLayout;
-import com.yuyh.library.utils.toast.ToastUtils;
 
 import butterknife.ButterKnife;
 
@@ -21,6 +22,12 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
     private boolean isShowBottomBar = true;
 
     private BrowserLayout mBrowserLayout = null;
+
+    public static void start(Context context, String url) {
+        Intent intent = new Intent(context, BaseWebActivity.class);
+        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, url);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getContentViewLayoutID() {
@@ -50,7 +57,7 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
         mBrowserLayout.setOnReceiveTitleListener(new BrowserLayout.OnReceiveTitleListener() {
             @Override
             public void onReceive(String title) {
-                if(TextUtils.isEmpty(mWebTitle)){
+                if (TextUtils.isEmpty(mWebTitle)) {
                     setTitle(title);
                 }
             }

@@ -4,8 +4,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseLazyFragment;
@@ -33,15 +33,17 @@ import butterknife.InjectView;
 public class MatchLiveFragment extends BaseLazyFragment implements MatchLiveView {
 
     @InjectView(R.id.refresh)
-    FrameLayout materialRefreshLayout;
+    RelativeLayout materialRefreshLayout;
     @InjectView(R.id.snlScrollView)
     ListView lvMatchLive;
     @InjectView(R.id.emptyView)
     View emptyView;
+    @InjectView(R.id.view_line)
+    View viewLine;
 
     private int mListViewHeight = 0;
 
-    private List<LiveDetail.LiveDetailData.LiveContent> list = new ArrayList<>();
+    private List<LiveDetail.LiveContent> list = new ArrayList<>();
     private MatchLiveAdapter adapter;
 
     private MatchLivePresenter presenter;
@@ -96,13 +98,14 @@ public class MatchLiveFragment extends BaseLazyFragment implements MatchLiveView
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
-        if (isVisibleToUser && mActivity!= null) {
+        if (isVisibleToUser && mActivity != null) {
             mActivity.invalidateOptionsMenu();
         }
     }
 
     @Override
-    public void addList(List<LiveDetail.LiveDetailData.LiveContent> detail, boolean front) {
+    public void addList(List<LiveDetail.LiveContent> detail, boolean front) {
+        viewLine.setVisibility(View.VISIBLE);
         EventBus.getDefault().post(new RefreshCompleteEvent());
         if (front)
             list.addAll(0, detail);

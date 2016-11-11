@@ -70,7 +70,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         mScreenWidth = displayMetrics.widthPixels;
 
         if (statusBarCompat) {
-            StatusBarCompat.compat(this, ContextCompat.getColor(this, R.color.colorPrimary));
+            StatusBarCompat.compat(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
             transparent19and20();
         }
 

@@ -1,5 +1,7 @@
 package com.yuyh.sprintnba.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -11,6 +13,7 @@ import com.yuyh.sprintnba.ui.adapter.VPImagePreViewAdapter;
 import com.yuyh.sprintnba.ui.presenter.impl.ImagePreViewPresenter;
 import com.yuyh.sprintnba.ui.view.ImagePreView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.InjectView;
@@ -29,6 +32,13 @@ public class ImagePreViewActivity extends BaseSwipeBackCompatActivity implements
 
     private List<String> extraPics;
     private String extraPic;
+
+    public static void start(Context context, ArrayList<String> extraPics, String extraPic) {
+        Intent intent = new Intent(context, ImagePreViewActivity.class);
+        intent.putExtra(INTENT_URLS, extraPics);
+        intent.putExtra(INTENT_URL, extraPic);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getContentViewLayoutID() {
