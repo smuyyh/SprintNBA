@@ -21,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -68,15 +69,15 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         mScreenHeight = displayMetrics.heightPixels;
         mScreenWidth = displayMetrics.widthPixels;
 
+        if (statusBarCompat) {
+            StatusBarCompat.compat(this, ContextCompat.getColor(this, R.color.colorPrimary));
+            transparent19and20();
+        }
+
         if (getContentViewLayoutID() != 0) {
             setContentView(getContentViewLayoutID());
         } else {
             throw new IllegalArgumentException("You must return a right contentView layout resource Id");
-        }
-
-        if (statusBarCompat) {
-            StatusBarCompat.compat(this);
-            transparent19and20();
         }
 
         initViewsAndEvents();

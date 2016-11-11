@@ -1,6 +1,5 @@
 package com.yuyh.sprintnba.ui;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -87,9 +86,6 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
 
     @Override
     protected int getContentViewLayoutID() {
-        statusBarCompat = false;
-        transparent19and20();
-        StatusBarCompat.compat(this, Color.TRANSPARENT);
         return R.layout.activity_game_detail;
     }
 

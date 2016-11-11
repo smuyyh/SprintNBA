@@ -1,13 +1,16 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.yuyh.sprintnba.R;
-import com.yuyh.sprintnba.http.bean.match.MatchStat;
 import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.sprintnba.R;
+import com.yuyh.sprintnba.base.BaseWebActivity;
+import com.yuyh.sprintnba.http.bean.match.MatchStat;
 import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
 import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 
@@ -29,7 +32,7 @@ public class MatchPlayerDataAdapter extends HelperAdapter<MatchStat.MatchStatInf
     }
 
     @Override
-    public void HelpConvert(HelperViewHolder viewHolder, int position, MatchStat.MatchStatInfo.StatsBean.PlayerStats item) {
+    public void HelpConvert(HelperViewHolder viewHolder, int position, final MatchStat.MatchStatInfo.StatsBean.PlayerStats item) {
         LinearLayout llPlayerDataItem = viewHolder.getView(R.id.llPlayerDataItem);
         if (item.head != null && !item.head.isEmpty()) {
             List<String> head = item.head;
@@ -44,7 +47,7 @@ public class MatchPlayerDataAdapter extends HelperAdapter<MatchStat.MatchStatInf
         } else if (item.row != null) {
             List<String> row = item.row;
             viewHolder.setText(R.id.tvMatchPlayer, row.get(0));
-            if (row.get(1).equals("是"))
+            if ("是".equals(row.get(1)))
                 viewHolder.setVisible(R.id.ivIsFirst, true);
             for (int i = 2; i < row.size(); i++) {
                 TextView tv = (TextView) inflater.inflate(R.layout.tab_match_point, null);
@@ -52,6 +55,16 @@ public class MatchPlayerDataAdapter extends HelperAdapter<MatchStat.MatchStatInf
                 tv.setLayoutParams(params);
                 llPlayerDataItem.addView(tv);
             }
+
+            viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, BaseWebActivity.class);
+                    intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, item.row.get(0));
+                    intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, item.detailUrl);
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 }

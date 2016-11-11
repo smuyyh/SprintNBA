@@ -5,17 +5,17 @@ import android.os.Handler;
 import android.support.v7.widget.SearchView;
 import android.view.View;
 
+import com.yuyh.library.utils.toast.ToastUtils;
+import com.yuyh.library.view.list.indexablelistview.IndexEntity;
+import com.yuyh.library.view.list.indexablelistview.IndexableStickyListView;
 import com.yuyh.sprintnba.R;
-import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
+import com.yuyh.sprintnba.base.BaseAppCompatActivity;
 import com.yuyh.sprintnba.base.BaseWebActivity;
 import com.yuyh.sprintnba.http.bean.player.Players;
 import com.yuyh.sprintnba.ui.adapter.PlayersAdapter;
 import com.yuyh.sprintnba.ui.presenter.Presenter;
 import com.yuyh.sprintnba.ui.presenter.impl.PlayersListPresenterImpl;
 import com.yuyh.sprintnba.ui.view.PlayersView;
-import com.yuyh.library.utils.toast.ToastUtils;
-import com.yuyh.library.view.list.indexablelistview.IndexEntity;
-import com.yuyh.library.view.list.indexablelistview.IndexableStickyListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,8 @@ import butterknife.InjectView;
  * @author yuyh.
  * @date 16/6/11.
  */
-public class PlayerListActivity extends BaseSwipeBackCompatActivity implements PlayersView, IndexableStickyListView.OnItemContentClickListener {
+public class PlayerListActivity extends BaseAppCompatActivity
+        implements PlayersView, IndexableStickyListView.OnItemContentClickListener {
 
     @InjectView(R.id.indexListView)
     IndexableStickyListView lvAllTeam;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF5055</color>
-    <color name="colorPrimaryDark">#FF5055</color>
+    <color name="colorPrimary">#1D8FF2</color>
+    <color name="colorPrimaryDark">#1D8FF2</color>
     <color name="colorAccent">#FF5055</color>
     <color name="colorPrimaryFocus">#DD5055</color>
     <color name="colorWindowBg">#FFFEFEFE</color>
@@ -24,8 +24,8 @@
     <color name="material_blue">#ff03A9F4</color>
     <color name="material_yellow">#ffFFEB3B</color>
 
-    <color name="btn_login_normal">#FF5055</color>
-    <color name="btn_login_pressed">#DD5055</color>
+    <color name="btn_login_normal">#1D8FF2</color>
+    <color name="btn_login_pressed">#2D9FF2</color>
     <color name="btn_register_normal">#ffffff</color>
     <color name="btn_register_pressed">#DDDDDD</color>
 

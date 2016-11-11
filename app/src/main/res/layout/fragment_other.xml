@@ -32,7 +32,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/nba_default" />
 
             <TextView
                 android:id="@+id/tvUserName"

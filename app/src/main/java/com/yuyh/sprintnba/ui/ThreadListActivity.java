@@ -93,6 +93,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity
     @Override
     protected int getContentViewLayoutID() {
         statusBarCompat = false;
+
         return R.layout.activity_thread_list;
     }
 
