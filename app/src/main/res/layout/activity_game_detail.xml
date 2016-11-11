@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/match_detail_bg"
     android:orientation="vertical">
 
@@ -12,26 +12,32 @@
         android:layout_height="50dp"
         android:background="@color/colorPrimary">
 
-        <TextView
-            android:id="@+id/tvBack"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:drawableLeft="@drawable/jc_back"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:paddingLeft="10dp"
-            android:text="返回"
-            android:textColor="@color/white" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true">
 
-        <TextView
-            android:id="@+id/tvMatchTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text=""
-            android:textColor="@color/white"
-            android:textSize="16dp" />
+            <TextView
+                android:id="@+id/tvBack"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/jc_back"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:text="返回"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvMatchTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -109,7 +115,7 @@
                                 android:layout_height="50dp"
                                 android:layout_alignParentLeft="true"
                                 android:layout_centerVertical="true"
-                                app:placeholderImage="@drawable/nba_default"/>
+                                app:placeholderImage="@drawable/nba_default" />
 
                             <com.facebook.drawee.view.SimpleDraweeView
                                 android:id="@+id/ivMatchRightTeam"
@@ -117,7 +123,7 @@
                                 android:layout_height="50dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                app:placeholderImage="@drawable/nba_default"/>
+                                app:placeholderImage="@drawable/nba_default" />
 
                             <TextView
                                 android:id="@+id/tvMatchLeftScore"

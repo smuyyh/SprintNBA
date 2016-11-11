@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <include
@@ -35,7 +36,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvNewsDetailTime"

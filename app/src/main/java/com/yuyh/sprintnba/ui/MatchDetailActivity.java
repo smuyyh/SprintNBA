@@ -1,5 +1,7 @@
 package com.yuyh.sprintnba.ui;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -20,6 +22,7 @@ import com.yuyh.sprintnba.ui.adapter.VPGameDetailAdapter;
 import com.yuyh.sprintnba.ui.presenter.impl.MatchDetailPresenter;
 import com.yuyh.sprintnba.ui.view.MatchDetailView;
 import com.yuyh.sprintnba.utils.FrescoUtils;
+import com.yuyh.sprintnba.utils.StatusBarCompat;
 import com.yuyh.sprintnba.widget.GameDetailScrollBar;
 import com.yuyh.sprintnba.widget.StickyNavLayout;
 
@@ -84,6 +87,9 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
 
     @Override
     protected int getContentViewLayoutID() {
+        statusBarCompat = false;
+        transparent19and20();
+        StatusBarCompat.compat(this, Color.TRANSPARENT);
         return R.layout.activity_game_detail;
     }
 
@@ -91,20 +97,29 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     protected void initViewsAndEvents() {
         EventBus.getDefault().register(this);
         mid = getIntent().getStringExtra(INTENT_MID);
+
         rlMatchToolbar.getBackground().setAlpha(0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            rlMatchToolbar.getLayoutParams().height += StatusBarCompat.getStatusBarHeight(this);
+            rlMatchToolbar.setPadding(0, StatusBarCompat.getStatusBarHeight(this), 0, 0);
+        }
+
         indicator.setScrollBar(new GameDetailScrollBar(getApplicationContext(), getResources().getColor(R.color.colorPrimary), DimenUtils.dpToPxInt(3)));
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         stickyNavLayout.setOnStickStateChangeListener(this);
+
         tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
         swipeRefreshLayout.setColorSchemeResources(R.color.material_red, R.color.material_green);
         swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT);
         swipeRefreshLayout.setEnabled(true);
         swipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
+
         presenter = new MatchDetailPresenter(this, this);
         presenter.getMatchBaseInfo(mid);
     }
