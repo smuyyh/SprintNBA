@@ -4,15 +4,13 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.library.utils.DimenUtils;
-import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.sprintnba.R;
-import com.yuyh.sprintnba.http.api.RequestCallback;
-import com.yuyh.sprintnba.http.api.tencent.TencentService;
+import com.yuyh.sprintnba.base.BaseWebActivity;
 import com.yuyh.sprintnba.http.bean.news.NewsItem;
-import com.yuyh.sprintnba.http.bean.news.VideoRealUrl;
 import com.yuyh.sprintnba.support.NoDoubleClickListener;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.utils.FrescoUtils;
@@ -46,8 +44,16 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
 
         if (item.atype.equals("2")) { // 视频
             final JCVideoPlayerStandard videoPlayer = viewHolder.getView(R.id.vpVideo);
+            // 近期腾讯视频真实地址解析后播放 提示“您未获授权，无法查看此网页。 HTTP403” 故暂时改为跳转到网页播放
+            ImageView ivGoto = viewHolder.getView(R.id.ivGoto);
+            ivGoto.setOnClickListener(new NoDoubleClickListener() {
+                @Override
+                protected void onNoDoubleClick(View view) {
+                    BaseWebActivity.start(mContext, item.url);
+                }
+            });
             if (TextUtils.isEmpty(item.realUrl)) {
-                videoPlayer.setUp("", item.title);
+                /*videoPlayer.setUp("", item.title);
                 TencentService.getVideoRealUrl(item.vid, new RequestCallback<VideoRealUrl>() {
                     @Override
                     public void onSuccess(VideoRealUrl real) {
@@ -63,9 +69,9 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
                     public void onFailure(String message) {
                         LogUtils.i("real-url：" + message);
                     }
-                });
+                });*/
             } else {
-                videoPlayer.setUp(item.realUrl, item.title);
+                //videoPlayer.setUp(item.realUrl, item.title);
             }
 
             videoPlayer.thumbImageView.setController(FrescoUtils.getController(item.imgurl, videoPlayer.thumbImageView));
