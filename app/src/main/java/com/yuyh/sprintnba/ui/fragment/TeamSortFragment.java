@@ -129,7 +129,7 @@ public class TeamSortFragment extends BaseLazyFragment implements TeamSortView {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
+        if (isVisibleToUser && mActivity!= null) {
             mActivity.invalidateOptionsMenu();
         }
     }

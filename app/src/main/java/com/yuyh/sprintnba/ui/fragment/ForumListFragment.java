@@ -83,7 +83,7 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
+        if (isVisibleToUser && mActivity!= null) {
             mActivity.invalidateOptionsMenu();
         }
     }

@@ -96,7 +96,7 @@ public class MatchLiveFragment extends BaseLazyFragment implements MatchLiveView
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
-        if (isVisibleToUser) {
+        if (isVisibleToUser && mActivity!= null) {
             mActivity.invalidateOptionsMenu();
         }
     }

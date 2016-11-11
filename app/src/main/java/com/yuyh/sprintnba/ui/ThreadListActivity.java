@@ -93,7 +93,6 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity
     @Override
     protected int getContentViewLayoutID() {
         statusBarCompat = false;
-
         return R.layout.activity_thread_list;
     }
 
@@ -111,9 +110,9 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity
             showThreadInfo(forum);
         }
         //backdrop.setImageDrawable(getResources().getDrawable(R.drawable.nba_default_large));
+        initToolbar(toolbar);
         presenter.initialized();
         presenter.onThreadReceive(type, "", true);
-        initToolbar(toolbar);
         initRecyclerView();
     }
 
@@ -166,7 +165,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity
     @Override
     public void showThreadInfo(ForumsData.Forum forum) {
         if (forum != null) {
-            setTitle(forum.name);
+            toolbar.setTitle(forum.name);
             backdrop.setController(FrescoUtils.getController(forum.backImg, backdrop));
             tvSubTitle.setText(forum.description);
         }

@@ -130,7 +130,7 @@ public class ScheduleFragment extends BaseLazyFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
+        if (isVisibleToUser && mActivity!= null) {
             mActivity.invalidateOptionsMenu();
         }
     }

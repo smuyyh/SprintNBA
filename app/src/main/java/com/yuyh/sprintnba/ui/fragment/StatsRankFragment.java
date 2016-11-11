@@ -134,7 +134,7 @@ public class StatsRankFragment extends BaseLazyFragment implements StatsRankView
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
+        if (isVisibleToUser && mActivity!= null) {
             mActivity.invalidateOptionsMenu();
         }
     }

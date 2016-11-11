@@ -1,5 +1,6 @@
 package com.yuyh.sprintnba.ui;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -94,7 +95,7 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
         EventBus.getDefault().register(this);
         mid = getIntent().getStringExtra(INTENT_MID);
 
-        rlMatchToolbar.getBackground().setAlpha(0);
+       //rlMatchToolbar.getBackground().setAlpha(0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             rlMatchToolbar.getLayoutParams().height += StatusBarCompat.getStatusBarHeight(this);
             rlMatchToolbar.setPadding(0, StatusBarCompat.getStatusBarHeight(this), 0, 0);
@@ -177,7 +178,8 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
 
     @Override
     public void scrollPercent(float percent) {
-        rlMatchToolbar.getBackground().setAlpha((int) ((float) 255 * percent));
+        int color = Color.argb((int) ((float) 255 * percent), 26, 142, 168);
+        rlMatchToolbar.setBackgroundColor(color);
         if (percent == 0) {
             swipeRefreshLayout.setEnabled(true);
             swipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);

@@ -10,7 +10,7 @@
         android:id="@+id/rlMatchToolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary">
+        android:background="#00000000">
 
         <RelativeLayout
             android:layout_width="match_parent"
