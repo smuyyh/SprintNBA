@@ -19,7 +19,6 @@ package com.yuyh.sprintnba.base;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,11 +26,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.Window;
 import android.view.WindowManager;
 
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.yuyh.sprintnba.R;
+import com.yuyh.sprintnba.utils.StatusBarCompat;
 import com.yuyh.sprintnba.widget.LoadingDialog;
 
 import butterknife.ButterKnife;
@@ -53,13 +51,12 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     protected Toolbar mToolbar;
     public LoadingDialog mLoadingDialog;
 
+    protected boolean statusBarCompat = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         overridePendingTransition(R.anim.right_in, R.anim.right_out);
         super.onCreate(savedInstanceState);
-
-        setTranslucentStatus(true);
-        setSystemBarTintDrawable(getResources().getDrawable(R.drawable.dwPrimary));
 
         mContext = this;
         BaseAppManager.getInstance().addActivity(this);
@@ -77,7 +74,19 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
             throw new IllegalArgumentException("You must return a right contentView layout resource Id");
         }
 
+        if (statusBarCompat) {
+            StatusBarCompat.compat(this);
+            transparent19and20();
+        }
+
         initViewsAndEvents();
+    }
+
+    protected void transparent19and20() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+                && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
     }
 
     @Override
@@ -101,7 +110,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         }
     }
 
-    public void initToolbar(Toolbar toolbar){
+    public void initToolbar(Toolbar toolbar) {
         mToolbar = toolbar;
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
@@ -183,43 +192,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
             intent.putExtras(bundle);
         }
         startActivityForResult(intent, requestCode);
-    }
-
-    /**
-     * set status bar translucency
-     *
-     * @param on
-     */
-    public void setTranslucentStatus(boolean on) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window win = getWindow();
-            WindowManager.LayoutParams winParams = win.getAttributes();
-            final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-            if (on) {
-                winParams.flags |= bits;
-            } else {
-                winParams.flags &= ~bits;
-            }
-            win.setAttributes(winParams);
-        }
-    }
-
-    /**
-     * use SytemBarTintManager
-     *
-     * @param tintDrawable
-     */
-    public void setSystemBarTintDrawable(Drawable tintDrawable) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            SystemBarTintManager mTintManager = new SystemBarTintManager(this);
-            if (tintDrawable != null) {
-                mTintManager.setStatusBarTintEnabled(true);
-                mTintManager.setTintDrawable(tintDrawable);
-            } else {
-                mTintManager.setStatusBarTintEnabled(false);
-                mTintManager.setTintDrawable(null);
-            }
-        }
     }
 
     /**

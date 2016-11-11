@@ -1305,14 +1305,14 @@ public class ViewDragHelper {
         if (child == null) {
             return 0;
         }
-        if (dx<=mTouchSlop&&Math.abs(dy) <= mTouchSlop){
+        if (dx<=mTouchSlop&& Math.abs(dy) <= mTouchSlop){
             return 0;
         }
-        else if (dx>mTouchSlop&&Math.abs(dy) <= mTouchSlop){
+        else if (dx>mTouchSlop&& Math.abs(dy) <= mTouchSlop){
             mDragState = STATE_DRAGGING;
             return 1;
         }
-        else if (dx<=mTouchSlop&&Math.abs(dy) > mTouchSlop){
+        else if (dx<=mTouchSlop&& Math.abs(dy) > mTouchSlop){
             mDragState = STATE_IDLE;
             cancel();
             return -1;

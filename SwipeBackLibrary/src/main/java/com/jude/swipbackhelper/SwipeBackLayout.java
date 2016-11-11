@@ -237,18 +237,13 @@ public class SwipeBackLayout extends FrameLayout {
         invalidate();
     }
 
-    /**
-     * @yuyh 修改拦截规则。否则会由于界面上有纵向滑动事件而导致滑动关闭不灵敏
-     * @param event
-     * @return
-     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if (!mEnable) {
+        if (!mEnable||mDisallowIntercept) {
             return false;
         }
         try {
-            return mDragHelper.shouldInterceptTouchEvent(event) && mDisallowIntercept;
+            return mDragHelper.shouldInterceptTouchEvent(event);
         } catch (Exception e) {
 //            e.printStackTrace();
             return false;

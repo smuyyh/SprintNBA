@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.jude.swipbackhelper.SwipeBackHelper;
-import com.yuyh.sprintnba.R;
 
 public abstract class BaseSwipeBackCompatActivity extends BaseAppCompatActivity {
 
@@ -13,7 +12,6 @@ public abstract class BaseSwipeBackCompatActivity extends BaseAppCompatActivity 
         super.onCreate(savedInstanceState);
         SwipeBackHelper.onCreate(this);
         SwipeBackHelper.getCurrentPage(this)
-                .setMoveDown(getResources().getDrawable(R.drawable.dwPrimary)) // 没有办法的办法
                 .setSwipeBackEnable(true)
                 .setSwipeEdgePercent(0.2f)//0.2 mean left 20% of screen can touch to begin swipe.
                 .setSwipeSensitivity(1)//sensitiveness of the gesture。0:slow  1:sensitive

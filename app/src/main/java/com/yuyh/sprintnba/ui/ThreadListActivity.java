@@ -21,10 +21,10 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.sprintnba.R;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
 import com.yuyh.sprintnba.http.bean.forum.ForumsData;
 import com.yuyh.sprintnba.http.bean.forum.ThreadListData;
-import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.support.SpaceItemDecoration;
 import com.yuyh.sprintnba.support.SupportRecyclerView;
@@ -43,7 +43,8 @@ import butterknife.OnClick;
  * @author yuyh.
  * @date 16/6/11.
  */
-public class ThreadListActivity extends BaseSwipeBackCompatActivity implements ThreadListView, AppBarLayout.OnOffsetChangedListener {
+public class ThreadListActivity extends BaseSwipeBackCompatActivity
+        implements ThreadListView, AppBarLayout.OnOffsetChangedListener {
 
     public static final String INTENT_FORUM = "forum";
     public static final String INTENT_FORUM_ID = "boardID";
@@ -87,11 +88,11 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity implements T
     private String type = Constant.THREAD_TYPE_NEW;
 
     private boolean isLoading;
-    private Handler handler = new Handler();
     private SearchView searchView;
 
     @Override
     protected int getContentViewLayoutID() {
+        statusBarCompat = false;
         return R.layout.activity_thread_list;
     }
 
