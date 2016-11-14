@@ -51,6 +51,7 @@
 
 - **比赛视频/赛场花絮**
 
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_video_list_1.png?raw=true" width="280"/>
 <img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_video_1.png?raw=true" width="280"/>
 <img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/video_play.png?raw=true" width="280"/>
 

@@ -52,8 +52,9 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
                     BaseWebActivity.start(mContext, item.url);
                 }
             });
+            videoPlayer.setUp("", item.title);
             if (TextUtils.isEmpty(item.realUrl)) {
-                /*videoPlayer.setUp("", item.title);
+                /*
                 TencentService.getVideoRealUrl(item.vid, new RequestCallback<VideoRealUrl>() {
                     @Override
                     public void onSuccess(VideoRealUrl real) {
