@@ -43,45 +43,45 @@
 
 - **头条新闻**
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_news.png?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_detail.png?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_img.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_news_1.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_detail_1.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/news_img_1.png?raw=true" width="280"/>
 
 <br>
 
 - **比赛视频/赛场花絮**
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_video.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_video_1.png?raw=true" width="280"/>
 <img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/video_play.png?raw=true" width="280"/>
 
 <br>
 
 - **比赛相关**
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_schedule.png?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_data.png?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_live.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_schedule_1.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_data_1.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_live_1.png?raw=true" width="280"/>
 
 <br>
 
 - **球队/球员 相关**
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_team_sort.png?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_player_stats.png?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_list.png?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_detail.png?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/team_detail.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_team_sort_1.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_player_stats_1.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_list_1.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/player_detail_1.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/team_detail_1.png?raw=true" width="280"/>
 
 <br>
 
 - **虎扑论坛相关**
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_hupu.png?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_list.png?raw=true" width="280"/>
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_detail.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_hupu_1.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_list_1.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/thread_detail_1.png?raw=true" width="280"/>
 
 <br>
 
 - **其他**
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_other.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_other_1.png?raw=true" width="280"/>
