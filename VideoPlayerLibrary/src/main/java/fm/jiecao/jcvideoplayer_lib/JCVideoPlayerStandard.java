@@ -65,11 +65,13 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
 
     @Override
     public boolean setUp(String url, Object... objects) {
-        if (objects.length == 0) return false;
+        if (objects.length == 0)
+            return false;
         if (super.setUp(url, objects)) {
             titleTextView.setText(objects[0].toString());
             if (mIfCurrentIsFullscreen) {
                 fullscreenButton.setImageResource(R.drawable.jc_shrink);
+                backButton.setVisibility(View.VISIBLE);
             } else {
                 fullscreenButton.setImageResource(R.drawable.jc_enlarge);
                 backButton.setVisibility(View.GONE);
