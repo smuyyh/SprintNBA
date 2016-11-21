@@ -79,5 +79,9 @@ public class MatchLiveAdapter extends HelperAdapter<LiveDetail.LiveContent> {
             video.setVisibility(View.GONE);
         }
 
+        if ("1".equals(item.ctype) && TextUtils.isEmpty(item.time)) {
+            viewHolder.setText(R.id.tvLiveTime, "结束");
+        }
+
     }
 }

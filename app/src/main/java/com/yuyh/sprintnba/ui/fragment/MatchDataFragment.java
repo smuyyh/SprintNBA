@@ -113,6 +113,7 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     @Override
     public void showError(String msg) {
         ToastUtils.showSingleToast(msg);
+        hideLoadingDialog();
     }
 
     @Override
