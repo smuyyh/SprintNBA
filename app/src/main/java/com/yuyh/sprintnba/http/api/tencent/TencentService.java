@@ -2,7 +2,12 @@ package com.yuyh.sprintnba.http.api.tencent;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.yuyh.library.AppUtils;
+import com.yuyh.library.utils.data.ACache;
+import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.sprintnba.BuildConfig;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.http.api.RequestCallback;
 import com.yuyh.sprintnba.http.bean.match.LiveDetail;
 import com.yuyh.sprintnba.http.bean.match.LiveIndex;
@@ -18,13 +23,10 @@ import com.yuyh.sprintnba.http.bean.player.Players;
 import com.yuyh.sprintnba.http.bean.player.StatsRank;
 import com.yuyh.sprintnba.http.bean.player.Teams;
 import com.yuyh.sprintnba.http.bean.player.TeamsRank;
-import com.yuyh.sprintnba.app.Constant;
+import com.yuyh.sprintnba.http.bean.video.VideoInfo;
 import com.yuyh.sprintnba.http.okhttp.OkHttpHelper;
 import com.yuyh.sprintnba.http.utils.JsonParser;
 import com.yuyh.sprintnba.http.utils.PullRealUrlParser;
-import com.yuyh.library.AppUtils;
-import com.yuyh.library.utils.data.ACache;
-import com.yuyh.library.utils.log.LogUtils;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -36,7 +38,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
- *
  * @author yuyh.
  * @date 16/6/3.
  */
@@ -550,6 +551,43 @@ public class TencentService {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 LogUtils.e(t.getMessage());
+                cbk.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void getVideoRealUrls(String vid, final RequestCallback<VideoInfo> cbk) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BuildConfig.TECENT_URL_SERVER_1)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .client(OkHttpHelper.getTecentClient()).build();
+        TencentVideoApi api = retrofit.create(TencentVideoApi.class);
+
+        Call<String> call = api.getVideoRealUrls(vid);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String resp = response.body()
+                            .replaceAll("QZOutputJson=", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("\n", "");
+                    if (resp.endsWith(";"))
+                        resp = resp.substring(0, resp.length() - 1);
+
+                    LogUtils.d(resp);
+
+                    VideoInfo info = new Gson().fromJson(resp, VideoInfo.class);
+                    cbk.onSuccess(info);
+
+                } else {
+                    cbk.onFailure("");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                LogUtils.e("getVideoRealUrls:" + t.toString());
                 cbk.onFailure(t.getMessage());
             }
         });

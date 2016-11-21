@@ -8,9 +8,13 @@ import android.widget.ImageView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseWebActivity;
+import com.yuyh.sprintnba.http.api.RequestCallback;
+import com.yuyh.sprintnba.http.api.tencent.TencentService;
 import com.yuyh.sprintnba.http.bean.news.NewsItem;
+import com.yuyh.sprintnba.http.bean.video.VideoInfo;
 import com.yuyh.sprintnba.support.NoDoubleClickListener;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.utils.FrescoUtils;
@@ -54,25 +58,28 @@ public class NewsAdapter extends HelperAdapter<NewsItem.NewsItemBean> {
             });
             videoPlayer.setUp("", item.title);
             if (TextUtils.isEmpty(item.realUrl)) {
-                /*
-                TencentService.getVideoRealUrl(item.vid, new RequestCallback<VideoRealUrl>() {
+
+                TencentService.getVideoRealUrls(item.vid, new RequestCallback<VideoInfo>() {
                     @Override
-                    public void onSuccess(VideoRealUrl real) {
-                        String vid = TextUtils.isEmpty(real.fn) ? real.vid + ".mp4" : real.fn;
-                        String url = real.url + vid + "?vkey=" + real.fvkey;
-                        item.realUrl = url;
-                        LogUtils.i("title：" + item.title);
-                        LogUtils.i("real-url：" + url);
-                        videoPlayer.setUp(url, item.title);
+                    public void onSuccess(VideoInfo real) {
+                        if (real.vl.vi != null && real.vl.vi.size() > 0) {
+                            String vid = real.vl.vi.get(0).vid;
+                            String vkey = real.vl.vi.get(0).fvkey;
+                            String url = real.vl.vi.get(0).ul.ui.get(0).url + vid + ".mp4?vkey=" + vkey;
+                            item.realUrl = url;
+                            LogUtils.i("title：" + item.title);
+                            LogUtils.i("real-url：" + url);
+                            videoPlayer.setUp(url, item.title);
+                        }
                     }
 
                     @Override
                     public void onFailure(String message) {
                         LogUtils.i("real-url：" + message);
                     }
-                });*/
+                });
             } else {
-                //videoPlayer.setUp(item.realUrl, item.title);
+                videoPlayer.setUp(item.realUrl, item.title);
             }
 
             videoPlayer.thumbImageView.setController(FrescoUtils.getController(item.imgurl, videoPlayer.thumbImageView));
