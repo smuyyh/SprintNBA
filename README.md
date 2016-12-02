@@ -29,13 +29,10 @@
 
 - 安卓市场：[SprintNBA](http://apk.hiapk.com/appinfo/com.yuyh.sprintnba/2)
 
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/download.png?raw=true" width="200"/>
-
 ## TODO
 
 *   [ ] 比赛视频直播
 *   [ ] 代码优化
-*   [ ] MVP细节调整
 *   [ ] 虎扑论坛部分功能暂未完善
 *   [ ] 单支球队赛程
 *   [ ] 优化相关视频播放。腾讯视频真实地址提取功能不稳定，导致部分视频不能播放。
