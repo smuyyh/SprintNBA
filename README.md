@@ -23,13 +23,11 @@
 ## 下载
 - APK本地下载：[SprintNBA-1.1.apk](https://raw.githubusercontent.com/smuyyh/SprintNBA/master/app/release/SprintNBA-1.1.apk)
 
-- 百度手机助手应用商店：[SprintNBA](http://shouji.baidu.com/software/9748339.html)
+- 百度手机助手应用商店：[SprintNBA](http://shouji.baidu.com/software/10438052.html)
 
-- 百度91无线：[SprintNBA](http://apk.91.com/Soft/Android/com.yuyh.sprintnba-1.html)
+- 百度91无线：[SprintNBA](http://apk.91.com/Soft/Android/com.yuyh.sprintnba-2.html)
 
-- 安卓市场：[SprintNBA](http://apk.hiapk.com/appinfo/com.yuyh.sprintnba/1)
-
-<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/download.png?raw=true" width="200"/>
+- 安卓市场：[SprintNBA](http://apk.hiapk.com/appinfo/com.yuyh.sprintnba/2)
 
 ## TODO
 
