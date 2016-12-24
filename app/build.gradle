@@ -50,6 +50,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:5.1.1'
     compile 'org.greenrobot:eventbus:3.0.0'
 
+    // https://github.com/smuyyh/EasyAdapter
     compile 'com.yuyh.easyadapter:library:1.1.1'
 
 }

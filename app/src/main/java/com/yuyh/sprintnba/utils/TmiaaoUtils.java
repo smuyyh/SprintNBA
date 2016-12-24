@@ -217,10 +217,20 @@ public class TmiaaoUtils {
         return list;
     }
 
-    public static List<VideoLiveSource> getSourceList() {
-        String html;
+    public static List<VideoLiveSource> getSourceList(String link) {
+        String html = "";
         try {
-            html = getHtml("http://nba.tmiaoo.com/n/100209800/p.html");
+            String[] p = link.split("[?]");
+            if (p.length > 0) {
+                String url = p[0];
+                if (!url.endsWith("/")) {
+                    url += "/";
+                }
+                url += "p.html";
+                html = getHtml(url);
+            } else {
+                return null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;

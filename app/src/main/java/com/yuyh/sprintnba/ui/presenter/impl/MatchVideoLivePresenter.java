@@ -3,6 +3,7 @@ package com.yuyh.sprintnba.ui.presenter.impl;
 import android.app.Activity;
 import android.content.Context;
 
+import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.sprintnba.http.bean.video.VideoLiveInfo;
 import com.yuyh.sprintnba.http.bean.video.VideoLiveSource;
 import com.yuyh.sprintnba.ui.presenter.Presenter;
@@ -37,12 +38,12 @@ public class MatchVideoLivePresenter implements Presenter {
 
                 final List<VideoLiveInfo> list = TmiaaoUtils.getLiveList();
 
-                ((Activity) context).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                if (context != null && dataView != null) {
 
+                    ((Activity) context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        if (dataView != null) {
                             if (list == null || list.size() <= 0) {
                                 dataView.showError("暂无直播数据");
                             } else {
@@ -51,14 +52,16 @@ public class MatchVideoLivePresenter implements Presenter {
 
                             dataView.hideLoading();
                         }
-                    }
-                });
+                    });
+                }
 
             }
         }).start();
     }
 
-    public void getSourceList(String link) {
+    public void getSourceList(final String link) {
+
+        LogUtils.i(link);
 
         if (dataView != null)
             dataView.showLoading("");
@@ -66,22 +69,23 @@ public class MatchVideoLivePresenter implements Presenter {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final List<VideoLiveSource> list = TmiaaoUtils.getSourceList();
+                final List<VideoLiveSource> list = TmiaaoUtils.getSourceList(link);
 
-                ((Activity) context).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (dataView != null) {
+                if (context != null && dataView != null) {
+
+                    ((Activity) context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
                             if (list == null || list.size() <= 0) {
-                                dataView.showError("暂无直播数据");
+                                dataView.showError("暂无直播源");
                             } else {
                                 dataView.showSourceList(list);
                             }
 
                             dataView.hideLoading();
                         }
-                    }
-                });
+                    });
+                }
             }
         }).start();
     }

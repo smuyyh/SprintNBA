@@ -2,6 +2,7 @@ package com.yuyh.sprintnba.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,6 +30,8 @@ import butterknife.InjectView;
 public class MatchVideoLiveListActivity extends BaseSwipeBackCompatActivity
         implements MatchVideoLiveView, AdapterView.OnItemClickListener {
 
+    @InjectView(R.id.refreshLayout)
+    SwipeRefreshLayout refreshLayout;
     @InjectView(R.id.lvLive)
     ListView lvLive;
 
@@ -54,6 +57,13 @@ public class MatchVideoLiveListActivity extends BaseSwipeBackCompatActivity
         presenter = new MatchVideoLivePresenter(this, this);
         presenter.initialized();
 
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.initialized();
+            }
+        });
+
     }
 
     @Override
@@ -75,6 +85,7 @@ public class MatchVideoLiveListActivity extends BaseSwipeBackCompatActivity
     public void showLiveList(final List<VideoLiveInfo> list) {
         mAdapter.clear();
         mAdapter.addAll(list);
+        refreshLayout.setRefreshing(false);
     }
 
     @Override
