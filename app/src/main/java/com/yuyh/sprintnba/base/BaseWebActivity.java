@@ -16,10 +16,12 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
     public static final String BUNDLE_KEY_URL = "BUNDLE_KEY_URL";
     public static final String BUNDLE_KEY_TITLE = "BUNDLE_KEY_TITLE";
     public static final String BUNDLE_KEY_SHOW_BOTTOM_BAR = "BUNDLE_KEY_SHOW_BOTTOM_BAR";
+    public static final String BUNDLE_OVERRIDE = "BUNDLE_OVERRIDE";
 
     private String mWebUrl = null;
     private String mWebTitle = null;
     private boolean isShowBottomBar = true;
+    private boolean isOverrideUrlLoading = true;
 
     private BrowserLayout mBrowserLayout = null;
 
@@ -41,6 +43,7 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
         mWebTitle = intent.getStringExtra(BUNDLE_KEY_TITLE);
         mWebUrl = intent.getStringExtra(BUNDLE_KEY_URL);
         isShowBottomBar = intent.getBooleanExtra(BUNDLE_KEY_SHOW_BOTTOM_BAR, true);
+        isOverrideUrlLoading = intent.getBooleanExtra(BUNDLE_OVERRIDE, true);
         if (!TextUtils.isEmpty(mWebTitle)) {
             setTitle(mWebTitle);
         } else {
@@ -53,6 +56,8 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
         } else {
             mBrowserLayout.showBrowserController();
         }
+
+        mBrowserLayout.setOverrideUrlLoading(isOverrideUrlLoading);
 
         mBrowserLayout.setOnReceiveTitleListener(new BrowserLayout.OnReceiveTitleListener() {
             @Override

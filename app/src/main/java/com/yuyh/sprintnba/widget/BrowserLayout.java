@@ -35,6 +35,7 @@ public class BrowserLayout extends LinearLayout {
 
     private int mBarHeight = 5;
     private ProgressBar mProgressBar = null;
+    private boolean isOverrideUrlLoading = true;
 
     private String mLoadUrl;
 
@@ -145,6 +146,10 @@ public class BrowserLayout extends LinearLayout {
         return null != mWebView ? mWebView.canGoForward() : false;
     }
 
+    public void setOverrideUrlLoading(boolean b) {
+        isOverrideUrlLoading = b;
+    }
+
     public void goBack() {
         if (null != mWebView) {
             mWebView.goBack();
@@ -206,9 +211,16 @@ public class BrowserLayout extends LinearLayout {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             mLoadUrl = url;
-            if(listener != null){
+            if (listener != null) {
                 listener.onPageFinished();
             }
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (isOverrideUrlLoading)
+                return super.shouldOverrideUrlLoading(view, url);
+            return true;
         }
     }
 

@@ -3,6 +3,7 @@ package com.yuyh.sprintnba.utils;
 import android.util.Log;
 
 import com.yuyh.library.utils.log.LogUtils;
+import com.yuyh.sprintnba.BuildConfig;
 import com.yuyh.sprintnba.http.bean.video.VideoLiveInfo;
 import com.yuyh.sprintnba.http.bean.video.VideoLiveSource;
 
@@ -93,7 +94,7 @@ public class TmiaaoUtils {
     public static List<VideoLiveInfo> getLiveList() {
 
         try {
-            String html = getHtml("http://nba.tmiaoo.com/body.html");
+            String html = getHtml(BuildConfig.TMIAAO_SERVER + "/body.html");
 
             int start = html.indexOf("<div class=\"game-container-inner\">");
 
@@ -219,24 +220,42 @@ public class TmiaaoUtils {
 
     public static List<VideoLiveSource> getSourceList(String link) {
         String html = "";
+        List<VideoLiveSource> list = new ArrayList<>();
+
         try {
-            String[] p = link.split("[?]");
-            if (p.length > 0) {
-                String url = p[0];
-                if (!url.endsWith("/")) {
-                    url += "/";
+            html = getHtml(link);
+            // NBA 等正常直播源
+            if (html.replaceAll("\n", "").startsWith("<script") && html.replaceAll("\n", "").endsWith("</script>")) {
+                String[] p = link.split("[?]");
+                if (p.length > 0) {
+                    String url = p[0];
+                    if (!url.endsWith("/")) {
+                        url += "/";
+                    }
+                    url += "p.html";
+                    html = getHtml(url);
+                } else {
+                    return null;
                 }
-                url += "p.html";
-                html = getHtml(url);
+            } else if(html.contains("mv_action")){
+                // continue
+            } else if (link.contains("cctv5") || html.replaceAll("\n", "").startsWith("<script")) {
+                VideoLiveSource source = new VideoLiveSource();
+                source.link = link;
+                source.name = "单一直播源";
+                list.add(source);
+                return list;
             } else {
-                return null;
+                VideoLiveSource source = new VideoLiveSource();
+                source.link = link;
+                source.name = "单一直播源";
+                list.add(source);
+                return list;
             }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-
-        List<VideoLiveSource> list = new ArrayList<>();
 
         int start = 0, end = 0;
         int hrefStart = 0, hrefEnd = 0;
@@ -280,11 +299,6 @@ public class TmiaaoUtils {
         return html;
     }
 
-    /**
-     * @param inStream
-     * @return
-     * @throws Exception
-     */
     public static byte[] readInputStream(InputStream inStream) throws Exception {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];

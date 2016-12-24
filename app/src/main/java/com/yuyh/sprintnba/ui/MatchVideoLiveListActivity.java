@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.yuyh.library.utils.toast.ToastUtils;
+import com.yuyh.sprintnba.BuildConfig;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
 import com.yuyh.sprintnba.base.BaseWebActivity;
@@ -90,6 +91,18 @@ public class MatchVideoLiveListActivity extends BaseSwipeBackCompatActivity
 
     @Override
     public void showSourceList(final List<VideoLiveSource> list) {
+
+        if (list != null && list.size() == 1) {
+            Intent intent = new Intent(mContext, BaseWebActivity.class);
+            intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, list.get(0).name);
+            intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, list.get(0).link);
+            intent.putExtra(BaseWebActivity.BUNDLE_KEY_SHOW_BOTTOM_BAR, false);
+            intent.putExtra(BaseWebActivity.BUNDLE_OVERRIDE, false);
+            startActivity(intent);
+            return;
+        }
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
         final String[] links = new String[list.size()];
@@ -105,10 +118,14 @@ public class MatchVideoLiveListActivity extends BaseSwipeBackCompatActivity
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if (links[which].startsWith("/")) {
+                            links[which] = BuildConfig.TMIAAO_SERVER + links[which];
+                        }
                         Intent intent = new Intent(mContext, BaseWebActivity.class);
                         intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, names[which]);
                         intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, links[which]);
                         intent.putExtra(BaseWebActivity.BUNDLE_KEY_SHOW_BOTTOM_BAR, false);
+                        intent.putExtra(BaseWebActivity.BUNDLE_OVERRIDE, false);
                         startActivity(intent);
 
                         dialog.dismiss();
