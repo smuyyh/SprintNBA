@@ -1,12 +1,9 @@
 package com.yuyh.sprintnba.widget;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.animation.Animation;
-import android.widget.ImageView;
 
 import com.yuyh.sprintnba.R;
 
@@ -30,7 +27,7 @@ public class LoadingDialog extends Dialog {
         return loadingDialog;
     }
 
-    public void onWindowFocusChanged(boolean hasFocus) {
+   /* public void onWindowFocusChanged(boolean hasFocus) {
         if (loadingDialog == null) {
             return;
         }
@@ -43,5 +40,5 @@ public class LoadingDialog extends Dialog {
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.start();
 
-    }
+    }*/
 }

@@ -56,4 +56,11 @@
         <item name="android:layout_margin">2.5dp</item>
     </style>
 
+    <style name="Spinner">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateDrawable">@drawable/spinner_progress</item>
+        <item name="android:indeterminateDuration">2000</item>
+        <item name="android:indeterminateOnly">true</item>
+    </style>
+
 </resources>

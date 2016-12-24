@@ -1,11 +1,12 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 
+import com.yuyh.easyadapter.abslistview.EasyLVAdapter;
+import com.yuyh.easyadapter.abslistview.EasyLVHolder;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.http.bean.match.MatchStat;
-import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
-import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 
 import java.util.List;
 
@@ -13,19 +14,19 @@ import java.util.List;
  * @author yuyh.
  * @date 2016/7/4.
  */
-public class MatchHistoryAdapter extends HelperAdapter<MatchStat.MatchStatInfo.StatsBean.VS> {
+public class MatchHistoryAdapter extends EasyLVAdapter<MatchStat.MatchStatInfo.StatsBean.VS> {
 
     private int primaryColor;
     private int secondaryColor;
 
     public MatchHistoryAdapter(List<MatchStat.MatchStatInfo.StatsBean.VS> mList, Context context, int... layoutIds) {
-        super(mList, context, layoutIds);
-        primaryColor = mContext.getResources().getColor(R.color.primary_text);
-        secondaryColor = mContext.getResources().getColor(R.color.secondary_text);
+        super(context, mList, layoutIds);
+        primaryColor = ContextCompat.getColor(context, R.color.primary_text);
+        secondaryColor = ContextCompat.getColor(context, R.color.secondary_text);
     }
 
     @Override
-    public void HelpConvert(HelperViewHolder viewHolder, int position, MatchStat.MatchStatInfo.StatsBean.VS item) {
+    public void convert(EasyLVHolder viewHolder, int position, MatchStat.MatchStatInfo.StatsBean.VS item) {
         viewHolder.setText(R.id.tvMatchRecentLeft, item.leftName)
                 .setText(R.id.tvMatchRecentRight, item.rightName)
                 .setText(R.id.tvMatchRecentTime, item.startTime + "  " + item.matchDesc);

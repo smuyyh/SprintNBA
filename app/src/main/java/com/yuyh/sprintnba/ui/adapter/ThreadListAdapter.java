@@ -5,12 +5,12 @@ import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
+import com.yuyh.easyadapter.recyclerview.EasyRVAdapter;
+import com.yuyh.easyadapter.recyclerview.EasyRVHolder;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.http.bean.forum.ThreadListData;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.utils.ItemAnimHelper;
-import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
-import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
 import java.util.List;
 
@@ -18,23 +18,21 @@ import java.util.List;
  * @author yuyh.
  * @date 16/6/25.
  */
-public class ThreadListAdapter extends HelperAdapter<ThreadListData.ThreadInfo> {
+public class ThreadListAdapter extends EasyRVAdapter<ThreadListData.ThreadInfo> {
 
     private OnListItemClickListener listener;
     private ItemAnimHelper helper = new ItemAnimHelper();
 
-    /**
-     * @param data     数据源
-     * @param context  上下文
-     * @param layoutId 布局Id
-     */
     public ThreadListAdapter(List<ThreadListData.ThreadInfo> data, Context context, int... layoutId) {
-        super(data, context, layoutId);
+        super(context, data, layoutId);
+    }
+
+    public void setOnItemClickListener(OnListItemClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
-    protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final ThreadListData.ThreadInfo item) {
-
+    protected void onBindData(final EasyRVHolder viewHolder, final int position, final ThreadListData.ThreadInfo item) {
         TextView tv = viewHolder.getView(R.id.tvTitle);
         tv.setText(Html.fromHtml(item.title));
         viewHolder.setText(R.id.tvReply, item.replies)
@@ -57,9 +55,5 @@ public class ThreadListAdapter extends HelperAdapter<ThreadListData.ThreadInfo> 
             }
         });
         helper.showItemAnim(viewHolder.getItemView(), position);
-    }
-
-    public void setOnItemClickListener(OnListItemClickListener listener) {
-        this.listener = listener;
     }
 }

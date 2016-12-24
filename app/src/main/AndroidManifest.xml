@@ -41,6 +41,9 @@
             android:name=".ui.CalendarActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.MatchVideoLiveListActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.TeamsListActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -36,7 +36,6 @@ dependencies {
     compile project(':CommonLibrary')
     compile project(':FlycoDialogLibrary')
     compile project(':MaterialPtrLibrary')
-    compile project(':QuickAdapterLibrary')
     compile project(':SwipeBackLibrary')
     compile project(':VideoPlayerLibrary')
     compile 'com.android.support:design:23.4.0'
@@ -50,5 +49,7 @@ dependencies {
     compile 'com.github.clans:fab:1.6.2'
     compile 'com.jakewharton:butterknife:5.1.1'
     compile 'org.greenrobot:eventbus:3.0.0'
+
+    compile 'com.yuyh.easyadapter:library:1.1.1'
 
 }

@@ -3,16 +3,17 @@ package com.yuyh.sprintnba.ui.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
+import com.yuyh.easyadapter.abslistview.EasyLVAdapter;
+import com.yuyh.easyadapter.abslistview.EasyLVHolder;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.http.bean.match.MatchStat;
-import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
-import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 
 import java.util.List;
 
@@ -20,19 +21,19 @@ import java.util.List;
  * @author yuyh.
  * @date 2016/7/4.
  */
-public class MatchStatisticsAdapter extends HelperAdapter<MatchStat.MatchStatInfo.StatsBean.TeamStats> {
+public class MatchStatisticsAdapter extends EasyLVAdapter<MatchStat.MatchStatInfo.StatsBean.TeamStats> {
 
     private Context mContext;
     private int colorPrimary;
 
     public MatchStatisticsAdapter(List<MatchStat.MatchStatInfo.StatsBean.TeamStats> mList, Context context, int... layoutIds) {
-        super(mList, context, layoutIds);
+        super(context, mList, layoutIds);
         mContext = context;
-        colorPrimary = mContext.getResources().getColor(R.color.colorPrimary);
+        colorPrimary = ContextCompat.getColor(context, R.color.colorPrimary);
     }
 
     @Override
-    public void HelpConvert(final HelperViewHolder viewHolder, final int position, final MatchStat.MatchStatInfo.StatsBean.TeamStats item) {
+    public void convert(EasyLVHolder viewHolder, final int position, final MatchStat.MatchStatInfo.StatsBean.TeamStats item) {
         viewHolder.setText(R.id.tvLeftVal, item.leftVal + "")
                 .setText(R.id.tvRightVal, item.rightVal + "")
                 .setText(R.id.tvStatisticsName, item.text);

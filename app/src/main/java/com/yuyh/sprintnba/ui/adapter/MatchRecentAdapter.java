@@ -1,12 +1,13 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
+import com.yuyh.easyadapter.abslistview.EasyLVAdapter;
+import com.yuyh.easyadapter.abslistview.EasyLVHolder;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.http.bean.match.MatchStat;
-import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
-import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,7 @@ import java.util.List;
  * @author yuyh.
  * @date 2016/7/4.
  */
-public class MatchRecentAdapter extends HelperAdapter<MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam> {
+public class MatchRecentAdapter extends EasyLVAdapter<MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam> {
 
     private Context mContext;
     private boolean isRecent; // 近期对阵/未来赛事
@@ -26,15 +27,15 @@ public class MatchRecentAdapter extends HelperAdapter<MatchStat.MatchStatInfo.St
     private int secondaryColor;
 
     public MatchRecentAdapter(boolean isRecent, List<MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam> mList, Context context, int... layoutIds) {
-        super(mList, context, layoutIds);
+        super(context, mList, layoutIds);
         mContext = context;
         this.isRecent = isRecent;
-        primaryColor = mContext.getResources().getColor(R.color.primary_text);
-        secondaryColor = mContext.getResources().getColor(R.color.secondary_text);
+        primaryColor = ContextCompat.getColor(context, R.color.primary_text);
+        secondaryColor = ContextCompat.getColor(context, R.color.secondary_text);
     }
 
     @Override
-    public void HelpConvert(HelperViewHolder viewHolder, int position, MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam item) {
+    public void convert(EasyLVHolder viewHolder, int position, MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam item) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String newTime = "";
         try {

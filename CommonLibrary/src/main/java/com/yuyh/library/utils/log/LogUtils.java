@@ -23,7 +23,7 @@ import java.util.Date;
 public class LogUtils {
     private static Boolean LOG_SWITCH = true; // 日志文件总开关
     private static Boolean LOG_TO_FILE = false; // 日志写入文件开关
-    private static String LOG_TAG = "TAG"; // 默认的tag
+    private static String LOG_TAG = "SprintNBA"; // 默认的tag
     private static char LOG_TYPE = 'v';// 输入日志类型，v代表输出所有信息,w则只输出警告...
     private static int LOG_SAVE_DAYS = 7;// sd卡中日志文件的最多保存天数
 

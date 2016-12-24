@@ -3,9 +3,9 @@ package com.yuyh.sprintnba.ui.adapter;
 import android.content.Context;
 import android.graphics.Color;
 
+import com.yuyh.easyadapter.abslistview.EasyLVAdapter;
+import com.yuyh.easyadapter.abslistview.EasyLVHolder;
 import com.yuyh.sprintnba.R;
-import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
-import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 
 import java.util.List;
 
@@ -13,12 +13,12 @@ import java.util.List;
  * @author yuyh.
  * @date 16/6/28.
  */
-public class ReportAdapter extends HelperAdapter<String> {
+public class ReportAdapter extends EasyLVAdapter<String> {
 
     private int selectedPosition = -1;// 选中的位置
 
     public ReportAdapter(List<String> mList, Context context, int... layoutIds) {
-        super(mList, context, layoutIds);
+        super(context, mList, layoutIds);
     }
 
     public void setSelectedPosition(int position) {
@@ -26,7 +26,7 @@ public class ReportAdapter extends HelperAdapter<String> {
     }
 
     @Override
-    public void HelpConvert(HelperViewHolder viewHolder, int position, String item) {
+    public void convert(EasyLVHolder viewHolder, int position, String item) {
         viewHolder.setText(R.id.tvType, item);
         if (selectedPosition == position) {
             viewHolder.getConvertView().setSelected(true);

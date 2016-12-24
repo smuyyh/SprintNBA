@@ -4,13 +4,13 @@ import android.content.Context;
 import android.view.View;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.yuyh.easyadapter.recyclerview.EasyRVAdapter;
+import com.yuyh.easyadapter.recyclerview.EasyRVHolder;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.http.bean.forum.ForumsData;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.utils.FrescoUtils;
 import com.yuyh.sprintnba.utils.ItemAnimHelper;
-import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
-import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
 import java.util.List;
 
@@ -18,17 +18,17 @@ import java.util.List;
  * @author yuyh.
  * @date 16/6/25.
  */
-public class ForumListAdapter extends HelperAdapter<ForumsData.Forum> {
+public class ForumListAdapter extends EasyRVAdapter<ForumsData.Forum> {
 
     private OnListItemClickListener listener;
     private ItemAnimHelper helper = new ItemAnimHelper();
 
     public ForumListAdapter(List<ForumsData.Forum> mList, Context context, int... layoutIds) {
-        super(mList, context, layoutIds);
+        super(context, mList, layoutIds);
     }
 
     @Override
-    protected void HelperBindData(HelperViewHolder viewHolder, final int position, final ForumsData.Forum item) {
+    protected void onBindData(EasyRVHolder viewHolder, final int position, final ForumsData.Forum item) {
         if (!item.fid.equals("0")) {
             viewHolder.setText(R.id.tvTeamFullName, item.name);
             SimpleDraweeView ivTeamLogo = viewHolder.getView(R.id.ivTeamLogo);
@@ -51,7 +51,7 @@ public class ForumListAdapter extends HelperAdapter<ForumsData.Forum> {
     }
 
     @Override
-    public int checkLayoutIndex(ForumsData.Forum item, int position) {
+    public int getLayoutIndex(int position, ForumsData.Forum item) {
         if (item.fid.equals("0"))
             return 1;
         else

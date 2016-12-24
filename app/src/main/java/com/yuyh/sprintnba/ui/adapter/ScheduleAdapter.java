@@ -4,36 +4,35 @@ import android.content.Context;
 import android.view.View;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.yuyh.easyadapter.recyclerview.EasyRVAdapter;
+import com.yuyh.easyadapter.recyclerview.EasyRVHolder;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.http.bean.match.Matchs;
 import com.yuyh.sprintnba.support.NoDoubleClickListener;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.utils.FrescoUtils;
 import com.yuyh.sprintnba.utils.ItemAnimHelper;
-import com.zengcanxiang.baseAdapter.recyclerView.HelperAdapter;
-import com.zengcanxiang.baseAdapter.recyclerView.HelperViewHolder;
 
 import java.util.List;
 
 /**
  * Created by Kyrie.Y on 2016/6/6.
  */
-public class ScheduleAdapter extends HelperAdapter<Matchs.MatchsDataBean.MatchesBean> {
+public class ScheduleAdapter extends EasyRVAdapter<Matchs.MatchsDataBean.MatchesBean> {
 
     private OnListItemClickListener mOnItemClickListener = null;
     private ItemAnimHelper helper = new ItemAnimHelper();
 
-    /**
-     * @param data     数据源
-     * @param context  上下文
-     * @param layoutId 布局Id
-     */
     public ScheduleAdapter(List<Matchs.MatchsDataBean.MatchesBean> data, Context context, int... layoutId) {
-        super(data, context, layoutId);
+        super(context, data, layoutId);
+    }
+
+    public void setOnItemClickListener(OnListItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
     }
 
     @Override
-    protected void HelperBindData(final HelperViewHolder viewHolder, final int position, final Matchs.MatchsDataBean.MatchesBean item) {
+    protected void onBindData(final EasyRVHolder viewHolder, final int position, final Matchs.MatchsDataBean.MatchesBean item) {
         Matchs.MatchsDataBean.MatchesBean.MatchInfoBean matchInfo = item.matchInfo;
 
         SimpleDraweeView ivLeft = viewHolder.getView(R.id.ivLeftTeam);
@@ -73,9 +72,5 @@ public class ScheduleAdapter extends HelperAdapter<Matchs.MatchsDataBean.Matches
         });
 
         helper.showItemAnim(viewHolder.getItemView(), position);
-    }
-
-    public void setOnItemClickListener(OnListItemClickListener mOnItemClickListener) {
-        this.mOnItemClickListener = mOnItemClickListener;
     }
 }

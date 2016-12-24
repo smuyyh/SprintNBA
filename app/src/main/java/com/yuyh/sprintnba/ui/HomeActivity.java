@@ -17,6 +17,8 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.yuyh.easyadapter.abslistview.EasyLVAdapter;
+import com.yuyh.easyadapter.abslistview.EasyLVHolder;
 import com.yuyh.library.permission.Acp;
 import com.yuyh.library.permission.AcpListener;
 import com.yuyh.library.permission.AcpOptions;
@@ -33,8 +35,6 @@ import com.yuyh.sprintnba.ui.presenter.Presenter;
 import com.yuyh.sprintnba.ui.presenter.impl.HomePresenterImpl;
 import com.yuyh.sprintnba.ui.view.HomeView;
 import com.yuyh.sprintnba.utils.NavigationEntity;
-import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
-import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -54,7 +54,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
     DrawerLayout mDrawerLayout;
 
     private ActionBarDrawerToggle mActionBarDrawerToggle = null;
-    private HelperAdapter<NavigationEntity> mNavListAdapter = null;
+    private EasyLVAdapter<NavigationEntity> mNavListAdapter = null;
 
     private static long DOUBLE_CLICK_TIME = 0L;
     private static int REQUEST_DATE_CODE = 1;
@@ -174,9 +174,9 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
 
-        mNavListAdapter = new HelperAdapter<NavigationEntity>(navigationList, HomeActivity.this, R.layout.item_list_navigation) {
+        mNavListAdapter = new EasyLVAdapter<NavigationEntity>(HomeActivity.this, navigationList, R.layout.item_list_navigation) {
             @Override
-            public void HelpConvert(HelperViewHolder viewHolder, int position, NavigationEntity item) {
+            public void convert(EasyLVHolder viewHolder, int position, NavigationEntity item) {
                 viewHolder.setImageResource(R.id.list_item_navigation_icon, item.getIconResId())
                         .setText(R.id.list_item_navigation_name, item.getName());
             }
@@ -245,6 +245,9 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
         switch (item.getItemId()) {
             case R.id.action_calendar:
                 startActivityForResult(new Intent(this, CalendarActivity.class), REQUEST_DATE_CODE);
+                break;
+            case R.id.action_live:
+                startActivity(new Intent(this, MatchVideoLiveListActivity.class));
                 break;
             default:
                 break;

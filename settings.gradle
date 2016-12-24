@@ -1,7 +1,6 @@
 include ':app'
 include ':CommonLibrary'
 include ':MaterialPtrLibrary'
-include ':QuickAdapterLibrary'
 include ':SwipeBackLibrary'
 include ':FlycoDialogLibrary'
 include ':VideoPlayerLibrary'

@@ -2,6 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_live"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_live"
+        android:title="视频直播"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_calendar"
         android:orderInCategory="100"
         android:icon="@drawable/ic_calendar"

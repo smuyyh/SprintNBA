@@ -5,14 +5,14 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.yuyh.easyadapter.abslistview.EasyLVAdapter;
+import com.yuyh.easyadapter.abslistview.EasyLVHolder;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseWebActivity;
 import com.yuyh.sprintnba.http.bean.match.LiveDetail;
 import com.yuyh.sprintnba.support.NoDoubleClickListener;
 import com.yuyh.sprintnba.ui.ImagePreViewActivity;
 import com.yuyh.sprintnba.utils.FrescoUtils;
-import com.zengcanxiang.baseAdapter.absListView.HelperAdapter;
-import com.zengcanxiang.baseAdapter.absListView.HelperViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +21,14 @@ import java.util.List;
  * @author yuyh.
  * @date 16/7/2.
  */
-public class MatchLiveAdapter extends HelperAdapter<LiveDetail.LiveContent> {
+public class MatchLiveAdapter extends EasyLVAdapter<LiveDetail.LiveContent> {
 
     public MatchLiveAdapter(List<LiveDetail.LiveContent> mList, Context context, int... layoutIds) {
-        super(mList, context, layoutIds);
+        super(context, mList, layoutIds);
     }
 
     @Override
-    public void HelpConvert(final HelperViewHolder viewHolder, int position, LiveDetail.LiveContent item) {
-
+    public void convert(EasyLVHolder viewHolder, int position, LiveDetail.LiveContent item) {
         viewHolder.setText(R.id.tvLiveTime, item.time)
                 .setText(R.id.tvLiveTeam, item.teamName)
                 .setText(R.id.tvLiveContent, item.content);
@@ -37,7 +36,7 @@ public class MatchLiveAdapter extends HelperAdapter<LiveDetail.LiveContent> {
             viewHolder.setVisible(R.id.tvLiveScore, true);
             viewHolder.setText(R.id.tvLiveScore, item.leftGoal + ":" + item.rightGoal);
         } else {
-            viewHolder.setInVisible(R.id.tvLiveScore);
+            viewHolder.setVisible(R.id.tvLiveScore, View.INVISIBLE);
         }
 
         SimpleDraweeView image = viewHolder.getView(R.id.ivLiveImage);
@@ -82,6 +81,5 @@ public class MatchLiveAdapter extends HelperAdapter<LiveDetail.LiveContent> {
         if ("1".equals(item.ctype) && TextUtils.isEmpty(item.time)) {
             viewHolder.setText(R.id.tvLiveTime, "结束");
         }
-
     }
 }
