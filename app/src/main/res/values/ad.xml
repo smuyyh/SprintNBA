@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="ad">
         <item>/d/js/js/</item>
         <item>u.xcy8.com</item>
-
+        <item>http://nba.tmiaoo.com/body.html</item>
+        <item>http://nba.tmiaoo.com/gg.html</item>
     </string-array>
 </resources>
