@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
@@ -21,7 +23,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.sprintnba.R;
+import com.yuyh.sprintnba.utils.ADFilterUtils;
 
 public class BrowserLayout extends LinearLayout {
 
@@ -175,6 +179,22 @@ public class BrowserLayout extends LinearLayout {
     }
 
     private class MonitorWebClient extends WebViewClient {
+
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+            return super.shouldInterceptRequest(view, url);
+        }
+
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+            String url = request.getUrl().toString().toLowerCase();
+            if (!ADFilterUtils.hasAd(getContext(), url)) {
+                return super.shouldInterceptRequest(view, request);
+            } else {
+                LogUtils.w("ad:"+url);
+                return new WebResourceResponse(null, null, null);
+            }
+        }
 
         @Override
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
