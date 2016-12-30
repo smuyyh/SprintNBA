@@ -62,7 +62,7 @@ public class NewsListFragment extends BaseLazyFragment {
     }
 
     private void initView() {
-        adapter = new NewsAdapter(list, mActivity, R.layout.item_list_news_normal, R.layout.item_list_news_video);
+        adapter = new NewsAdapter(list, mActivity);
         adapter.setOnItemClickListener(new OnListItemClickListener<NewsItem.NewsItemBean>() {
             @Override
             public void onItemClick(View view, int position, NewsItem.NewsItemBean data) {

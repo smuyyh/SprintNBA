@@ -23,6 +23,7 @@ import com.yuyh.sprintnba.http.bean.player.Players;
 import com.yuyh.sprintnba.http.bean.player.StatsRank;
 import com.yuyh.sprintnba.http.bean.player.Teams;
 import com.yuyh.sprintnba.http.bean.player.TeamsRank;
+import com.yuyh.sprintnba.http.bean.video.MatchVideo;
 import com.yuyh.sprintnba.http.bean.video.VideoInfo;
 import com.yuyh.sprintnba.http.okhttp.OkHttpHelper;
 import com.yuyh.sprintnba.http.utils.JsonParser;
@@ -176,6 +177,27 @@ public class TencentService {
                     cbk.onSuccess(matchStat);
                     //}
                     LogUtils.d("resp:" + jsonStr);
+                } else {
+                    cbk.onFailure("获取数据失败");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                cbk.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void getMatchVideo(String mid, final RequestCallback<MatchVideo> cbk) {
+        Call<String> call = api.getMatchVideo(mid);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response != null && !TextUtils.isEmpty(response.body())) {
+                    String jsonStr = response.body();
+                    MatchVideo videos = JsonParser.parseWithGson(MatchVideo.class, jsonStr);
+                    cbk.onSuccess(videos);
                 } else {
                     cbk.onFailure("获取数据失败");
                 }

@@ -34,8 +34,8 @@ public class NewsAdapter extends EasyRVAdapter<NewsItem.NewsItemBean> {
     private OnListItemClickListener<NewsItem.NewsItemBean> mOnItemClickListener = null;
     private ItemAnimHelper helper = new ItemAnimHelper();
 
-    public NewsAdapter(List<NewsItem.NewsItemBean> data, Context context, int... layoutId) {
-        super(context, data, layoutId);
+    public NewsAdapter(List<NewsItem.NewsItemBean> data, Context context) {
+        super(context, data, R.layout.item_list_news_normal, R.layout.item_list_news_video);
     }
 
     public void setOnItemClickListener(OnListItemClickListener<NewsItem.NewsItemBean> mOnItemClickListener) {
@@ -88,7 +88,8 @@ public class NewsAdapter extends EasyRVAdapter<NewsItem.NewsItemBean> {
             }
 
             videoPlayer.thumbImageView.setController(FrescoUtils.getController(item.imgurl, videoPlayer.thumbImageView));
-            viewHolder.setText(R.id.tvVideoTitle, item.title).setText(R.id.tvVideoTime, item.pub_time);
+            viewHolder.setText(R.id.tvVideoTitle, item.title)
+                    .setText(R.id.tvVideoTime, item.pub_time);
             ViewGroup.LayoutParams params = videoPlayer.getLayoutParams();
             params.height = DimenUtils.getScreenWidth() / 2;
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;

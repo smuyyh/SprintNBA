@@ -17,6 +17,7 @@ import com.yuyh.sprintnba.ui.fragment.MatchDataFragment;
 import com.yuyh.sprintnba.ui.fragment.MatchLiveFragment;
 import com.yuyh.sprintnba.ui.fragment.MatchLookForwardFragment;
 import com.yuyh.sprintnba.ui.fragment.MatchPlayerDataFragment;
+import com.yuyh.sprintnba.ui.fragment.MatchVideoFragment;
 
 /**
  * Created by Kyrie.Y on 2016/6/6.
@@ -72,7 +73,7 @@ public class VPGameDetailAdapter extends IndicatorViewPager.IndicatorFragmentPag
                     break;
                 case 3:
                 default:
-                    fragment = MatchLookForwardFragment.newInstance(mid);
+                    fragment = MatchVideoFragment.newInstance(mid);
                     break;
             }
         } else {

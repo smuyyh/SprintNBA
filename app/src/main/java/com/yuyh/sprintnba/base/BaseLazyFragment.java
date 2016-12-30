@@ -9,6 +9,8 @@ import android.widget.FrameLayout;
 
 import com.yuyh.sprintnba.widget.LoadingDialog;
 
+import butterknife.ButterKnife;
+
 /**
  * <h1>懒加载Fragment</h1> 只有创建并显示的时候才会调用onCreateViewLazy方法<br>
  * <br>
@@ -131,6 +133,8 @@ public class BaseLazyFragment extends BaseFragment {
 		} else {
 			super.setContentView(layoutResID);
 		}
+
+		ButterKnife.inject(this, getContentView());
 	}
 
 	@Override
@@ -209,5 +213,11 @@ public class BaseLazyFragment extends BaseFragment {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		ButterKnife.reset(this);
 	}
 }

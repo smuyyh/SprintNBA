@@ -27,6 +27,9 @@ public interface TencentApi {
     @GET("/match/stat")
     Call<String> getMatchStat(@Query("mid") String mid, @Query("tabType") String tabType);
 
+    @GET("/video/matchVideo")
+    Call<String> getMatchVideo(@Query("matchId") String mid);
+
     // baseInfo?mid=100000:1468573
     @GET("/match/textLiveIndex")
     Call<String> getMatchLiveIndex(@Query("mid") String mid);
