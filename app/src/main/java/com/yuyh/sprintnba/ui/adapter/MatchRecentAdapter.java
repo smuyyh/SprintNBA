@@ -18,7 +18,7 @@ import java.util.List;
  * @author yuyh.
  * @date 2016/7/4.
  */
-public class MatchRecentAdapter extends EasyLVAdapter<MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam> {
+public class MatchRecentAdapter extends EasyLVAdapter<MatchStat.TeamMatchs.TeamMatchsTeam> {
 
     private Context mContext;
     private boolean isRecent; // 近期对阵/未来赛事
@@ -26,7 +26,7 @@ public class MatchRecentAdapter extends EasyLVAdapter<MatchStat.MatchStatInfo.St
     private int primaryColor;
     private int secondaryColor;
 
-    public MatchRecentAdapter(boolean isRecent, List<MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam> mList, Context context, int... layoutIds) {
+    public MatchRecentAdapter(boolean isRecent, List<MatchStat.TeamMatchs.TeamMatchsTeam> mList, Context context, int... layoutIds) {
         super(context, mList, layoutIds);
         mContext = context;
         this.isRecent = isRecent;
@@ -35,7 +35,7 @@ public class MatchRecentAdapter extends EasyLVAdapter<MatchStat.MatchStatInfo.St
     }
 
     @Override
-    public void convert(EasyLVHolder viewHolder, int position, MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam item) {
+    public void convert(EasyLVHolder viewHolder, int position, MatchStat.TeamMatchs.TeamMatchsTeam item) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String newTime = "";
         try {

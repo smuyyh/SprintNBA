@@ -35,7 +35,7 @@ import java.util.Map;
 public class JsonParser {
 
     static Gson gson = new GsonBuilder().serializeNulls()
-            .registerTypeAdapter(MatchStat.MatchStatInfo.StatsBean.MaxPlayers.MatchPlayerInfo.class, new MatchPlayerInfoDefaultAdapter())
+            .registerTypeAdapter(MatchStat.MaxPlayers.MatchPlayerInfo.class, new MatchPlayerInfoDefaultAdapter())
             .registerTypeHierarchyAdapter(List.class, new ListDefaultAdapter())
             .create();
 

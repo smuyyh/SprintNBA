@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface MatchPlayerDataView extends BaseView {
 
-    void showPlayerData(List<MatchStat.MatchStatInfo.StatsBean.PlayerStats> playerStatses);
+    void showPlayerData(List<MatchStat.PlayerStats> playerStatses);
 }

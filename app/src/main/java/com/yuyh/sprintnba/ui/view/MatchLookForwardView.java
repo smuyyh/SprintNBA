@@ -10,15 +10,15 @@ import java.util.List;
  */
 public interface MatchLookForwardView {
 
-    void showTeamInfo(MatchStat.MatchStatInfo.MatchTeamInfo info);
+    void showTeamInfo(MatchStat.MatchTeamInfo info);
 
-    void showMaxPlayer(List<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> maxPlayers);
+    void showMaxPlayer(List<MatchStat.MaxPlayers> maxPlayers);
 
-    void showHistoryMatchs(List<MatchStat.MatchStatInfo.StatsBean.VS> vs);
+    void showHistoryMatchs(List<MatchStat.VS> vs);
 
-    void showRecentMatchs(MatchStat.MatchStatInfo.StatsBean.TeamMatchs teamMatches);
+    void showRecentMatchs(MatchStat.TeamMatchs teamMatches);
 
-    void showFutureMatchs(MatchStat.MatchStatInfo.StatsBean.TeamMatchs teamMatches);
+    void showFutureMatchs(MatchStat.TeamMatchs teamMatches);
 
     void showError(String message);
 

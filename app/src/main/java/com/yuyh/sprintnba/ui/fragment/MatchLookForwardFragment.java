@@ -1,6 +1,7 @@
 package com.yuyh.sprintnba.ui.fragment;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -76,13 +77,13 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     ListView lvFutureMatchs;
 
     private MatchLookForwardPresenter presenter;
-    private List<MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam> recentList = new ArrayList<>();
+    private List<MatchStat.TeamMatchs.TeamMatchsTeam> recentList = new ArrayList<>();
     private MatchRecentAdapter recentAdapter;
-    private List<MatchStat.MatchStatInfo.StatsBean.TeamMatchs.TeamMatchsTeam> futureList = new ArrayList<>();
+    private List<MatchStat.TeamMatchs.TeamMatchsTeam> futureList = new ArrayList<>();
     private MatchRecentAdapter futureAdapter;
-    private List<MatchStat.MatchStatInfo.StatsBean.VS> vs = new ArrayList<>();
+    private List<MatchStat.VS> vs = new ArrayList<>();
     private MatchHistoryAdapter hisAdapter;
-    private List<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> maxPlayers = new ArrayList<>();
+    private List<MatchStat.MaxPlayers> maxPlayers = new ArrayList<>();
     private MatchLMaxPlayerdapter playerdapter;
 
     private int recentCurrent = 0;
@@ -122,7 +123,7 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     }
 
     @Override
-    public void showTeamInfo(MatchStat.MatchStatInfo.MatchTeamInfo info) {
+    public void showTeamInfo(MatchStat.MatchTeamInfo info) {
         tvLeftTeamName.setText(info.leftName);
         tvRightTeamName.setText(info.rightName);
         tvRecentTitleLeft.setText(info.leftName);
@@ -134,7 +135,7 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     }
 
     @Override
-    public void showMaxPlayer(List<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> maxPlayers) {
+    public void showMaxPlayer(List<MatchStat.MaxPlayers> maxPlayers) {
         this.maxPlayers.clear();
         this.maxPlayers.addAll(maxPlayers);
         if(playerdapter == null) {
@@ -146,7 +147,7 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     }
 
     @Override
-    public void showHistoryMatchs(List<MatchStat.MatchStatInfo.StatsBean.VS> vs) {
+    public void showHistoryMatchs(List<MatchStat.VS> vs) {
         this.vs.clear();
         this.vs.addAll(vs);
         if(hisAdapter == null) {
@@ -158,7 +159,7 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     }
 
     @Override
-    public void showRecentMatchs(final MatchStat.MatchStatInfo.StatsBean.TeamMatchs teamMatches) {
+    public void showRecentMatchs(final MatchStat.TeamMatchs teamMatches) {
         recentList.clear();
         recentList.addAll(teamMatches.left);
         if (recentAdapter == null)
@@ -171,8 +172,8 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
                     recentList.clear();
                     recentList.addAll(teamMatches.left);
                     recentAdapter.notifyDataSetChanged();
-                    tvRecentTitleRight.setBackgroundColor(getResources().getColor(R.color.entity_layout));
-                    tvRecentTitleLeft.setBackgroundColor(getResources().getColor(R.color.white));
+                    tvRecentTitleRight.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.entity_layout));
+                    tvRecentTitleLeft.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.white));
                     recentCurrent = 0;
                 }
             }
@@ -184,8 +185,8 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
                     recentList.clear();
                     recentList.addAll(teamMatches.right);
                     recentAdapter.notifyDataSetChanged();
-                    tvRecentTitleRight.setBackgroundColor(getResources().getColor(R.color.white));
-                    tvRecentTitleLeft.setBackgroundColor(getResources().getColor(R.color.entity_layout));
+                    tvRecentTitleRight.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.white));
+                    tvRecentTitleLeft.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.entity_layout));
                     recentCurrent = 1;
                 }
             }
@@ -194,7 +195,7 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     }
 
     @Override
-    public void showFutureMatchs(final MatchStat.MatchStatInfo.StatsBean.TeamMatchs teamMatches) {
+    public void showFutureMatchs(final MatchStat.TeamMatchs teamMatches) {
         futureList.clear();
         futureList.addAll(teamMatches.left);
         if (futureAdapter == null)
@@ -207,8 +208,8 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
                     futureList.clear();
                     futureList.addAll(teamMatches.left);
                     futureAdapter.notifyDataSetChanged();
-                    tvFutureTitleRight.setBackgroundColor(getResources().getColor(R.color.entity_layout));
-                    tvFutureTitleLeft.setBackgroundColor(getResources().getColor(R.color.white));
+                    tvFutureTitleRight.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.entity_layout));
+                    tvFutureTitleLeft.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.white));
                     futureCurrent = 0;
                 }
             }
@@ -220,8 +221,8 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
                     futureList.clear();
                     futureList.addAll(teamMatches.right);
                     futureAdapter.notifyDataSetChanged();
-                    tvFutureTitleRight.setBackgroundColor(getResources().getColor(R.color.white));
-                    tvFutureTitleLeft.setBackgroundColor(getResources().getColor(R.color.entity_layout));
+                    tvFutureTitleRight.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.white));
+                    tvFutureTitleLeft.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.entity_layout));
                     futureCurrent = 1;
                 }
             }

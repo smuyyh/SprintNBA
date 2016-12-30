@@ -37,8 +37,8 @@ public class MatchLookForwardPresenter implements Presenter {
             public void onSuccess(MatchStat matchStat) {
                 MatchStat.MatchStatInfo data = matchStat.data;
                 forwardView.showTeamInfo(data.teamInfo);
-                List<MatchStat.MatchStatInfo.StatsBean> stats = data.stats;
-                for (MatchStat.MatchStatInfo.StatsBean bean : stats) {
+                List<MatchStat.StatsBean> stats = data.stats;
+                for (MatchStat.StatsBean bean : stats) {
                     if (bean.type.equals("1")) {
                         if (bean.vs != null && !bean.vs.isEmpty()) {
                             forwardView.showHistoryMatchs(bean.vs);

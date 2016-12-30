@@ -15,14 +15,14 @@ import java.util.List;
  * @author yuyh.
  * @date 16/7/2.
  */
-public class MatchLMaxPlayerdapter extends EasyLVAdapter<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> {
+public class MatchLMaxPlayerdapter extends EasyLVAdapter<MatchStat.MaxPlayers> {
 
-    public MatchLMaxPlayerdapter(List<MatchStat.MatchStatInfo.StatsBean.MaxPlayers> mList, Context context, int... layoutIds) {
+    public MatchLMaxPlayerdapter(List<MatchStat.MaxPlayers> mList, Context context, int... layoutIds) {
         super(context, mList, layoutIds);
     }
 
     @Override
-    public void convert(EasyLVHolder viewHolder, int position, MatchStat.MatchStatInfo.StatsBean.MaxPlayers item) {
+    public void convert(EasyLVHolder viewHolder, int position, MatchStat.MaxPlayers item) {
         viewHolder.setText(R.id.tvLeftPlayerName, item.leftPlayer.name)
                 .setText(R.id.tvLeftPlayerType, item.leftPlayer.position + "  #" + item.rightPlayer.jerseyNum)
                 .setText(R.id.tvRightPlayerName, item.rightPlayer.name)

@@ -1,7 +1,10 @@
 package com.yuyh.sprintnba.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.library.view.viewpager.indicator.IndicatorViewPager;
 import com.yuyh.library.view.viewpager.indicator.ScrollIndicatorView;
 import com.yuyh.sprintnba.R;
@@ -42,7 +46,16 @@ import butterknife.InjectView;
 public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements MatchDetailView, StickyNavLayout.OnStickStateChangeListener {
 
     public static final String INTENT_MID = "mid";
+    public static final String INTENT_YEAR = "year";
     private String mid;
+    private String year;
+
+    public static void start(Context context, String mid, String year) {
+        Intent intent = new Intent(context, MatchDetailActivity.class);
+        intent.putExtra(MatchDetailActivity.INTENT_MID, mid);
+        intent.putExtra(MatchDetailActivity.INTENT_YEAR, year);
+        context.startActivity(intent);
+    }
 
     @InjectView(R.id.snlViewPager)
     ViewPager viewPager;
@@ -85,6 +98,8 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     private MatchDetailPresenter presenter;
     private boolean isNeedUpdateTab = true;
 
+    private MatchBaseInfo.BaseInfo info;
+
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.activity_game_detail;
@@ -94,14 +109,16 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     protected void initViewsAndEvents() {
         EventBus.getDefault().register(this);
         mid = getIntent().getStringExtra(INTENT_MID);
+        year = getIntent().getStringExtra(INTENT_YEAR);
+        LogUtils.i(year);
 
-       //rlMatchToolbar.getBackground().setAlpha(0);
+        //rlMatchToolbar.getBackground().setAlpha(0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             rlMatchToolbar.getLayoutParams().height += StatusBarCompat.getStatusBarHeight(this);
             rlMatchToolbar.setPadding(0, StatusBarCompat.getStatusBarHeight(this), 0, 0);
         }
 
-        indicator.setScrollBar(new GameDetailScrollBar(getApplicationContext(), getResources().getColor(R.color.colorPrimary), DimenUtils.dpToPxInt(3)));
+        indicator.setScrollBar(new GameDetailScrollBar(getApplicationContext(), ContextCompat.getColor(this, R.color.colorPrimary), DimenUtils.dpToPxInt(3)));
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         stickyNavLayout.setOnStickStateChangeListener(this);
 
@@ -125,39 +142,47 @@ public class MatchDetailActivity extends BaseSwipeBackCompatActivity implements 
     public void showTabViewPager(String[] names, boolean isStart) {
         isNeedUpdateTab = false;
         hideLoadingDialog();
-        adapter = new VPGameDetailAdapter(this, names, getSupportFragmentManager(), mid, isStart);
+        adapter = new VPGameDetailAdapter(this, names, getSupportFragmentManager(), mid, isStart, info);
         indicatorViewPager.setAdapter(adapter);
     }
 
     @Override
     public void showMatchInfo(MatchBaseInfo.BaseInfo info) {
+        this.info = info;
+
         tvMatchTitle.setText(info.leftName + "vs" + info.rightName);
         if (!TextUtils.isEmpty(info.leftWins) && !TextUtils.isEmpty(info.leftLosses))
             tvLeftRate.setText(info.leftWins + "胜" + info.leftLosses + "负");
         if (!TextUtils.isEmpty(info.rightWins) && !TextUtils.isEmpty(info.rightLosses))
             tvRightRate.setText(info.rightWins + "胜" + info.rightLosses + "负");
+
         String startTime = info.startDate + info.startHour;
-        SimpleDateFormat format = new SimpleDateFormat("MM月dd日HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMM月dd日HH:mm");
+        // 当前比赛状态
         String state = "未开始";
         try {
-            Date date = format.parse(startTime);
-            String todayStr = format.format(new Date());
-            Date today = format.parse(todayStr);
-            if (date.getTime() > today.getTime()) { // 未开始
-                if (isNeedUpdateTab)
+            Date startDate = format.parse(year + startTime);
+            Date todayDate = new Date();
+            if (startDate.getTime() > todayDate.getTime()) { // 未开始
+                if (isNeedUpdateTab) { // 更新TAB
                     presenter.getTab(false);
+                }
             } else {
                 state = info.quarterDesc;
-                if (((state.contains("第4节") || state.contains("加时")) && !info.leftGoal.equals(info.rightGoal))
+                // 第四节 00:00 或 加时n 00:00 表示比赛已经结束
+                if (((state.contains("第4节") || state.contains("加时"))
+                        && !info.leftGoal.equals(info.rightGoal))
                         && state.contains("00:00")) {
                     state = "已结束";
                 }
-                if (isNeedUpdateTab)
+                if (isNeedUpdateTab) {
                     presenter.getTab(true);
+                }
             }
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         tvMatchState.setText(state);
         tvMatchType.setText(info.desc);
         tvMatchStartTime.setText(info.startDate + "   " + info.startHour + "   " + info.venue);

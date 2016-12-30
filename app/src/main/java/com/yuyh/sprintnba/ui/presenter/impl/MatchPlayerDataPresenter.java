@@ -34,8 +34,8 @@ public class MatchPlayerDataPresenter implements Presenter {
                     public void onSuccess(MatchStat matchStat) {
                         boolean hasData = false;
                         MatchStat.MatchStatInfo data = matchStat.data;
-                        List<MatchStat.MatchStatInfo.StatsBean> stats = data.stats;
-                        for (MatchStat.MatchStatInfo.StatsBean bean : stats) {
+                        List<MatchStat.StatsBean> stats = data.stats;
+                        for (MatchStat.StatsBean bean : stats) {
                             if (bean.type.equals("15")) {
                                 if (bean.playerStats != null && !bean.playerStats.isEmpty()) {
                                     dataView.showPlayerData(bean.playerStats);

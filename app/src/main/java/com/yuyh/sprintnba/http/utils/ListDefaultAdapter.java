@@ -8,7 +8,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.yuyh.sprintnba.http.bean.match.MatchStat.MatchStatInfo.StatsBean.MaxPlayers.MatchPlayerInfo;
+import com.yuyh.sprintnba.http.bean.match.MatchStat.MaxPlayers.MatchPlayerInfo;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -26,14 +26,22 @@ public class ListDefaultAdapter implements JsonDeserializer<List<?>> {
             Gson newGson = new GsonBuilder().serializeNulls()
                     .registerTypeAdapter(MatchPlayerInfo.class, new MatchPlayerInfoDefaultAdapter())
                     .create();
+
+            String jsonStr = json.toString();
+            if (jsonStr.contains("\"playerStats\":{") && jsonStr.contains("\"type\":\"16\"")) {
+                // 不太优雅的方式，如果是160，改为160和场上球员
+                jsonStr = jsonStr.replace("\"type\":\"16\"", "\"type\":\"160\"")
+                                .replace("\"playerStats\":{", "\"groundStats\":{");
+            }
+
             if (json.isJsonArray()) {
-                return newGson.fromJson(json, typeOfT);
+                return newGson.fromJson(jsonStr, typeOfT);
             } else if (json.getAsString() != null && !json.getAsString().equals("")) {
                 String newjson = "[" + json.getAsString() + "]";
                 return newGson.fromJson(newjson, typeOfT);
             }
         } catch (Exception ignore) {
-            Log.e("---",ignore.toString());
+            Log.e("---", ignore.toString());
         }
 
         return null;

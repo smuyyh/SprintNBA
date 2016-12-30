@@ -14,19 +14,19 @@ import java.util.List;
  * @author yuyh.
  * @date 2016/7/4.
  */
-public class MatchHistoryAdapter extends EasyLVAdapter<MatchStat.MatchStatInfo.StatsBean.VS> {
+public class MatchHistoryAdapter extends EasyLVAdapter<MatchStat.VS> {
 
     private int primaryColor;
     private int secondaryColor;
 
-    public MatchHistoryAdapter(List<MatchStat.MatchStatInfo.StatsBean.VS> mList, Context context, int... layoutIds) {
+    public MatchHistoryAdapter(List<MatchStat.VS> mList, Context context, int... layoutIds) {
         super(context, mList, layoutIds);
         primaryColor = ContextCompat.getColor(context, R.color.primary_text);
         secondaryColor = ContextCompat.getColor(context, R.color.secondary_text);
     }
 
     @Override
-    public void convert(EasyLVHolder viewHolder, int position, MatchStat.MatchStatInfo.StatsBean.VS item) {
+    public void convert(EasyLVHolder viewHolder, int position, MatchStat.VS item) {
         viewHolder.setText(R.id.tvMatchRecentLeft, item.leftName)
                 .setText(R.id.tvMatchRecentRight, item.rightName)
                 .setText(R.id.tvMatchRecentTime, item.startTime + "  " + item.matchDesc);

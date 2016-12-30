@@ -40,8 +40,8 @@ public class MatchPlayerDataFragment extends BaseLazyFragment implements MatchPl
     ListView lvPlayerDataRight;
 
     private Presenter presenter;
-    private List<MatchStat.MatchStatInfo.StatsBean.PlayerStats> left = new ArrayList<>();
-    private List<MatchStat.MatchStatInfo.StatsBean.PlayerStats> right = new ArrayList<>();
+    private List<MatchStat.PlayerStats> left = new ArrayList<>();
+    private List<MatchStat.PlayerStats> right = new ArrayList<>();
     private MatchPlayerDataAdapter leftAdapter;
     private MatchPlayerDataAdapter rightAdapter;
 
@@ -63,9 +63,9 @@ public class MatchPlayerDataFragment extends BaseLazyFragment implements MatchPl
     }
 
     private void initData() {
-        leftAdapter = new MatchPlayerDataAdapter(left, mActivity, R.layout.item_list_match_player);
+        leftAdapter = new MatchPlayerDataAdapter(left, mActivity);
         lvPlayerDataLeft.setAdapter(leftAdapter);
-        rightAdapter = new MatchPlayerDataAdapter(right, mActivity, R.layout.item_list_match_player);
+        rightAdapter = new MatchPlayerDataAdapter(right, mActivity);
         lvPlayerDataRight.setAdapter(rightAdapter);
         presenter = new MatchPlayerDataPresenter(mActivity, this, getArguments().getString("mid"));
         presenter.initialized();
@@ -87,12 +87,12 @@ public class MatchPlayerDataFragment extends BaseLazyFragment implements MatchPl
     }
 
     @Override
-    public void showPlayerData(List<MatchStat.MatchStatInfo.StatsBean.PlayerStats> playerStatses) {
+    public void showPlayerData(List<MatchStat.PlayerStats> playerStatses) {
         boolean isLeft = false;
         boolean isRight = false;
         left.clear();
         right.clear();
-        for (MatchStat.MatchStatInfo.StatsBean.PlayerStats item : playerStatses) {
+        for (MatchStat.PlayerStats item : playerStatses) {
             if (item.subText != null && !isLeft) {
                 isLeft = true;
                 tvPlayerDataLeft.setText(item.subText);

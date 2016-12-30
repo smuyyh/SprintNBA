@@ -37,8 +37,8 @@ public class MatchDataPresenter implements Presenter {
             public void onSuccess(MatchStat matchStat) {
                 MatchStat.MatchStatInfo data = matchStat.data;
                 if (data != null && data.stats != null) {
-                    List<MatchStat.MatchStatInfo.StatsBean> stats = data.stats;
-                    for (MatchStat.MatchStatInfo.StatsBean bean : stats) {
+                    List<MatchStat.StatsBean> stats = data.stats;
+                    for (MatchStat.StatsBean bean : stats) {
                         if (bean.type.equals("12")) {
                             if (bean.goals != null && !bean.goals.isEmpty()) {
                                 dataView.showMatchPoint(bean.goals, data.teamInfo);
@@ -46,6 +46,10 @@ public class MatchDataPresenter implements Presenter {
                         } else if (bean.type.equals("14")) {
                             if (bean.teamStats != null && !bean.teamStats.isEmpty()) {
                                 dataView.showTeamStatistics(bean.teamStats);
+                            }
+                        } else if (bean.type.equals("160")) {
+                            if (bean.groundStats != null) {
+                                dataView.showGroundStats(bean.groundStats);
                             }
                         }
                     }

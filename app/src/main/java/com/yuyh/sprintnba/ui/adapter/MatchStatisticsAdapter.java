@@ -21,19 +21,19 @@ import java.util.List;
  * @author yuyh.
  * @date 2016/7/4.
  */
-public class MatchStatisticsAdapter extends EasyLVAdapter<MatchStat.MatchStatInfo.StatsBean.TeamStats> {
+public class MatchStatisticsAdapter extends EasyLVAdapter<MatchStat.TeamStats> {
 
     private Context mContext;
     private int colorPrimary;
 
-    public MatchStatisticsAdapter(List<MatchStat.MatchStatInfo.StatsBean.TeamStats> mList, Context context, int... layoutIds) {
+    public MatchStatisticsAdapter(List<MatchStat.TeamStats> mList, Context context, int... layoutIds) {
         super(context, mList, layoutIds);
         mContext = context;
         colorPrimary = ContextCompat.getColor(context, R.color.colorPrimary);
     }
 
     @Override
-    public void convert(EasyLVHolder viewHolder, final int position, final MatchStat.MatchStatInfo.StatsBean.TeamStats item) {
+    public void convert(EasyLVHolder viewHolder, final int position, final MatchStat.TeamStats item) {
         viewHolder.setText(R.id.tvLeftVal, item.leftVal + "")
                 .setText(R.id.tvRightVal, item.rightVal + "")
                 .setText(R.id.tvStatisticsName, item.text);

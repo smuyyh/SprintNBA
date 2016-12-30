@@ -1,6 +1,5 @@
 package com.yuyh.sprintnba.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,6 +49,8 @@ public class ScheduleFragment extends BaseLazyFragment {
     private ScheduleAdapter adapter;
     private List<Matchs.MatchsDataBean.MatchesBean> list = new ArrayList<>();
 
+    private String year = "2016";
+
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
@@ -70,9 +71,7 @@ public class ScheduleFragment extends BaseLazyFragment {
         adapter.setOnItemClickListener(new OnListItemClickListener<Matchs.MatchsDataBean.MatchesBean>() {
             @Override
             public void onItemClick(View view, int position, Matchs.MatchsDataBean.MatchesBean data) {
-                Intent intent = new Intent(mActivity, MatchDetailActivity.class);
-                intent.putExtra(MatchDetailActivity.INTENT_MID, data.matchInfo.mid);
-                startActivity(intent);
+                MatchDetailActivity.start(mActivity, data.matchInfo.mid, year);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
@@ -90,7 +89,7 @@ public class ScheduleFragment extends BaseLazyFragment {
             public void onSuccess(Matchs matchs) {
                 list.clear();
                 List<Matchs.MatchsDataBean.MatchesBean> mList = matchs.getData().matches;
-                if (!mList.isEmpty()) {
+                if (mList != null && !mList.isEmpty()) {
                     for (Matchs.MatchsDataBean.MatchesBean bean : mList) {
                         list.add(bean);
                     }
@@ -123,6 +122,7 @@ public class ScheduleFragment extends BaseLazyFragment {
     @Subscribe
     public void onEventMainThread(CalendarEvent msg) {
         date = msg.getDate();
+        year = date.substring(0, 4);
         LogUtils.i(msg.getDate());
         requestMatchs(date, true);
     }
@@ -130,7 +130,7 @@ public class ScheduleFragment extends BaseLazyFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && mActivity!= null) {
+        if (isVisibleToUser && mActivity != null) {
             mActivity.invalidateOptionsMenu();
         }
     }

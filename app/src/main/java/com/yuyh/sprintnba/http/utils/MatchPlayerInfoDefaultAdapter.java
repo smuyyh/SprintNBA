@@ -9,7 +9,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
-import com.yuyh.sprintnba.http.bean.match.MatchStat.MatchStatInfo.StatsBean.MaxPlayers.MatchPlayerInfo;
+import com.yuyh.sprintnba.http.bean.match.MatchStat.MaxPlayers.MatchPlayerInfo;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;

@@ -20,19 +20,19 @@ import java.util.List;
  * @author yuyh.
  * @date 2016/7/5.
  */
-public class MatchPlayerDataAdapter extends EasyLVAdapter<MatchStat.MatchStatInfo.StatsBean.PlayerStats> {
+public class MatchPlayerDataAdapter extends EasyLVAdapter<MatchStat.PlayerStats> {
 
     private LayoutInflater inflater;
     private LinearLayout.LayoutParams params;
 
-    public MatchPlayerDataAdapter(List<MatchStat.MatchStatInfo.StatsBean.PlayerStats> mList, Context context, int... layoutIds) {
-        super(context, mList, layoutIds);
+    public MatchPlayerDataAdapter(List<MatchStat.PlayerStats> mList, Context context) {
+        super(context, mList, R.layout.item_list_match_player);
         inflater = LayoutInflater.from(context);
         params = new LinearLayout.LayoutParams(DimenUtils.dpToPxInt(40), LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     @Override
-    public void convert(EasyLVHolder viewHolder, int position, final MatchStat.MatchStatInfo.StatsBean.PlayerStats item) {
+    public void convert(EasyLVHolder viewHolder, int position, final MatchStat.PlayerStats item) {
         LinearLayout llPlayerDataItem = viewHolder.getView(R.id.llPlayerDataItem);
         if (item.head != null && !item.head.isEmpty()) {
             List<String> head = item.head;

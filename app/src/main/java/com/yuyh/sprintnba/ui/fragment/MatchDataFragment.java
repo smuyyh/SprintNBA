@@ -2,6 +2,7 @@ package com.yuyh.sprintnba.ui.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -13,7 +14,9 @@ import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseLazyFragment;
 import com.yuyh.sprintnba.event.RefreshEvent;
+import com.yuyh.sprintnba.http.bean.match.MatchBaseInfo;
 import com.yuyh.sprintnba.http.bean.match.MatchStat;
+import com.yuyh.sprintnba.ui.adapter.MatchPlayerDataAdapter;
 import com.yuyh.sprintnba.ui.adapter.MatchStatisticsAdapter;
 import com.yuyh.sprintnba.ui.presenter.impl.MatchDataPresenter;
 import com.yuyh.sprintnba.ui.view.MatchDataView;
@@ -43,13 +46,23 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     LinearLayout llMatchPoint;
     @InjectView(R.id.llMatchTeamStatistics)
     LinearLayout llMatchTeamStatistics;
+    @InjectView(R.id.llGroundStats)
+    LinearLayout llGroundStats;
 
     @InjectView(R.id.tvMatchPoint)
     TextView tvMatchPoint;
     @InjectView(R.id.tvMatchTeamStatistics)
     TextView tvMatchTeamStatistics;
+
+    @InjectView(R.id.tvRecentTitleLeft)
+    TextView tvRecentTitleLeft;
+    @InjectView(R.id.tvRecentTitleRight)
+    TextView tvRecentTitleRight;
+
     @InjectView(R.id.lvMatchTeamStatistics)
     ListView lvMatchTeamStatistics;
+    @InjectView(R.id.lvGroundStats)
+    ListView lvGroundStats;
 
     @InjectView(R.id.llMatchPointHead)
     LinearLayout llMatchPointHead;
@@ -65,11 +78,16 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
 
     private MatchDataPresenter presenter;
     private MatchStatisticsAdapter adapter;
-    private List<MatchStat.MatchStatInfo.StatsBean.TeamStats> teamStats = new ArrayList<>();
+    private List<MatchStat.TeamStats> teamStats = new ArrayList<>();
 
-    public static MatchDataFragment newInstance(String mid) {
+    private MatchPlayerDataAdapter playerDataAdapter;
+    private List<MatchStat.PlayerStats> playerDataList = new ArrayList<>();
+    private int teamCurrent = 0;
+
+    public static MatchDataFragment newInstance(String mid, MatchBaseInfo.BaseInfo info) {
         Bundle args = new Bundle();
         args.putString("mid", mid);
+        args.putSerializable("info", info);
         MatchDataFragment fragment = new MatchDataFragment();
         fragment.setArguments(args);
         return fragment;
@@ -95,7 +113,7 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && mActivity!= null) {
+        if (isVisibleToUser && mActivity != null) {
             mActivity.invalidateOptionsMenu();
         }
     }
@@ -117,10 +135,10 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     }
 
     @Override
-    public void showMatchPoint(List<MatchStat.MatchStatInfo.StatsBean.Goals> list, MatchStat.MatchStatInfo.MatchTeamInfo teamInfo) {
+    public void showMatchPoint(List<MatchStat.Goals> list, MatchStat.MatchTeamInfo teamInfo) {
         ivMatchPointLeft.setController(FrescoUtils.getController(teamInfo.leftBadge, ivMatchPointLeft));
         ivMatchPointRight.setController(FrescoUtils.getController(teamInfo.rightBadge, ivMatchPointRight));
-        MatchStat.MatchStatInfo.StatsBean.Goals goals = list.get(0);
+        MatchStat.Goals goals = list.get(0);
         List<String> head = goals.head;
         List<String> left = goals.rows.get(0);
         List<String> right = goals.rows.get(1);
@@ -163,10 +181,10 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     }
 
     @Override
-    public void showTeamStatistics(List<MatchStat.MatchStatInfo.StatsBean.TeamStats> teamStats) {
+    public void showTeamStatistics(List<MatchStat.TeamStats> teamStats) {
         this.teamStats.clear();
         this.teamStats.addAll(teamStats);
-        if(adapter == null) {
+        if (adapter == null) {
             adapter = new MatchStatisticsAdapter(this.teamStats, mActivity, R.layout.item_list_match_team_statistics);
             lvMatchTeamStatistics.setAdapter(adapter);
         }
@@ -174,6 +192,63 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
         llMatchTeamStatistics.setVisibility(View.VISIBLE);
         complete();
         snlScrollView.scrollTo(0, 0);
+    }
+
+    @Override
+    public void showGroundStats(final MatchStat.GroundStats groundStats) {
+        MatchBaseInfo.BaseInfo info = (MatchBaseInfo.BaseInfo) getArguments().getSerializable("info");
+
+        if (info != null) {
+            tvRecentTitleLeft.setText(info.leftName);
+            tvRecentTitleRight.setText(info.rightName);
+        }
+
+        if (playerDataAdapter == null) {
+            playerDataAdapter = new MatchPlayerDataAdapter(playerDataList, mActivity);
+            lvGroundStats.setAdapter(playerDataAdapter);
+        }
+
+        updatePlayerData(groundStats.left);
+
+        tvRecentTitleLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (teamCurrent != 0) {
+                    updatePlayerData(groundStats.left);
+                    tvRecentTitleRight.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.entity_layout));
+                    tvRecentTitleLeft.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.white));
+                    teamCurrent = 0;
+                }
+            }
+        });
+        tvRecentTitleRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (teamCurrent == 0) {
+                    updatePlayerData(groundStats.right);
+                    tvRecentTitleRight.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.white));
+                    tvRecentTitleLeft.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.entity_layout));
+                    teamCurrent = 1;
+                }
+            }
+        });
+        llGroundStats.setVisibility(View.VISIBLE);
+    }
+
+    private void updatePlayerData(List<MatchStat.GroundStats.TeamBean> players) {
+        playerDataList.clear();
+        for (MatchStat.GroundStats.TeamBean bean : players) {
+            if (bean.head != null && bean.head.size() > 0) {
+                bean.head.add(0, "球员");
+                bean.head.add(1, "首发");
+            } else if (bean.row != null && bean.row.size() > 0) {
+                bean.row.add(0, bean.playerName);
+                bean.row.add(1, "否");
+            }
+            playerDataList.add(new MatchStat.PlayerStats(bean.head, bean.row, bean.playerId, bean.detailUrl));
+        }
+
+        playerDataAdapter.notifyDataSetChanged();
     }
 
     public void complete() {
