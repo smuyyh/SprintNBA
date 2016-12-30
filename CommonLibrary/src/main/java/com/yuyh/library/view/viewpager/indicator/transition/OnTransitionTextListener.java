@@ -2,6 +2,7 @@ package com.yuyh.library.view.viewpager.indicator.transition;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
@@ -48,7 +49,7 @@ public class OnTransitionTextListener implements Indicator.OnTransitionListener 
 
     public final OnTransitionTextListener setColorId(Context context, int selectColorId, int unSelectColorId) {
         Resources res = context.getResources();
-        setColor(res.getColor(selectColorId), res.getColor(unSelectColorId));
+        setColor(ContextCompat.getColor(context, selectColorId), ContextCompat.getColor(context, unSelectColorId));
         return this;
     }
 
