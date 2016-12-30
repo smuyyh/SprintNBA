@@ -172,7 +172,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
             }
         };
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
+        mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
 
         mNavListAdapter = new EasyLVAdapter<NavigationEntity>(HomeActivity.this, navigationList, R.layout.item_list_navigation) {
             @Override
@@ -244,10 +244,10 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
 
         switch (item.getItemId()) {
             case R.id.action_calendar:
-                startActivityForResult(new Intent(this, CalendarActivity.class), REQUEST_DATE_CODE);
+                CalendarActivity.start(this, REQUEST_DATE_CODE);
                 break;
             case R.id.action_live:
-                startActivity(new Intent(this, MatchVideoLiveListActivity.class));
+                MatchVideoLiveListActivity.start(this);
                 break;
             default:
                 break;

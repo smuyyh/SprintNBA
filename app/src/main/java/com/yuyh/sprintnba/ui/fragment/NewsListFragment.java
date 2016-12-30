@@ -71,18 +71,12 @@ public class NewsListFragment extends BaseLazyFragment {
                     case VIDEO:
                     case DEPTH:
                     case HIGHLIGHT:
-                        intent = new Intent(mActivity, BaseWebActivity.class);
-                        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, data.url);
-                        intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, data.title);
-                        startActivity(intent);
+                        BaseWebActivity.start(mActivity, data.url, data.title, true, true);
                         break;
                     case BANNER:
                     case NEWS:
                     default:
-                        intent = new Intent(mActivity, NewsDetailActivity.class);
-                        intent.putExtra(NewsDetailActivity.TITLE, data.title);
-                        intent.putExtra(NewsDetailActivity.ARTICLE_ID, data.index);
-                        startActivity(intent);
+                        NewsDetailActivity.start(mActivity, data.title, data.index);
                         break;
 
                 }

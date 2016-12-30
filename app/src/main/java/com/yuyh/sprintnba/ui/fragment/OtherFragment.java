@@ -78,7 +78,7 @@ public class OtherFragment extends BaseLazyFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && mActivity!= null) {
+        if (isVisibleToUser && mActivity != null) {
             mActivity.invalidateOptionsMenu();
         }
     }
@@ -103,42 +103,32 @@ public class OtherFragment extends BaseLazyFragment {
 
     @OnClick(R.id.rlTeam)
     public void allTeams() {
-        Intent intent = new Intent(mActivity, TeamsListActivity.class);
-        startActivity(intent);
+        TeamsListActivity.start(mActivity);
     }
 
     @OnClick(R.id.rlPlayer)
     public void allPlayers() {
-        Intent intent = new Intent(mActivity, PlayerListActivity.class);
-        startActivity(intent);
+        PlayerListActivity.start(mActivity);
     }
 
     @OnClick(R.id.rlTeamSchedule)
     public void teamSchedule() {
-        Intent intent = new Intent(mActivity, TeamsListActivity.class);
-        startActivity(intent);
+        TeamsListActivity.start(mActivity);
     }
 
     @OnClick(R.id.rlNBACal)
     public void nbaCal() {
-        Intent intent = new Intent(mActivity, BaseWebActivity.class);
-        intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, "NBA日历");
-        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, "http://m.china.nba.com/importantdatetoapp/wap.htm");
-        intent.putExtra(BaseWebActivity.BUNDLE_KEY_SHOW_BOTTOM_BAR, false);
-        startActivity(intent);
+        BaseWebActivity.start(mActivity, "http://m.china.nba.com/importantdatetoapp/wap.htm", "NBA日历", false, true);
     }
 
     @OnClick(R.id.rlFeedback)
     public void feedback() {
-        Intent intent = new Intent(mActivity, PostActivity.class);
-        intent.putExtra(PostActivity.INTENT_TYPE, Constant.TYPE_FEEDBACK);
-        startActivity(intent);
+        PostActivity.start(mActivity, Constant.TYPE_FEEDBACK);
     }
 
     @OnClick(R.id.rlAbout)
     public void about() {
-        Intent intent = new Intent(mActivity, AboutActivity.class);
-        startActivity(intent);
+        AboutActivity.start(mActivity);
     }
 
     @Override

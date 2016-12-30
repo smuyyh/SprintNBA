@@ -31,14 +31,14 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  */
 public class NewsAdapter extends EasyRVAdapter<NewsItem.NewsItemBean> {
 
-    private OnListItemClickListener mOnItemClickListener = null;
+    private OnListItemClickListener<NewsItem.NewsItemBean> mOnItemClickListener = null;
     private ItemAnimHelper helper = new ItemAnimHelper();
 
     public NewsAdapter(List<NewsItem.NewsItemBean> data, Context context, int... layoutId) {
         super(context, data, layoutId);
     }
 
-    public void setOnItemClickListener(OnListItemClickListener mOnItemClickListener) {
+    public void setOnItemClickListener(OnListItemClickListener<NewsItem.NewsItemBean> mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 
@@ -53,12 +53,12 @@ public class NewsAdapter extends EasyRVAdapter<NewsItem.NewsItemBean> {
     protected void onBindData(final EasyRVHolder viewHolder, final int position, final NewsItem.NewsItemBean item) {
         if (item.atype.equals("2")) { // 视频
             final JCVideoPlayerStandard videoPlayer = viewHolder.getView(R.id.vpVideo);
-            // 近期腾讯视频真实地址解析后播放 提示“您未获授权，无法查看此网页。 HTTP403” 故暂时改为跳转到网页播放
+            // 近期腾讯视频真实地址解析后播放 提示“您未获授权，无法查看此网页。 HTTP403” 故同时支持跳转到网页播放
             ImageView ivGoto = viewHolder.getView(R.id.ivGoto);
             ivGoto.setOnClickListener(new NoDoubleClickListener() {
                 @Override
                 protected void onNoDoubleClick(View view) {
-                    BaseWebActivity.start(mContext, item.url);
+                    BaseWebActivity.start(mContext, item.url, "", true, true);
                 }
             });
             videoPlayer.setUp("", item.title);

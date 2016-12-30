@@ -1,8 +1,10 @@
 package com.yuyh.sprintnba.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -48,6 +50,18 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity
 
     public static final String INTENT_FORUM = "forum";
     public static final String INTENT_FORUM_ID = "boardID";
+
+    public static void start(Context context, ForumsData.Forum data) {
+        Intent intent = new Intent(context, ThreadListActivity.class);
+        intent.putExtra(INTENT_FORUM, data);
+        context.startActivity(intent);
+    }
+
+    public static void start(Context context, String forumId) {
+        Intent intent = new Intent(context, ThreadListActivity.class);
+        intent.putExtra(INTENT_FORUM_ID, forumId);
+        context.startActivity(intent);
+    }
 
     public ForumsData.Forum forum;
     public String boardId;
@@ -124,15 +138,12 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity
         recyclerView.setHasFixedSize(true);
 
         refreshLayout.setOnRefreshListener(new RefreshListener());
-        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.material_red));
+        refreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.material_red));
         adapter = new ThreadListAdapter(list, this, R.layout.item_list_threads);
         adapter.setOnItemClickListener(new OnListItemClickListener<ThreadListData.ThreadInfo>() {
             @Override
             public void onItemClick(View view, int position, ThreadListData.ThreadInfo data) {
-                Intent intent = new Intent(ThreadListActivity.this, ThreadDetailActivity.class);
-                intent.putExtra("tid", data.tid);
-                intent.putExtra("fid", data.fid);
-                startActivity(intent);
+                ThreadDetailActivity.start(mContext, "", data.tid, 1, data.fid);
             }
         });
         recyclerView.setAdapter(adapter);
@@ -273,13 +284,7 @@ public class ThreadListActivity extends BaseSwipeBackCompatActivity
     @OnClick(R.id.floatingPost)
     void floatingPost() {
         floatingMenu.toggle(true);
-        Intent intent = new Intent(this, PostActivity.class);
-        intent.putExtra(PostActivity.INTENT_TITLE, "");
-        intent.putExtra(PostActivity.INTENT_TYPE, Constant.TYPE_POST);
-        intent.putExtra(PostActivity.INTENT_FID, boardId);
-        intent.putExtra(PostActivity.INTENT_TID, "");
-        intent.putExtra(PostActivity.INTENT_PID, "");
-        startActivityForResult(intent, 1);
+        PostActivity.startForResult(this, "", Constant.TYPE_POST, boardId, "", "", 1);
     }
 
     @OnClick(R.id.floatingRefresh)

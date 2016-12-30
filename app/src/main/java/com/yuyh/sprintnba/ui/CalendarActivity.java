@@ -1,5 +1,6 @@
 package com.yuyh.sprintnba.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,11 @@ import butterknife.OnClick;
  * @date 16/6/11.
  */
 public class CalendarActivity extends BaseSwipeBackCompatActivity implements CalendarPageView {
+
+    public static void start(Activity activity, int requestCode) {
+        Intent intent = new Intent(activity, CalendarActivity.class);
+        activity.startActivityForResult(intent, requestCode);
+    }
 
     @InjectView(R.id.calendar)
     CalendarView calendar;

@@ -1,5 +1,7 @@
 package com.yuyh.sprintnba.ui;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.Menu;
@@ -11,8 +13,8 @@ import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
 import com.yuyh.sprintnba.R;
-import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
 import com.yuyh.sprintnba.app.Constant;
+import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
 import com.yuyh.sprintnba.ui.presenter.impl.PostPresenter;
 import com.yuyh.sprintnba.ui.view.PostView;
 
@@ -35,6 +37,32 @@ public class PostActivity extends BaseSwipeBackCompatActivity implements PostVie
     private String tid;
     private String pid;
     private String title;
+
+    public static void start(Context context, int type) {
+        Intent intent = new Intent(context, PostActivity.class);
+        intent.putExtra(PostActivity.INTENT_TYPE, type);
+        context.startActivity(intent);
+    }
+
+    public static void start(Context context, String title, int type, String fid, String tid, String pid) {
+        Intent intent = new Intent(context, PostActivity.class);
+        intent.putExtra(PostActivity.INTENT_TITLE, title);
+        intent.putExtra(PostActivity.INTENT_TYPE, type);
+        intent.putExtra(PostActivity.INTENT_FID, fid);
+        intent.putExtra(PostActivity.INTENT_TID, tid);
+        intent.putExtra(PostActivity.INTENT_PID, String.valueOf(pid));
+        context.startActivity(intent);
+    }
+
+    public static void startForResult(Activity activity, String title, int type, String fid, String tid, String pid, int reqCode) {
+        Intent intent = new Intent(activity, PostActivity.class);
+        intent.putExtra(PostActivity.INTENT_TITLE, title);
+        intent.putExtra(PostActivity.INTENT_TYPE, type);
+        intent.putExtra(PostActivity.INTENT_FID, fid);
+        intent.putExtra(PostActivity.INTENT_TID, tid);
+        intent.putExtra(PostActivity.INTENT_PID, String.valueOf(pid));
+        activity.startActivityForResult(intent, reqCode);
+    }
 
     @InjectView(R.id.etSubject)
     EditText etSubject;

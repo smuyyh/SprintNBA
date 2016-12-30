@@ -40,17 +40,22 @@ public class MatchDataPresenter implements Presenter {
                     List<MatchStat.StatsBean> stats = data.stats;
                     for (MatchStat.StatsBean bean : stats) {
                         if (bean.type.equals("12")) {
+                            // 比分
                             if (bean.goals != null && !bean.goals.isEmpty()) {
                                 dataView.showMatchPoint(bean.goals, data.teamInfo);
                             }
                         } else if (bean.type.equals("14")) {
+                            // 球队统计
                             if (bean.teamStats != null && !bean.teamStats.isEmpty()) {
                                 dataView.showTeamStatistics(bean.teamStats);
                             }
                         } else if (bean.type.equals("160")) {
+                            // 场上球员
                             if (bean.groundStats != null) {
                                 dataView.showGroundStats(bean.groundStats);
                             }
+                        } else if (bean.type.equals("13")) {
+                            // 本场最佳
                         }
                     }
                 } else {

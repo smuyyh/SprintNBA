@@ -1,6 +1,5 @@
 package com.yuyh.sprintnba.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,10 +10,10 @@ import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.sprintnba.R;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.base.BaseLazyFragment;
 import com.yuyh.sprintnba.base.BaseWebActivity;
 import com.yuyh.sprintnba.http.bean.player.StatsRank;
-import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.support.SpaceItemDecoration;
 import com.yuyh.sprintnba.support.SupportRecyclerView;
@@ -73,10 +72,7 @@ public class StatsRankFragment extends BaseLazyFragment implements StatsRankView
         adapter.setOnItemClickListener(new OnListItemClickListener<StatsRank.RankItem>() {
             @Override
             public void onItemClick(View view, int position, StatsRank.RankItem data) {
-                Intent intent = new Intent(mActivity, BaseWebActivity.class);
-                intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, data.playerName);
-                intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, data.playerUrl);
-                startActivity(intent);
+                BaseWebActivity.start(mActivity, data.playerUrl, data.playerName, true, true);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
@@ -134,7 +130,7 @@ public class StatsRankFragment extends BaseLazyFragment implements StatsRankView
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && mActivity!= null) {
+        if (isVisibleToUser && mActivity != null) {
             mActivity.invalidateOptionsMenu();
         }
     }

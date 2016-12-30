@@ -1,5 +1,6 @@
 package com.yuyh.sprintnba.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.SearchView;
@@ -28,6 +29,11 @@ import butterknife.InjectView;
  */
 public class PlayerListActivity extends BaseAppCompatActivity
         implements PlayersView, IndexableStickyListView.OnItemContentClickListener {
+
+    public static void start(Context context){
+        Intent intent = new Intent(context, PlayerListActivity.class);
+        context.startActivity(intent);
+    }
 
     @InjectView(R.id.indexListView)
     IndexableStickyListView lvAllTeam;
@@ -90,9 +96,6 @@ public class PlayerListActivity extends BaseAppCompatActivity
     @Override
     public void onItemClick(View v, IndexEntity indexEntity) {
         Players.Player data = (Players.Player) indexEntity;
-        Intent intent = new Intent(this, BaseWebActivity.class);
-        intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, data.enName);
-        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, data.detailUrl);
-        startActivity(intent);
+        BaseWebActivity.start(this, data.detailUrl, data.enName, true, true);
     }
 }

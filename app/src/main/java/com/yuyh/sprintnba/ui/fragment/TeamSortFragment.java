@@ -1,6 +1,5 @@
 package com.yuyh.sprintnba.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -69,10 +68,7 @@ public class TeamSortFragment extends BaseLazyFragment implements TeamSortView {
         adapter.setOnItemClickListener(new OnListItemClickListener<TeamsRank.TeamBean>() {
             @Override
             public void onItemClick(View view, int position, TeamsRank.TeamBean data) {
-                Intent intent = new Intent(mActivity, BaseWebActivity.class);
-                intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, data.name);
-                intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, data.detailUrl);
-                startActivity(intent);
+                BaseWebActivity.start(mActivity, data.detailUrl, data.name, true, true);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
@@ -129,7 +125,7 @@ public class TeamSortFragment extends BaseLazyFragment implements TeamSortView {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && mActivity!= null) {
+        if (isVisibleToUser && mActivity != null) {
             mActivity.invalidateOptionsMenu();
         }
     }

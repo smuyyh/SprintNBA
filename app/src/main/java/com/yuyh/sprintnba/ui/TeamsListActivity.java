@@ -1,5 +1,6 @@
 package com.yuyh.sprintnba.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
@@ -9,10 +10,10 @@ import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
 import com.yuyh.sprintnba.base.BaseWebActivity;
 import com.yuyh.sprintnba.http.bean.player.Teams;
-import com.yuyh.sprintnba.ui.presenter.Presenter;
-import com.yuyh.sprintnba.ui.presenter.impl.TeamsListPresenterImpl;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.ui.adapter.TeamsListAdapter;
+import com.yuyh.sprintnba.ui.presenter.Presenter;
+import com.yuyh.sprintnba.ui.presenter.impl.TeamsListPresenterImpl;
 import com.yuyh.sprintnba.ui.view.TeamsView;
 
 import java.util.ArrayList;
@@ -25,6 +26,11 @@ import butterknife.InjectView;
  * @date 16/6/11.
  */
 public class TeamsListActivity extends BaseSwipeBackCompatActivity implements TeamsView, OnListItemClickListener<Teams.TeamsBean.Team> {
+
+    public static void start(Context context){
+        Intent intent = new Intent(context, TeamsListActivity.class);
+        context.startActivity(intent);
+    }
 
     @InjectView(R.id.lvAllTeam)
     ListView lvAllTeam;
@@ -65,9 +71,6 @@ public class TeamsListActivity extends BaseSwipeBackCompatActivity implements Te
 
     @Override
     public void onItemClick(View view, int position, Teams.TeamsBean.Team data) {
-        Intent intent = new Intent(this, BaseWebActivity.class);
-        intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, data.fullCnName);
-        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, data.detailUrl);
-        startActivity(intent);
+        BaseWebActivity.start(this, data.detailUrl, data.fullCnName, true, true);
     }
 }

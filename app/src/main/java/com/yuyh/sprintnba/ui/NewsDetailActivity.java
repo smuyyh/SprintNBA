@@ -1,5 +1,6 @@
 package com.yuyh.sprintnba.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Looper;
@@ -41,6 +42,13 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity implements N
 
     public static final String ARTICLE_ID = "arcId";
     public static final String TITLE = "title";
+
+    public static void start(Context context, String title, String arcId) {
+        Intent intent = new Intent(context, NewsDetailActivity.class);
+        intent.putExtra(NewsDetailActivity.TITLE, title);
+        intent.putExtra(NewsDetailActivity.ARTICLE_ID, arcId);
+        context.startActivity(intent);
+    }
 
     @InjectView(R.id.llNewsDetail)
     LinearLayout llNewsDetail;
@@ -155,7 +163,6 @@ public class NewsDetailActivity extends BaseSwipeBackCompatActivity implements N
             }
         });
     }
-
 
 
     @Override

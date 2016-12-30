@@ -1,7 +1,6 @@
 package com.yuyh.sprintnba.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -59,10 +58,7 @@ public class MatchPlayerDataAdapter extends EasyLVAdapter<MatchStat.PlayerStats>
             viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, BaseWebActivity.class);
-                    intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, item.row.get(0));
-                    intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, item.detailUrl);
-                    mContext.startActivity(intent);
+                    BaseWebActivity.start(mContext, item.detailUrl, item.row.get(0), true, true);
                 }
             });
         }

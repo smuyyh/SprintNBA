@@ -39,6 +39,18 @@ import butterknife.InjectView;
  */
 public class MatchDataFragment extends BaseLazyFragment implements MatchDataView {
 
+    public final static String BUNDLE_MID = "mid";
+    public final static String BUNDLE_INFO = "info";
+
+    public static MatchDataFragment newInstance(String mid, MatchBaseInfo.BaseInfo info) {
+        Bundle args = new Bundle();
+        args.putString(BUNDLE_MID, mid);
+        args.putSerializable(BUNDLE_INFO, info);
+        MatchDataFragment fragment = new MatchDataFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @InjectView(R.id.snlScrollView)
     ScrollView snlScrollView;
 
@@ -84,15 +96,6 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     private List<MatchStat.PlayerStats> playerDataList = new ArrayList<>();
     private int teamCurrent = 0;
 
-    public static MatchDataFragment newInstance(String mid, MatchBaseInfo.BaseInfo info) {
-        Bundle args = new Bundle();
-        args.putString("mid", mid);
-        args.putSerializable("info", info);
-        MatchDataFragment fragment = new MatchDataFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
@@ -107,7 +110,7 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
         lvMatchTeamStatistics.setFocusable(false);
         presenter = new MatchDataPresenter(mActivity, this);
         presenter.initialized();
-        presenter.getMatchStats(getArguments().getString("mid"), "1");
+        presenter.getMatchStats(getArguments().getString(BUNDLE_MID), "1");
     }
 
     @Override
@@ -134,6 +137,21 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
         hideLoadingDialog();
     }
 
+    public void complete() {
+        snlScrollView.smoothScrollTo(0, 20);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideLoadingDialog();
+            }
+        }, 1000);
+    }
+
+    @Subscribe
+    public void onEventMainThread(RefreshEvent event) {
+        presenter.getMatchStats(getArguments().getString(BUNDLE_MID), "1");
+    }
+
     @Override
     public void showMatchPoint(List<MatchStat.Goals> list, MatchStat.MatchTeamInfo teamInfo) {
         ivMatchPointLeft.setController(FrescoUtils.getController(teamInfo.leftBadge, ivMatchPointLeft));
@@ -153,27 +171,24 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
                 tv.setLayoutParams(params);
                 llMatchPointHead.addView(tv, i + 1);
             }
-            if (left != null) {
-                if (llMatchPointLeft.getChildAt(i + 1) != null) {
-                    TextView tv1 = (TextView) llMatchPointLeft.getChildAt(i + 1);
-                    tv1.setText(left.get(i));
-                } else {
-                    TextView tv1 = (TextView) inflater.inflate(R.layout.tab_match_point, null);
-                    tv1.setText(left.get(i));
-                    tv1.setLayoutParams(params);
-                    llMatchPointLeft.addView(tv1, i + 1);
-                }
+            if (llMatchPointLeft.getChildAt(i + 1) != null) {
+                TextView tv1 = (TextView) llMatchPointLeft.getChildAt(i + 1);
+                tv1.setText(left.get(i));
+            } else {
+                TextView tv1 = (TextView) inflater.inflate(R.layout.tab_match_point, null);
+                tv1.setText(left.get(i));
+                tv1.setLayoutParams(params);
+                llMatchPointLeft.addView(tv1, i + 1);
             }
-            if (right != null) {
-                if (llMatchPointRight.getChildAt(i + 1) != null) {
-                    TextView tv2 = (TextView) llMatchPointRight.getChildAt(i + 1);
-                    tv2.setText(right.get(i));
-                } else {
-                    TextView tv2 = (TextView) inflater.inflate(R.layout.tab_match_point, null);
-                    tv2.setText(right.get(i));
-                    tv2.setLayoutParams(params);
-                    llMatchPointRight.addView(tv2, i + 1);
-                }
+
+            if (llMatchPointRight.getChildAt(i + 1) != null) {
+                TextView tv2 = (TextView) llMatchPointRight.getChildAt(i + 1);
+                tv2.setText(right.get(i));
+            } else {
+                TextView tv2 = (TextView) inflater.inflate(R.layout.tab_match_point, null);
+                tv2.setText(right.get(i));
+                tv2.setLayoutParams(params);
+                llMatchPointRight.addView(tv2, i + 1);
             }
         }
         llMatchPoint.setVisibility(View.VISIBLE);
@@ -196,7 +211,7 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
 
     @Override
     public void showGroundStats(final MatchStat.GroundStats groundStats) {
-        MatchBaseInfo.BaseInfo info = (MatchBaseInfo.BaseInfo) getArguments().getSerializable("info");
+        MatchBaseInfo.BaseInfo info = (MatchBaseInfo.BaseInfo) getArguments().getSerializable(BUNDLE_INFO);
 
         if (info != null) {
             tvRecentTitleLeft.setText(info.leftName);
@@ -249,21 +264,6 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
         }
 
         playerDataAdapter.notifyDataSetChanged();
-    }
-
-    public void complete() {
-        snlScrollView.smoothScrollTo(0, 20);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                hideLoadingDialog();
-            }
-        }, 1000);
-    }
-
-    @Subscribe
-    public void onEventMainThread(RefreshEvent event) {
-        presenter.getMatchStats(getArguments().getString("mid"), "1");
     }
 
     @Override

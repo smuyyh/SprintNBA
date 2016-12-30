@@ -1,5 +1,6 @@
 package com.yuyh.sprintnba.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.widget.TextView;
@@ -16,6 +17,11 @@ import butterknife.OnClick;
  * @date 16/6/11.
  */
 public class AboutActivity extends BaseSwipeBackCompatActivity {
+
+    public static void start(Context context) {
+        Intent intent = new Intent(context, AboutActivity.class);
+        context.startActivity(intent);
+    }
 
     @InjectView(R.id.tvWeiboUrl)
     TextView tvWeiboUrl;
@@ -43,8 +49,6 @@ public class AboutActivity extends BaseSwipeBackCompatActivity {
 
     @OnClick(R.id.tvBlog)
     public void openBlog() {
-        Intent intent = new Intent(this, BaseWebActivity.class);
-        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, tvBlog.getText().toString().trim());
-        startActivity(intent);
+        BaseWebActivity.start(this, tvBlog.getText().toString().trim(), "", true, true);
     }
 }

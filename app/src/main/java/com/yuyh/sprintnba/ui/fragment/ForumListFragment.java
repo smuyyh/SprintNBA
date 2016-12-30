@@ -1,6 +1,5 @@
 package com.yuyh.sprintnba.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +7,7 @@ import android.view.View;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
+import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseLazyFragment;
 import com.yuyh.sprintnba.http.bean.forum.ForumsData;
@@ -19,7 +19,6 @@ import com.yuyh.sprintnba.ui.adapter.ForumListAdapter;
 import com.yuyh.sprintnba.ui.presenter.Presenter;
 import com.yuyh.sprintnba.ui.presenter.impl.ForumListPresenterImpl;
 import com.yuyh.sprintnba.ui.view.ForumListView;
-import com.yuyh.library.utils.DimenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,9 +59,7 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
         adapter.setOnListItemClickListener(new OnListItemClickListener<ForumsData.Forum>() {
             @Override
             public void onItemClick(View view, int position, ForumsData.Forum data) {
-                Intent intent = new Intent(mActivity, ThreadListActivity.class);
-                intent.putExtra(ThreadListActivity.INTENT_FORUM, data);
-                startActivity(intent);
+                ThreadListActivity.start(mActivity, data);
 
             }
         });
@@ -83,7 +80,7 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && mActivity!= null) {
+        if (isVisibleToUser && mActivity != null) {
             mActivity.invalidateOptionsMenu();
         }
     }

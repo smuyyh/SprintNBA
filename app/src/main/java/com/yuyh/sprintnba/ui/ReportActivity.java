@@ -1,15 +1,17 @@
 package com.yuyh.sprintnba.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 
+import com.yuyh.library.view.list.NoScrollListView;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
-import com.yuyh.sprintnba.ui.presenter.impl.ReportPresenterImpl;
 import com.yuyh.sprintnba.ui.adapter.ReportAdapter;
+import com.yuyh.sprintnba.ui.presenter.impl.ReportPresenterImpl;
 import com.yuyh.sprintnba.ui.view.ReportView;
-import com.yuyh.library.view.list.NoScrollListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,13 @@ public class ReportActivity extends BaseSwipeBackCompatActivity implements Repor
 
     public static final String INTENT_PID = "pid";
     public static final String INTENT_TID = "tid";
+
+    public static void start(Context context, String pid, String tid) {
+        Intent intent = new Intent(context, ReportActivity.class);
+        intent.putExtra(ReportActivity.INTENT_TID, tid);
+        intent.putExtra(ReportActivity.INTENT_PID, pid);
+        context.startActivity(intent);
+    }
 
     @InjectView(R.id.lvTypes)
     NoScrollListView lvTypes;

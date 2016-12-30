@@ -183,17 +183,11 @@ public class HuPuWebView extends WebView {
             LogUtils.d("page:" + page);
             String pid = uri.getQueryParameter("pid");
             LogUtils.d("pid:" + pid);
-            Intent intent = new Intent(getContext(), ThreadDetailActivity.class);
-            intent.putExtra(ThreadDetailActivity.INTENT_PID, pid);
-            intent.putExtra(ThreadDetailActivity.INTENT_TID, tid);
-            intent.putExtra(ThreadDetailActivity.INTENT_PAGE, TextUtils.isEmpty(page) ? 1 : Integer.valueOf(page));
-            intent.putExtra(ThreadDetailActivity.INTENT_FID, "");
-            getContext().startActivity(intent);
+            ThreadDetailActivity.start(getContext(), pid, tid,
+                    TextUtils.isEmpty(page) ? 1 : Integer.valueOf(page), "");
         } else if (url.contains("board")) {
             String boardId = url.substring(url.lastIndexOf("/") + 1);
-            Intent intent = new Intent(getContext(), ThreadListActivity.class);
-            intent.putExtra(ThreadListActivity.INTENT_FORUM_ID, boardId);
-            getContext().startActivity(intent);
+            ThreadListActivity.start(getContext(), boardId);
         } else if (url.contains("people")) {
             String uid = url.substring(url.lastIndexOf("/") + 1);
             // TODO UserProfileActivity.startActivity(getContext(), uid);
@@ -206,9 +200,7 @@ public class HuPuWebView extends WebView {
      * @param url
      */
     private void handleUrl(String url) {
-        Intent intent = new Intent(getContext(), BaseWebActivity.class);
-        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, url);
-        getContext().startActivity(intent);
+        BaseWebActivity.start(getContext(), url, "", true, true);
     }
 
     private void handleHuPu(String method, JSONObject data, String successcb) throws Exception {
@@ -251,13 +243,7 @@ public class HuPuWebView extends WebView {
                 String userName = extra.getString("username");
                 String content = extra.getString("content");
                 if (open) {
-                    Intent intent = new Intent(getContext(), PostActivity.class);
-                    intent.putExtra(PostActivity.INTENT_TITLE, content);
-                    intent.putExtra(PostActivity.INTENT_TYPE, Constant.TYPE_REPLY);
-                    intent.putExtra(PostActivity.INTENT_FID, "");
-                    intent.putExtra(PostActivity.INTENT_TID, tid);
-                    intent.putExtra(PostActivity.INTENT_PID, String.valueOf(pid));
-                    getContext().startActivity(intent);
+                    PostActivity.start(getContext(), content, Constant.TYPE_REPLY, "", tid, String.valueOf(pid));
                 }
                 break;
             case "hupu.album.view":
@@ -281,10 +267,8 @@ public class HuPuWebView extends WebView {
                 JSONObject reportExtra = data.getJSONObject("extra");
                 String reportTid = reportExtra.getString("tid");
                 long reportPid = reportExtra.getLong("pid");
-                Intent intent1 = new Intent(getContext(), ReportActivity.class);
-                intent1.putExtra(ReportActivity.INTENT_TID, reportTid);
-                intent1.putExtra(ReportActivity.INTENT_PID, String.valueOf(reportPid));
-                getContext().startActivity(intent1);
+
+                ReportActivity.start(getContext(), String.valueOf(reportPid), reportTid);
                 break;
             case "hupu.user.login":
                 getContext().startActivity(new Intent(getContext(), LoginActivity.class));

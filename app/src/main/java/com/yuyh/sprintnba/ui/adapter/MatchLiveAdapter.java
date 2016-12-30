@@ -68,7 +68,7 @@ public class MatchLiveAdapter extends EasyLVAdapter<LiveDetail.LiveContent> {
                 video.setOnClickListener(new NoDoubleClickListener() {
                     @Override
                     protected void onNoDoubleClick(View view) {
-                        BaseWebActivity.start(mContext, videoBean.playurl);
+                        BaseWebActivity.start(mContext, videoBean.playurl, "", true, true);
                     }
                 });
             } else {

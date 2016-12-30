@@ -25,9 +25,11 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
 
     private BrowserLayout mBrowserLayout = null;
 
-    public static void start(Context context, String url) {
+    public static void start(Context context, String url, String title,
+                             boolean isShowBottomBar, boolean isOverrideUrlLoading) {
         Intent intent = new Intent(context, BaseWebActivity.class);
         intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, url);
+        intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, title);
         context.startActivity(intent);
     }
 

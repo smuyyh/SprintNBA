@@ -1,21 +1,23 @@
 package com.yuyh.sprintnba.ui;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.sprintnba.R;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.base.BaseSwipeBackCompatActivity;
 import com.yuyh.sprintnba.event.ThreadContentEvent;
-import com.yuyh.sprintnba.app.Constant;
-import com.yuyh.sprintnba.ui.presenter.impl.ThreadDetailPresenterImpl;
 import com.yuyh.sprintnba.ui.adapter.VPThreadAdapter;
+import com.yuyh.sprintnba.ui.presenter.impl.ThreadDetailPresenterImpl;
 import com.yuyh.sprintnba.ui.view.ThreadDetailView;
 import com.yuyh.sprintnba.widget.VerticalViewPager;
-import com.yuyh.library.utils.toast.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -40,6 +42,15 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
     private int page;
     private String pid;
     private int totalPage;
+
+    public static void start(Context context, String pid, String tid, int page, String fid) {
+        Intent intent = new Intent(context, ThreadDetailActivity.class);
+        intent.putExtra(ThreadDetailActivity.INTENT_PID, pid);
+        intent.putExtra(ThreadDetailActivity.INTENT_TID, tid);
+        intent.putExtra(ThreadDetailActivity.INTENT_PAGE, page);
+        intent.putExtra(ThreadDetailActivity.INTENT_FID, fid);
+        context.startActivity(intent);
+    }
 
     @InjectView(R.id.vvpComment)
     VerticalViewPager viewPager;
@@ -102,18 +113,18 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
     public void onUpdatePager(int page, int totalPage) {
         tvPageNum.setText(page + "/" + totalPage);
         if (page == 1) {
-            tvPre.setTextColor(getResources().getColor(R.color.secondary_text));
+            tvPre.setTextColor(ContextCompat.getColor(this, R.color.secondary_text));
             tvPre.setClickable(false);
         } else {
-            tvPre.setTextColor(getResources().getColor(R.color.colorPrimary));
+            tvPre.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
             tvPre.setClickable(true);
         }
 
         if (page == totalPage) {
-            tvNext.setTextColor(getResources().getColor(R.color.secondary_text));
+            tvNext.setTextColor(ContextCompat.getColor(this, R.color.secondary_text));
             tvNext.setClickable(false);
         } else {
-            tvNext.setTextColor(getResources().getColor(R.color.colorPrimary));
+            tvNext.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
             tvNext.setClickable(true);
         }
     }
@@ -148,21 +159,12 @@ public class ThreadDetailActivity extends BaseSwipeBackCompatActivity implements
 
     @Override
     public void goPost(String title) {
-        Intent intent = new Intent(this, PostActivity.class);
-        intent.putExtra(PostActivity.INTENT_TITLE, title);
-        intent.putExtra(PostActivity.INTENT_TYPE, Constant.TYPE_COMMENT);
-        intent.putExtra(PostActivity.INTENT_FID, fid);
-        intent.putExtra(PostActivity.INTENT_TID, tid);
-        intent.putExtra(PostActivity.INTENT_PID, "");
-        startActivityForResult(intent, 1);
+        PostActivity.startForResult(this, title, Constant.TYPE_COMMENT, fid, tid, "", 1);
     }
 
     @Override
     public void goReport() {
-        Intent intent = new Intent(this, ReportActivity.class);
-        intent.putExtra(ReportActivity.INTENT_TID, tid);
-        intent.putExtra(ReportActivity.INTENT_PID, "");
-        startActivity(intent);
+        ReportActivity.start(this, "", tid);
     }
 
     @OnClick(R.id.tvPre)

@@ -1,5 +1,6 @@
 package com.yuyh.sprintnba.ui;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -30,6 +31,10 @@ import butterknife.InjectView;
  */
 public class MatchVideoLiveListActivity extends BaseSwipeBackCompatActivity
         implements MatchVideoLiveView, AdapterView.OnItemClickListener {
+
+    public static void start(Context context) {
+        context.startActivity(new Intent(context, MatchVideoLiveListActivity.class));
+    }
 
     @InjectView(R.id.refreshLayout)
     SwipeRefreshLayout refreshLayout;
@@ -93,12 +98,9 @@ public class MatchVideoLiveListActivity extends BaseSwipeBackCompatActivity
     public void showSourceList(final List<VideoLiveSource> list) {
 
         if (list != null && list.size() == 1) {
-            Intent intent = new Intent(mContext, BaseWebActivity.class);
-            intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, list.get(0).name);
-            intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, list.get(0).link);
-            intent.putExtra(BaseWebActivity.BUNDLE_KEY_SHOW_BOTTOM_BAR, false);
-            intent.putExtra(BaseWebActivity.BUNDLE_OVERRIDE, false);
-            startActivity(intent);
+            BaseWebActivity.start(mContext, list.get(0).link, list.get(0).name, false, false);
+            return;
+        } else if (list == null || list.isEmpty()) {
             return;
         }
 
@@ -121,13 +123,7 @@ public class MatchVideoLiveListActivity extends BaseSwipeBackCompatActivity
                         if (links[which].startsWith("/")) {
                             links[which] = BuildConfig.TMIAAO_SERVER + links[which];
                         }
-                        Intent intent = new Intent(mContext, BaseWebActivity.class);
-                        intent.putExtra(BaseWebActivity.BUNDLE_KEY_TITLE, names[which]);
-                        intent.putExtra(BaseWebActivity.BUNDLE_KEY_URL, links[which]);
-                        intent.putExtra(BaseWebActivity.BUNDLE_KEY_SHOW_BOTTOM_BAR, false);
-                        intent.putExtra(BaseWebActivity.BUNDLE_OVERRIDE, false);
-                        startActivity(intent);
-
+                        BaseWebActivity.start(mContext, links[which], names[which], false, false);
                         dialog.dismiss();
                     }
                 }).show();

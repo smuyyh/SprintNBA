@@ -23,6 +23,13 @@ public class ImagePreViewActivity extends BaseSwipeBackCompatActivity implements
     public static final String INTENT_URLS = "extraPics";
     public static final String INTENT_URL = "extraPic";
 
+    public static void start(Context context, ArrayList<String> extraPics, String extraPic) {
+        Intent intent = new Intent(context, ImagePreViewActivity.class);
+        intent.putExtra(INTENT_URLS, extraPics);
+        intent.putExtra(INTENT_URL, extraPic);
+        context.startActivity(intent);
+    }
+
     @InjectView(R.id.viewPager)
     ViewPager viewPager;
 
@@ -32,13 +39,6 @@ public class ImagePreViewActivity extends BaseSwipeBackCompatActivity implements
 
     private List<String> extraPics;
     private String extraPic;
-
-    public static void start(Context context, ArrayList<String> extraPics, String extraPic) {
-        Intent intent = new Intent(context, ImagePreViewActivity.class);
-        intent.putExtra(INTENT_URLS, extraPics);
-        intent.putExtra(INTENT_URL, extraPic);
-        context.startActivity(intent);
-    }
 
     @Override
     protected int getContentViewLayoutID() {
