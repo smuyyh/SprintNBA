@@ -100,7 +100,6 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_match_data);
-        ButterKnife.inject(this, getContentView());
         EventBus.getDefault().register(this);
         initData();
     }

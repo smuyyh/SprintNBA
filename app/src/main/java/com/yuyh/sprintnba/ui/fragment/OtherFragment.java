@@ -63,7 +63,6 @@ public class OtherFragment extends BaseLazyFragment {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_other);
-        ButterKnife.inject(this, getContentView());
         initData();
     }
 

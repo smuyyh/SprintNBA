@@ -52,9 +52,13 @@ public class ScheduleAdapter extends EasyRVAdapter<Matchs.MatchsDataBean.Matches
         String broadcasters = "";
         if (matchInfo.broadcasters != null) {
             for (String str : matchInfo.broadcasters) {
-                broadcasters += str;
+                broadcasters += str + "/";
             }
         }
+        if (broadcasters.length() > 1) {
+            broadcasters = broadcasters.substring(0, broadcasters.length() - 1);
+        }
+
         viewHolder.setText(R.id.tvLeftTeam, matchInfo.leftName)
                 .setText(R.id.tvRightTeam, matchInfo.rightName)
                 .setText(R.id.tvMatchStatus, status)

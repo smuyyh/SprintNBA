@@ -21,43 +21,16 @@
         <TextView
             android:id="@+id/tvVideoLength"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_gravity="right"
             android:layout_marginTop="-20dp"
             android:background="#aa000000"
             android:drawableLeft="@drawable/iv_time"
             android:drawablePadding="2dp"
             android:gravity="center"
+            android:padding="2dp"
             android:text="00:42"
             android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/tvVideoTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:ellipsize="end"
-            android:gravity="left"
-            android:singleLine="true"
-            android:text="biaoti"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tvVideoTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="3dp"
-            android:singleLine="true"
-            android:text="2016-05-17"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
 
     </LinearLayout>
 

@@ -68,8 +68,6 @@ public class MatchVideoAdapter extends EasyRVAdapter<MatchVideo.VideoBean> {
         }
 
         videoPlayer.thumbImageView.setController(FrescoUtils.getController(item.imgurl, videoPlayer.thumbImageView));
-        viewHolder.setText(R.id.tvVideoTitle, item.title)
-                .setText(R.id.tvVideoTime, item.pub_time)
-                .setText(R.id.tvVideoLength, item.duration);
+        viewHolder.setText(R.id.tvVideoLength, item.duration);
     }
 }

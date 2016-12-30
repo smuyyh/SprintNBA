@@ -23,7 +23,6 @@ import com.yuyh.sprintnba.ui.view.ForumListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
@@ -48,7 +47,7 @@ public class ForumListFragment extends BaseLazyFragment implements ForumListView
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_normal_recyclerview);
-        ButterKnife.inject(this, getContentView());
+
         initView();
         presenter = new ForumListPresenterImpl(mActivity, this);
         presenter.initialized();

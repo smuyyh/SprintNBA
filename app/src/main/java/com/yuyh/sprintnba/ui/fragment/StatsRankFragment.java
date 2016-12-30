@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
@@ -60,7 +59,7 @@ public class StatsRankFragment extends BaseLazyFragment implements StatsRankView
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_stats_rank);
-        ButterKnife.inject(this, getContentView());
+
         initView();
         presenter = new StatsRankPresenterImpl(mActivity, this);
         presenter.initialized();

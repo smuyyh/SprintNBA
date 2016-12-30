@@ -57,7 +57,6 @@ public class MatchPlayerDataFragment extends BaseLazyFragment implements MatchPl
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_match_player_data);
-        ButterKnife.inject(this, getContentView());
         EventBus.getDefault().register(this);
         initData();
     }

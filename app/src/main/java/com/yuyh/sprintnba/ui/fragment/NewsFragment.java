@@ -2,6 +2,7 @@ package com.yuyh.sprintnba.ui.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 
 import com.yuyh.sprintnba.R;
@@ -33,7 +34,7 @@ public class NewsFragment extends BaseLazyFragment implements NewsView {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_nba_news);
-        
+
         Presenter presenter = new NBANewsPresenterImpl(mActivity, this);
         presenter.initialized();
     }
@@ -42,7 +43,7 @@ public class NewsFragment extends BaseLazyFragment implements NewsView {
     public void initializeViews(String[] names) {
 
         scrollIndicatorView = (ScrollIndicatorView) findViewById(R.id.nba_news_indicator);
-        scrollIndicatorView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        scrollIndicatorView.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.colorPrimary));
         scrollIndicatorView.setScrollBar(new DrawableBar(mActivity, R.drawable.round_border_white_selector, ScrollBar.Gravity.CENTENT_BACKGROUND) {
             @Override
             public int getHeight(int tabHeight) {
@@ -67,7 +68,7 @@ public class NewsFragment extends BaseLazyFragment implements NewsView {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && mActivity!= null) {
+        if (isVisibleToUser && mActivity != null) {
             mActivity.invalidateOptionsMenu();
         }
     }

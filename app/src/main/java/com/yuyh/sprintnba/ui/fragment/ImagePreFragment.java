@@ -48,7 +48,6 @@ public class ImagePreFragment extends BaseLazyFragment {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_image_pre_view);
-        ButterKnife.inject(this, getContentView());
 
         url = getArguments().getString("url");
         LogUtils.i("img url = " + url);

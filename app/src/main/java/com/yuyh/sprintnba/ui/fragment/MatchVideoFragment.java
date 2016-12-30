@@ -8,12 +8,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.yuyh.library.utils.DimenUtils;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.base.BaseLazyFragment;
+import com.yuyh.sprintnba.event.RefreshCompleteEvent;
+import com.yuyh.sprintnba.event.RefreshEvent;
 import com.yuyh.sprintnba.http.bean.video.MatchVideo;
 import com.yuyh.sprintnba.support.SpaceItemDecoration;
 import com.yuyh.sprintnba.support.SupportRecyclerView;
 import com.yuyh.sprintnba.ui.adapter.MatchVideoAdapter;
 import com.yuyh.sprintnba.ui.presenter.impl.MatchVideoPresenter;
 import com.yuyh.sprintnba.ui.view.MatchVideoView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +29,6 @@ import butterknife.InjectView;
  * @author yuyh.
  * @date 2016/12/30.
  */
-
 public class MatchVideoFragment extends BaseLazyFragment implements MatchVideoView {
 
     public static final String BUNDLE_MID = "mid";
@@ -37,7 +41,7 @@ public class MatchVideoFragment extends BaseLazyFragment implements MatchVideoVi
         return fragment;
     }
 
-    @InjectView(R.id.recyclerview)
+    @InjectView(R.id.snlScrollView)
     SupportRecyclerView recyclerView;
 
     private MatchVideoPresenter mPresenter;
@@ -45,10 +49,13 @@ public class MatchVideoFragment extends BaseLazyFragment implements MatchVideoVi
     private MatchVideoAdapter mAdapter;
     private List<MatchVideo.VideoBean> mList = new ArrayList<>();
 
+    private boolean isVisibleToUser; // 是否可见。可见才进行刷新
+
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_match_video);
+        EventBus.getDefault().register(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -82,5 +89,29 @@ public class MatchVideoFragment extends BaseLazyFragment implements MatchVideoVi
 
         mAdapter.clear();
         mAdapter.addAll(list);
+
+        EventBus.getDefault().post(new RefreshCompleteEvent());
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser = isVisibleToUser;
+        if (isVisibleToUser && mActivity != null) {
+            mActivity.invalidateOptionsMenu();
+        }
+    }
+
+    @Subscribe
+    public void onEventMainThread(RefreshEvent event) {
+        if (isVisibleToUser) {
+            mPresenter.initialized();
+        }
+    }
+
+    @Override
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
+        EventBus.getDefault().unregister(this);
     }
 }

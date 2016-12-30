@@ -15,7 +15,6 @@ import com.yuyh.sprintnba.widget.HuPuWebView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
@@ -45,7 +44,7 @@ public class ThreadContentFragment extends BaseLazyFragment implements HuPuWebVi
         setHasOptionsMenu(true);
         showLoadingDialog();
         setContentView(R.layout.fragment_thread_detail);
-        ButterKnife.inject(this, getContentView());
+
         url = getArguments().getString("url");
         hupuWebView.loadUrl(url);
         hupuWebView.setCallBack(this);

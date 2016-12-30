@@ -101,7 +101,6 @@ public class MatchLookForwardFragment extends BaseLazyFragment implements MatchL
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_match_look_forward);
-        ButterKnife.inject(this, getContentView());
         EventBus.getDefault().register(this);
         initData();
     }

@@ -25,7 +25,6 @@ import com.yuyh.sprintnba.ui.view.TeamSortView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
@@ -52,7 +51,7 @@ public class TeamSortFragment extends BaseLazyFragment implements TeamSortView {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_normal_recyclerview);
-        ButterKnife.inject(this, getContentView());
+
         date = DateUtils.format(System.currentTimeMillis(), "yyyy-MM-dd");
         LogUtils.i(date);
 

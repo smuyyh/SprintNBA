@@ -10,27 +10,26 @@ import android.view.View;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
+import com.yuyh.library.utils.DimenUtils;
+import com.yuyh.library.utils.log.LogUtils;
+import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.sprintnba.R;
+import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.base.BaseLazyFragment;
 import com.yuyh.sprintnba.base.BaseWebActivity;
 import com.yuyh.sprintnba.http.api.RequestCallback;
 import com.yuyh.sprintnba.http.api.tencent.TencentService;
 import com.yuyh.sprintnba.http.bean.news.NewsIndex;
 import com.yuyh.sprintnba.http.bean.news.NewsItem;
-import com.yuyh.sprintnba.app.Constant;
 import com.yuyh.sprintnba.support.OnListItemClickListener;
 import com.yuyh.sprintnba.support.SpaceItemDecoration;
 import com.yuyh.sprintnba.support.SupportRecyclerView;
 import com.yuyh.sprintnba.ui.NewsDetailActivity;
 import com.yuyh.sprintnba.ui.adapter.NewsAdapter;
-import com.yuyh.library.utils.DimenUtils;
-import com.yuyh.library.utils.log.LogUtils;
-import com.yuyh.library.utils.toast.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class NewsListFragment extends BaseLazyFragment {
@@ -54,7 +53,7 @@ public class NewsListFragment extends BaseLazyFragment {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_normal_recyclerview);
-        ButterKnife.inject(this, getContentView());
+
         showLoadingDialog();
         newsType = (Constant.NewsType) getArguments().getSerializable(INTENT_INT_INDEX);
         initView();
