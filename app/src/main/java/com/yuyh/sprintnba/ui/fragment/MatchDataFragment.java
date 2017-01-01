@@ -28,7 +28,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
@@ -252,10 +251,10 @@ public class MatchDataFragment extends BaseLazyFragment implements MatchDataView
     private void updatePlayerData(List<MatchStat.GroundStats.TeamBean> players) {
         playerDataList.clear();
         for (MatchStat.GroundStats.TeamBean bean : players) {
-            if (bean.head != null && bean.head.size() > 0) {
+            if (bean.head != null && bean.head.size() > 0 && !"球员".equals(bean.head.get(0))) {
                 bean.head.add(0, "球员");
                 bean.head.add(1, "首发");
-            } else if (bean.row != null && bean.row.size() > 0) {
+            } else if (bean.row != null && bean.row.size() > 0 && !bean.playerName.equals(bean.row.get(0))) {
                 bean.row.add(0, bean.playerName);
                 bean.row.add(1, "否");
             }
