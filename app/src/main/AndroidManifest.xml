@@ -39,7 +39,8 @@
             android:name=".ui.NewsDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".base.BaseWebActivity" />
+        <activity android:name=".base.BaseWebActivity"
+            android:hardwareAccelerated="true"/>
         <activity
             android:name=".ui.CalendarActivity"
             android:screenOrientation="portrait" />

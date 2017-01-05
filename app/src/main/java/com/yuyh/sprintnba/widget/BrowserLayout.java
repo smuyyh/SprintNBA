@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -65,6 +66,7 @@ public class BrowserLayout extends LinearLayout {
         addView(mProgressBar, LayoutParams.MATCH_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, mBarHeight, getResources().getDisplayMetrics()));
 
         mWebView = new WebView(context);
+        mWebView.setLayerType(LAYER_TYPE_HARDWARE, null);
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mWebView.getSettings().setDefaultTextEncodingName("UTF-8");
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
@@ -73,10 +75,17 @@ public class BrowserLayout extends LinearLayout {
         mWebView.getSettings().setUseWideViewPort(true);
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setSupportZoom(false);
-        mWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
+        //mWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setLoadsImagesAutomatically(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        //mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        mWebView.getSettings().setAppCacheEnabled(true);
+        //mWebView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
 
         LayoutParams lps = new LayoutParams(LayoutParams.MATCH_PARENT, 0, 1);
         addView(mWebView, lps);
@@ -181,11 +190,6 @@ public class BrowserLayout extends LinearLayout {
     private class MonitorWebClient extends WebViewClient {
 
         @Override
-        public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-            return super.shouldInterceptRequest(view, url);
-        }
-
-        @Override
         public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
             String url = request.getUrl().toString().toLowerCase();
             if (!ADFilterUtils.hasAd(getContext(), url)) {
@@ -205,11 +209,11 @@ public class BrowserLayout extends LinearLayout {
             //错误处理
             try {
                 mWebView.stopLoading();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
             try {
-                mWebView.clearView();
-            } catch (Exception e) {
+                mWebView.loadUrl("about:blank");
+            } catch (Exception ignored) {
             }
             if (mWebView.canGoBack()) {
                 mWebView.goBack();
@@ -238,9 +242,9 @@ public class BrowserLayout extends LinearLayout {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (isOverrideUrlLoading)
+            //if (isOverrideUrlLoading)
                 return super.shouldOverrideUrlLoading(view, url);
-            return true;
+            //return true;
         }
     }
 
