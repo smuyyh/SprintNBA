@@ -104,6 +104,13 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeView {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
             }
             return true;
+        } else if(mViewPager.getCurrentItem() != 0){
+            mCurrentMenuCheckedPos = 0;
+            mNavListAdapter.notifyDataSetChanged();
+            mDrawerLayout.closeDrawer(Gravity.LEFT);
+            mViewPager.setCurrentItem(mCurrentMenuCheckedPos, true);
+            setTitle(((NavigationEntity) mNavListAdapter.getItem(mCurrentMenuCheckedPos)).getName());
+            return true;
         } else if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
             if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
