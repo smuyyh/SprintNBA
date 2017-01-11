@@ -33,6 +33,11 @@ public class MatchPlayerDataAdapter extends EasyLVAdapter<MatchStat.PlayerStats>
     @Override
     public void convert(EasyLVHolder viewHolder, int position, final MatchStat.PlayerStats item) {
         LinearLayout llPlayerDataItem = viewHolder.getView(R.id.llPlayerDataItem);
+
+        if (llPlayerDataItem.getChildCount() > 2) {
+            llPlayerDataItem.removeViews(2, llPlayerDataItem.getChildCount()-2);
+        }
+
         if (item.head != null && !item.head.isEmpty()) {
             List<String> head = item.head;
             viewHolder.setText(R.id.tvMatchPlayer, head.get(0));
