@@ -19,7 +19,7 @@ public abstract class BaseSwipeBackCompatActivity extends BaseAppCompatActivity 
                 .setClosePercent(0.8f)//close activity when swipe over this
                 .setSwipeRelateEnable(true)//if should move together with the following Activity
                 .setSwipeRelateOffset(500)//the Offset of following Activity when setSwipeRelateEnable(true)
-                .setDisallowInterceptTouchEvent(true);
+                .setDisallowInterceptTouchEvent(false);
     }
 
     @Override
