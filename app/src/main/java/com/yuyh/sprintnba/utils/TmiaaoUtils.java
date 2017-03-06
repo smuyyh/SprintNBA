@@ -94,15 +94,13 @@ public class TmiaaoUtils {
     public static List<VideoLiveInfo> getLiveList() {
 
         try {
-            String html = getHtml(BuildConfig.TMIAAO_SERVER + "/body.html");
+            String html = getHtml(BuildConfig.TMIAAO_SERVER + "/ipad.html");
 
-            int start = html.indexOf("<div class=\"game-container-inner\">");
+            int start = html.indexOf("<script src=");
 
             if (start > 0) {
 
-                start = html.indexOf(">", start);
-
-                int end = html.indexOf("</div>", start);
+                int end = html.indexOf("</script>", start);
 
                 String script = html.substring(start + 1, end)
                         .replaceAll("\n", "");
@@ -113,7 +111,7 @@ public class TmiaaoUtils {
 
                 LogUtils.d("js = " + jsPath);
 
-                String jsStr = getHtml(jsPath);
+                String jsStr = getHtml(BuildConfig.TMIAAO_SERVER + jsPath);
 
                 LogUtils.d("jsStr = " + jsStr);
 
@@ -142,7 +140,7 @@ public class TmiaaoUtils {
 
         List<VideoLiveInfo> list = new ArrayList<>();
 
-        while ((start = bodyStr.indexOf("<li class=\"game-item \">", start)) >= 0) {
+        while ((start = bodyStr.indexOf("<div class=\"team-content\">", start + 1)) >= 0) {
 
 
             try { // 牺牲一定的性能来提高容错性
@@ -152,31 +150,24 @@ public class TmiaaoUtils {
                 start = bodyStr.indexOf("<a data-action", start);
 
                 hrefStart = bodyStr.indexOf("href=\"", start) + 6;
-                hrefEnd = bodyStr.indexOf("\">", hrefStart);
+                hrefEnd = bodyStr.indexOf("\"", hrefStart);
 
                 href = bodyStr.substring(hrefStart, hrefEnd);
                 LogUtils.d("link = " + href);
                 info.link = href;
 
                 // Type
-                hrefStart = bodyStr.indexOf("color=\"red\">", hrefEnd) + 12;
+                /*hrefStart = bodyStr.indexOf("color=\"red\">", hrefEnd) + 12;
                 hrefEnd = bodyStr.indexOf("</font>", hrefStart);
                 href = bodyStr.substring(hrefStart, hrefEnd);
                 if (href.contains(">")) {
                     href = href.substring(href.lastIndexOf(">") + 1);
                 }
                 LogUtils.d("time = " + href);
-                info.type = href;
-
-                // time
-                hrefStart = bodyStr.indexOf("\"time short\"", hrefEnd) + 13;
-                hrefEnd = bodyStr.indexOf("</div>", hrefStart);
-                href = bodyStr.substring(hrefStart, hrefEnd);
-                LogUtils.d("time = " + href);
-                info.time = href;
+                info.type = href;*/
 
                 // left team
-                start = bodyStr.indexOf("<div cid=", hrefEnd);
+                start = bodyStr.indexOf("<div class=\"team-left\">", hrefEnd);
 
                 hrefStart = bodyStr.indexOf("<img src=", start) + 10;
                 hrefEnd = bodyStr.indexOf("\">", hrefStart);
@@ -184,15 +175,22 @@ public class TmiaaoUtils {
                 LogUtils.d("left img = " + href);
                 info.leftImg = href;
 
-                hrefStart = bodyStr.indexOf("<span", start);
-                hrefStart = bodyStr.indexOf(">", hrefStart) + 1;
+                hrefStart = bodyStr.indexOf("<span>", start) + 6;
                 hrefEnd = bodyStr.indexOf("</span>", hrefStart);
                 href = bodyStr.substring(hrefStart, hrefEnd);
                 LogUtils.d("left name = " + href);
                 info.leftName = href;
 
+                // time
+                hrefStart = bodyStr.indexOf("<p class=\"score-content\">", hrefEnd);
+                hrefStart = bodyStr.indexOf("<span>", hrefStart) + 6;
+                hrefEnd = bodyStr.indexOf("</span>", hrefStart);
+                href = bodyStr.substring(hrefStart, hrefEnd);
+                LogUtils.d("time = " + href);
+                info.time = href;
+
                 // right team
-                start = bodyStr.indexOf("<div cid=", hrefEnd);
+                start = bodyStr.indexOf("<div class=\"team-right\"", hrefEnd);
 
                 hrefStart = bodyStr.indexOf("<img src=", start) + 10;
                 hrefEnd = bodyStr.indexOf("\">", hrefStart);
@@ -200,8 +198,7 @@ public class TmiaaoUtils {
                 LogUtils.d("right img = " + href);
                 info.rightImg = href;
 
-                hrefStart = bodyStr.indexOf("<span", start);
-                hrefStart = bodyStr.indexOf(">", hrefStart) + 1;
+                hrefStart = bodyStr.indexOf("<span>", start) + 6;
                 hrefEnd = bodyStr.indexOf("</span>", hrefStart);
                 href = bodyStr.substring(hrefStart, hrefEnd);
                 LogUtils.d("right name = " + href);
@@ -232,12 +229,12 @@ public class TmiaaoUtils {
                     if (!url.endsWith("/")) {
                         url += "/";
                     }
-                    url += "p.html";
+                    url += "w.html";
                     html = getHtml(url);
                 } else {
                     return null;
                 }
-            } else if(html.contains("mv_action")){
+            } else if (html.contains("mv_action")) {
                 // continue
             } else if (link.contains("cctv5") || html.replaceAll("\n", "").startsWith("<script")) {
                 VideoLiveSource source = new VideoLiveSource();

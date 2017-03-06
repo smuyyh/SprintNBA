@@ -33,7 +33,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text=""
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primary_text"
+                android:textSize="12dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -82,7 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text=""
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primary_text"
+                android:textSize="12dp" />
         </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

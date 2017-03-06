@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.yuyh.library.utils.log.LogUtils;
 import com.yuyh.library.utils.toast.ToastUtils;
 import com.yuyh.sprintnba.R;
 import com.yuyh.sprintnba.widget.BrowserLayout;
@@ -32,6 +33,8 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
                 .putExtra(BUNDLE_KEY_TITLE, title)
                 .putExtra(BUNDLE_KEY_SHOW_BOTTOM_BAR, isShowBottomBar)
                 .putExtra(BUNDLE_OVERRIDE, isOverrideUrlLoading);
+        LogUtils.i("url = " + url);
+        LogUtils.i("title = " + title);
         context.startActivity(intent);
     }
 

@@ -80,11 +80,14 @@ public class MatchVideoLiveListActivity extends BaseSwipeBackCompatActivity
     @Override
     public void hideLoading() {
         hideLoadingDialog();
+        refreshLayout.setRefreshing(false);
     }
 
     @Override
     public void showError(String msg) {
         ToastUtils.showSingleToast(msg);
+        hideLoadingDialog();
+        refreshLayout.setRefreshing(false);
     }
 
     @Override

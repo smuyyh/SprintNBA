@@ -75,7 +75,7 @@ public class BrowserLayout extends LinearLayout {
         mWebView.getSettings().setUseWideViewPort(true);
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setSupportZoom(false);
-        //mWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
+        mWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setLoadsImagesAutomatically(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -192,6 +192,7 @@ public class BrowserLayout extends LinearLayout {
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
             String url = request.getUrl().toString().toLowerCase();
+            LogUtils.d("req -- "+ url);
             if (!ADFilterUtils.hasAd(getContext(), url)) {
                 return super.shouldInterceptRequest(view, request);
             } else {
@@ -203,7 +204,7 @@ public class BrowserLayout extends LinearLayout {
         @Override
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
             //错误提示
-            Toast toast = Toast.makeText(mContext, "Oh no! " + description, Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(mContext, "Oh no! " + description+" "+failingUrl, Toast.LENGTH_LONG);
             toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
             toast.show();
             //错误处理
@@ -242,9 +243,9 @@ public class BrowserLayout extends LinearLayout {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            //if (isOverrideUrlLoading)
+            if (isOverrideUrlLoading)
                 return super.shouldOverrideUrlLoading(view, url);
-            //return true;
+            return true;
         }
     }
 

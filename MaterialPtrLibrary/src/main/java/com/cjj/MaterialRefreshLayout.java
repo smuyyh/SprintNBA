@@ -24,8 +24,8 @@ public class MaterialRefreshLayout extends FrameLayout {
     private final static int HIGHER_WAVE_HEIGHT = 180;
     private final static int DEFAULT_HEAD_HEIGHT = 70;
     private final static int hIGHER_HEAD_HEIGHT = 100;
-    private final static int DEFAULT_PROGRESS_SIZE = 50;
-    private final static int BIG_PROGRESS_SIZE = 60;
+    private final static int DEFAULT_PROGRESS_SIZE = 40;
+    private final static int BIG_PROGRESS_SIZE = 50;
     private final static int PROGRESS_STOKE_WIDTH = 3;
 
     private MaterialHeaderView mMaterialHeaderView;

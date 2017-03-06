@@ -20,6 +20,6 @@ public class VideoLiveInfo {
 
     public String time;
 
-    public String type;
+    public String type = "";
 
 }

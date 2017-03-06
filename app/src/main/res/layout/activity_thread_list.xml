@@ -32,10 +32,10 @@
                 android:id="@+id/backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
                 app:placeholderImage="@drawable/nba_default_large"
-                app:placeholderImageScaleType="centerCrop"/>
+                app:placeholderImageScaleType="centerCrop" />
 
 
             <TextView
@@ -71,7 +71,7 @@
             android:id="@+id/lmrvLoadMore"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
