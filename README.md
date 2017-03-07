@@ -67,6 +67,8 @@
 <img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/home_schedule_1.png?raw=true" width="280"/>
 <img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_data_1.png?raw=true" width="280"/>
 <img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_live_1.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_video_live_source.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/SprintNBA/blob/master/screenshot/match_video_live.png?raw=true" width="280"/>
 
 <br>
 
