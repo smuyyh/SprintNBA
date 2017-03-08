@@ -1,6 +1,6 @@
 # SprintNBA
 
-## 完整的NBA第三方Android客户端，包含NBA头条新闻、视频集锦/赛场花絮、比赛直播（目前支持比赛前瞻、文字直播、球队及球员技术统计、视频直播）、球队战绩排行、球员数据排名、虎扑论坛专区（已实现发帖与回复功能）、球队及球员的详细资料。
+## 完整的NBA第三方Android客户端，包含NBA头条新闻、视频集锦/赛场花絮、比赛直播（目前支持比赛前瞻、文字直播、球队及球员技术统计、视频直播(企鹅推出了球队通、联盟通... 简直不能忍啊！！)）、球队战绩排行、球员数据排名、虎扑论坛专区（已实现发帖与回复功能）、球队及球员的详细资料。
 
 ## 声明
 
@@ -25,17 +25,16 @@
 初次版本，含NBA新闻、视频花絮、赛程及文字直播、技术统计、球队及球员数据排行、详细资料，虎扑论坛专区。
 
 ## 下载
-- APK本地下载：[SprintNBA-1.1.apk](https://raw.githubusercontent.com/smuyyh/SprintNBA/master/app/release/SprintNBA-1.1.apk)
+- APK本地下载：[SprintNBA-2.0.apk](https://raw.githubusercontent.com/smuyyh/SprintNBA/master/app/release/SprintNBA-2.0.apk)
 
 - 百度手机助手应用商店：[SprintNBA-1.1](http://shouji.baidu.com/software/10438052.html)
 
-- 百度91无线：[SprintNBA-1.1](http://apk.91.com/Soft/Android/com.yuyh.sprintnba-2.html)
+- 百度91无线：[SprintNBA-2.0](http://apk.91.com/Soft/Android/com.yuyh.sprintnba-3-2.0.html)
 
-- 安卓市场：[SprintNBA-1.1](http://apk.hiapk.com/appinfo/com.yuyh.sprintnba/2)
+- 安卓市场：[SprintNBA-2.0](http://apk.hiapk.com/appinfo/com.yuyh.sprintnba/3)
 
 ## TODO
 
-*   [ ] 加入比赛视频直播(企鹅推出了球队通、联盟通... 简直不能忍啊！！)
 *   [ ] 代码优化
 *   [ ] 虎扑论坛部分功能暂未完善
 *   [ ] 单支球队赛程
