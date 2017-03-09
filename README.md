@@ -27,7 +27,7 @@
 ## 下载
 - APK本地下载：[SprintNBA-2.0.apk](https://raw.githubusercontent.com/smuyyh/SprintNBA/master/app/release/SprintNBA-2.0.apk)
 
-- 百度手机助手应用商店：[SprintNBA-1.1](http://shouji.baidu.com/software/10438052.html)
+- 百度手机助手应用商店：[SprintNBA-2.0](http://shouji.baidu.com/software/11090327.html)
 
 - 百度91无线：[SprintNBA-2.0](http://apk.91.com/Soft/Android/com.yuyh.sprintnba-3-2.0.html)
 
